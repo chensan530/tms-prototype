@@ -1,0 +1,209 @@
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow — Static surfaces only use border/surface layering.
+     Floating layers may use deeper elevation. */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}

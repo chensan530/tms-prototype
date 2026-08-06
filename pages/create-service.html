@@ -1,0 +1,1428 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建服务</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <!-- Critical Layout CSS (responsive-safe, survives without Tailwind runtime) -->
+    <style id="critical-layout">
+      .app-layout { display: flex; min-height: 100vh; }
+      .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+      .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+      .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+      .app-content { flex: 1; overflow: auto; padding: 24px; }
+      .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+      .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+      .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+      .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+      .header-search { position: relative; }
+      .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+      .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+      .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+      .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+      .header-icon-btn:hover { background: var(--tms-muted); }
+      .header-user { display: flex; align-items: center; gap: 8px; }
+      .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+      .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+      .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+    </style>
+
+    <!-- Page-Specific Styles: Create Service -->
+    <style id="create-service-styles">
+      /* ---- Page Header ---- */
+      .cs-page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
+      .cs-breadcrumb { font-size: 13px; color: var(--tms-muted-foreground); margin-bottom: 4px; }
+      .cs-page-title { font-size: 24px; color: var(--tms-foreground); margin: 0; line-height: 1.2; }
+      .cs-page-subtitle { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+      /* ---- Cards ---- */
+      .cs-card {
+        background: var(--tms-card);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        padding: 24px;
+      }
+      .cs-card + .cs-card { margin-top: 24px; }
+
+      /* ---- Section Title with 3px dark green vertical bar ---- */
+      .cs-section-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--tms-border);
+      }
+      .cs-section-title::before {
+        content: "";
+        display: block;
+        width: 3px;
+        height: 18px;
+        background: var(--tms-primary-500);
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      .cs-section-title h3 {
+        font-family: var(--tms-font-serif);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--tms-foreground);
+        margin: 0;
+      }
+      .cs-section-title .cs-section-hint {
+        font-size: 12px;
+        color: var(--tms-muted-foreground);
+        font-weight: 400;
+        font-family: var(--tms-font-sans);
+        margin-left: auto;
+      }
+
+      /* ---- Form Grid ---- */
+      .cs-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .cs-field { display: flex; flex-direction: column; }
+      .cs-field-full { grid-column: 1 / -1; }
+
+      /* ---- Labels ---- */
+      .cs-label {
+        font-size: 13px;
+        color: var(--tms-muted-foreground);
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      .cs-required { color: var(--state-error); margin-right: 2px; }
+
+      /* ---- Inputs / Select / Textarea ---- */
+      .cs-input {
+        height: 36px;
+        width: 100%;
+        padding: 0 12px;
+        font-size: 14px;
+        font-family: var(--tms-font-sans);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-small);
+        background: var(--tms-input);
+        color: var(--tms-foreground);
+        outline: none;
+        transition: border-color 120ms ease, box-shadow 120ms ease;
+        box-sizing: border-box;
+      }
+      .cs-input::placeholder { color: var(--tms-neutral-400); }
+      .cs-input:focus {
+        border-color: var(--tms-primary-500);
+        box-shadow: 0 0 0 2px rgba(27, 67, 50, 0.12);
+      }
+      textarea.cs-input {
+        height: auto;
+        min-height: 80px;
+        padding: 10px 12px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+      select.cs-input {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B6B65' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 36px;
+        cursor: pointer;
+      }
+      select.cs-input[multiple] {
+        height: auto;
+        min-height: 88px;
+        background-image: none;
+        padding: 8px 12px;
+        cursor: default;
+      }
+
+      /* ---- Multi-select hint ---- */
+      .cs-multi-hint {
+        font-size: 11px;
+        color: var(--tms-muted-foreground);
+        margin-top: 4px;
+      }
+
+      /* ---- Radio Group ---- */
+      .cs-radio-group { display: flex; gap: 20px; align-items: center; height: 36px; }
+      .cs-radio-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--tms-foreground);
+      }
+      .cs-radio-item input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--tms-primary-500);
+        cursor: pointer;
+        margin: 0;
+      }
+
+      /* ---- Checkbox Grid ---- */
+      .cs-checkbox-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 10px;
+      }
+      .cs-checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--tms-foreground);
+        padding: 4px 0;
+      }
+      .cs-checkbox-item input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--tms-primary-500);
+        cursor: pointer;
+        margin: 0;
+        flex-shrink: 0;
+      }
+
+      /* ---- Switch / Toggle (44x22) ---- */
+      .cs-switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+      .cs-switch input { opacity: 0; width: 0; height: 0; }
+      .cs-switch-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--tms-neutral-300);
+        border-radius: var(--tms-radius-full);
+        transition: background-color 200ms ease;
+      }
+      .cs-switch-slider::before {
+        position: absolute;
+        content: "";
+        height: 18px; width: 18px;
+        left: 2px; bottom: 2px;
+        background: var(--tms-neutral-0);
+        border-radius: 50%;
+        transition: transform 200ms ease;
+      }
+      .cs-switch input:checked + .cs-switch-slider { background: var(--tms-primary-500); }
+      .cs-switch input:checked + .cs-switch-slider::before { transform: translateX(22px); }
+      .cs-switch-row { display: flex; align-items: center; gap: 10px; height: 36px; }
+      .cs-switch-label-text { font-size: 14px; color: var(--tms-foreground); }
+
+      /* ---- Buttons ---- */
+      .cs-btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: var(--tms-font-sans);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-card);
+        color: var(--tms-foreground);
+        cursor: pointer;
+        transition: background-color 120ms ease, border-color 120ms ease;
+        text-decoration: none;
+      }
+      .cs-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+      .cs-btn-outline svg { width: 16px; height: 16px; }
+
+      .cs-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 20px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: var(--tms-font-sans);
+        border: none;
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-primary-500);
+        color: var(--tms-primary-foreground);
+        cursor: pointer;
+        transition: background-color 120ms ease;
+      }
+      .cs-btn-primary:hover { background: var(--tms-primary-600); }
+      .cs-btn-primary svg { width: 16px; height: 16px; }
+
+      /* ---- Sticky Action Bar ---- */
+      .cs-action-bar {
+        position: sticky;
+        bottom: 0;
+        margin: 24px -24px 0 -24px;
+        padding: 0 24px;
+        height: 64px;
+        background: var(--tms-card);
+        border-top: 1px solid var(--tms-border);
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 12px;
+        z-index: 10;
+        box-shadow: var(--tms-shadow-2);
+      }
+    </style>
+
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="app-sidebar">
+        <div class="sidebar-logo">
+          <h1>TMS 物流管理</h1>
+          <span>智慧运输管理平台</span>
+        </div>
+        <nav style="flex:1; padding: 12px 0;">
+          <div class="nav-section-label">业务管理</div>
+          <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+          <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+          <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+          <a data-nav-key="addr-lib" data-dom-id="nav-addr-lib" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+          <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超长超重管理</span></a>
+          <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+          <div class="nav-section-label">系统管理</div>
+          <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+          <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+          <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+        </nav>
+        <!-- Sidebar Footer -->
+        <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+            <div>
+              <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Area -->
+      <div class="app-main-area">
+        <!-- Header -->
+        <header class="app-header">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="header-search">
+              <i data-lucide="search"></i>
+              <input type="text" placeholder="搜索运单号、提单号、客户名称...">
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+            <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+            <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+            <div class="header-user">
+              <div class="header-avatar">WB</div>
+              <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="app-content">
+          <!-- Page Header -->
+          <div class="cs-page-header">
+            <div>
+              <div class="cs-breadcrumb">服务管理 / 创建服务</div>
+              <h2 class="cs-page-title">创建服务</h2>
+              <p class="cs-page-subtitle">配置物流服务参数 · 17 个分区</p>
+            </div>
+          </div>
+
+          <form id="create-service-form" autocomplete="off">
+            <!-- ============ 分区1：基本信息 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>基本信息</h3><span class="cs-section-hint">服务基础配置</span></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label"><span class="cs-required">*</span>类型</label>
+                  <select class="cs-input" name="type" required>
+                    <option value="">请选择</option>
+                    <option value="大货">大货</option>
+                    <option value="小包">小包</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label"><span class="cs-required">*</span>服务代码</label>
+                  <input class="cs-input" type="text" name="serviceCode" placeholder="服务代码不能为空" required>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label"><span class="cs-required">*</span>服务名称</label>
+                  <input class="cs-input" type="text" name="serviceName" placeholder="服务名称不能为空" required>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">服务分类</label>
+                  <select class="cs-input" name="serviceCategory">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">承运类型</label>
+                  <select class="cs-input" name="carrierType">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">计费方式</label>
+                  <select class="cs-input" name="billingMethod">
+                    <option value="重量(kg)" selected>重量(kg)</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">计费重小数位</label>
+                  <select class="cs-input" name="chargeWeightDecimal">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">计重方式</label>
+                  <select class="cs-input" name="weightMode">
+                    <option value="票" selected>票</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">体积计算方式</label>
+                  <select class="cs-input" name="volumeCalcMode">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">进位方式</label>
+                  <select class="cs-input" name="roundMode">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">箱体积进位方式</label>
+                  <select class="cs-input" name="boxVolumeRoundMode">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">计重代码(进位规则将忽略)</label>
+                  <input class="cs-input" type="text" name="weightCode">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">计泡系数</label>
+                  <input class="cs-input" type="text" name="bubbleCoeff" value="6000">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">计方系数</label>
+                  <input class="cs-input" type="text" name="dimensionCoeff">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">分泡比例</label>
+                  <input class="cs-input" type="number" name="bubbleRatio" value="0">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">收费重方式</label>
+                  <select class="cs-input" name="chargeWeightMode">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">销售提成基数</label>
+                  <select class="cs-input" name="salesCommissionBase">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">销售提成比例</label>
+                  <input class="cs-input" type="text" name="salesCommissionRate">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">销售提成单价</label>
+                  <input class="cs-input" type="text" name="salesCommissionUnitPrice">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">运单号规则</label>
+                  <input class="cs-input" type="text" name="waybillNoRule">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">标签代码</label>
+                  <input class="cs-input" type="text" name="labelCode">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">围长计算公式</label>
+                  <input class="cs-input" type="text" name="girthFormula">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">申报后补</label>
+                  <select class="cs-input" name="declareAfterSupplement">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区2：状态与显示 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>状态与显示</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label"><span class="cs-required">*</span>状态</label>
+                  <select class="cs-input" name="status" required>
+                    <option value="正常" selected>正常</option>
+                    <option value="停用">停用</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">是否显示</label>
+                  <div class="cs-radio-group">
+                    <label class="cs-radio-item"><input type="radio" name="isVisible" value="是" checked>是</label>
+                    <label class="cs-radio-item"><input type="radio" name="isVisible" value="否">否</label>
+                  </div>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">签名服务</label>
+                  <div class="cs-radio-group">
+                    <label class="cs-radio-item"><input type="radio" name="signService" value="不显示" checked>不显示</label>
+                    <label class="cs-radio-item"><input type="radio" name="signService" value="显示">显示</label>
+                  </div>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">取消方式</label>
+                  <select class="cs-input" name="cancelMode">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区3：报关清关 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>报关清关</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">发件人</label>
+                  <select class="cs-input" name="sender">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">支持报关方式（多选）</label>
+                  <select class="cs-input" name="supportDeclareMethods" multiple>
+                    <option value="自理报关">自理报关</option>
+                    <option value="代理报关">代理报关</option>
+                    <option value="转关">转关</option>
+                  </select>
+                  <span class="cs-multi-hint">按住 Ctrl / Cmd 可多选</span>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认报关方式</label>
+                  <select class="cs-input" name="defaultDeclareMethod">
+                    <option value="">请选择</option>
+                    <option value="自理报关">自理报关</option>
+                    <option value="代理报关">代理报关</option>
+                    <option value="转关">转关</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">支持清关方式（多选）</label>
+                  <select class="cs-input" name="supportClearanceMethods" multiple>
+                    <option value="自理清关">自理清关</option>
+                    <option value="代理清关">代理清关</option>
+                  </select>
+                  <span class="cs-multi-hint">按住 Ctrl / Cmd 可多选</span>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认清关方式</label>
+                  <select class="cs-input" name="defaultClearanceMethod">
+                    <option value="">请选择</option>
+                    <option value="自理清关">自理清关</option>
+                    <option value="代理清关">代理清关</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">支持交税方式（多选）</label>
+                  <select class="cs-input" name="supportTaxMethods" multiple>
+                    <option value="预付">预付</option>
+                    <option value="到付">到付</option>
+                    <option value="第三方">第三方</option>
+                  </select>
+                  <span class="cs-multi-hint">按住 Ctrl / Cmd 可多选</span>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认交税方式</label>
+                  <select class="cs-input" name="defaultTaxMethod">
+                    <option value="">请选择</option>
+                    <option value="预付">预付</option>
+                    <option value="到付">到付</option>
+                    <option value="第三方">第三方</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">支持交货条款（多选）</label>
+                  <select class="cs-input" name="supportDeliveryTerms" multiple>
+                    <option value="DAP">DAP</option>
+                    <option value="DDP">DDP</option>
+                    <option value="EXW">EXW</option>
+                    <option value="FCA">FCA</option>
+                    <option value="FOB">FOB</option>
+                    <option value="CIF">CIF</option>
+                  </select>
+                  <span class="cs-multi-hint">按住 Ctrl / Cmd 可多选</span>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认交货条款</label>
+                  <select class="cs-input" name="defaultDeliveryTerm">
+                    <option value="">请选择</option>
+                    <option value="DAP">DAP</option>
+                    <option value="DDP">DDP</option>
+                    <option value="EXW">EXW</option>
+                    <option value="FCA">FCA</option>
+                    <option value="FOB">FOB</option>
+                    <option value="CIF">CIF</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">支持派送方式（多选）</label>
+                  <select class="cs-input" name="supportDeliveryMethods" multiple>
+                    <option value="自提">自提</option>
+                    <option value="快递派送">快递派送</option>
+                    <option value="卡车派送">卡车派送</option>
+                  </select>
+                  <span class="cs-multi-hint">按住 Ctrl / Cmd 可多选</span>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认派送方式</label>
+                  <select class="cs-input" name="defaultDeliveryMethod">
+                    <option value="">请选择</option>
+                    <option value="自提">自提</option>
+                    <option value="快递派送">快递派送</option>
+                    <option value="卡车派送">卡车派送</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">包装类型（多选）</label>
+                  <select class="cs-input" name="packageTypes" multiple>
+                    <option value="纸箱">纸箱</option>
+                    <option value="木箱">木箱</option>
+                    <option value="托盘">托盘</option>
+                    <option value="编织袋">编织袋</option>
+                  </select>
+                  <span class="cs-multi-hint">按住 Ctrl / Cmd 可多选</span>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">带电标识</label>
+                  <div class="cs-radio-group">
+                    <label class="cs-radio-item"><input type="radio" name="batteryMark" value="运单" checked>运单</label>
+                    <label class="cs-radio-item"><input type="radio" name="batteryMark" value="产品">产品</label>
+                    <label class="cs-radio-item"><input type="radio" name="batteryMark" value="产品带电带磁同步运单">产品带电带磁同步运单</label>
+                  </div>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">地址库规则</label>
+                  <select class="cs-input" name="addressLibRule">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区4：运单规则 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>运单规则</h3><span class="cs-section-hint">复选框网格</span></div>
+              <div class="cs-checkbox-grid">
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_weightDisplay">重量显示</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_dimDisplay">尺寸显示</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_weightRequired">重量必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_dimRequired">尺寸必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_phoneRequired">电话必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_emailRequired">邮箱必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_packingListRequired">装箱单必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_verifySaleLink">验证销售链接</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_verifyImageLink">验证图片链接</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_vatRecord">VAT号备案</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_orderBilling">下单计费</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_orderShowFee">下单显示费用</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_orderFeeControl">下单费用控制</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_receiveFeeControl">收货费用控制</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_receiveArrearTip">收货欠费提示</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_modifyBubbleCoeff">修改计泡系数</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_showSupplierData">显示供应商数据</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_orderBySku">根据产品库SKU下单</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_allowCustomerCancel">允许客户取消</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_apiFailNoCancel">API打单失败不自动取消</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_allowModifyChannel">允许客户修改渠道</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_allowCustomerModify">允许客户修改</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_allowInputTrackingNo">允许客户录入转单号</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_allowUploadLabel">允许客户上传快递标签</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_allowModifyAppointment">允许客户修改预约送仓时间</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_vatRequired">VAT号必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_eoriRequired">EORI必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_hideCarrierClient">客户端不显示承运</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_returnAndRefund">退件并退款</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_cancelNoRefund">取消不退款</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_showInWms">在WMS中显示</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_enableCod">开启代收货款</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_onlyPriceWarehouse">仅允许价格表中存在的仓库代码下单</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_roundBeforeSplit">整票分泡前按票精度进位</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_cityRequired">城市必填</label>
+                <label class="cs-checkbox-item"><input type="checkbox" name="rule_consigneeCompanyRequired">收件公司必填</label>
+              </div>
+            </div>
+
+            <!-- ============ 分区5：重量与件数限制 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>重量与件数限制</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">最低应收运费</label>
+                  <input class="cs-input" type="text" name="minReceivableFreight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">票计重精度</label>
+                  <input class="cs-input" type="text" name="ticketWeightPrecision">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">箱计重精度</label>
+                  <input class="cs-input" type="text" name="boxWeightPrecision">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">尺寸精度</label>
+                  <input class="cs-input" type="text" name="dimensionPrecision">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最小件数</label>
+                  <input class="cs-input" type="number" name="minPieces">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最大件数</label>
+                  <input class="cs-input" type="number" name="maxPieces">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最低箱实重</label>
+                  <input class="cs-input" type="text" name="minBoxActualWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最低箱材重</label>
+                  <input class="cs-input" type="text" name="minBoxVolWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最低箱收费重</label>
+                  <input class="cs-input" type="text" name="minBoxChargeWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最低箱均重</label>
+                  <input class="cs-input" type="text" name="minBoxAvgWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最低票收费重</label>
+                  <input class="cs-input" type="text" name="minTicketChargeWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最小票实重</label>
+                  <input class="cs-input" type="text" name="minTicketActualWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最大票实重</label>
+                  <input class="cs-input" type="text" name="maxTicketActualWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最小票收费重</label>
+                  <input class="cs-input" type="text" name="minTicketChargeWeightMin">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最大票收费重</label>
+                  <input class="cs-input" type="text" name="maxTicketChargeWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最小箱实重</label>
+                  <input class="cs-input" type="text" name="minBoxActualWeightMin">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最大箱实重</label>
+                  <input class="cs-input" type="text" name="maxBoxActualWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最小箱收费重</label>
+                  <input class="cs-input" type="text" name="minBoxChargeWeightMin">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">最大箱收费重</label>
+                  <input class="cs-input" type="text" name="maxBoxChargeWeight">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">产品最大申报价值</label>
+                  <input class="cs-input" type="number" name="productMaxDeclareValue">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">产品最小申报价值</label>
+                  <input class="cs-input" type="number" name="productMinDeclareValue">
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区6：尺寸较正 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>尺寸较正</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">长度较正值</label>
+                  <input class="cs-input" type="text" name="lengthCorrection">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">宽度较正值</label>
+                  <input class="cs-input" type="text" name="widthCorrection">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">高度较正值</label>
+                  <input class="cs-input" type="text" name="heightCorrection">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">重量较正值</label>
+                  <input class="cs-input" type="text" name="weightCorrection">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">误差警告</label>
+                  <select class="cs-input" name="errorWarning">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">误差值</label>
+                  <input class="cs-input" type="text" name="errorValue">
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区7：地理与时效 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>地理与时效</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field cs-field-full">
+                  <label class="cs-label">到达国家</label>
+                  <textarea class="cs-input" name="arrivalCountries" placeholder="一个国家一行。不填则默认支持全部国家"></textarea>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">时效</label>
+                  <input class="cs-input" type="number" name="transitTime" placeholder="请输入时效">
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区8：用户与权限 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>用户与权限</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">指定用户</label>
+                  <select class="cs-input" name="designatedUser">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">用户等级</label>
+                  <select class="cs-input" name="userLevel">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">指定地址库</label>
+                  <select class="cs-input" name="designatedAddressLib">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">限制私人地址</label>
+                  <select class="cs-input" name="restrictPrivateAddress">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">发件人地址库</label>
+                  <input class="cs-input" type="text" name="senderAddressLib">
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区9：币种设置 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>币种设置</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">申报币种</label>
+                  <select class="cs-input" name="declareCurrency">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认申报币种</label>
+                  <select class="cs-input" name="defaultDeclareCurrency">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">应收汇总币种</label>
+                  <select class="cs-input" name="receivableSummaryCurrency">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区10：出转单设置 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>出转单设置</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">下单出转单</label>
+                  <select class="cs-input" name="orderTransfer">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">拣货出转单</label>
+                  <select class="cs-input" name="pickingTransfer">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">按箱出转单</label>
+                  <select class="cs-input" name="boxTransfer">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区11：打单与标签 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>打单与标签</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">打单账号</label>
+                  <select class="cs-input" name="printingAccount">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">打单分区规则</label>
+                  <select class="cs-input" name="printingZoneRule">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">打印标签类型</label>
+                  <select class="cs-input" name="labelType">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">地址验证标准</label>
+                  <select class="cs-input" name="addressVerifyStandard">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认交货区域</label>
+                  <select class="cs-input" name="defaultDeliveryZone">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区12：比价与拣货 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>比价与拣货</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">开启比价</label>
+                  <select class="cs-input" name="enableCompare">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">比价方式</label>
+                  <select class="cs-input" name="compareMode">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">拣货触发事件</label>
+                  <select class="cs-input" name="pickingTrigger">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区13：偏远与路线 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>偏远与路线</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">偏远地址库</label>
+                  <input class="cs-input" type="text" name="remoteAddressLib">
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">偏远动作</label>
+                  <select class="cs-input" name="remoteAction">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">路线规划</label>
+                  <select class="cs-input" name="routePlanning">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区14：事件与费用 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>事件与费用</h3></div>
+              <div class="cs-field cs-field-full">
+                <label class="cs-label">事件</label>
+                <textarea class="cs-input" name="events" style="min-height:120px;" placeholder="一个费用一行，例如：下单:预扣费_费用类型名称_单价_单位_币种"></textarea>
+              </div>
+            </div>
+
+            <!-- ============ 分区15：客户端与保险 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>客户端与保险</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">客户端标识</label>
+                  <select class="cs-input" name="clientFlag">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">默认保险币种</label>
+                  <select class="cs-input" name="defaultInsuranceCurrency">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区16：号段设置 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>号段设置</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">号段</label>
+                  <select class="cs-input" name="numberSegment">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">号段类型</label>
+                  <select class="cs-input" name="numberSegmentType">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 分区17：WMS设置 ============ -->
+            <div class="cs-card">
+              <div class="cs-section-title"><h3>WMS设置</h3></div>
+              <div class="cs-grid-2">
+                <div class="cs-field">
+                  <label class="cs-label">WMS服务</label>
+                  <select class="cs-input" name="wmsService">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">WMS是否自动同步</label>
+                  <select class="cs-input" name="wmsAutoSync">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">WMS关联类型</label>
+                  <select class="cs-input" name="wmsRelateType">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">WMS关联订单类型</label>
+                  <select class="cs-input" name="wmsRelateOrderType">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">WMS关联仓库</label>
+                  <select class="cs-input" name="wmsRelateWarehouse">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cs-field">
+                  <label class="cs-label">无快递标签不允许生成出库计划</label>
+                  <div class="cs-switch-row">
+                    <label class="cs-switch">
+                      <input type="checkbox" name="noLabelNoOutboundPlan">
+                      <span class="cs-switch-slider"></span>
+                    </label>
+                    <span class="cs-switch-label-text">关闭</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============ 底部固定操作栏 ============ -->
+            <div class="cs-action-bar">
+              <a href="service-management.html" class="cs-btn-outline">
+                <i data-lucide="x"></i>
+                <span>关闭</span>
+              </a>
+              <button type="submit" class="cs-btn-primary">
+                <i data-lucide="save"></i>
+                <span>保存</span>
+              </button>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+    <script>lucide.createIcons();</script>
+    <script>
+      /* Switch label toggle */
+      (function(){
+        document.querySelectorAll('.cs-switch input[type="checkbox"]').forEach(function(cb){
+          var labelText = cb.closest('.cs-switch-row').querySelector('.cs-switch-label-text');
+          function sync(){ if(labelText){ labelText.textContent = cb.checked ? '开启' : '关闭'; } }
+          cb.addEventListener('change', sync);
+          sync();
+        });
+      })();
+    </script>
+    <script id="nav-link-resolver">
+      (function(){
+        var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+        document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+          var href = a.getAttribute('href');
+          if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+            a.setAttribute('href', new URL(href, currentDir).href);
+          }
+        });
+      })();
+    </script>
+</body>
+</html>

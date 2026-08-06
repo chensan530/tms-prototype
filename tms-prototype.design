@@ -1,0 +1,992 @@
+{
+  "data": [
+    {
+      "id": "page-dashboard",
+      "title": "仪表盘",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1042,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-bc23d3d5",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/dashboard.html",
+        "interactions": [
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "quick-create-waybill",
+            "targetPageId": "page-create-waybill"
+          },
+          {
+            "domId": "quick-create-bill",
+            "targetPageId": "page-create-bill"
+          },
+          {
+            "domId": "quick-create-service",
+            "targetPageId": "page-create-service"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-waybill-management",
+      "title": "运单管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 0,
+        "y": 1397,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 2458,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-29cf5950",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/waybill-management.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-create-waybill",
+            "targetPageId": "page-create-waybill"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-create-waybill",
+      "title": "创建运单",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 620,
+        "y": 0,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 3081,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-415756ed",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/create-waybill.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-back-to-waybill-list",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-bill-management",
+      "title": "提单管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 0,
+        "y": 795,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1673,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-f7f1648f",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/bill-management.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-create-bill",
+            "targetPageId": "page-create-bill"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-create-bill",
+      "title": "创建提单",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 620,
+        "y": 1013,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 4058,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-fd6a9fe3",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/create-bill.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-back-to-bill-list",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-service-management",
+      "title": "服务管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 0,
+        "y": 418,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 900,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-0012b69f",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/service-management.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-create-service",
+            "targetPageId": "page-create-service"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-create-service",
+      "title": "创建服务",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 620,
+        "y": 2311,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 7683,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-084cddae",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/create-service.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-addr-library",
+      "title": "地址库管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 0,
+        "y": 4666,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1030,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-6e40da43",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/addr-library.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-create-addr",
+            "targetPageId": "page-create-addr"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-create-addr",
+      "title": "创建地址库",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 620,
+        "y": 4666,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 900,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-1ea0d756",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/create-addr.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-back-to-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-close-addr",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-over-size-management",
+      "title": "超长超重管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 0,
+        "y": 5080,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1441,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-26c76ada",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/over-size-management.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-create-over-size",
+            "targetPageId": "page-create-over-size"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-create-over-size",
+      "title": "创建超长超重",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 620,
+        "y": 5080,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1749,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-5a6888ac",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/create-over-size.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-back-to-over-size",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-close-over-size",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-receivable-report",
+      "title": "应收报表",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 0,
+        "y": 5704,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 2090,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-cfeaa01c",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/receivable-report.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-payable-report",
+      "title": "应付报表",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 620,
+        "y": 5704,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 2473,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-27bf740f",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/payable-report.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-rates-management",
+      "title": "运价维护",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 1240,
+        "y": 5704,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 900,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-5f94908e",
+          "measuredAt": 1785465919175
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/rates-management.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "TMS物流管理原型"
+  }
+}

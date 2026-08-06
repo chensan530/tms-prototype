@@ -1,0 +1,78 @@
+{
+  "root": {
+    "nodeId": "project-shell",
+    "type": "shared-branch",
+    "status": "generated",
+    "outputFile": "partials/shell.html",
+    "description": "Shared application shell: left sidebar navigation + top header bar + footer. All 7 pages inherit this shell.",
+    "mutableSlots": [
+      "page-content-slot",
+      "active-nav-slot"
+    ],
+    "children": [
+      {
+        "nodeId": "page-dashboard",
+        "type": "leaf",
+        "status": "generated",
+        "htmlSrc": "pages/dashboard.html",
+        "inheritedFragments": ["project-shell"],
+        "title": "仪表盘",
+        "pageIndex": 1
+      },
+      {
+        "nodeId": "page-waybill-management",
+        "type": "leaf",
+        "status": "generated",
+        "htmlSrc": "pages/waybill-management.html",
+        "inheritedFragments": ["project-shell"],
+        "title": "运单管理",
+        "pageIndex": 2
+      },
+      {
+        "nodeId": "page-create-waybill",
+        "type": "leaf",
+        "status": "generated",
+        "htmlSrc": "pages/create-waybill.html",
+        "inheritedFragments": ["project-shell"],
+        "title": "创建运单",
+        "pageIndex": 3
+      },
+      {
+        "nodeId": "page-bill-management",
+        "type": "leaf",
+        "status": "generated",
+        "htmlSrc": "pages/bill-management.html",
+        "inheritedFragments": ["project-shell"],
+        "title": "提单管理",
+        "pageIndex": 4
+      },
+      {
+        "nodeId": "page-create-bill",
+        "type": "leaf",
+        "status": "generated",
+        "htmlSrc": "pages/create-bill.html",
+        "inheritedFragments": ["project-shell"],
+        "title": "创建提单",
+        "pageIndex": 5
+      },
+      {
+        "nodeId": "page-receivable-report",
+        "type": "leaf",
+        "status": "generated",
+        "htmlSrc": "pages/receivable-report.html",
+        "inheritedFragments": ["project-shell"],
+        "title": "应收报表",
+        "pageIndex": 6
+      },
+      {
+        "nodeId": "page-payable-report",
+        "type": "leaf",
+        "status": "generated",
+        "htmlSrc": "pages/payable-report.html",
+        "inheritedFragments": ["project-shell"],
+        "title": "应付报表",
+        "pageIndex": 7
+      }
+    ]
+  }
+}

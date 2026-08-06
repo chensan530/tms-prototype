@@ -1,0 +1,1206 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建提单</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow — Static surfaces only use border/surface layering.
+     Floating layers may use deeper elevation. */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <!-- Critical Layout CSS (responsive-safe, survives without Tailwind runtime) -->
+    <style id="critical-layout">
+      .app-layout { display: flex; min-height: 100vh; }
+      .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+      .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+      .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+      .app-content { flex: 1; overflow: auto; padding: 24px; }
+      .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+      .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+      .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+      .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+      .header-search { position: relative; }
+      .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+      .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+      .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+      .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+      .header-icon-btn:hover { background: var(--tms-muted); }
+      .header-user { display: flex; align-items: center; gap: 8px; }
+      .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+      .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+      .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+    </style>
+
+    <!-- Page-Specific Styles: Create Bill -->
+    <style id="create-bill-styles">
+      /* ---- Page Header ---- */
+      .cb-page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
+      .cb-breadcrumb { font-size: 13px; color: var(--tms-muted-foreground); margin-bottom: 4px; }
+      .cb-page-title { font-size: 24px; color: var(--tms-foreground); margin: 0; line-height: 1.2; }
+      .cb-page-subtitle { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+      .cb-header-actions { display: flex; align-items: center; gap: 12px; }
+
+      /* ---- Cards ---- */
+      .cb-card {
+        background: var(--tms-card);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        padding: 24px;
+      }
+      .cb-card + .cb-card { margin-top: 24px; }
+      .cb-card-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--tms-border);
+      }
+      .cb-card-title h3 { font-size: 16px; color: var(--tms-foreground); margin: 0; }
+      .cb-card-title svg { width: 18px; height: 18px; color: var(--tms-primary-500); flex-shrink: 0; }
+
+      /* ---- Form Fields ---- */
+      .cb-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .cb-field { display: flex; flex-direction: column; }
+      .cb-field-full { grid-column: 1 / -1; }
+      .cb-label {
+        display: block;
+        font-size: 13px;
+        color: var(--tms-muted-foreground);
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      .cb-required { color: var(--state-error); margin-left: 2px; }
+
+      .cb-input {
+        height: 40px;
+        width: 100%;
+        padding: 0 12px;
+        font-size: 14px;
+        font-family: var(--tms-font-sans);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-input);
+        color: var(--tms-foreground);
+        outline: none;
+        transition: border-color 120ms ease, box-shadow 120ms ease;
+        box-sizing: border-box;
+      }
+      .cb-input::placeholder { color: var(--tms-neutral-400); }
+      .cb-input:focus {
+        border-color: var(--tms-primary-400);
+        box-shadow: 0 0 0 2px rgba(58, 114, 80, 0.15);
+      }
+      .cb-input[readonly] {
+        background: var(--tms-muted);
+        color: var(--tms-muted-foreground);
+        cursor: default;
+      }
+      textarea.cb-input {
+        height: auto;
+        min-height: 72px;
+        padding: 10px 12px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+      select.cb-input {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B6B65' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 36px;
+        cursor: pointer;
+      }
+
+      /* ---- Input with prefix ---- */
+      .cb-input-group { position: relative; display: flex; align-items: center; }
+      .cb-input-prefix {
+        position: absolute;
+        left: 12px;
+        font-size: 14px;
+        color: var(--tms-muted-foreground);
+        pointer-events: none;
+        z-index: 1;
+      }
+      .cb-input-group .cb-input { padding-left: 28px; }
+
+      /* ---- Radio Group ---- */
+      .cb-radio-group { display: flex; gap: 20px; align-items: center; height: 40px; }
+      .cb-radio-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--tms-foreground);
+      }
+      .cb-radio-item input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--tms-primary-500);
+        cursor: pointer;
+        margin: 0;
+      }
+
+      /* ---- Checkbox ---- */
+      .cb-checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--tms-foreground);
+      }
+      .cb-checkbox-item input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--tms-primary-500);
+        cursor: pointer;
+        margin: 0;
+      }
+
+      /* ---- Cargo / Container Table ---- */
+      .cb-cargo-table {
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        overflow: hidden;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      .cb-cargo-table th { text-align: left; }
+      .cb-cargo-table td { text-align: left; }
+      .cb-cargo-table .cb-col-action { width: 72px; text-align: right; }
+      .cb-cargo-table .cb-col-index { width: 56px; }
+      .cb-table-input {
+        width: 100%;
+        height: 32px;
+        padding: 0 8px;
+        font-size: 13px;
+        font-family: var(--tms-font-sans);
+        border: 1px solid transparent;
+        border-radius: var(--tms-radius-small);
+        background: transparent;
+        color: var(--tms-foreground);
+        outline: none;
+        transition: border-color 120ms ease, background-color 120ms ease;
+        box-sizing: border-box;
+      }
+      .cb-table-input:focus {
+        border-color: var(--tms-primary-400);
+        background: var(--tms-input);
+        box-shadow: 0 0 0 2px rgba(58, 114, 80, 0.12);
+      }
+      select.cb-table-input {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B6B65' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 6px center;
+        padding-right: 24px;
+        cursor: pointer;
+      }
+
+      .cb-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--tms-primary-500);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px 0;
+        transition: color 120ms ease;
+      }
+      .cb-link-btn:hover { color: var(--tms-primary-600); }
+      .cb-link-btn-danger { color: var(--state-error); }
+      .cb-link-btn-danger:hover { color: var(--state-error); opacity: 0.8; }
+      .cb-link-btn svg { width: 14px; height: 14px; }
+
+      /* ---- Cargo Stats Row ---- */
+      .cb-cargo-stats {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--tms-border);
+      }
+      .cb-stat-item { display: flex; align-items: baseline; gap: 6px; }
+      .cb-stat-label { font-size: 13px; color: var(--tms-muted-foreground); }
+      .cb-stat-value { font-size: 18px; color: var(--tms-primary-500); }
+      .cb-stat-unit { font-size: 13px; color: var(--tms-muted-foreground); }
+
+      /* ---- Waybill Tags ---- */
+      .cb-tags-wrap { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+      .cb-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        font-size: 12px;
+        font-family: var(--tms-font-mono);
+        font-weight: 500;
+        background: var(--tms-primary-50);
+        color: var(--tms-primary-600);
+        border: 1px solid var(--tms-primary-100);
+        border-radius: var(--tms-radius-small);
+      }
+      .cb-tag button {
+        display: inline-flex;
+        align-items: center;
+        border: none;
+        background: transparent;
+        color: var(--tms-primary-400);
+        cursor: pointer;
+        padding: 0;
+      }
+      .cb-tag button:hover { color: var(--state-error); }
+
+      /* ---- Fee Total Display ---- */
+      .cb-fee-total {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-top: 16px;
+        padding: 16px 20px;
+        background: var(--tms-primary-50);
+        border: 1px solid var(--tms-primary-100);
+        border-radius: var(--tms-radius-medium);
+      }
+      .cb-fee-total-label { font-size: 14px; font-weight: 500; color: var(--tms-primary-600); }
+      .cb-fee-total-value { font-size: 24px; font-weight: 600; color: var(--tms-primary-500); }
+      .cb-fee-total-value .cb-fee-currency { font-size: 16px; margin-right: 2px; }
+
+      /* ---- Buttons ---- */
+      .cb-btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: var(--tms-font-sans);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-card);
+        color: var(--tms-foreground);
+        cursor: pointer;
+        transition: background-color 120ms ease, border-color 120ms ease;
+      }
+      .cb-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+      .cb-btn-outline svg { width: 16px; height: 16px; }
+
+      .cb-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 20px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: var(--tms-font-sans);
+        border: none;
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-primary-500);
+        color: var(--tms-primary-foreground);
+        cursor: pointer;
+        transition: background-color 120ms ease;
+      }
+      .cb-btn-primary:hover { background: var(--tms-primary-600); }
+      .cb-btn-primary svg { width: 16px; height: 16px; }
+
+      /* ---- Sticky Submit Bar ---- */
+      .cb-submit-bar {
+        position: sticky;
+        bottom: 0;
+        margin: 24px -24px 0 -24px;
+        padding: 0 24px;
+        height: 64px;
+        background: var(--tms-card);
+        border-top: 1px solid var(--tms-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 10;
+        box-shadow: var(--tms-shadow-2);
+      }
+      .cb-validation-summary {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--tms-muted-foreground);
+      }
+      .cb-validation-summary svg { width: 14px; height: 14px; color: var(--state-warning); }
+
+      /* ---- Switch / Toggle ---- */
+      .cb-switch {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+      .cb-switch input { opacity: 0; width: 0; height: 0; }
+      .cb-switch-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--tms-neutral-300);
+        border-radius: var(--tms-radius-full);
+        transition: background-color 200ms ease;
+      }
+      .cb-switch-slider::before {
+        position: absolute;
+        content: "";
+        height: 16px; width: 16px;
+        left: 3px; bottom: 3px;
+        background: var(--tms-neutral-0);
+        border-radius: 50%;
+        transition: transform 200ms ease;
+      }
+      .cb-switch input:checked + .cb-switch-slider { background: var(--tms-primary-500); }
+      .cb-switch input:checked + .cb-switch-slider::before { transform: translateX(18px); }
+      .cb-switch-row { display: flex; align-items: center; gap: 10px; height: 40px; }
+      .cb-switch-label-text { font-size: 14px; color: var(--tms-foreground); }
+
+      /* ---- 3-Column Grid (City/State/ZIP) ---- */
+      .cb-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+      .cb-field-row-full { grid-column: 1 / -1; }
+
+      /* ---- Date Input Group ---- */
+      .cb-date-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .cb-date-pair .cb-field { margin-bottom: 0; }
+    </style>
+
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="app-sidebar">
+        <div class="sidebar-logo">
+          <h1>TMS 物流管理</h1>
+          <span>智慧运输管理平台</span>
+        </div>
+        <nav style="flex:1; padding: 12px 0;">
+          <div class="nav-section-label">业务管理</div>
+          <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+          <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+          <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+          <a data-nav-key="addr-lib" data-dom-id="nav-addr-lib" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+          <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超长超重管理</span></a>
+          <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+          <div class="nav-section-label">系统管理</div>
+          <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+          <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+          <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+        </nav>
+        <!-- Sidebar Footer -->
+        <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+            <div>
+              <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Area -->
+      <div class="app-main-area">
+        <!-- Header -->
+        <header class="app-header">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="header-search">
+              <i data-lucide="search"></i>
+              <input type="text" placeholder="搜索运单号、提单号、客户名称...">
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+            <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+            <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+            <div class="header-user">
+              <div class="header-avatar">WB</div>
+              <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="app-content">
+          <!-- Page Header -->
+          <div class="cb-page-header">
+            <div>
+              <div class="cb-breadcrumb">提单管理 / 创建提单</div>
+              <h2 class="tms-serif-title cb-page-title">创建提单</h2>
+              <div class="cb-page-subtitle">录入提单信息，管理运输凭证与货物追踪</div>
+            </div>
+            <div class="cb-header-actions">
+              <button data-dom-id="btn-back-to-bill-list" class="cb-btn-outline">
+                <i data-lucide="arrow-left"></i>
+                <span>返回提单管理</span>
+              </button>
+              <button data-dom-id="btn-save-draft" class="cb-btn-outline">
+                <i data-lucide="save"></i>
+                <span>保存草稿</span>
+              </button>
+              <button data-dom-id="btn-submit-bill" class="cb-btn-primary">
+                <i data-lucide="check"></i>
+                <span>提交提单</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Form -->
+          <form class="cb-form" autocomplete="off">
+            <!-- Section 1: 提单基本信息 -->
+            <section class="cb-card">
+              <div class="cb-card-title">
+                <i data-lucide="file-text"></i>
+                <h3>提单基本信息</h3>
+              </div>
+              <div class="cb-grid-2">
+                <div class="cb-field">
+                  <label class="cb-label">类型<span class="cb-required">*</span></label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                    <option value="air">空运</option>
+                    <option value="sea">海运</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">线路</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                    <option value="us-line">美线</option>
+                    <option value="eu-line">欧线</option>
+                    <option value="sea-line">东南亚线</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">干线级别</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                    <option value="level-a">A级干线</option>
+                    <option value="level-b">B级干线</option>
+                    <option value="level-c">C级干线</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">提单号<span class="cb-required">*</span></label>
+                  <input type="text" class="cb-input" placeholder="请输入提单号">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">班次</label>
+                  <input type="text" class="cb-input" placeholder="请输入班次">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">铅封号</label>
+                  <input type="text" class="cb-input" placeholder="请输入铅封号">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">限制重量(kg)</label>
+                  <input type="number" class="cb-input" placeholder="请输入限制重量" step="0.01">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">限制方数(m³)</label>
+                  <input type="number" class="cb-input" placeholder="请输入限制方数" step="0.01">
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 2: 运输配置 -->
+            <section class="cb-card">
+              <div class="cb-card-title">
+                <i data-lucide="truck"></i>
+                <h3>运输配置</h3>
+              </div>
+              <div class="cb-grid-2">
+                <div class="cb-field">
+                  <label class="cb-label">提货方式</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                    <option value="self">自送</option>
+                    <option value="pickup">上门提货</option>
+                    <option value="agent">代理提货</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">派送方式</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                    <option value="self-pickup">自提</option>
+                    <option value="delivery">送货上门</option>
+                    <option value="station">货站自提</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">贸易条款</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                    <option value="ddp">DDP</option>
+                    <option value="dap">DAP</option>
+                    <option value="fob">FOB</option>
+                    <option value="exw">EXW</option>
+                    <option value="cif">CIF</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">供应商</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">承运商</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">出发地点<span class="cb-required">*</span></label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">发往地点<span class="cb-required">*</span></label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">报关代理</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">清关代理</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">转运投递货站</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">供应商服务</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">关联方</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 3: 人员分配 -->
+            <section class="cb-card">
+              <div class="cb-card-title">
+                <i data-lucide="users"></i>
+                <h3>人员分配</h3>
+              </div>
+              <div class="cb-grid-2">
+                <div class="cb-field">
+                  <label class="cb-label">单证员</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">渠道管理员</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">财务</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">销售代表</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">客服代表</label>
+                  <input type="text" class="cb-input" placeholder="请输入客服代表">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">单证代表</label>
+                  <input type="text" class="cb-input" placeholder="请输入单证代表">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">港后代表</label>
+                  <input type="text" class="cb-input" placeholder="请输入港后代表">
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 4: 时间信息 -->
+            <section class="cb-card">
+              <div class="cb-card-title">
+                <i data-lucide="clock"></i>
+                <h3>时间信息</h3>
+              </div>
+              <div class="cb-grid-2">
+                <div class="cb-field">
+                  <label class="cb-label">预计出发时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">预计到达时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">预计清关时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">预计送仓时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">预计到仓时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">实际出发时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">实际到达时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">实际清关时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">实际送仓时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">实际到仓时间</label>
+                  <input type="datetime-local" class="cb-input">
+                </div>
+                <div class="cb-field cb-field-full">
+                  <label class="cb-label">单独清关</label>
+                  <div class="cb-switch-row">
+                    <label class="cb-switch">
+                      <input type="checkbox">
+                      <span class="cb-switch-slider"></span>
+                    </label>
+                    <span class="cb-switch-label-text">是</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 5: 收件人信息 -->
+            <section class="cb-card">
+              <div class="cb-card-title">
+                <i data-lucide="map-pin"></i>
+                <h3>收件人信息</h3>
+              </div>
+              <div class="cb-grid-2">
+                <div class="cb-field">
+                  <label class="cb-label">地址库</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">收件人</label>
+                  <input type="text" class="cb-input" placeholder="请输入收件人">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">收件人公司</label>
+                  <input type="text" class="cb-input" placeholder="请输入收件人公司">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">收件人地址</label>
+                  <input type="text" class="cb-input" placeholder="请输入收件人地址">
+                </div>
+                <div class="cb-field cb-field-full">
+                  <label class="cb-label">收件人城市/州/邮编</label>
+                  <div class="cb-grid-3">
+                    <input type="text" class="cb-input" placeholder="城市">
+                    <input type="text" class="cb-input" placeholder="省/州">
+                    <input type="text" class="cb-input" placeholder="邮编">
+                  </div>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">收件人国家</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">收件人电话</label>
+                  <input type="text" class="cb-input" placeholder="请输入收件人电话">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">收件人邮箱</label>
+                  <input type="text" class="cb-input" placeholder="请输入收件人邮箱">
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 6: 发件人信息 -->
+            <section class="cb-card">
+              <div class="cb-card-title">
+                <i data-lucide="user"></i>
+                <h3>发件人信息</h3>
+              </div>
+              <div class="cb-grid-2">
+                <div class="cb-field">
+                  <label class="cb-label">发件人地址库</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">发件人</label>
+                  <input type="text" class="cb-input" placeholder="请输入发件人">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">发件人公司</label>
+                  <input type="text" class="cb-input" placeholder="请输入发件人公司">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">发件人地址</label>
+                  <input type="text" class="cb-input" placeholder="请输入发件人地址">
+                </div>
+                <div class="cb-field cb-field-full">
+                  <label class="cb-label">发件人城市/州/邮编</label>
+                  <div class="cb-grid-3">
+                    <input type="text" class="cb-input" placeholder="城市">
+                    <input type="text" class="cb-input" placeholder="省/州">
+                    <input type="text" class="cb-input" placeholder="邮编">
+                  </div>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">发件人国家</label>
+                  <select class="cb-input">
+                    <option value="">请选择</option>
+                  </select>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">发件人电话</label>
+                  <input type="text" class="cb-input" placeholder="请输入发件人电话">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">发件人邮箱</label>
+                  <input type="text" class="cb-input" placeholder="请输入发件人邮箱">
+                </div>
+              </div>
+            </section>
+
+            <!-- Section 7: 其他信息 -->
+            <section class="cb-card">
+              <div class="cb-card-title">
+                <i data-lucide="info"></i>
+                <h3>其他信息</h3>
+              </div>
+              <div class="cb-grid-2">
+                <div class="cb-field">
+                  <label class="cb-label">GPS跟踪器</label>
+                  <input type="text" class="cb-input" placeholder="请输入GPS跟踪器">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">是否购买保险</label>
+                  <div class="cb-radio-group">
+                    <label class="cb-radio-item">
+                      <input type="radio" name="insurance" value="no" checked>
+                      <span>否</span>
+                    </label>
+                    <label class="cb-radio-item">
+                      <input type="radio" name="insurance" value="yes">
+                      <span>是</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">参考号一</label>
+                  <input type="text" class="cb-input" placeholder="请输入参考号一">
+                </div>
+                <div class="cb-field">
+                  <label class="cb-label">参考号二</label>
+                  <input type="text" class="cb-input" placeholder="请输入参考号二">
+                </div>
+                <div class="cb-field cb-field-full">
+                  <label class="cb-label">参考号</label>
+                  <textarea class="cb-input" placeholder="请输入参考号"></textarea>
+                </div>
+                <div class="cb-field cb-field-full">
+                  <label class="cb-label">备注</label>
+                  <textarea class="cb-input" placeholder="请输入备注"></textarea>
+                </div>
+                <div class="cb-field cb-field-full">
+                  <label class="cb-label">内部备注</label>
+                  <textarea class="cb-input" placeholder="请输入内部备注"></textarea>
+                </div>
+              </div>
+            </section>
+          </form>
+
+          <!-- Sticky Submit Bar -->
+          <div class="cb-submit-bar">
+            <div class="cb-validation-summary">
+              <i data-lucide="alert-circle"></i>
+              <span>请填写必填字段：类型、提单号、出发地点、发往地点</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <button type="button" class="cb-btn-outline">取消</button>
+              <button type="button" class="cb-btn-outline">
+                <i data-lucide="save"></i>
+                <span>保存草稿</span>
+              </button>
+              <button type="submit" class="cb-btn-primary">
+                <i data-lucide="check"></i>
+                <span>提交提单</span>
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>lucide.createIcons();</script>
+    <script id="nav-link-resolver">
+      (function(){
+        var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+        document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+          var href = a.getAttribute('href');
+          if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+            a.setAttribute('href', new URL(href, currentDir).href);
+          }
+        });
+      })();
+    </script>
+</body>
+</html>

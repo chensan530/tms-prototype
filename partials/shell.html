@@ -1,0 +1,109 @@
+<!--
+  Shared Application Shell — TMS Logistics Prototype
+  Inherited by all 7 leaf pages.
+  Mutable slots: <!-- SLOT: activeNav --> (set data-active on matching nav item)
+                  <!-- SLOT: pageContent --> (page-specific content)
+  Do NOT include <html>, <head>, or <body> — this is a body-content fragment.
+-->
+
+<!-- Critical Layout CSS (responsive-safe, survives without Tailwind runtime) -->
+<style id="critical-layout">
+  .app-layout { display: flex; min-height: 100vh; }
+  .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+  .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+  .app-content { flex: 1; overflow: auto; padding: 24px; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+  .header-search { position: relative; }
+  .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+  .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+  .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+  .header-icon-btn:hover { background: var(--tms-muted); }
+  .header-user { display: flex; align-items: center; gap: 8px; }
+  .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+  .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+  .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+</style>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-logo">
+      <h1>TMS 物流管理</h1>
+      <span>智慧运输管理平台</span>
+    </div>
+    <nav style="flex:1; padding: 12px 0;">
+      <div class="nav-section-label">总览</div>
+      <a data-nav-key="dashboard" data-dom-id="nav-dashboard" href="#" class="nav-item">
+        <i data-lucide="layout-dashboard"></i><span>仪表盘</span>
+      </a>
+
+      <div class="nav-section-label">运单管理</div>
+      <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" href="#" class="nav-item">
+        <i data-lucide="package"></i><span>运单管理</span>
+      </a>
+      <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" href="#" class="nav-item">
+        <i data-lucide="file-plus"></i><span>创建运单</span>
+      </a>
+
+      <div class="nav-section-label">提单管理</div>
+      <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" href="#" class="nav-item">
+        <i data-lucide="file-text"></i><span>提单管理</span>
+      </a>
+      <a data-nav-key="create-bill" data-dom-id="nav-create-bill" href="#" class="nav-item">
+        <i data-lucide="file-plus-2"></i><span>创建提单</span>
+      </a>
+
+      <div class="nav-section-label">财务管理</div>
+      <a data-nav-key="receivable" data-dom-id="nav-receivable" href="#" class="nav-item">
+        <i data-lucide="trending-up"></i><span>应收报表</span>
+      </a>
+      <a data-nav-key="payable" data-dom-id="nav-payable" href="#" class="nav-item">
+        <i data-lucide="trending-down"></i><span>应付报表</span>
+      </a>
+    </nav>
+    <!-- Sidebar Footer -->
+    <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+        <div>
+          <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="app-main-area">
+    <!-- Header -->
+    <header class="app-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="搜索运单号、提单号、客户名称...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+        <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+        <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+        <div class="header-user">
+          <div class="header-avatar">WB</div>
+          <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content — Sub-Agent fills this slot -->
+    <main class="app-content">
+      <!-- SLOT: pageContent -->
+    </main>
+  </div>
+</div>

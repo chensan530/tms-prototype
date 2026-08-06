@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建运单</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow — Static surfaces only use border/surface layering.
+     Floating layers may use deeper elevation. */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <!-- Critical Layout CSS (responsive-safe, survives without Tailwind runtime) -->
+    <style id="critical-layout">
+      .app-layout { display: flex; min-height: 100vh; }
+      .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+      .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+      .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+      .app-content { flex: 1; overflow: auto; padding: 24px; }
+      .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+      .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+      .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+      .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+      .header-search { position: relative; }
+      .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+      .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+      .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+      .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+      .header-icon-btn:hover { background: var(--tms-muted); }
+      .header-user { display: flex; align-items: center; gap: 8px; }
+      .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+      .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+      .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+    </style>
+
+    <!-- Page-Specific Styles: Create Waybill -->
+    <style id="create-waybill-styles">
+      /* ---- Page Header ---- */
+      .cw-page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; }
+      .cw-breadcrumb { font-size: 13px; color: var(--tms-muted-foreground); margin-bottom: 4px; }
+      .cw-page-title { font-size: 24px; color: var(--tms-foreground); margin: 0; line-height: 1.2; }
+
+      /* ---- Cards ---- */
+      .cw-card {
+        background: var(--tms-card);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        padding: 24px;
+      }
+      .cw-card + .cw-card { margin-top: 24px; }
+      .cw-card-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--tms-border);
+      }
+      .cw-card-title h3 { font-size: 16px; color: var(--tms-foreground); margin: 0; }
+      .cw-card-title svg { width: 18px; height: 18px; color: var(--tms-primary-500); flex-shrink: 0; }
+
+      /* ---- Form Fields ---- */
+      .cw-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .cw-field { display: flex; flex-direction: column; }
+      .cw-field-full { grid-column: 1 / -1; }
+      .cw-label {
+        display: block;
+        font-size: 13px;
+        color: var(--tms-muted-foreground);
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+      .cw-required { color: var(--state-error); margin-left: 2px; }
+
+      .cw-input {
+        height: 40px;
+        width: 100%;
+        padding: 0 12px;
+        font-size: 14px;
+        font-family: var(--tms-font-sans);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-input);
+        color: var(--tms-foreground);
+        outline: none;
+        transition: border-color 120ms ease, box-shadow 120ms ease;
+        box-sizing: border-box;
+      }
+      .cw-input::placeholder { color: var(--tms-neutral-400); }
+      .cw-input:focus {
+        border-color: var(--tms-primary-400);
+        box-shadow: 0 0 0 2px rgba(58, 114, 80, 0.15);
+      }
+      textarea.cw-input {
+        height: auto;
+        min-height: 72px;
+        padding: 10px 12px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+      select.cw-input {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B6B65' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 36px;
+        cursor: pointer;
+      }
+
+      /* ---- Input with prefix ---- */
+      .cw-input-group { position: relative; display: flex; align-items: center; }
+      .cw-input-prefix {
+        position: absolute;
+        left: 12px;
+        font-size: 14px;
+        color: var(--tms-muted-foreground);
+        pointer-events: none;
+        z-index: 1;
+      }
+      .cw-input-group .cw-input { padding-left: 28px; }
+
+      /* ---- Radio Group ---- */
+      .cw-radio-group { display: flex; gap: 20px; align-items: center; height: 40px; }
+      .cw-radio-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--tms-foreground);
+      }
+      .cw-radio-item input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--tms-primary-500);
+        cursor: pointer;
+        margin: 0;
+      }
+
+      /* ---- Cargo Table ---- */
+      .cw-cargo-table {
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        overflow: hidden;
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      .cw-cargo-table th { text-align: left; }
+      .cw-cargo-table td { text-align: left; }
+      .cw-cargo-table .cw-col-action { width: 72px; text-align: right; }
+
+      .cw-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--tms-primary-500);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px 0;
+        transition: color 120ms ease;
+      }
+      .cw-link-btn:hover { color: var(--tms-primary-600); }
+      .cw-link-btn-danger { color: var(--state-error); }
+      .cw-link-btn-danger:hover { color: var(--state-error); opacity: 0.8; }
+      .cw-link-btn svg { width: 14px; height: 14px; }
+
+      /* ---- Cargo Stats Row ---- */
+      .cw-cargo-stats {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--tms-border);
+      }
+      .cw-stat-item { display: flex; align-items: baseline; gap: 6px; }
+      .cw-stat-label { font-size: 13px; color: var(--tms-muted-foreground); }
+      .cw-stat-value { font-size: 18px; color: var(--tms-primary-500); }
+      .cw-stat-unit { font-size: 13px; color: var(--tms-muted-foreground); }
+
+      /* ---- Buttons ---- */
+      .cw-btn-outline {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 16px;
+        font-size: 13px;
+        font-weight: 500;
+        font-family: var(--tms-font-sans);
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-card);
+        color: var(--tms-foreground);
+        cursor: pointer;
+        transition: background-color 120ms ease, border-color 120ms ease;
+      }
+      .cw-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+      .cw-btn-outline svg { width: 16px; height: 16px; }
+
+      .cw-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 20px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: var(--tms-font-sans);
+        border: none;
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-primary-500);
+        color: var(--tms-primary-foreground);
+        cursor: pointer;
+        transition: background-color 120ms ease;
+      }
+      .cw-btn-primary:hover { background: var(--tms-primary-600); }
+      .cw-btn-primary svg { width: 16px; height: 16px; }
+
+      /* ---- Sticky Submit Bar ---- */
+      .cw-submit-bar {
+        position: sticky;
+        bottom: 0;
+        margin: 24px -24px 0 -24px;
+        padding: 0 24px;
+        height: 64px;
+        background: var(--tms-card);
+        border-top: 1px solid var(--tms-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 10;
+        box-shadow: var(--tms-shadow-2);
+      }
+      .cw-validation-summary {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: var(--tms-muted-foreground);
+      }
+      .cw-validation-summary svg { width: 14px; height: 14px; color: var(--state-warning); }
+
+      /* ---- Service Params (button group) ---- */
+      .cw-service-params {
+        display: none;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px dashed var(--tms-border);
+      }
+      .cw-service-params.is-visible { display: block; }
+      .cw-param-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 14px;
+      }
+      .cw-param-row:last-child { margin-bottom: 0; }
+      .cw-param-label {
+        flex-shrink: 0;
+        width: 90px;
+        font-size: 13px;
+        color: var(--tms-muted-foreground);
+        line-height: 32px;
+        text-align: right;
+      }
+      .cw-param-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .cw-param-btn {
+        display: inline-flex;
+        align-items: center;
+        height: 32px;
+        padding: 0 14px;
+        font-size: 13px;
+        border-radius: var(--tms-radius-small);
+        border: 1px solid var(--tms-border);
+        background: var(--tms-card);
+        color: var(--tms-foreground);
+        cursor: pointer;
+        transition: all 120ms ease;
+        white-space: nowrap;
+      }
+      .cw-param-btn:hover { border-color: var(--tms-primary-400); color: var(--tms-primary-500); }
+      .cw-param-btn.is-selected {
+        background: var(--tms-primary-500);
+        border-color: var(--tms-primary-500);
+        color: var(--tms-primary-foreground);
+        font-weight: 500;
+      }
+      .cw-param-btn.is-disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .cw-param-readonly-tag {
+        display: inline-flex;
+        align-items: center;
+        height: 32px;
+        padding: 0 14px;
+        font-size: 13px;
+        border-radius: var(--tms-radius-small);
+        background: var(--tms-primary-50);
+        color: var(--tms-primary-600);
+        font-weight: 500;
+      }
+
+      /* ---- 3-Column Inline Fields (城市/州/邮编) ---- */
+      .cw-field-inline-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+      /* ---- Checkbox Group ---- */
+      .cw-checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+        padding-top: 8px;
+      }
+      .cw-checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--tms-foreground);
+      }
+      .cw-checkbox-item input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--tms-primary-500);
+        cursor: pointer;
+        margin: 0;
+      }
+
+      /* ---- Parcel Info Row (件数 / FBA / 装箱单) ---- */
+      .cw-parcel-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--tms-border);
+      }
+      .cw-parcel-row .cw-field { min-width: 120px; }
+      .cw-parcel-count { width: 100px; }
+      .cw-fba-toggle {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 40px;
+        font-size: 14px;
+        color: var(--tms-foreground);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .cw-fba-toggle input { width: 16px; height: 16px; accent-color: var(--tms-primary-500); cursor: pointer; margin: 0; }
+      .cw-upload-area {
+        flex: 1;
+        min-width: 200px;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: 2px dashed var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-muted);
+        cursor: pointer;
+        transition: border-color 120ms ease, background 120ms ease;
+      }
+      .cw-upload-area:hover { border-color: var(--tms-primary-400); background: var(--tms-primary-50); }
+      .cw-upload-area svg { width: 24px; height: 24px; color: var(--tms-muted-foreground); }
+      .cw-upload-area span { font-size: 13px; color: var(--tms-muted-foreground); }
+
+      /* ---- Item List Table ---- */
+      .cw-item-table-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--tms-border);
+        border-radius: var(--tms-radius-medium);
+      }
+      .cw-item-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .cw-item-table th {
+        padding: 8px 6px;
+        font-weight: 600;
+        font-size: 12px;
+        color: var(--tms-muted-foreground);
+        background: var(--tms-muted);
+        border-bottom: 1px solid var(--tms-border);
+        text-align: center;
+        white-space: nowrap;
+      }
+      .cw-item-table td {
+        padding: 4px 4px;
+        border-bottom: 1px solid var(--tms-border);
+        text-align: center;
+      }
+      .cw-item-table tbody tr:last-child td { border-bottom: none; }
+      .cw-item-table tbody tr:hover { background: var(--tms-neutral-100); }
+      .cw-item-table .cw-col-num { width: 40px; color: var(--tms-muted-foreground); font-weight: 500; }
+      .cw-item-table input {
+        width: 100%;
+        min-width: 60px;
+        height: 30px;
+        padding: 0 6px;
+        font-size: 12px;
+        font-family: var(--tms-font-sans);
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: transparent;
+        color: var(--tms-foreground);
+        outline: none;
+        text-align: center;
+        box-sizing: border-box;
+        transition: border-color 120ms ease, background 120ms ease;
+      }
+      .cw-item-table input:hover { border-color: var(--tms-border); }
+      .cw-item-table input:focus {
+        border-color: var(--tms-primary-400);
+        background: var(--tms-card);
+        box-shadow: 0 0 0 2px rgba(58, 114, 80, 0.12);
+      }
+      .cw-item-table input.cw-item-readonly {
+        background: var(--tms-muted);
+        color: var(--tms-muted-foreground);
+        font-weight: 500;
+        cursor: default;
+      }
+      .cw-item-empty {
+        padding: 32px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--tms-neutral-400);
+      }
+
+      /* ---- Date Range ---- */
+      .cw-date-range { display: flex; align-items: center; gap: 8px; }
+      .cw-date-range .cw-input { flex: 1; }
+      .cw-date-range-sep { color: var(--tms-muted-foreground); font-size: 14px; flex-shrink: 0; }
+
+      /* ---- Secondary Submit Button (直接入仓) ---- */
+      .cw-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 36px;
+        padding: 0 20px;
+        font-size: 13px;
+        font-weight: 600;
+        font-family: var(--tms-font-sans);
+        border: 1px solid var(--tms-primary-400);
+        border-radius: var(--tms-radius-medium);
+        background: var(--tms-primary-50);
+        color: var(--tms-primary-600);
+        cursor: pointer;
+        transition: background-color 120ms ease, border-color 120ms ease;
+      }
+      .cw-btn-secondary:hover { background: var(--tms-primary-100); border-color: var(--tms-primary-500); }
+      .cw-btn-secondary svg { width: 16px; height: 16px; }
+    </style>
+
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="app-sidebar">
+        <div class="sidebar-logo">
+          <h1>TMS 物流管理</h1>
+          <span>智慧运输管理平台</span>
+        </div>
+        <nav style="flex:1; padding: 12px 0;">
+          <div class="nav-section-label">业务管理</div>
+          <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+          <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+          <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+          <a data-nav-key="addr-lib" data-dom-id="nav-addr-lib" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+          <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超长超重管理</span></a>
+          <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+          <div class="nav-section-label">系统管理</div>
+          <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+          <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+          <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+        </nav>
+        <!-- Sidebar Footer -->
+        <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+            <div>
+              <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Area -->
+      <div class="app-main-area">
+        <!-- Header -->
+        <header class="app-header">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="header-search">
+              <i data-lucide="search"></i>
+              <input type="text" placeholder="搜索运单号、提单号、客户名称...">
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+            <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+            <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+            <div class="header-user">
+              <div class="header-avatar">WB</div>
+              <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="app-content">
+          <!-- Page Header -->
+          <div class="cw-page-header">
+            <div>
+              <div class="cw-breadcrumb">运单管理 / 创建运单</div>
+              <h2 class="tms-serif-title cw-page-title">创建运单</h2>
+            </div>
+            <button data-dom-id="btn-back-to-waybill-list" class="cw-btn-outline">
+              <i data-lucide="arrow-left"></i>
+              <span>返回列表</span>
+            </button>
+          </div>
+
+          <!-- Form -->
+          <form class="cw-form" autocomplete="off">
+            <!-- Section: 运单信息 -->
+            <section class="cw-card">
+              <div class="cw-card-title">
+                <i data-lucide="clipboard-list"></i>
+                <h3>运单信息</h3>
+              </div>
+              <div class="cw-grid-2">
+                <div class="cw-field">
+                  <label class="cw-label">客户<span class="cw-required">*</span></label>
+                  <select class="cw-input">
+                    <option value="">请选择客户</option>
+                    <option value="kejie">深圳市跨捷电子科技有限公司</option>
+                    <option value="anpai">义乌市安派供应链管理有限公司</option>
+                    <option value="hongtu">广州市鸿图贸易有限公司</option>
+                    <option value="ruihong">深圳市瑞宏进出口有限公司</option>
+                    <option value="jinding">义乌市金鼎跨境电商有限公司</option>
+                    <option value="tongda">东莞市通达物流设备有限公司</option>
+                    <option value="yatai">深圳市亚太国际货运代理有限公司</option>
+                    <option value="feiyang">广州市飞扬网络科技有限公司</option>
+                  </select>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">客户单号</label>
+                  <input type="text" class="cw-input" placeholder="请输入客户参考单号">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">服务<span class="cw-required">*</span></label>
+                  <select class="cw-input" id="cw-service-select">
+                    <option value="">请选择服务</option>
+                    <option value="eu-express">欧洲专线快递</option>
+                    <option value="eu-special">欧洲特货专线</option>
+                    <option value="uk-express">英国专线快递</option>
+                    <option value="us-express">美国专线快递</option>
+                    <option value="fba-eu">FBA欧洲头程</option>
+                    <option value="fba-uk">FBA英国头程</option>
+                    <option value="fba-us">FBA美国头程</option>
+                    <option value="dhl">DHL国际快递</option>
+                    <option value="fedex">FedEx国际快递</option>
+                    <option value="ups">UPS国际快递</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Service Params (shown after service selection) -->
+              <div class="cw-service-params" id="cw-service-params">
+                <div class="cw-param-row">
+                  <div class="cw-param-label">包装类型</div>
+                  <div class="cw-param-options" data-param="packageType"></div>
+                </div>
+                <div class="cw-param-row">
+                  <div class="cw-param-label">报关方式</div>
+                  <div class="cw-param-options" data-param="declaration"></div>
+                </div>
+                <div class="cw-param-row">
+                  <div class="cw-param-label">清关方式</div>
+                  <div class="cw-param-options" data-param="clearance"></div>
+                </div>
+                <div class="cw-param-row">
+                  <div class="cw-param-label">交税方式</div>
+                  <div class="cw-param-options" data-param="taxType"></div>
+                </div>
+                <div class="cw-param-row">
+                  <div class="cw-param-label">交货条款</div>
+                  <div class="cw-param-options" data-param="deliveryTerms"></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: 收件人 -->
+            <section class="cw-card">
+              <div class="cw-card-title">
+                <i data-lucide="map-pin"></i>
+                <h3>收件人</h3>
+              </div>
+              <div class="cw-grid-2">
+                <div class="cw-field">
+                  <label class="cw-label">地址库</label>
+                  <select class="cw-input" id="cw-addr-select">
+                    <option value="">请选择或搜索地址库</option>
+                    <option value="addr001">Amazon DE Warehouse Berlin</option>
+                    <option value="addr002">Amazon UK Warehouse Coventry</option>
+                    <option value="addr003">Amazon US Warehouse Seattle</option>
+                    <option value="addr004">eBay DE Customer Munich</option>
+                    <option value="addr005">Amazon FBA ABE2 Breinigsville</option>
+                    <option value="addr006">Amazon FBA LAX9 Rancho Cucamonga</option>
+                    <option value="addr007">eBay UK Customer London</option>
+                    <option value="addr008">Amazon FR Warehouse Paris</option>
+                  </select>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">收件人<span class="cw-required">*</span></label>
+                  <input type="text" class="cw-input" id="cw-recipient-name" placeholder="请输入收件人姓名">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">公司</label>
+                  <input type="text" class="cw-input" id="cw-recipient-company" placeholder="请输入公司名称">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">地址一<span class="cw-required">*</span></label>
+                  <input type="text" class="cw-input" id="cw-recipient-addr1" placeholder="请输入地址一">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">地址二</label>
+                  <input type="text" class="cw-input" id="cw-recipient-addr2" placeholder="请输入地址二">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">地址三</label>
+                  <input type="text" class="cw-input" id="cw-recipient-addr3" placeholder="请输入地址三">
+                </div>
+                <div class="cw-field cw-field-full">
+                  <label class="cw-label">城市/州/邮编<span class="cw-required">*</span></label>
+                  <div class="cw-field-inline-3">
+                    <input type="text" class="cw-input" id="cw-recipient-city" placeholder="城市">
+                    <input type="text" class="cw-input" id="cw-recipient-state" placeholder="省/州">
+                    <input type="text" class="cw-input" id="cw-recipient-zip" placeholder="邮编">
+                  </div>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">国家<span class="cw-required">*</span></label>
+                  <select class="cw-input" id="cw-recipient-country">
+                    <option value="">请选择国家</option>
+                    <option value="DE">德国 Germany</option>
+                    <option value="GB">英国 United Kingdom</option>
+                    <option value="US">美国 United States</option>
+                    <option value="FR">法国 France</option>
+                    <option value="IT">意大利 Italy</option>
+                    <option value="ES">西班牙 Spain</option>
+                    <option value="NL">荷兰 Netherlands</option>
+                    <option value="BE">比利时 Belgium</option>
+                    <option value="PL">波兰 Poland</option>
+                    <option value="CZ">捷克 Czech Republic</option>
+                  </select>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">电话</label>
+                  <input type="text" class="cw-input" id="cw-recipient-phone" placeholder="请输入电话号码">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">邮箱</label>
+                  <input type="email" class="cw-input" id="cw-recipient-email" placeholder="请输入邮箱地址">
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: 订单关联 -->
+            <section class="cw-card">
+              <div class="cw-card-title">
+                <i data-lucide="link"></i>
+                <h3>订单关联</h3>
+              </div>
+              <div class="cw-grid-2">
+                <div class="cw-field">
+                  <label class="cw-label">店铺</label>
+                  <select class="cw-input">
+                    <option value="">请选择店铺</option>
+                    <option value="amazon-de">Amazon DE</option>
+                    <option value="amazon-uk">Amazon UK</option>
+                    <option value="amazon-us">Amazon US</option>
+                    <option value="ebay-de">eBay DE</option>
+                    <option value="shopify">Shopify Store</option>
+                  </select>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">关联单号</label>
+                  <input type="text" class="cw-input" placeholder="请输入关联单号">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">ISA预约码</label>
+                  <input type="text" class="cw-input" placeholder="请输入ISA预约码">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">MRN</label>
+                  <input type="text" class="cw-input" placeholder="请输入MRN">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">参考号一</label>
+                  <input type="text" class="cw-input" placeholder="请输入参考号一">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">参考号二</label>
+                  <input type="text" class="cw-input" placeholder="请输入参考号二">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">库位</label>
+                  <input type="text" class="cw-input" placeholder="请输入库位">
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: 税务申报 -->
+            <section class="cw-card">
+              <div class="cw-card-title">
+                <i data-lucide="receipt"></i>
+                <h3>税务申报</h3>
+              </div>
+              <div class="cw-grid-2">
+                <div class="cw-field">
+                  <label class="cw-label">VAT号</label>
+                  <input type="text" class="cw-input" placeholder="请输入VAT号">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">IOSS号</label>
+                  <input type="text" class="cw-input" placeholder="请输入IOSS号">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">EORI</label>
+                  <input type="text" class="cw-input" placeholder="请输入EORI">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">申报币种</label>
+                  <select class="cw-input">
+                    <option value="">请选择申报币种</option>
+                    <option value="USD">USD 美元</option>
+                    <option value="EUR">EUR 欧元</option>
+                    <option value="GBP">GBP 英镑</option>
+                    <option value="CNY">CNY 人民币</option>
+                  </select>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: 物品信息 -->
+            <section class="cw-card">
+              <div class="cw-card-title">
+                <i data-lucide="box"></i>
+                <h3>物品信息</h3>
+              </div>
+
+              <!-- 货箱信息 -->
+              <div class="cw-parcel-row">
+                <div class="cw-field">
+                  <label class="cw-label">件数<span class="cw-required">*</span></label>
+                  <input type="number" class="cw-input cw-parcel-count" id="cw-parcel-count" min="0" value="0" placeholder="0">
+                </div>
+                <label class="cw-fba-toggle">
+                  <input type="checkbox" id="cw-fba-toggle">
+                  <span>FBA运单</span>
+                </label>
+                <div class="cw-field" style="flex:1;min-width:200px;">
+                  <label class="cw-label">装箱单</label>
+                  <div class="cw-upload-area" id="cw-upload-area">
+                    <i data-lucide="upload-cloud"></i>
+                    <span>点击或拖拽上传装箱单</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cw-grid-2">
+                <div class="cw-field">
+                  <label class="cw-label">品名分类</label>
+                  <select class="cw-input" id="cw-item-category">
+                    <option value="">请选择品名分类</option>
+                    <option value="electronics">电子产品</option>
+                    <option value="clothing">服装鞋帽</option>
+                    <option value="daily">日用百货</option>
+                    <option value="toys">玩具爱好</option>
+                    <option value="home">家居家装</option>
+                    <option value="beauty">美妆个护</option>
+                    <option value="sports">运动户外</option>
+                    <option value="other">其他</option>
+                  </select>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">主品名</label>
+                  <input type="text" class="cw-input" id="cw-item-main-name" placeholder="请输入主品名">
+                </div>
+                <div class="cw-field cw-field-full">
+                  <label class="cw-label">物品属性</label>
+                  <div class="cw-checkbox-group">
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="battery"><span>带电</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="magnetic"><span>带磁</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="dangerous"><span>危险品</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="liquid"><span>液体</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="powder"><span>粉末</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="paste"><span>膏体</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="sensitive"><span>敏感货</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="wood"><span>木制品</span></label>
+                    <label class="cw-checkbox-item"><input type="checkbox" name="item-attr" value="textile"><span>纺织品</span></label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 物品列表 -->
+              <div style="margin-top:20px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <label class="cw-label" style="margin:0;">物品列表</label>
+                  <span style="font-size:12px;color:var(--tms-muted-foreground);">根据件数自动生成行，箱号已预填</span>
+                </div>
+                <div class="cw-item-table-wrap">
+                  <table class="cw-item-table" id="cw-item-table">
+                    <thead>
+                      <tr>
+                        <th class="cw-col-num">箱号</th>
+                        <th>重量(KG)</th>
+                        <th>长(CM)</th>
+                        <th>宽(CM)</th>
+                        <th>高(CM)</th>
+                        <th>PO Number</th>
+                        <th>中文品名</th>
+                        <th>英文名</th>
+                        <th>申报单价</th>
+                        <th>数量<span class="cw-required">*</span></th>
+                        <th>材质</th>
+                        <th>用途</th>
+                        <th>品牌</th>
+                        <th>型号</th>
+                        <th>销售链接</th>
+                        <th>海关编码</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cw-item-tbody">
+                      <tr><td colspan="16" class="cw-item-empty">请先填写件数，物品列表将自动生成</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: 备注与保险 -->
+            <section class="cw-card">
+              <div class="cw-card-title">
+                <i data-lucide="file-text"></i>
+                <h3>备注与保险</h3>
+              </div>
+              <div class="cw-grid-2">
+                <div class="cw-field">
+                  <label class="cw-label">内部备注</label>
+                  <textarea class="cw-input" placeholder="请输入内部备注（仅内部可见）"></textarea>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">备注</label>
+                  <textarea class="cw-input" placeholder="请输入备注信息"></textarea>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">购买保险</label>
+                  <div class="cw-radio-group">
+                    <label class="cw-radio-item">
+                      <input type="radio" name="insurance" value="no" checked>
+                      <span>否</span>
+                    </label>
+                    <label class="cw-radio-item">
+                      <input type="radio" name="insurance" value="yes">
+                      <span>是</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Section: 仓储时间与人员 -->
+            <section class="cw-card">
+              <div class="cw-card-title">
+                <i data-lucide="calendar-clock"></i>
+                <h3>仓储时间与人员</h3>
+              </div>
+              <div class="cw-grid-2">
+                <div class="cw-field">
+                  <label class="cw-label">所在货站</label>
+                  <select class="cw-input">
+                    <option value="">请选择货站</option>
+                    <option value="yiwu">义乌货站</option>
+                    <option value="shenzhen">深圳货站</option>
+                    <option value="guangzhou">广州货站</option>
+                    <option value="shanghai">上海货站</option>
+                  </select>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">预计到仓时间</label>
+                  <input type="date" class="cw-input">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">预约送FBA仓时间</label>
+                  <div class="cw-date-range">
+                    <input type="date" class="cw-input">
+                    <span class="cw-date-range-sep">至</span>
+                    <input type="date" class="cw-input">
+                  </div>
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">海外代表</label>
+                  <input type="text" class="cw-input" placeholder="请输入海外代表">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">单证代表</label>
+                  <input type="text" class="cw-input" placeholder="请输入单证代表">
+                </div>
+                <div class="cw-field">
+                  <label class="cw-label">TM版本号</label>
+                  <input type="text" class="cw-input" placeholder="请输入TM版本号">
+                </div>
+              </div>
+            </section>
+          </form>
+
+          <!-- Sticky Submit Bar -->
+          <div class="cw-submit-bar">
+            <div class="cw-validation-summary">
+              <i data-lucide="alert-circle"></i>
+              <span>必填字段：服务、收件人、地址一、城市/州/邮编、国家</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <button type="button" class="cw-btn-outline">
+                <i data-lucide="x"></i>
+                <span>关闭</span>
+              </button>
+              <button type="button" class="cw-btn-secondary">
+                <i data-lucide="package-check"></i>
+                <span>直接入仓</span>
+              </button>
+              <button type="submit" class="cw-btn-primary">
+                <i data-lucide="check"></i>
+                <span>下单</span>
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>lucide.createIcons();</script>
+    <script id="service-params-renderer">
+      (function () {
+        // 各服务的参数配置数据
+        var serviceParams = {
+          'eu-express': {
+            packageType: [{ label: '包裹', selected: true }, { label: '托盘', selected: false }],
+            declaration: [{ label: '买单报关', selected: true }, { label: '报关退税', selected: false }],
+            clearance: [{ label: '一般贸易清关', selected: false }, { label: '快件清关', selected: true }],
+            taxType: [{ label: '不包税', selected: false }, { label: '包税', selected: true }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDU', selected: false }, { label: 'DDP', selected: true }]
+          },
+          'eu-special': {
+            packageType: [{ label: '包裹', selected: true }, { label: '托盘', selected: false }],
+            declaration: [{ label: '买单报关', selected: true }, { label: '报关退税', selected: false }],
+            clearance: [{ label: '一般贸易清关', selected: false }, { label: '快件清关', selected: true }],
+            taxType: [{ label: '不包税', selected: false }, { label: '包税', selected: true }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDU', selected: false }, { label: 'DDP', selected: true }]
+          },
+          'uk-express': {
+            packageType: [{ label: '包裹', selected: true }, { label: '托盘', selected: false }],
+            declaration: [{ label: '买单报关', selected: true }, { label: '报关退税', selected: false }],
+            clearance: [{ label: '一般贸易清关', selected: false }, { label: '快件清关', selected: true }],
+            taxType: [{ label: '不包税', selected: true }, { label: '包税', selected: false }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDU', selected: true }, { label: 'DDP', selected: false }]
+          },
+          'us-express': {
+            packageType: [{ label: '包裹', selected: true }, { label: '托盘', selected: false }],
+            declaration: [{ label: '买单报关', selected: false }, { label: '报关退税', selected: true }],
+            clearance: [{ label: '一般贸易清关', selected: true }, { label: '快件清关', selected: false }],
+            taxType: [{ label: '不包税', selected: true }, { label: '包税', selected: false }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDU', selected: true }, { label: 'DDP', selected: false }]
+          },
+          'fba-eu': {
+            packageType: [{ label: '托盘', selected: true }],
+            declaration: [{ label: '报关退税', selected: true }],
+            clearance: [{ label: '一般贸易清关', selected: true }],
+            taxType: [{ label: '包税', selected: true }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDP', selected: true }]
+          },
+          'fba-uk': {
+            packageType: [{ label: '托盘', selected: true }],
+            declaration: [{ label: '报关退税', selected: true }],
+            clearance: [{ label: '一般贸易清关', selected: true }],
+            taxType: [{ label: '包税', selected: true }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDP', selected: true }]
+          },
+          'fba-us': {
+            packageType: [{ label: '托盘', selected: true }],
+            declaration: [{ label: '报关退税', selected: true }],
+            clearance: [{ label: '一般贸易清关', selected: true }],
+            taxType: [{ label: '自主税号', selected: true }],
+            deliveryTerms: [{ label: 'DDU', selected: true }]
+          },
+          'dhl': {
+            packageType: [{ label: '包裹', selected: true }, { label: '文件', selected: false }],
+            declaration: [{ label: '买单报关', selected: true }],
+            clearance: [{ label: '快件清关', selected: true }],
+            taxType: [{ label: '不包税', selected: true }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDU', selected: true }]
+          },
+          'fedex': {
+            packageType: [{ label: '包裹', selected: true }, { label: '文件', selected: false }],
+            declaration: [{ label: '买单报关', selected: true }],
+            clearance: [{ label: '快件清关', selected: true }],
+            taxType: [{ label: '不包税', selected: true }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDU', selected: true }]
+          },
+          'ups': {
+            packageType: [{ label: '包裹', selected: true }, { label: '文件', selected: false }],
+            declaration: [{ label: '买单报关', selected: true }],
+            clearance: [{ label: '快件清关', selected: true }],
+            taxType: [{ label: '不包税', selected: true }, { label: '自主税号', selected: false }],
+            deliveryTerms: [{ label: 'DDU', selected: true }]
+          }
+        };
+
+        var serviceSelect = document.getElementById('cw-service-select');
+        var paramsContainer = document.getElementById('cw-service-params');
+
+        function renderParams(serviceKey) {
+          var params = serviceParams[serviceKey];
+          if (!params) {
+            paramsContainer.classList.remove('is-visible');
+            return;
+          }
+          paramsContainer.classList.add('is-visible');
+
+          Object.keys(params).forEach(function (paramKey) {
+            var optionsContainer = paramsContainer.querySelector('[data-param="' + paramKey + '"]');
+            if (!optionsContainer) return;
+            optionsContainer.innerHTML = '';
+
+            params[paramKey].forEach(function (opt) {
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'cw-param-btn' + (opt.selected ? ' is-selected' : '');
+              if (params[paramKey].length === 1) {
+                btn.className = 'cw-param-readonly-tag';
+                btn.textContent = opt.label;
+                optionsContainer.appendChild(btn);
+                return;
+              }
+              btn.textContent = opt.label;
+              btn.addEventListener('click', function () {
+                optionsContainer.querySelectorAll('.cw-param-btn').forEach(function (b) {
+                  b.classList.remove('is-selected');
+                });
+                btn.classList.add('is-selected');
+              });
+              optionsContainer.appendChild(btn);
+            });
+          });
+        }
+
+        if (serviceSelect) {
+          serviceSelect.addEventListener('change', function () {
+            renderParams(this.value);
+          });
+        }
+      })();
+    </script>
+    <script id="nav-link-resolver">
+      (function(){
+        var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+        document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+          var href = a.getAttribute('href');
+          if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+            a.setAttribute('href', new URL(href, currentDir).href);
+          }
+        });
+      })();
+    </script>
+    <script id="address-library-autofill">
+      (function () {
+        // 地址库数据 — 与下拉选项一一对应
+        var addressLibrary = {
+          'addr001': {
+            name: 'Amazon DE Warehouse',
+            company: 'Amazon Distribution GmbH',
+            addr1: 'Hauptstraße 1',
+            addr2: 'Building B, Gate 3',
+            addr3: '',
+            city: 'Berlin',
+            state: 'Berlin',
+            zip: '10115',
+            country: 'DE',
+            phone: '+49 30 12345678',
+            email: 'de-warehouse@amazon.com'
+          },
+          'addr002': {
+            name: 'Amazon UK Warehouse',
+            company: 'Amazon UK Services Ltd',
+            addr1: 'Kingsmere Way',
+            addr2: 'DC2, Bay 5',
+            addr3: '',
+            city: 'Coventry',
+            state: 'West Midlands',
+            zip: 'CV6 6HY',
+            country: 'GB',
+            phone: '+44 24 7612 3456',
+            email: 'uk-warehouse@amazon.co.uk'
+          },
+          'addr003': {
+            name: 'Amazon US Warehouse',
+            company: 'Amazon.com Services LLC',
+            addr1: '1200 12th Ave S',
+            addr2: 'Suite 200',
+            addr3: '',
+            city: 'Seattle',
+            state: 'WA',
+            zip: '98144',
+            country: 'US',
+            phone: '+1 206 555 0100',
+            email: 'us-warehouse@amazon.com'
+          },
+          'addr004': {
+            name: 'Maximilian Schneider',
+            company: 'eBay DE Customer',
+            addr1: 'Marienplatz 8',
+            addr2: '',
+            addr3: '',
+            city: 'Munich',
+            state: 'Bavaria',
+            zip: '80331',
+            country: 'DE',
+            phone: '+49 89 9876 5432',
+            email: 'max.schneider@email.de'
+          },
+          'addr005': {
+            name: 'Amazon FBA ABE2',
+            company: 'Amazon.com Services LLC',
+            addr1: '7050 W Tilghman St',
+            addr2: 'Warehouse ABE2, Dock 4',
+            addr3: '',
+            city: 'Breinigsville',
+            state: 'PA',
+            zip: '18031',
+            country: 'US',
+            phone: '+1 610 555 0200',
+            email: 'fba-abe2@amazon.com'
+          },
+          'addr006': {
+            name: 'Amazon FBA LAX9',
+            company: 'Amazon.com Services LLC',
+            addr1: '9800 Marconi Dr',
+            addr2: 'Warehouse LAX9, Inbound Dock',
+            addr3: '',
+            city: 'Rancho Cucamonga',
+            state: 'CA',
+            zip: '91730',
+            country: 'US',
+            phone: '+1 909 555 0300',
+            email: 'fba-lax9@amazon.com'
+          },
+          'addr007': {
+            name: 'James Whitfield',
+            company: 'eBay UK Customer',
+            addr1: '25 Baker Street',
+            addr2: 'Flat 3',
+            addr3: '',
+            city: 'London',
+            state: 'Greater London',
+            zip: 'W1U 7AB',
+            country: 'GB',
+            phone: '+44 20 7946 1122',
+            email: 'j.whitfield@email.co.uk'
+          },
+          'addr008': {
+            name: 'Amazon FR Warehouse',
+            company: 'Amazon France Logistique SAS',
+            addr1: '3 Rue de la Gare',
+            addr2: 'Zone Industrielle, Entrepôt C',
+            addr3: '',
+            city: 'Paris',
+            state: 'Île-de-France',
+            zip: '75012',
+            country: 'FR',
+            phone: '+33 1 55 67 89 01',
+            email: 'fr-warehouse@amazon.fr'
+          }
+        };
+
+        var addrSelect = document.getElementById('cw-addr-select');
+        if (!addrSelect) return;
+
+        // 字段 ID 映射表
+        var fieldMap = {
+          name: 'cw-recipient-name',
+          company: 'cw-recipient-company',
+          addr1: 'cw-recipient-addr1',
+          addr2: 'cw-recipient-addr2',
+          addr3: 'cw-recipient-addr3',
+          city: 'cw-recipient-city',
+          state: 'cw-recipient-state',
+          zip: 'cw-recipient-zip',
+          country: 'cw-recipient-country',
+          phone: 'cw-recipient-phone',
+          email: 'cw-recipient-email'
+        };
+
+        // 回显数据到对应字段
+        function populateAddress(key) {
+          var data = addressLibrary[key];
+          Object.keys(fieldMap).forEach(function (field) {
+            var el = document.getElementById(fieldMap[field]);
+            if (!el) return;
+            el.value = (data && data[field] != null) ? data[field] : '';
+          });
+        }
+
+        addrSelect.addEventListener('change', function () {
+          populateAddress(this.value);
+        });
+      })();
+    </script>
+    <script id="parcel-item-generator">
+      (function () {
+        var parcelCount = document.getElementById('cw-parcel-count');
+        var tbody = document.getElementById('cw-item-tbody');
+        var fbaToggle = document.getElementById('cw-fba-toggle');
+        var serviceSelect = document.getElementById('cw-service-select');
+        var itemCategory = document.getElementById('cw-item-category');
+        var itemMainName = document.getElementById('cw-item-main-name');
+        if (!parcelCount || !tbody) return;
+
+        // 物品列表列定义（不含箱号，箱号自动填充）
+        var columns = [
+          { key: 'weight', ph: '重量' },
+          { key: 'length', ph: '长' },
+          { key: 'width', ph: '宽' },
+          { key: 'height', ph: '高' },
+          { key: 'po', ph: 'PO号' },
+          { key: 'cnName', ph: '中文品名' },
+          { key: 'enName', ph: '英文名' },
+          { key: 'price', ph: '单价' },
+          { key: 'qty', ph: '数量' },
+          { key: 'material', ph: '材质' },
+          { key: 'usage', ph: '用途' },
+          { key: 'brand', ph: '品牌' },
+          { key: 'model', ph: '型号' },
+          { key: 'link', ph: '销售链接' },
+          { key: 'hsCode', ph: '海关编码' }
+        ];
+
+        // 缓存已填数据，避免修改件数时丢失
+        var rowDataCache = [];
+
+        function buildRow(index) {
+          var tr = document.createElement('tr');
+
+          // 箱号列（只读，自动编号）
+          var tdNum = document.createElement('td');
+          tdNum.className = 'cw-col-num';
+          tdNum.textContent = index + 1;
+          tr.appendChild(tdNum);
+
+          // 数据列
+          columns.forEach(function (col) {
+            var td = document.createElement('td');
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.dataset.row = index;
+            input.dataset.col = col.key;
+            input.placeholder = col.ph;
+
+            // 从缓存恢复
+            var cached = rowDataCache[index];
+            if (cached && cached[col.key] != null) {
+              input.value = cached[col.key];
+            }
+
+            // 实时缓存输入
+            input.addEventListener('input', function () {
+              if (!rowDataCache[index]) rowDataCache[index] = {};
+              rowDataCache[index][col.key] = this.value;
+            });
+
+            td.appendChild(input);
+            tr.appendChild(td);
+          });
+
+          return tr;
+        }
+
+        function renderTable(count) {
+          tbody.innerHTML = '';
+          if (count <= 0) {
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+            td.colSpan = 16;
+            td.className = 'cw-item-empty';
+            td.textContent = '请先填写件数，物品列表将自动生成';
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+          }
+          for (var i = 0; i < count; i++) {
+            tbody.appendChild(buildRow(i));
+          }
+        }
+
+        parcelCount.addEventListener('input', function () {
+          var count = parseInt(this.value, 10) || 0;
+          if (count < 0) count = 0;
+          // 裁剪缓存
+          if (rowDataCache.length > count) {
+            rowDataCache = rowDataCache.slice(0, count);
+          }
+          renderTable(count);
+        });
+
+        // 根据选择的服务预填物品信息
+        var serviceItemDefaults = {
+          'eu-express':    { fba: false, category: 'electronics', mainName: '电子产品配件' },
+          'eu-special':    { fba: false, category: 'electronics', mainName: '电子配件（特货）' },
+          'uk-express':    { fba: false, category: 'clothing', mainName: '服装鞋帽' },
+          'us-express':    { fba: false, category: 'daily', mainName: '日用百货' },
+          'fba-eu':        { fba: true, category: 'home', mainName: 'FBA家居产品' },
+          'fba-uk':        { fba: true, category: 'home', mainName: 'FBA家居产品' },
+          'fba-us':        { fba: true, category: 'toys', mainName: 'FBA玩具产品' },
+          'dhl':           { fba: false, category: 'other', mainName: '文件/样品' },
+          'fedex':         { fba: false, category: 'other', mainName: '文件/样品' },
+          'ups':           { fba: false, category: 'other', mainName: '文件/样品' }
+        };
+
+        if (serviceSelect) {
+          serviceSelect.addEventListener('change', function () {
+            var defaults = serviceItemDefaults[this.value];
+            if (!defaults) return;
+            // FBA 运单自动勾选
+            if (fbaToggle) fbaToggle.checked = defaults.fba;
+            // 品名分类
+            if (itemCategory) itemCategory.value = defaults.category;
+            // 主品名
+            if (itemMainName) itemMainName.value = defaults.mainName;
+          });
+        }
+      })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1215 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>应付报表</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow — Static surfaces only use border/surface layering.
+     Floating layers may use deeper elevation. */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <!-- Critical Layout CSS (responsive-safe, survives without Tailwind runtime) -->
+    <style id="critical-layout">
+      .app-layout { display: flex; min-height: 100vh; }
+      .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+      .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+      .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+      .app-content { flex: 1; overflow: auto; padding: 24px; }
+      .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+      .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+      .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+      .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+      .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+      .header-search { position: relative; }
+      .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+      .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+      .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+      .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+      .header-icon-btn:hover { background: var(--tms-muted); }
+      .header-user { display: flex; align-items: center; gap: 8px; }
+      .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+      .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+      .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+    </style>
+
+    <!-- Page-specific styles — Accounts Payable Report (ap- prefix) -->
+    <style id="ap-page-styles">
+      .tms-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; font-size: 13px; font-weight: 500; border-radius: var(--tms-radius-medium); cursor: pointer; transition: background-color 120ms ease, border-color 120ms ease; border: 1px solid transparent; white-space: nowrap; text-decoration: none; }
+      .tms-btn svg { width: 16px; height: 16px; }
+      .tms-btn-primary { background: var(--tms-primary); color: var(--tms-primary-foreground); }
+      .tms-btn-primary:hover { background: var(--tms-primary-600); }
+      .tms-btn-outline { background: var(--tms-card); color: var(--tms-foreground); border-color: var(--tms-border); }
+      .tms-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+
+      .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; gap: 16px; flex-wrap: wrap; }
+      .page-header h2 { font-size: 24px; color: var(--tms-foreground); }
+      .page-header-sub { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+      .tms-card-surface { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-large); }
+      .section-gap { margin-bottom: 16px; }
+
+      /* Date range tabs */
+      .range-tabs { display: inline-flex; align-items: center; gap: 2px; background: var(--tms-muted); border-radius: var(--tms-radius-medium); padding: 3px; }
+      .range-tab { padding: 6px 12px; font-size: 12px; font-weight: 500; color: var(--tms-muted-foreground); background: transparent; border: none; border-radius: var(--tms-radius-small); cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+      .range-tab:hover { color: var(--tms-foreground); }
+      .range-tab.is-active { background: var(--tms-card); color: var(--tms-primary-500); box-shadow: var(--tms-shadow-1); }
+
+      /* KPI cards with left border accent */
+      .ap-kpi-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-left: 3px solid var(--tms-primary-500); border-radius: var(--tms-radius-large); padding: 20px; }
+      .ap-kpi-card--primary { border-left-color: var(--tms-primary-500); }
+      .ap-kpi-card--success { border-left-color: var(--state-success); }
+      .ap-kpi-card--warning { border-left-color: var(--state-warning); }
+      .ap-kpi-card--info { border-left-color: var(--state-info); }
+      .ap-kpi-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+      .ap-kpi-label { font-size: 13px; color: var(--tms-muted-foreground); }
+      .ap-kpi-icon { width: 36px; height: 36px; border-radius: var(--tms-radius-medium); display: inline-flex; align-items: center; justify-content: center; }
+      .ap-kpi-icon svg { width: 18px; height: 18px; }
+      .ap-kpi-icon--primary { background: var(--tms-primary-50); color: var(--tms-primary-500); }
+      .ap-kpi-icon--success { background: var(--state-success-light); color: var(--state-success); }
+      .ap-kpi-icon--warning { background: var(--state-warning-light); color: var(--state-warning); }
+      .ap-kpi-icon--info { background: var(--state-info-light); color: var(--state-info); }
+      .ap-kpi-value { font-size: 26px; line-height: 1.1; color: var(--tms-foreground); }
+      .ap-kpi-trend { display: flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 12px; }
+      .ap-kpi-trend svg { width: 14px; height: 14px; }
+      .trend-up { color: var(--state-success); }
+      .trend-down { color: var(--state-error); }
+
+      /* Charts */
+      .chart-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-large); padding: 20px; }
+      .chart-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+      .chart-title { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; color: var(--tms-foreground); }
+      .chart-title svg { width: 18px; height: 18px; color: var(--tms-primary-500); }
+      .chart-sub { font-size: 12px; color: var(--tms-muted-foreground); }
+
+      /* Filter bar */
+      .filter-bar { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding: 16px; }
+      .filter-field { display: flex; flex-direction: column; gap: 5px; }
+      .filter-label { font-size: 12px; color: var(--tms-muted-foreground); font-weight: 500; }
+      .filter-input, .filter-select { height: 34px; padding: 0 10px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); outline: none; }
+      .filter-input:focus, .filter-select:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+      .filter-input::placeholder { color: var(--tms-neutral-400); }
+      .filter-date { width: 150px; }
+
+      /* Stats bar */
+      .stats-bar { display: flex; align-items: center; padding: 14px 20px; flex-wrap: wrap; }
+      .stat-item { display: flex; flex-direction: column; gap: 3px; padding: 0 28px; border-right: 1px solid var(--tms-border); }
+      .stat-item:first-child { padding-left: 0; }
+      .stat-item:last-child { border-right: none; }
+      .stat-label { font-size: 12px; color: var(--tms-muted-foreground); }
+      .stat-value { font-size: 22px; color: var(--tms-foreground); }
+      .stat-value--success { color: var(--state-success); }
+      .stat-value--warning { color: var(--state-warning); }
+      .stat-value--error { color: var(--state-error); }
+      .stat-value--info { color: var(--state-info); }
+
+      /* Row actions */
+      .row-action { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease, color 120ms ease; }
+      .row-action:hover { background: var(--tms-muted); color: var(--tms-primary); }
+      .row-action svg { width: 15px; height: 15px; }
+
+      /* Pagination */
+      .pagination { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; flex-wrap: wrap; gap: 12px; }
+      .pagination-info { font-size: 13px; color: var(--tms-muted-foreground); }
+      .pagination-pages { display: flex; align-items: center; gap: 4px; }
+      .page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); cursor: pointer; }
+      .page-btn:hover:not(:disabled):not(.is-active) { background: var(--tms-muted); }
+      .page-btn.is-active { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); }
+      .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+      .page-size-wrap { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--tms-muted-foreground); }
+      .page-size-select { height: 30px; padding: 0 8px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); }
+
+      .table-wrap { overflow-x: auto; }
+      .tms-table-dense td.nowrap, .tms-table-dense th { white-space: nowrap; }
+      .ap-expense-no { color: var(--tms-primary-500); font-weight: 500; }
+      .ap-amount--unpaid { color: var(--state-error); }
+      .ap-total-row td { background: var(--tms-neutral-50); font-weight: 600; border-top: 2px solid var(--tms-border); border-bottom: none; }
+    </style>
+
+    <div class="app-layout">
+      <!-- Sidebar -->
+      <aside class="app-sidebar">
+        <div class="sidebar-logo">
+          <h1>TMS 物流管理</h1>
+          <span>智慧运输管理平台</span>
+        </div>
+        <nav style="flex:1; padding: 12px 0;">
+          <div class="nav-section-label">业务管理</div>
+          <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+          <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+          <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+          <a data-nav-key="addr-lib" data-dom-id="nav-addr-lib" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+          <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超长超重管理</span></a>
+          <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+          <div class="nav-section-label">系统管理</div>
+          <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+          <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+          <a data-nav-key="payable" data-dom-id="nav-payable" href="payable-report.html" class="nav-item" data-active="true"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+        </nav>
+        <!-- Sidebar Footer -->
+        <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+            <div>
+              <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Area -->
+      <div class="app-main-area">
+        <!-- Header -->
+        <header class="app-header">
+          <div style="display:flex; align-items:center; gap:16px;">
+            <div class="header-search">
+              <i data-lucide="search"></i>
+              <input type="text" placeholder="搜索费用单号、供应商名称、提单号...">
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+            <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+            <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+            <div class="header-user">
+              <div class="header-avatar">WB</div>
+              <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="app-content">
+          <!-- Page Header -->
+          <div class="page-header">
+            <div>
+              <h2 class="tms-serif-title">应付报表</h2>
+              <div class="page-header-sub">供应商应付账款统计与分析</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <div class="range-tabs" data-dom-id="ap-range-tabs">
+                <button class="range-tab is-active">本月</button>
+                <button class="range-tab">本季度</button>
+                <button class="range-tab">本年</button>
+                <button class="range-tab">自定义</button>
+              </div>
+              <button class="tms-btn tms-btn-outline" data-dom-id="ap-export">
+                <i data-lucide="download"></i><span>导出</span>
+              </button>
+              <button class="tms-btn tms-btn-primary" data-dom-id="ap-export-excel">
+                <i data-lucide="file-spreadsheet"></i><span>导出Excel</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI Cards Row (5 cards) -->
+          <div style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:16px; margin-bottom:16px;">
+            <!-- KPI 1: 应付总额 -->
+            <div class="ap-kpi-card ap-kpi-card--primary">
+              <div class="ap-kpi-head">
+                <span class="ap-kpi-label">应付总额</span>
+                <span class="ap-kpi-icon ap-kpi-icon--primary"><i data-lucide="credit-card"></i></span>
+              </div>
+              <div class="ap-kpi-value tms-mono-data">¥3,124,680.00</div>
+              <div class="ap-kpi-trend">
+                <i data-lucide="trending-up" class="trend-up"></i>
+                <span class="tms-mono-data trend-up">+9.8%</span>
+                <span style="color:var(--tms-muted-foreground);">vs 上月</span>
+              </div>
+            </div>
+            <!-- KPI 2: 已付金额 -->
+            <div class="ap-kpi-card ap-kpi-card--success">
+              <div class="ap-kpi-head">
+                <span class="ap-kpi-label">已付金额</span>
+                <span class="ap-kpi-icon ap-kpi-icon--success"><i data-lucide="check-circle"></i></span>
+              </div>
+              <div class="ap-kpi-value tms-mono-data">¥2,287,420.00</div>
+              <div class="ap-kpi-trend">
+                <i data-lucide="trending-up" class="trend-up"></i>
+                <span class="tms-mono-data trend-up">+15.3%</span>
+                <span style="color:var(--tms-muted-foreground);">vs 上月</span>
+              </div>
+            </div>
+            <!-- KPI 3: 未付金额 -->
+            <div class="ap-kpi-card ap-kpi-card--warning">
+              <div class="ap-kpi-head">
+                <span class="ap-kpi-label">未付金额</span>
+                <span class="ap-kpi-icon ap-kpi-icon--warning"><i data-lucide="clock"></i></span>
+              </div>
+              <div class="ap-kpi-value tms-mono-data">¥837,260.00</div>
+              <div class="ap-kpi-trend">
+                <i data-lucide="trending-down" class="trend-down"></i>
+                <span class="tms-mono-data trend-down">-4.2%</span>
+                <span style="color:var(--tms-muted-foreground);">vs 上月</span>
+              </div>
+            </div>
+            <!-- KPI 4: 即将到期 -->
+            <div class="ap-kpi-card ap-kpi-card--info">
+              <div class="ap-kpi-head">
+                <span class="ap-kpi-label">即将到期</span>
+                <span class="ap-kpi-icon ap-kpi-icon--info"><i data-lucide="calendar-clock"></i></span>
+              </div>
+              <div class="ap-kpi-value tms-mono-data">¥245,800.00</div>
+              <div class="ap-kpi-trend">
+                <i data-lucide="clock" style="color:var(--state-info);"></i>
+                <span class="tms-mono-data" style="color:var(--state-info);">7日内到期</span>
+              </div>
+            </div>
+            <!-- KPI 5: 付款率 -->
+            <div class="ap-kpi-card ap-kpi-card--success">
+              <div class="ap-kpi-head">
+                <span class="ap-kpi-label">付款率</span>
+                <span class="ap-kpi-icon ap-kpi-icon--success"><i data-lucide="percent"></i></span>
+              </div>
+              <div class="ap-kpi-value tms-mono-data">73.2%</div>
+              <div class="ap-kpi-trend">
+                <i data-lucide="trending-up" class="trend-up"></i>
+                <span class="tms-mono-data trend-up">+3.8%</span>
+                <span style="color:var(--tms-muted-foreground);">vs 上月</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Section Row 1: 应付趋势分析 (60%) + 供应商应付分布 (40%) -->
+          <div style="display:grid; grid-template-columns:3fr 2fr; gap:16px; margin-bottom:16px;">
+            <!-- Left: 应付趋势分析 -->
+            <div class="chart-card">
+              <div class="chart-head">
+                <div class="chart-title"><i data-lucide="trending-down"></i><span>应付趋势分析</span></div>
+                <span class="chart-sub">2026年1月 - 7月</span>
+              </div>
+              <div style="height:280px; position:relative;">
+                <canvas id="apTrendChart"></canvas>
+              </div>
+            </div>
+            <!-- Right: 供应商应付分布 -->
+            <div class="chart-card">
+              <div class="chart-head">
+                <div class="chart-title"><i data-lucide="bar-chart-3"></i><span>供应商应付分布</span></div>
+                <span class="chart-sub">TOP 6 供应商</span>
+              </div>
+              <div style="height:280px; position:relative;">
+                <canvas id="apSupplierChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Section Row 2: 费用类型占比 (50%) + 应付账龄分析 (50%) -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+            <!-- Left: 费用类型占比 -->
+            <div class="chart-card">
+              <div class="chart-head">
+                <div class="chart-title"><i data-lucide="pie-chart"></i><span>费用类型占比</span></div>
+                <span class="chart-sub">按费用类型统计</span>
+              </div>
+              <div style="height:280px; position:relative;">
+                <canvas id="apExpenseTypeChart"></canvas>
+              </div>
+            </div>
+            <!-- Right: 应付账龄分析 -->
+            <div class="chart-card">
+              <div class="chart-head">
+                <div class="chart-title"><i data-lucide="bar-chart-3"></i><span>应付账龄分析</span></div>
+                <span class="chart-sub">已付 / 未付</span>
+              </div>
+              <div style="height:280px; position:relative;">
+                <canvas id="apAgingChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter Bar -->
+          <div class="tms-card-surface section-gap">
+            <div class="filter-bar">
+              <div class="filter-field">
+                <label class="filter-label">起始日期</label>
+                <input class="filter-input filter-date" type="date" value="2026-07-01">
+              </div>
+              <div class="filter-field">
+                <label class="filter-label">截止日期</label>
+                <input class="filter-input filter-date" type="date" value="2026-07-29">
+              </div>
+              <div class="filter-field">
+                <label class="filter-label">供应商名称</label>
+                <input class="filter-input" style="width:200px;" type="text" placeholder="输入供应商名称">
+              </div>
+              <div class="filter-field">
+                <label class="filter-label">费用类型</label>
+                <select class="filter-select" style="width:140px;">
+                  <option>全部</option>
+                  <option>海运费</option>
+                  <option>港杂费</option>
+                  <option>报关费</option>
+                  <option>仓储费</option>
+                  <option>配送费</option>
+                  <option>其他</option>
+                </select>
+              </div>
+              <div class="filter-field">
+                <label class="filter-label">付款状态</label>
+                <select class="filter-select" style="width:140px;">
+                  <option>全部</option>
+                  <option>待付款</option>
+                  <option>部分付款</option>
+                  <option>已结清</option>
+                  <option>逾期</option>
+                </select>
+              </div>
+              <div class="filter-field" style="flex-direction:row; gap:8px;">
+                <button class="tms-btn tms-btn-primary" data-dom-id="ap-filter-search"><i data-lucide="search"></i><span>查询</span></button>
+                <button class="tms-btn tms-btn-outline" data-dom-id="ap-filter-reset"><i data-lucide="rotate-ccw"></i><span>重置</span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary Stats Bar -->
+          <div class="tms-card-surface section-gap">
+            <div class="stats-bar">
+              <div class="stat-item">
+                <span class="stat-label">应付笔数</span>
+                <span class="stat-value tms-mono-data">286<span style="font-size:14px; color:var(--tms-muted-foreground); font-weight:400; margin-left:2px;">笔</span></span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">已付笔数</span>
+                <span class="stat-value stat-value--success tms-mono-data">209<span style="font-size:14px; color:var(--tms-muted-foreground); font-weight:400; margin-left:2px;">笔</span></span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">待付笔数</span>
+                <span class="stat-value stat-value--warning tms-mono-data">77<span style="font-size:14px; color:var(--tms-muted-foreground); font-weight:400; margin-left:2px;">笔</span></span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">逾期笔数</span>
+                <span class="stat-value stat-value--error tms-mono-data">15<span style="font-size:14px; color:var(--tms-muted-foreground); font-weight:400; margin-left:2px;">笔</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Data Table -->
+          <div class="tms-card-surface section-gap" style="overflow:hidden;">
+            <div class="table-wrap">
+              <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>费用单号</th>
+                    <th>供应商名称</th>
+                    <th>关联提单号</th>
+                    <th>关联运单号</th>
+                    <th>费用类型</th>
+                    <th style="text-align:right;">应付金额</th>
+                    <th style="text-align:right;">已付金额</th>
+                    <th style="text-align:right;">未付金额</th>
+                    <th>账单日期</th>
+                    <th>到期日</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Row 1 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-001</span></td>
+                    <td>马士基航运(中国)有限公司</td>
+                    <td><span class="tms-mono-data">BL-2026-0701-028</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0701-156</span></td>
+                    <td>海运费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥86,450.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥86,450.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥0.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-02</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-17</span></td>
+                    <td><span class="tms-status tms-status--success">已结清</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 2 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-002</span></td>
+                    <td>中远海运集装箱运输有限公司</td>
+                    <td><span class="tms-mono-data">BL-2026-0703-041</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0703-203</span></td>
+                    <td>海运费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥124,800.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥62,400.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data ap-amount--unpaid">¥62,400.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-03</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-08-02</span></td>
+                    <td><span class="tms-status tms-status--warning">部分付款</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 3 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-003</span></td>
+                    <td>达飞轮船(中国)有限公司</td>
+                    <td><span class="tms-mono-data">BL-2026-0705-019</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0705-088</span></td>
+                    <td>海运费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥98,300.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥0.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data ap-amount--unpaid">¥98,300.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-05</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-08-04</span></td>
+                    <td><span class="tms-status tms-status--info">待付款</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 4 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-004</span></td>
+                    <td>赫伯罗特船务有限公司</td>
+                    <td><span class="tms-mono-data">BL-2026-0708-056</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0708-241</span></td>
+                    <td>海运费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥76,500.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥76,500.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥0.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-06-28</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-13</span></td>
+                    <td><span class="tms-status tms-status--success">已结清</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 5 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-005</span></td>
+                    <td>东方海外货柜航运有限公司</td>
+                    <td><span class="tms-mono-data">BL-2026-0710-033</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0710-167</span></td>
+                    <td>港杂费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥18,640.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥9,320.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data ap-amount--unpaid">¥9,320.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-10</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-25</span></td>
+                    <td><span class="tms-status tms-status--warning">部分付款</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 6 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-006</span></td>
+                    <td>阳明海运股份有限公司</td>
+                    <td><span class="tms-mono-data">BL-2026-0712-071</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0712-309</span></td>
+                    <td>海运费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥112,200.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥0.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data ap-amount--unpaid">¥112,200.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-06-15</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-06-30</span></td>
+                    <td><span class="tms-status tms-status--error">逾期</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 7 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-007</span></td>
+                    <td>宁波舟山港集团</td>
+                    <td><span class="tms-mono-data">BL-2026-0714-082</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0714-118</span></td>
+                    <td>港杂费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥32,750.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥32,750.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥0.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-14</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-29</span></td>
+                    <td><span class="tms-status tms-status--success">已结清</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 8 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-008</span></td>
+                    <td>上海浦东国际货运</td>
+                    <td><span class="tms-mono-data">BL-2026-0716-047</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0716-094</span></td>
+                    <td>报关费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥8,960.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥4,480.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data ap-amount--unpaid">¥4,480.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-16</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-31</span></td>
+                    <td><span class="tms-status tms-status--warning">部分付款</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 9 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-009</span></td>
+                    <td>深圳盐田港集团</td>
+                    <td><span class="tms-mono-data">BL-2026-0718-129</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0718-205</span></td>
+                    <td>仓储费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥24,180.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥0.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data ap-amount--unpaid">¥24,180.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-18</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-08-02</span></td>
+                    <td><span class="tms-status tms-status--info">待付款</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Row 10 -->
+                  <tr>
+                    <td><span class="ap-expense-no tms-mono-data">AP-2026-0729-010</span></td>
+                    <td>青岛港国际物流</td>
+                    <td><span class="tms-mono-data">BL-2026-0720-188</span></td>
+                    <td><span class="tms-mono-data">WB-2026-0720-263</span></td>
+                    <td>配送费</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥15,420.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥15,420.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥0.00</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-07-20</span></td>
+                    <td><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">2026-08-04</span></td>
+                    <td><span class="tms-status tms-status--success">已结清</span></td>
+                    <td>
+                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
+                      <button class="row-action" title="付款"><i data-lucide="credit-card"></i></button>
+                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
+                    </td>
+                  </tr>
+                  <!-- Summary Totals Row -->
+                  <tr class="ap-total-row">
+                    <td colspan="5" style="text-align:right;">合计</td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥598,200.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data">¥287,320.00</span></td>
+                    <td style="text-align:right;"><span class="tms-mono-data ap-amount--unpaid">¥310,880.00</span></td>
+                    <td colspan="3"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" style="border-top:1px solid var(--tms-border);">
+              <div class="pagination-info">显示 <span class="tms-mono-data">1-10</span> 条，共 <span class="tms-mono-data">286</span> 条</div>
+              <div class="pagination-pages">
+                <button class="page-btn" disabled><i data-lucide="chevron-left" style="width:14px;height:14px;"></i></button>
+                <button class="page-btn is-active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <span style="color:var(--tms-muted-foreground); padding:0 4px;">...</span>
+                <button class="page-btn">29</button>
+                <button class="page-btn"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i></button>
+              </div>
+              <div class="page-size-wrap">
+                <span>每页</span>
+                <select class="page-size-select">
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                  <option>100</option>
+                </select>
+                <span>条</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart.js Initialization — follows dashboard.html pattern exactly -->
+          <script>
+            (function () {
+              var root = getComputedStyle(document.documentElement);
+              var token = function (name, fallback) {
+                var v = root.getPropertyValue(name).trim();
+                return v || fallback;
+              };
+              var primary = token('--tms-primary-500', '#1B4332');
+              var primary400 = token('--tms-primary-400', '#3A7250');
+              var primary300 = token('--tms-primary-300', '#5E9273');
+              var primary200 = token('--tms-primary-200', '#97BDA5');
+              var primary100 = token('--tms-primary-100', '#C8DCCF');
+              var primary50 = token('--tms-primary-50', '#E8F0EB');
+              var neutral400 = token('--tms-neutral-400', '#B5B1A4');
+              var success = token('--state-success', '#2D7D5F');
+              var warning = token('--state-warning', '#B8860B');
+              var error = token('--state-error', '#B5453C');
+              var cardBg = token('--tms-card', '#FFFFFF');
+              var gridColor = token('--tms-border', '#EAE8E1');
+              var mutedFg = token('--tms-muted-foreground', '#6B6B65');
+              var foreground = token('--tms-foreground', '#1A1A17');
+
+              var fmtMoney = function (v) { return '¥' + Number(v).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
+
+              var baseTooltip = {
+                backgroundColor: foreground,
+                titleColor: cardBg,
+                bodyColor: cardBg,
+                padding: 10,
+                cornerRadius: 4,
+                displayColors: true,
+                boxPadding: 4
+              };
+
+              var baseScales = {
+                x: {
+                  grid: { display: false },
+                  border: { color: gridColor },
+                  ticks: { color: mutedFg, font: { size: 12 } }
+                },
+                y: {
+                  beginAtZero: true,
+                  grid: { color: gridColor },
+                  border: { display: false },
+                  ticks: { color: mutedFg, font: { size: 12 } }
+                }
+              };
+
+              // Chart 1: 应付趋势分析 — Area/Line chart
+              var trendCanvas = document.getElementById('apTrendChart');
+              if (trendCanvas && window.Chart) {
+                new Chart(trendCanvas, {
+                  type: 'line',
+                  data: {
+                    labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+                    datasets: [
+                      {
+                        label: '应付金额',
+                        data: [368000, 392000, 446000, 418000, 492000, 506000, 502680],
+                        borderColor: primary,
+                        backgroundColor: 'rgba(27,67,50,0.10)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointBackgroundColor: primary,
+                        pointBorderColor: cardBg,
+                        pointBorderWidth: 1.5,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                      },
+                      {
+                        label: '已付金额',
+                        data: [268000, 294000, 332000, 318000, 376000, 388000, 311420],
+                        borderColor: success,
+                        backgroundColor: 'rgba(45,125,95,0.08)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 2,
+                        pointBackgroundColor: success,
+                        pointBorderColor: cardBg,
+                        pointBorderWidth: 1.5,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                      }
+                    ]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                      legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: { color: foreground, font: { size: 12 }, boxWidth: 10, boxHeight: 10, padding: 12, usePointStyle: true, pointStyle: 'circle' }
+                      },
+                      tooltip: Object.assign({}, baseTooltip, {
+                        callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + fmtMoney(ctx.parsed.y); } }
+                      })
+                    },
+                    scales: {
+                      x: baseScales.x,
+                      y: Object.assign({}, baseScales.y, {
+                        ticks: Object.assign({}, baseScales.y.ticks, { callback: function (v) { return '¥' + (v / 10000).toFixed(0) + '万'; } })
+                      })
+                    }
+                  }
+                });
+              }
+
+              // Chart 2: 供应商应付分布 — Horizontal bar chart
+              var supplierCanvas = document.getElementById('apSupplierChart');
+              if (supplierCanvas && window.Chart) {
+                new Chart(supplierCanvas, {
+                  type: 'bar',
+                  data: {
+                    labels: ['马士基航运', '中远海运集运', '达飞轮船', '赫伯罗特', '东方海外', '阳明海运'],
+                    datasets: [{
+                      label: '应付金额',
+                      data: [686400, 542800, 438600, 372500, 318200, 286400],
+                      backgroundColor: primary,
+                      hoverBackgroundColor: primary400,
+                      borderRadius: 4,
+                      maxBarThickness: 26
+                    }]
+                  },
+                  options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { display: false },
+                      tooltip: Object.assign({}, baseTooltip, {
+                        displayColors: false,
+                        callbacks: { label: function (ctx) { return fmtMoney(ctx.parsed.x); } }
+                      })
+                    },
+                    scales: {
+                      x: {
+                        beginAtZero: true,
+                        grid: { color: gridColor },
+                        border: { display: false },
+                        ticks: { color: mutedFg, font: { size: 12 }, callback: function (v) { return '¥' + (v / 10000).toFixed(0) + '万'; } }
+                      },
+                      y: {
+                        grid: { display: false },
+                        border: { color: gridColor },
+                        ticks: { color: foreground, font: { size: 12 } }
+                      }
+                    }
+                  }
+                });
+              }
+
+              // Chart 3: 费用类型占比 — Doughnut chart
+              var expenseCanvas = document.getElementById('apExpenseTypeChart');
+              if (expenseCanvas && window.Chart) {
+                new Chart(expenseCanvas, {
+                  type: 'doughnut',
+                  data: {
+                    labels: ['海运费', '港杂费', '报关费', '仓储费', '配送费', '其他'],
+                    datasets: [{
+                      data: [1856400, 486200, 218600, 268400, 168800, 126280],
+                      backgroundColor: [primary, primary400, primary300, primary200, primary100, neutral400],
+                      borderColor: cardBg,
+                      borderWidth: 2,
+                      hoverOffset: 4
+                    }]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '62%',
+                    plugins: {
+                      legend: {
+                        position: 'right',
+                        labels: {
+                          color: foreground,
+                          font: { size: 12 },
+                          boxWidth: 10,
+                          boxHeight: 10,
+                          padding: 12,
+                          usePointStyle: true,
+                          pointStyle: 'circle'
+                        }
+                      },
+                      tooltip: Object.assign({}, baseTooltip, {
+                        callbacks: {
+                          label: function (ctx) {
+                            var total = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0);
+                            var pct = ((ctx.parsed / total) * 100).toFixed(1);
+                            return ctx.label + ': ' + fmtMoney(ctx.parsed) + ' (' + pct + '%)';
+                          }
+                        }
+                      })
+                    }
+                  }
+                });
+              }
+
+              // Chart 4: 应付账龄分析 — Stacked bar chart
+              var agingCanvas = document.getElementById('apAgingChart');
+              if (agingCanvas && window.Chart) {
+                new Chart(agingCanvas, {
+                  type: 'bar',
+                  data: {
+                    labels: ['0-30天', '31-60天', '61-90天', '90天以上'],
+                    datasets: [
+                      {
+                        label: '已付金额',
+                        data: [186400, 142800, 98600, 42800],
+                        backgroundColor: success,
+                        hoverBackgroundColor: success,
+                        borderRadius: 3,
+                        stack: 'aging'
+                      },
+                      {
+                        label: '未付金额',
+                        data: [248600, 186200, 156400, 246060],
+                        backgroundColor: [primary200, primary300, primary400, error],
+                        hoverBackgroundColor: [primary200, primary300, primary400, error],
+                        borderRadius: 3,
+                        stack: 'aging'
+                      }
+                    ]
+                  },
+                  options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                      legend: {
+                        position: 'top',
+                        align: 'end',
+                        labels: { color: foreground, font: { size: 12 }, boxWidth: 10, boxHeight: 10, padding: 12, usePointStyle: true, pointStyle: 'circle' }
+                      },
+                      tooltip: Object.assign({}, baseTooltip, {
+                        callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + fmtMoney(ctx.parsed.y); } }
+                      })
+                    },
+                    scales: {
+                      x: Object.assign({}, baseScales.x, { stacked: true }),
+                      y: Object.assign({}, baseScales.y, {
+                        stacked: true,
+                        ticks: Object.assign({}, baseScales.y.ticks, { callback: function (v) { return '¥' + (v / 10000).toFixed(0) + '万'; } })
+                      })
+                    }
+                  }
+                });
+              }
+            })();
+          </script>
+        </main>
+      </div>
+    </div>
+    <script>lucide.createIcons();</script>
+    <script id="nav-link-resolver">
+      (function(){
+        var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+        document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+          var href = a.getAttribute('href');
+          if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+            a.setAttribute('href', new URL(href, currentDir).href);
+          }
+        });
+      })();
+    </script>
+</body>
+</html>

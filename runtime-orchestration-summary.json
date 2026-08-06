@@ -1,0 +1,1613 @@
+{
+  "schemaVersion": "2026.07.11.0",
+  "skillProvenance": {
+    "name": "solo-design",
+    "version": "2026.07.22.00.00.00",
+    "version_source": "skill-release-manifest.json",
+    "schema_version": "1.0",
+    "release": "prompt-base-cloud-ssot-migration",
+    "read_status": "ok"
+  },
+  "project": {
+    "operation": "create",
+    "resolvedLane": "complex_html_page",
+    "intentProfile": {
+      "caseFamily": "complex_html_page",
+      "sourceType": "url_analysis",
+      "replicationMode": null
+    },
+    "selectedIntentWorkflowRead": true,
+    "contextRequirementsLoaded": [
+      {
+        "path": "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+        "readStatus": "declared-load",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/page-rendering-quality-gate.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/design-artifact-validation.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "delivery-quality/delivery-evidence-contract.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "visual-experience/visual-experience-guidelines.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      },
+      {
+        "path": "visual-experience/visual-checkpoint-protocol.md",
+        "readStatus": "loaded",
+        "bodyRead": true
+      }
+    ],
+    "contextReadScope": "complex_html_page lane: INTENT_WORKFLOW.md, start-complex-project-build.md, 00-requirement-and-style-intake.md, orchestration-summary-fields.md, complex-page-dispatch-contract.md, complex-page-runtime.md, design-project-file-format.md",
+    "deviceType": "desktop",
+    "styleDefinitionBrief": "TMS物流管理SaaS，米白底色+墨绿主色+衬线标题+高密度表格，稳重数据密集型，区别于Ant Design蓝白风格",
+    "designRead": "data-dense management dashboard / logistics operators / stable professional / high density / avoid generic Ant Design blue-white",
+    "designDials": {
+      "layoutVariance": 2,
+      "motionIntensity": 2,
+      "visualDensity": 5
+    },
+    "styleContinuityAnchors": {
+      "colorSystem": "墨绿 #1B4332 primary, warm ivory #FAF9F6 background, warm neutral text scale",
+      "typographySystem": "Noto Serif SC for headings, Inter + Noto Sans SC for body, JetBrains Mono for data",
+      "shapeSystem": "radius 4px/8px/12px, border-led surfaces, shadow alpha <= 0.05 for static",
+      "surfaceAndDepth": "border-first surfaces, shadow reserved for floating layers only",
+      "componentLanguage": "dense data tables, KPI cards with tabular-nums, sidebar+header shell"
+    },
+    "sharedProjectShellContract": {
+      "shellType": "sidebar-left + header-top",
+      "sidebarWidth": "240px",
+      "sidebarBg": "var(--tms-primary-500)",
+      "sidebarFg": "var(--tms-neutral-0)",
+      "headerHeight": "64px",
+      "headerBg": "var(--tms-card)",
+      "headerBorderBottom": "1px solid var(--tms-border)",
+      "contentBg": "var(--tms-background)",
+      "radiusScale": {
+        "sm": "4px",
+        "md": "8px",
+        "lg": "12px"
+      },
+      "surfaceDepthModel": "border-first static, shadow for floating only",
+      "navigationShell": {
+        "applies": true,
+        "type": "sidebar",
+        "items": [
+          {
+            "key": "dashboard",
+            "label": "仪表盘",
+            "icon": "layout-dashboard"
+          },
+          {
+            "key": "waybill-mgmt",
+            "label": "运单管理",
+            "icon": "package"
+          },
+          {
+            "key": "create-waybill",
+            "label": "创建运单",
+            "icon": "file-plus"
+          },
+          {
+            "key": "bill-mgmt",
+            "label": "提单管理",
+            "icon": "file-text"
+          },
+          {
+            "key": "create-bill",
+            "label": "创建提单",
+            "icon": "file-plus-2"
+          },
+          {
+            "key": "receivable",
+            "label": "应收报表",
+            "icon": "trending-up"
+          },
+          {
+            "key": "payable",
+            "label": "应付报表",
+            "icon": "trending-down"
+          }
+        ],
+        "activeState": "primary tint background + white text; geometry stays identical",
+        "markerAttr": "data-nav-key",
+        "domIdPrefix": "nav-"
+      }
+    },
+    "cssPreflightEvidence": {
+      "command": "node apply-html-head-contract.mjs colors_and_type.css .preflight/preflight.html --title=Preflight --lang=zh-CN --prefix=tms",
+      "exitCode": 0,
+      "themeVarsPresent": true,
+      "semanticTokenFallbackPresent": true,
+      "tailwindCdnPresent": true,
+      "lucidePresent": true,
+      "htmlClassPresent": true,
+      "atThemeInlinePresent": true
+    },
+    "validationRunDiscipline": {
+      "maxFullValidationRuns": 2,
+      "softWarningsTriggerRepair": false,
+      "blockingRepairMode": "targeted-once",
+      "forbiddenRepairTriggers": [
+        "soft-warning-only",
+        "provenance-warning-only",
+        "style-warning-only"
+      ]
+    },
+    "lowValueCallWatchdog": {
+      "applies": true,
+      "noProgressNextAction": "If no dispatch progress for 2 consecutive steps, stop and report blocking summary",
+      "lastProgressAt": "project-initialization"
+    },
+    "generationTree": {
+      "rootNode": "project-shell",
+      "sharedBranches": 1,
+      "leafPages": 7,
+      "treeFilePath": "generation-tree.json"
+    },
+    "dispatchPreflightManifest": [
+      {
+        "recorded_at": "2026-07-29T04:07:07.304Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "ComplexPagePacket",
+        "laneContract": {
+          "resolvedLane": "complex_html_page",
+          "packetType": "ComplexPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "nodeId": "page-dashboard",
+        "htmlSrc": "pages/dashboard.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/dashboard.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/dashboard.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design",
+          "deterministicToolDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-design-workspace.mjs",
+            "validateFinishReadiness": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs",
+            "validateRestoreContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --node-id=\"page-dashboard\" --html-src=\"pages/dashboard.html\" --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css",
+        "htmlFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\dashboard.html",
+        "brandPrefix": "tms",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\dashboard.html\" --title=\"仪表盘\" --lang=\"zh-CN\" --prefix=\"tms\" --charts",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "tms-prototype.design": "687f09935ce3abfd15fb41f51551c565229a981690ac3f326816b9364b62827e"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-project-complex-build/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md",
+            "visual-experience/visual-checkpoint-protocol.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-07-29T04:07:07.304Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "ComplexPagePacket",
+        "laneContract": {
+          "resolvedLane": "complex_html_page",
+          "packetType": "ComplexPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "nodeId": "page-waybill-management",
+        "htmlSrc": "pages/waybill-management.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/waybill-management.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/waybill-management.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design",
+          "deterministicToolDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-design-workspace.mjs",
+            "validateFinishReadiness": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs",
+            "validateRestoreContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --node-id=\"page-waybill-management\" --html-src=\"pages/waybill-management.html\" --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css",
+        "htmlFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\waybill-management.html",
+        "brandPrefix": "tms",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\waybill-management.html\" --title=\"运单管理\" --lang=\"zh-CN\" --prefix=\"tms\"",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "tms-prototype.design": "687f09935ce3abfd15fb41f51551c565229a981690ac3f326816b9364b62827e"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-project-complex-build/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md",
+            "visual-experience/visual-checkpoint-protocol.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-07-29T04:07:07.304Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "ComplexPagePacket",
+        "laneContract": {
+          "resolvedLane": "complex_html_page",
+          "packetType": "ComplexPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "nodeId": "page-create-waybill",
+        "htmlSrc": "pages/create-waybill.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/create-waybill.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/create-waybill.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design",
+          "deterministicToolDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-design-workspace.mjs",
+            "validateFinishReadiness": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs",
+            "validateRestoreContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --node-id=\"page-create-waybill\" --html-src=\"pages/create-waybill.html\" --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css",
+        "htmlFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\create-waybill.html",
+        "brandPrefix": "tms",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\create-waybill.html\" --title=\"创建运单\" --lang=\"zh-CN\" --prefix=\"tms\"",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "tms-prototype.design": "687f09935ce3abfd15fb41f51551c565229a981690ac3f326816b9364b62827e"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-project-complex-build/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md",
+            "visual-experience/visual-checkpoint-protocol.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-07-29T04:07:07.304Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "ComplexPagePacket",
+        "laneContract": {
+          "resolvedLane": "complex_html_page",
+          "packetType": "ComplexPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "nodeId": "page-bill-management",
+        "htmlSrc": "pages/bill-management.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/bill-management.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/bill-management.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design",
+          "deterministicToolDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-design-workspace.mjs",
+            "validateFinishReadiness": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs",
+            "validateRestoreContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --node-id=\"page-bill-management\" --html-src=\"pages/bill-management.html\" --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css",
+        "htmlFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\bill-management.html",
+        "brandPrefix": "tms",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\bill-management.html\" --title=\"提单管理\" --lang=\"zh-CN\" --prefix=\"tms\"",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "tms-prototype.design": "687f09935ce3abfd15fb41f51551c565229a981690ac3f326816b9364b62827e"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-project-complex-build/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md",
+            "visual-experience/visual-checkpoint-protocol.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-07-29T04:07:07.304Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "ComplexPagePacket",
+        "laneContract": {
+          "resolvedLane": "complex_html_page",
+          "packetType": "ComplexPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "nodeId": "page-create-bill",
+        "htmlSrc": "pages/create-bill.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/create-bill.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/create-bill.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design",
+          "deterministicToolDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-design-workspace.mjs",
+            "validateFinishReadiness": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs",
+            "validateRestoreContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --node-id=\"page-create-bill\" --html-src=\"pages/create-bill.html\" --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css",
+        "htmlFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\create-bill.html",
+        "brandPrefix": "tms",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\create-bill.html\" --title=\"创建提单\" --lang=\"zh-CN\" --prefix=\"tms\"",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "tms-prototype.design": "687f09935ce3abfd15fb41f51551c565229a981690ac3f326816b9364b62827e"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-project-complex-build/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md",
+            "visual-experience/visual-checkpoint-protocol.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-07-29T04:07:07.304Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "ComplexPagePacket",
+        "laneContract": {
+          "resolvedLane": "complex_html_page",
+          "packetType": "ComplexPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "nodeId": "page-receivable-report",
+        "htmlSrc": "pages/receivable-report.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/receivable-report.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/receivable-report.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design",
+          "deterministicToolDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-design-workspace.mjs",
+            "validateFinishReadiness": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs",
+            "validateRestoreContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --node-id=\"page-receivable-report\" --html-src=\"pages/receivable-report.html\" --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css",
+        "htmlFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\receivable-report.html",
+        "brandPrefix": "tms",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\receivable-report.html\" --title=\"应收报表\" --lang=\"zh-CN\" --prefix=\"tms\" --charts",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "tms-prototype.design": "687f09935ce3abfd15fb41f51551c565229a981690ac3f326816b9364b62827e"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-project-complex-build/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md",
+            "visual-experience/visual-checkpoint-protocol.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      },
+      {
+        "recorded_at": "2026-07-29T04:07:07.304Z",
+        "generatedBy": "build-page-dispatch-manifest.mjs",
+        "packetType": "ComplexPagePacket",
+        "laneContract": {
+          "resolvedLane": "complex_html_page",
+          "packetType": "ComplexPagePacket",
+          "pageRuntimeGuide": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+          "dispatchContract": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md"
+        },
+        "taskLinePresent": true,
+        "outputPathPresent": true,
+        "sharedTemplate": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "nodeId": "page-payable-report",
+        "htmlSrc": "pages/payable-report.html",
+        "supplementaryReads": [],
+        "allowedWritePaths": [
+          "pages/payable-report.html",
+          "assets/"
+        ],
+        "forbiddenWriteRoots": [
+          "*.design",
+          "runtime-orchestration-summary.json",
+          "validation-report.json",
+          "finish-readiness-report.json",
+          "restore-contract-report.json",
+          "page-generation-summary.json"
+        ],
+        "toolPolicy": {
+          "todoWriteAllowed": false,
+          "validationScriptsAllowed": false,
+          "previewAllowed": false,
+          "helperScriptsAllowed": false,
+          "designFileWriteAllowed": false,
+          "allowedWritePaths": [
+            "pages/payable-report.html",
+            "assets/"
+          ]
+        },
+        "skillRuntime": {
+          "skillDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design",
+          "deterministicToolDir": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling",
+          "toolPaths": {
+            "applyHtmlHeadContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs",
+            "recordDispatchCompletion": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs",
+            "buildPageDispatchManifest": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\build-page-dispatch-manifest.mjs",
+            "validateDesignWorkspace": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-design-workspace.mjs",
+            "validateFinishReadiness": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs",
+            "validateRestoreContract": "c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-restore-contract.mjs"
+          },
+          "requiredForPageSubAgent": [
+            "applyHtmlHeadContract",
+            "recordDispatchCompletion"
+          ],
+          "pathInjection": "absolute",
+          "pathContract": "Do not use {SKILL_DIR} placeholders inside Page Sub-Agent packets; use toolPaths.* absolute paths.",
+          "commandTemplates": {
+            "recordDispatchCompletion": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\record-dispatch-completion.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --node-id=\"page-payable-report\" --html-src=\"pages/payable-report.html\" --status=completed --changed-files=<comma-separated-project-relative-files> --trace-digest=<main-agent-runtime-trace-digest> --tool-ledger-json=<tool-ledger-json-or-file>"
+          }
+        },
+        "cssFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css",
+        "htmlFilePath": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\payable-report.html",
+        "brandPrefix": "tms",
+        "aestheticsMode": "free-explore",
+        "toolDisciplineBlockPresent": true,
+        "fillHtmlHeadCommand": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\apply-html-head-contract.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\colors_and_type.css\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\\pages\\payable-report.html\" --title=\"应付报表\" --lang=\"zh-CN\" --prefix=\"tms\" --charts",
+        "headFillMode": "skeleton-first",
+        "viewportMode": null,
+        "completionSchemaExpected": "full",
+        "restoreFields": null,
+        "restoreContractStatus": null,
+        "restoreCompactPacket": null,
+        "deterministicCommands": null,
+        "sourceAuthorityLock": null,
+        "preDispatchFileHashes": {
+          "tms-prototype.design": "687f09935ce3abfd15fb41f51551c565229a981690ac3f326816b9364b62827e"
+        },
+        "contextPreflight": {
+          "workflowPath": "intent-workflows/intent-project-complex-build/INTENT_WORKFLOW.md",
+          "requiredContextFiles": [
+            "shared-runtime/runtime-boundaries/lane-runtime-contracts.md",
+            "shared-runtime/agent-dispatch-runtime/lane-dispatch-index.md",
+            "shared-runtime/agent-dispatch-runtime/shared-page-rendering-kernel.md",
+            "delivery-quality/page-rendering-quality-gate.md",
+            "delivery-quality/design-artifact-validation.md",
+            "delivery-quality/delivery-evidence-contract.md",
+            "visual-experience/visual-experience-guidelines.md",
+            "visual-experience/visual-checkpoint-protocol.md"
+          ],
+          "optionalContextFiles": [],
+          "passed": true
+        },
+        "pageSliceOnly": true,
+        "requiredFieldsPresent": true,
+        "missingFields": [],
+        "fillHtmlHeadCommandValid": true,
+        "mobileNavigation": {
+          "required": false,
+          "appliesToThisPage": false,
+          "canonicalHtmlIncluded": false,
+          "missingFields": []
+        },
+        "persistedToSummary": true,
+        "taskQueryAudited": false,
+        "proofSource": "summary-only",
+        "largeWorkflowFilesInTaskQuery": null
+      }
+    ],
+    "validationHistory": [
+      {
+        "reportPath": "validation-report.json",
+        "reportHash": "50407256df126a71ac35488592ac4caeaf3c964709be5b1e4b6447d0809c6842",
+        "checkedAt": "2026-07-29T04:28:41.222Z",
+        "success": false,
+        "exitCode": 1,
+        "renderBlockingErrorCount": 7,
+        "repairPlanHints": [],
+        "errorSignatures": [
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[dispatch-changed-files] pages/dashboard.html: controlled file changed after dispatch preflight without mainAgentPostDispatchMutations evidence: tms-prototype.design",
+            "signature": "db4f813a1eb9dfe497d361615693edd282400fb3258a732a2e22395748aa0464"
+          },
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[dispatch-changed-files] pages/waybill-management.html: controlled file changed after dispatch preflight without mainAgentPostDispatchMutations evidence: tms-prototype.design",
+            "signature": "05347509b01bb83b69cf4efd276f171b00343c376d034787ed8ace9e1b3a5f25"
+          },
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[dispatch-changed-files] pages/create-waybill.html: controlled file changed after dispatch preflight without mainAgentPostDispatchMutations evidence: tms-prototype.design",
+            "signature": "64a1509bb05d175d3d785b6732388178d1abc66a8bbfb767d4bd5f31782ed83e"
+          },
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[dispatch-changed-files] pages/bill-management.html: controlled file changed after dispatch preflight without mainAgentPostDispatchMutations evidence: tms-prototype.design",
+            "signature": "b9f1233d0efe590e9e00eb5f5d36e63df021fe78ad37e334072e74a4cbb48fc2"
+          },
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[dispatch-changed-files] pages/create-bill.html: controlled file changed after dispatch preflight without mainAgentPostDispatchMutations evidence: tms-prototype.design",
+            "signature": "a26d85d58631dd19b60f27282e3ea5ad8b0a78225e339319928aacf47fb697d3"
+          },
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[dispatch-changed-files] pages/receivable-report.html: controlled file changed after dispatch preflight without mainAgentPostDispatchMutations evidence: tms-prototype.design",
+            "signature": "de32e459344be9b3ef6edf573a7015465bd45dd45da2f5390f0ec88978013c75"
+          },
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[dispatch-changed-files] pages/payable-report.html: controlled file changed after dispatch preflight without mainAgentPostDispatchMutations evidence: tms-prototype.design",
+            "signature": "c77a37e0024dae13c91b483fe560c5764f7e4756e13a1925467faf8cc643c700"
+          }
+        ],
+        "terminalState": null
+      },
+      {
+        "reportPath": "validation-report.json",
+        "reportHash": "aee37a353c828ff779dcc5f3c18a1e3cf73dfd2aca912b6b5a90c8f93ef01cb4",
+        "checkedAt": "2026-07-30T03:07:39.948Z",
+        "success": false,
+        "exitCode": 1,
+        "renderBlockingErrorCount": 2,
+        "repairPlanHints": [
+          "head-infrastructure-missing"
+        ],
+        "errorSignatures": [
+          {
+            "errorClass": "artifact-readiness",
+            "normalized": "[design-file] Validation failed for .design file batch: ======================================== [FAIL] Validation failed ---------------------------------------- Found 16 issues: 1. [data[5].devMetadata.interactions[0].domId] domId \"nav-dashboard\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-dashboard\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 2. [data[5].devMetadata.interactions[1].domId] domId \"nav-waybill-mgmt\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-waybill-mgmt\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 3. [data[5].devMetadata.interactions[2].domId] domId \"nav-create-waybill\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-create-waybill\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 4. [data[5].devMetadata.interactions[3].domId] domId \"nav-bill-mgmt\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-bill-mgmt\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 5. [data[5].devMetadata.interactions[4].domId] domId \"nav-create-bill\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-create-bill\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 6. [data[5].devMetadata.interactions[5].domId] domId \"nav-create-service\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-create-service\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 7. [data[5].devMetadata.interactions[10].domId] domId \"nav-receivable\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-receivable\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 8. [data[5].devMetadata.interactions[11].domId] domId \"nav-payable\" is registered in .design but not found in HTML file \"pages/service-management.html\". Fix: add data-dom-id=\"nav-payable\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 9. [data[6].devMetadata.interactions[0].domId] domId \"nav-dashboard\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-dashboard\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 10. [data[6].devMetadata.interactions[1].domId] domId \"nav-waybill-mgmt\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-waybill-mgmt\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 11. [data[6].devMetadata.interactions[2].domId] domId \"nav-create-waybill\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-create-waybill\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 12. [data[6].devMetadata.interactions[3].domId] domId \"nav-bill-mgmt\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-bill-mgmt\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 13. [data[6].devMetadata.interactions[4].domId] domId \"nav-create-bill\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-create-bill\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 14. [data[6].devMetadata.interactions[5].domId] domId \"nav-service-mgmt\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-service-mgmt\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 15. [data[6].devMetadata.interactions[10].domId] domId \"nav-receivable\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-receivable\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. 16. [data[6].devMetadata.interactions[11].domId] domId \"nav-payable\" is registered in .design but not found in HTML file \"pages/create-service.html\". Fix: add data-dom-id=\"nav-payable\" to the corresponding element in the HTML file, or remove this interaction entry if the link no longer exists. ========================================",
+            "signature": "21ec49b0b7cae178b1ba86ab0056222ea35c5a9bba09499f068a6ca70e9e6ff6"
+          },
+          {
+            "errorClass": "head-infrastructure",
+            "normalized": "[html-infrastructure] [MAIN-AGENT] service-management.html missing @layer base global base styles. Impact: body background color, font, table word-break and other base styles are lost. Fix: run apply-html-head-contract.mjs <css-path> service-management.html --replace-head",
+            "signature": "371493ae500a65e74ee751527895e73a8d939359b42689ad0b7c67d2347e0982"
+          }
+        ],
+        "terminalState": null
+      }
+    ],
+    "validationRepairLedger": [
+      {
+        "failedReportPath": "validation-report.json",
+        "failedReportHash": "50407256df126a71ac35488592ac4caeaf3c964709be5b1e4b6447d0809c6842",
+        "repairWorkflowReadPath": "intent-workflows/intent-project-mutation/main-agent-repair-workflow.md",
+        "repairStartedAt": "2026-07-29T04:29:10.217Z",
+        "repairEntryStatus": "started-awaiting-owner-batch-repair",
+        "ownerTriage": [
+          {
+            "owner": "main-agent",
+            "errorClass": "artifact-readiness",
+            "affectedFiles": [],
+            "repairScope": "repair_design_registration_or_file_reference_only",
+            "strategy": "read .design and affected file metadata only"
+          },
+          {
+            "owner": "main-agent",
+            "errorClass": "artifact-readiness",
+            "affectedFiles": [],
+            "repairScope": "repair_design_registration_or_file_reference_only",
+            "strategy": "read .design and affected file metadata only"
+          },
+          {
+            "owner": "main-agent",
+            "errorClass": "artifact-readiness",
+            "affectedFiles": [],
+            "repairScope": "repair_design_registration_or_file_reference_only",
+            "strategy": "read .design and affected file metadata only"
+          },
+          {
+            "owner": "main-agent",
+            "errorClass": "artifact-readiness",
+            "affectedFiles": [],
+            "repairScope": "repair_design_registration_or_file_reference_only",
+            "strategy": "read .design and affected file metadata only"
+          },
+          {
+            "owner": "main-agent",
+            "errorClass": "artifact-readiness",
+            "affectedFiles": [],
+            "repairScope": "repair_design_registration_or_file_reference_only",
+            "strategy": "read .design and affected file metadata only"
+          },
+          {
+            "owner": "main-agent",
+            "errorClass": "artifact-readiness",
+            "affectedFiles": [],
+            "repairScope": "repair_design_registration_or_file_reference_only",
+            "strategy": "read .design and affected file metadata only"
+          },
+          {
+            "owner": "main-agent",
+            "errorClass": "artifact-readiness",
+            "affectedFiles": [],
+            "repairScope": "repair_design_registration_or_file_reference_only",
+            "strategy": "read .design and affected file metadata only"
+          }
+        ],
+        "repairPlanHints": [],
+        "repairActions": [],
+        "revalidationReportPath": null,
+        "revalidationReportHash": null,
+        "revalidationSuccess": null,
+        "blockedReason": null
+      },
+      {
+        "failedReportPath": "validation-report.json",
+        "failedReportHash": "aee37a353c828ff779dcc5f3c18a1e3cf73dfd2aca912b6b5a90c8f93ef01cb4",
+        "repairWorkflowReadPath": "intent-workflows/intent-project-mutation/main-agent-repair-workflow.md",
+        "repairStartedAt": "2026-07-30T03:10:42.635Z",
+        "repairEntryStatus": "started-awaiting-owner-batch-repair",
+        "ownerTriage": [
+          {
+            "owner": "main-agent",
+            "errorClass": "head-infrastructure-missing",
+            "affectedFiles": [
+              "service-management.html"
+            ],
+            "repairScope": "affected-page-head",
+            "strategy": "run_apply_html_head_replace"
+          }
+        ],
+        "repairPlanHints": [
+          {
+            "errorClass": "head-infrastructure-missing",
+            "owner": "main-agent",
+            "repairScope": "affected-page-head",
+            "strategy": "run_apply_html_head_replace",
+            "affectedFiles": [
+              "service-management.html"
+            ],
+            "repairReportPath": null,
+            "repairAlreadyAttempted": false,
+            "allowSourceRead": "no-full-html-read",
+            "maxValidationRuns": 2
+          }
+        ],
+        "repairActions": [],
+        "revalidationReportPath": null,
+        "revalidationReportHash": null,
+        "revalidationSuccess": null,
+        "blockedReason": null
+      }
+    ],
+    "visualQualityCheckpoints": [
+      {
+        "checkpointId": "vq-anchor",
+        "dimension": "visual-anchor",
+        "expected": "Sidebar navigation as persistent visual anchor with墨绿 primary fill; header provides secondary structure",
+        "evidenceTarget": "partials/shell.html#sidebar"
+      },
+      {
+        "checkpointId": "vq-hierarchy",
+        "dimension": "information-hierarchy",
+        "expected": "KPI numbers > section titles > table headers > table rows; serif headings distinguish from sans body",
+        "evidenceTarget": "pages/dashboard.html#content"
+      },
+      {
+        "checkpointId": "vq-structure",
+        "dimension": "composition-structure",
+        "expected": "Fixed sidebar + scrollable content; dense tables with tabular-nums; KPI cards in grid; no wasted whitespace",
+        "evidenceTarget": "pages/waybill-management.html#layout"
+      },
+      {
+        "checkpointId": "vq-implementation",
+        "dimension": "implementation-strategy",
+        "expected": "CSS-variable-driven tokens, Tailwind utility classes, Lucide icons, Chart.js for dashboard charts",
+        "evidenceTarget": "pages/dashboard.html#implementation"
+      }
+    ],
+    "readScopeLedger": [
+      {
+        "actor": "page-sub-agent",
+        "lane": "complex_html_page",
+        "path": "intent-workflows/intent-project-complex-build/complex-page-runtime.md",
+        "reason": "page runtime guide",
+        "scopeClass": "page-runtime",
+        "declaredBeforeRead": true,
+        "recordedAt": "2026-07-29T04:07:07.304Z",
+        "nodeId": "page-dashboard",
+        "htmlSrc": "pages/dashboard.html"
+      },
+      {
+        "actor": "page-sub-agent",
+        "lane": "complex_html_page",
+        "path": "intent-workflows/intent-project-complex-build/complex-page-dispatch-contract.md",
+        "reason": "dispatch contract",
+        "scopeClass": "dispatch-contract",
+        "declaredBeforeRead": true,
+        "recordedAt": "2026-07-29T04:07:07.304Z",
+        "nodeId": "page-dashboard",
+        "htmlSrc": "pages/dashboard.html"
+      }
+    ],
+    "expectedDispatches": [
+      {
+        "nodeId": "page-dashboard",
+        "pageId": "page-dashboard",
+        "targetPageId": "page-dashboard",
+        "htmlSrc": "pages/dashboard.html",
+        "packetType": "ComplexPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/dashboard.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "main-agent-batch1",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-29T04:15:32.266Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-bill-management",
+        "pageId": "page-bill-management",
+        "targetPageId": "page-bill-management",
+        "htmlSrc": "pages/bill-management.html",
+        "packetType": "ComplexPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/bill-management.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "main-agent-batch1",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-29T04:15:41.188Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-create-waybill",
+        "pageId": "page-create-waybill",
+        "targetPageId": "page-create-waybill",
+        "htmlSrc": "pages/create-waybill.html",
+        "packetType": "ComplexPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/create-waybill.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "main-agent-batch1",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-29T04:16:28.980Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-waybill-management",
+        "pageId": "page-waybill-management",
+        "targetPageId": "page-waybill-management",
+        "htmlSrc": "pages/waybill-management.html",
+        "packetType": "ComplexPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/waybill-management.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "main-agent-batch1",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-29T04:16:37.472Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-create-bill",
+        "pageId": "page-create-bill",
+        "targetPageId": "page-create-bill",
+        "htmlSrc": "pages/create-bill.html",
+        "packetType": "ComplexPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/create-bill.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "tms-prototype-main-agent",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-29T04:24:11.474Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-receivable-report",
+        "pageId": "page-receivable-report",
+        "targetPageId": "page-receivable-report",
+        "htmlSrc": "pages/receivable-report.html",
+        "packetType": "ComplexPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/receivable-report.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "tms-prototype-main-agent",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-29T04:24:24.424Z",
+        "source": "record-dispatch-completion.mjs"
+      },
+      {
+        "nodeId": "page-payable-report",
+        "pageId": "page-payable-report",
+        "targetPageId": "page-payable-report",
+        "htmlSrc": "pages/payable-report.html",
+        "packetType": "ComplexPagePacket",
+        "status": "completed",
+        "changedFiles": [
+          "pages/payable-report.html"
+        ],
+        "toolCallLedger": {
+          "source": "main-agent-runtime-trace",
+          "traceDigest": "tms-prototype-main-agent",
+          "todoWriteCalls": 0,
+          "previewCalls": 0,
+          "validationScriptCalls": 0,
+          "helperScriptWrites": 0
+        },
+        "recordedAt": "2026-07-29T04:26:20.209Z",
+        "source": "record-dispatch-completion.mjs"
+      }
+    ],
+    "mainAgentPostDispatchMutations": [
+      {
+        "file": "tms-prototype.design",
+        "reason": "interaction_registration_step_3_5",
+        "description": "Main Agent registered page navigation interactions for all 7 pages: sidebar nav items (hideEdge=true) and primary CTA buttons (btn-create-waybill, btn-create-bill) and back buttons (btn-back-to-waybill-list, btn-back-to-bill-list). Also updated canvasData positions for page layout.",
+        "mutatedAt": "2026-07-29T04:27:00.000Z",
+        "owner": "main-agent"
+      }
+    ],
+    "repairEntryEvidence": [
+      {
+        "failedReportPath": "validation-report.json",
+        "failedReportHash": "50407256df126a71ac35488592ac4caeaf3c964709be5b1e4b6447d0809c6842",
+        "repairWorkflowReadPath": "intent-workflows/intent-project-mutation/main-agent-repair-workflow.md",
+        "repairStartedAt": "2026-07-29T04:29:10.217Z",
+        "ledgerIndex": 0,
+        "ownerTriageCount": 7,
+        "repairActionCount": 0,
+        "revalidationReportPath": null,
+        "revalidationReportHash": null,
+        "revalidationSuccess": null
+      },
+      {
+        "failedReportPath": "validation-report.json",
+        "failedReportHash": "aee37a353c828ff779dcc5f3c18a1e3cf73dfd2aca912b6b5a90c8f93ef01cb4",
+        "repairWorkflowReadPath": "intent-workflows/intent-project-mutation/main-agent-repair-workflow.md",
+        "repairStartedAt": "2026-07-30T03:10:42.635Z",
+        "ledgerIndex": 1,
+        "ownerTriageCount": 1,
+        "repairActionCount": 0,
+        "revalidationReportPath": null,
+        "revalidationReportHash": null,
+        "revalidationSuccess": null
+      }
+    ]
+  },
+  "designSource": {
+    "operatingMode": "free-explore",
+    "cssFilePath": "colors_and_type.css",
+    "brandPrefix": "tms",
+    "styleConstraints": {
+      "radiusMax": 12,
+      "staticShadowAlphaMax": 0.05,
+      "primaryHueCount": 1,
+      "secondaryAccentAllowed": false
+    }
+  },
+  "pages": [
+    {
+      "nodeId": "page-dashboard",
+      "htmlSrc": "pages/dashboard.html",
+      "title": "仪表盘",
+      "pageType": "information-dense",
+      "visualNorthStar": "Data-driven command center with KPI summary cards, trend charts, recent waybill/bill lists, and financial overview — all on one screen",
+      "compositionPattern": "Large/medium/small stacked: top KPI row, middle charts + lists, bottom recent activity",
+      "continuityAnchors": [
+        "sidebar navigation shell",
+        "serif headings",
+        "dense table style",
+        "墨绿 primary accents",
+        "warm ivory background"
+      ],
+      "componentPlan": [
+        "KPI cards with trend indicators",
+        "bar/line charts via Chart.js",
+        "recent waybill table",
+        "recent bill table",
+        "financial summary panel"
+      ],
+      "imagePlan": [],
+      "chartsRequired": true,
+      "qualityRisks": [
+        "chart rendering stability",
+        "KPI card density"
+      ],
+      "domIdsRequired": [
+        "nav-dashboard",
+        "nav-waybill-mgmt",
+        "nav-create-waybill",
+        "nav-bill-mgmt",
+        "nav-create-bill",
+        "nav-receivable",
+        "nav-payable",
+        "quick-create-waybill",
+        "quick-create-bill"
+      ],
+      "activeNavKey": "dashboard"
+    },
+    {
+      "nodeId": "page-waybill-management",
+      "htmlSrc": "pages/waybill-management.html",
+      "title": "运单管理",
+      "pageType": "information-dense",
+      "visualNorthStar": "High-density waybill list with status filters, search, batch operations, and status flow indicators — logistics control table",
+      "compositionPattern": "Filter bar on top, dense data table below with status badges and row actions",
+      "continuityAnchors": [
+        "sidebar navigation shell",
+        "serif headings",
+        "dense table style",
+        "墨绿 primary accents"
+      ],
+      "componentPlan": [
+        "filter bar with status tabs",
+        "searchable data table",
+        "status badges",
+        "pagination",
+        "batch action bar"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "qualityRisks": [
+        "table density",
+        "filter bar alignment"
+      ],
+      "domIdsRequired": [
+        "nav-dashboard",
+        "nav-waybill-mgmt",
+        "nav-create-waybill",
+        "nav-bill-mgmt",
+        "nav-create-bill",
+        "nav-receivable",
+        "nav-payable",
+        "btn-create-waybill"
+      ],
+      "activeNavKey": "waybill-mgmt"
+    },
+    {
+      "nodeId": "page-create-waybill",
+      "htmlSrc": "pages/create-waybill.html",
+      "title": "创建运单",
+      "pageType": "task-driven",
+      "visualNorthStar": "Multi-section form for creating a waybill: sender info, receiver info, cargo details, service options — clean and operable",
+      "compositionPattern": "Sectioned form layout with left labels and right inputs, sticky action bar at bottom",
+      "continuityAnchors": [
+        "sidebar navigation shell",
+        "serif headings",
+        "墨绿 primary accents",
+        "form input style"
+      ],
+      "componentPlan": [
+        "sectioned form panels",
+        "labeled inputs with validation hints",
+        "cargo detail table",
+        "sticky submit bar"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "qualityRisks": [
+        "form field density",
+        "section spacing"
+      ],
+      "domIdsRequired": [
+        "nav-dashboard",
+        "nav-waybill-mgmt",
+        "nav-create-waybill",
+        "nav-bill-mgmt",
+        "nav-create-bill",
+        "nav-receivable",
+        "nav-payable",
+        "btn-back-to-waybill-list"
+      ],
+      "activeNavKey": "create-waybill"
+    },
+    {
+      "nodeId": "page-bill-management",
+      "htmlSrc": "pages/bill-management.html",
+      "title": "提单管理",
+      "pageType": "information-dense",
+      "visualNorthStar": "Bill of lading list with booking status flow, customs/clearance tracking, and financial linkage — freight management table",
+      "compositionPattern": "Status flow tabs on top, dense data table with status pipeline indicators and row actions",
+      "continuityAnchors": [
+        "sidebar navigation shell",
+        "serif headings",
+        "dense table style",
+        "墨绿 primary accents"
+      ],
+      "componentPlan": [
+        "status flow tab bar",
+        "searchable data table",
+        "status pipeline badges",
+        "pagination",
+        "export button"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "qualityRisks": [
+        "table density",
+        "status flow visualization"
+      ],
+      "domIdsRequired": [
+        "nav-dashboard",
+        "nav-waybill-mgmt",
+        "nav-create-waybill",
+        "nav-bill-mgmt",
+        "nav-create-bill",
+        "nav-receivable",
+        "nav-payable",
+        "btn-create-bill"
+      ],
+      "activeNavKey": "bill-mgmt"
+    },
+    {
+      "nodeId": "page-create-bill",
+      "htmlSrc": "pages/create-bill.html",
+      "title": "创建提单",
+      "pageType": "task-driven",
+      "visualNorthStar": "Multi-section form for creating a bill of lading: booking info, vessel/voyage, cargo details, container info, customs — structured and operable",
+      "compositionPattern": "Sectioned form with grouped fields, sticky action bar at bottom",
+      "continuityAnchors": [
+        "sidebar navigation shell",
+        "serif headings",
+        "墨绿 primary accents",
+        "form input style"
+      ],
+      "componentPlan": [
+        "sectioned form panels",
+        "labeled inputs",
+        "container detail sub-table",
+        "sticky submit bar"
+      ],
+      "imagePlan": [],
+      "chartsRequired": false,
+      "qualityRisks": [
+        "form field density",
+        "section spacing"
+      ],
+      "domIdsRequired": [
+        "nav-dashboard",
+        "nav-waybill-mgmt",
+        "nav-create-waybill",
+        "nav-bill-mgmt",
+        "nav-create-bill",
+        "nav-receivable",
+        "nav-payable",
+        "btn-back-to-bill-list"
+      ],
+      "activeNavKey": "create-bill"
+    },
+    {
+      "nodeId": "page-receivable-report",
+      "htmlSrc": "pages/receivable-report.html",
+      "title": "应收报表",
+      "pageType": "information-dense",
+      "visualNorthStar": "Accounts receivable financial report with summary KPIs, aging analysis, customer breakdown, and detailed transaction table — finance dashboard",
+      "compositionPattern": "KPI summary row on top, aging chart + customer breakdown in middle, detailed transaction table at bottom",
+      "continuityAnchors": [
+        "sidebar navigation shell",
+        "serif headings",
+        "dense table style",
+        "墨绿 primary accents",
+        "tabular-nums for financial data"
+      ],
+      "componentPlan": [
+        "KPI summary cards",
+        "aging analysis bar chart via Chart.js",
+        "customer receivable breakdown table",
+        "detailed transaction table",
+        "export controls"
+      ],
+      "imagePlan": [],
+      "chartsRequired": true,
+      "qualityRisks": [
+        "chart rendering",
+        "financial data density",
+        "number alignment"
+      ],
+      "domIdsRequired": [
+        "nav-dashboard",
+        "nav-waybill-mgmt",
+        "nav-create-waybill",
+        "nav-bill-mgmt",
+        "nav-create-bill",
+        "nav-receivable",
+        "nav-payable"
+      ],
+      "activeNavKey": "receivable"
+    },
+    {
+      "nodeId": "page-payable-report",
+      "htmlSrc": "pages/payable-report.html",
+      "title": "应付报表",
+      "pageType": "information-dense",
+      "visualNorthStar": "Accounts payable financial report with summary KPIs, payment schedule, supplier breakdown, and detailed cost table — cost control dashboard",
+      "compositionPattern": "KPI summary row on top, payment timeline + supplier breakdown in middle, detailed cost table at bottom",
+      "continuityAnchors": [
+        "sidebar navigation shell",
+        "serif headings",
+        "dense table style",
+        "墨绿 primary accents",
+        "tabular-nums for financial data"
+      ],
+      "componentPlan": [
+        "KPI summary cards",
+        "payment timeline chart via Chart.js",
+        "supplier payable breakdown table",
+        "detailed cost table",
+        "export controls"
+      ],
+      "imagePlan": [],
+      "chartsRequired": true,
+      "qualityRisks": [
+        "chart rendering",
+        "financial data density",
+        "number alignment"
+      ],
+      "domIdsRequired": [
+        "nav-dashboard",
+        "nav-waybill-mgmt",
+        "nav-create-waybill",
+        "nav-bill-mgmt",
+        "nav-create-bill",
+        "nav-receivable",
+        "nav-payable"
+      ],
+      "activeNavKey": "payable"
+    }
+  ]
+}
