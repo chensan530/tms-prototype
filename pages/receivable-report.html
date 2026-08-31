@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN" class="light">
 <head>
     <meta charset="UTF-8">
@@ -75,14 +75,12 @@
   --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
   --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
 
-  /* Shadow — Static surfaces only use border/surface layering.
-     Floating layers may use deeper elevation. */
+  /* Shadow */
   --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
   --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
   --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
 }
 
-/* ---------- Dark Mode Aliases ---------- */
 html.dark {
   --tms-background: #121413;
   --tms-foreground: #E8E6E1;
@@ -97,13 +95,11 @@ html.dark {
   --tms-border: #2D302E;
   --tms-input: #1C1F1D;
   --tms-ring: #3A7250;
-
   --tms-neutral-50: #121413;
   --tms-neutral-100: #1C1F1D;
   --tms-neutral-200: #2D302E;
   --tms-neutral-600: #A8A499;
   --tms-neutral-900: #E8E6E1;
-
   --state-success: #5BAE8A;
   --state-success-light: #1A2D24;
   --state-warning: #D4A03E;
@@ -114,107 +110,22 @@ html.dark {
   --state-info-light: #1A2530;
 }
 
-/* ---------- Typography Classes ---------- */
-.tms-serif-title {
-  font-family: var(--tms-font-serif);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.tms-sans-body {
-  font-family: var(--tms-font-sans);
-  font-weight: 400;
-}
-
-.tms-mono-data {
-  font-family: var(--tms-font-mono);
-  font-variant-numeric: tabular-nums;
-  font-weight: 500;
-}
-
-/* ---------- Base Element Overrides ---------- */
-body {
-  font-family: var(--tms-font-sans);
-  background-color: var(--tms-background);
-  color: var(--tms-foreground);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--tms-font-serif);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-  word-break: keep-all;
-}
-
-/* ---------- Utility: Data Table Density ---------- */
-.tms-table-dense {
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.tms-table-dense th,
-.tms-table-dense td {
-  padding: 8px 12px;
-}
-
-.tms-table-dense th {
-  font-weight: 600;
-  color: var(--tms-muted-foreground);
-  background-color: var(--tms-muted);
-  border-bottom: 1px solid var(--tms-border);
-  white-space: nowrap;
-}
-
-.tms-table-dense td {
-  border-bottom: 1px solid var(--tms-border);
-  color: var(--tms-foreground);
-}
-
-.tms-table-dense tbody tr:hover {
-  background-color: var(--tms-neutral-100);
-}
-
-/* ---------- Status Badge ---------- */
-.tms-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
-  border-radius: var(--tms-radius-small);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.4;
-  white-space: nowrap;
-}
-
-.tms-status--success {
-  background-color: var(--state-success-light);
-  color: var(--state-success);
-}
-
-.tms-status--warning {
-  background-color: var(--state-warning-light);
-  color: var(--state-warning);
-}
-
-.tms-status--error {
-  background-color: var(--state-error-light);
-  color: var(--state-error);
-}
-
-.tms-status--info {
-  background-color: var(--state-info-light);
-  color: var(--state-info);
-}
-
-.tms-status--neutral {
-  background-color: var(--tms-muted);
-  color: var(--tms-muted-foreground);
-}
-
+.tms-serif-title { font-family: var(--tms-font-serif); font-weight: 600; letter-spacing: -0.01em; }
+.tms-sans-body { font-family: var(--tms-font-sans); font-weight: 400; }
+.tms-mono-data { font-family: var(--tms-font-mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+body { font-family: var(--tms-font-sans); background-color: var(--tms-background); color: var(--tms-foreground); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+h1, h2, h3, h4, h5, h6 { font-family: var(--tms-font-serif); font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; word-break: keep-all; }
+.tms-table-dense { font-size: 13px; line-height: 1.4; }
+.tms-table-dense th, .tms-table-dense td { padding: 8px 12px; }
+.tms-table-dense th { font-weight: 600; color: var(--tms-muted-foreground); background-color: var(--tms-muted); border-bottom: 1px solid var(--tms-border); white-space: nowrap; }
+.tms-table-dense td { border-bottom: 1px solid var(--tms-border); color: var(--tms-foreground); }
+.tms-table-dense tbody tr:hover { background-color: var(--tms-neutral-100); }
+.tms-status { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: var(--tms-radius-small); font-size: 12px; font-weight: 500; line-height: 1.4; white-space: nowrap; }
+.tms-status--success { background-color: var(--state-success-light); color: var(--state-success); }
+.tms-status--warning { background-color: var(--state-warning-light); color: var(--state-warning); }
+.tms-status--error { background-color: var(--state-error-light); color: var(--state-error); }
+.tms-status--info { background-color: var(--state-info-light); color: var(--state-info); }
+.tms-status--neutral { background-color: var(--tms-muted); color: var(--tms-muted-foreground); }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
     <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
@@ -301,22 +212,10 @@ h1, h2, h3, h4, h5, h6 {
     <style>
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      [data-icon] {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        -webkit-mask-size: contain;
-        mask-size: contain;
-        -webkit-mask-repeat: no-repeat;
-        mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        mask-position: center;
-        background-color: currentColor;
-      }
+      [data-icon] { display: inline-flex; align-items: center; justify-content: center; -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; background-color: currentColor; }
     </style>
 </head>
 <body class="min-h-screen font-sans antialiased">
-    <!-- Critical Layout CSS (responsive-safe, survives without Tailwind runtime) -->
     <style id="critical-layout">
   .app-layout { display: flex; min-height: 100vh; }
   .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
@@ -349,6 +248,10 @@ h1, h2, h3, h4, h5, h6 {
       .tms-btn-primary:hover { background: var(--tms-primary-600); }
       .tms-btn-outline { background: var(--tms-card); color: var(--tms-foreground); border-color: var(--tms-border); }
       .tms-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+      .tms-btn-sm { height: 30px; padding: 0 10px; font-size: 12px; }
+      .tms-btn-sm svg { width: 14px; height: 14px; }
+      .tms-btn-danger { background: var(--state-error); color: #fff; }
+      .tms-btn-danger:hover { background: #9B3A32; }
 
       .page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
       .page-header h2 { font-size: 24px; color: var(--tms-foreground); }
@@ -367,7 +270,6 @@ h1, h2, h3, h4, h5, h6 {
       .ar-kpi-card.accent-info { border-left-color: var(--state-info); }
 
       .chart-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 20px; }
-
       .tms-card-surface { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-large); }
 
       .filter-bar { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; padding: 16px; }
@@ -410,29 +312,198 @@ h1, h2, h3, h4, h5, h6 {
       .trend-down { color: var(--state-error); }
       .section-gap { margin-bottom: 16px; }
       .ar-overdue-days { color: var(--state-error); font-weight: 600; }
+
+      /* === Enhanced Modal Shared Styles === */
+      .enh-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000; display: none; align-items: center; justify-content: center; }
+      .enh-modal-overlay.is-open { display: flex; }
+      .enh-modal { background: var(--tms-card); border-radius: var(--tms-radius-large); box-shadow: var(--tms-shadow-3); width: 90%; max-width: 720px; max-height: 85vh; display: flex; flex-direction: column; }
+      .enh-modal-wide { max-width: 960px; }
+      .enh-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--tms-border); }
+      .enh-modal-header h3 { font-size: 16px; font-weight: 600; }
+      .enh-modal-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); font-size: 18px; transition: background-color 120ms ease; }
+      .enh-modal-close:hover { background: var(--tms-muted); }
+      .enh-modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+      .enh-modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 16px 20px; border-top: 1px solid var(--tms-border); }
+
+      /* === Bar Chart Styles === */
+      .bar-chart-wrap { display: flex; align-items: flex-end; gap: 8px; height: 200px; padding: 0 8px; }
+      .bar-chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end; }
+      .bar-chart-bar { width: 100%; max-width: 48px; border-radius: 4px 4px 0 0; transition: height 0.4s ease; min-height: 4px; position: relative; cursor: pointer; }
+      .bar-chart-bar:hover { opacity: 0.85; filter: brightness(1.1); }
+      .bar-chart-bar .bar-tooltip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--tms-neutral-900); color: var(--tms-neutral-0); padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; margin-bottom: 6px; }
+      .bar-chart-bar:hover .bar-tooltip { display: block; }
+      .bar-chart-label { font-size: 11px; color: var(--tms-muted-foreground); text-align: center; word-break: keep-all; }
+      .bar-chart-legend { display: flex; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+      .bar-legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--tms-muted-foreground); }
+      .bar-legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+      .bar-grouped { display: flex; gap: 3px; width: 100%; max-width: 48px; justify-content: center; align-items: flex-end; height: 100%; }
+      .bar-grouped .bar-inner { flex: 1; border-radius: 3px 3px 0 0; transition: height 0.4s ease; min-height: 3px; cursor: pointer; position: relative; }
+      .bar-grouped .bar-inner:hover { opacity: 0.85; }
+      .bar-grouped .bar-inner .bar-tooltip { display: none; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--tms-neutral-900); color: var(--tms-neutral-0); padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; margin-bottom: 6px; }
+      .bar-grouped .bar-inner:hover .bar-tooltip { display: block; }
+
+      /* === Allocation Table === */
+      .alloc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      .alloc-table th, .alloc-table td { padding: 8px 12px; border-bottom: 1px solid var(--tms-border); text-align: left; }
+      .alloc-table th { background: var(--tms-muted); font-weight: 600; color: var(--tms-muted-foreground); }
+      .alloc-table td { color: var(--tms-foreground); }
+      .alloc-table tr:hover td { background: var(--tms-neutral-100); }
+
+      /* === Aging Drilldown === */
+      .aging-bucket { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 16px; cursor: pointer; transition: border-color 120ms ease, box-shadow 120ms ease; }
+      .aging-bucket:hover { border-color: var(--tms-primary-300); box-shadow: var(--tms-shadow-1); }
+      .aging-bucket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+      .aging-bucket-label { font-size: 13px; font-weight: 600; color: var(--tms-foreground); }
+      .aging-bucket-amount { font-size: 18px; font-family: var(--tms-font-mono); color: var(--tms-primary); }
+      .aging-bucket-bar { height: 6px; background: var(--tms-muted); border-radius: 3px; overflow: hidden; margin-top: 6px; }
+      .aging-bucket-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+
+      /* === CSV Download Link === */
+      .csv-download-link { display: none; }
+
+      /* Tab Navigation */
+      .main-tabs { display: flex; align-items: center; gap: 0; border-bottom: 2px solid var(--tms-border); margin-bottom: 20px; }
+      .main-tab { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; font-size: 14px; font-weight: 500; color: var(--tms-muted-foreground); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 120ms ease, border-color 120ms ease; margin-bottom: -2px; white-space: nowrap; }
+      .main-tab:hover { color: var(--tms-foreground); }
+      .main-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+      .main-tab svg { width: 16px; height: 16px; }
+
+      /* Batch bar */
+      .batch-bar { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: var(--tms-primary-50); border: 1px solid var(--tms-primary-100); border-radius: var(--tms-radius-medium); margin-bottom: 12px; display: none; }
+      .batch-bar.is-visible { display: flex; }
+      .batch-bar .selected-count { font-size: 13px; color: var(--tms-primary-600); font-weight: 600; }
+      .batch-bar .batch-divider { width: 1px; height: 20px; background: var(--tms-primary-100); }
+      .batch-btn { display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 12px; border-radius: var(--tms-radius-small); background: var(--tms-card); color: var(--tms-foreground); font-size: 12px; border: 1px solid var(--tms-border); cursor: pointer; transition: background-color 120ms ease; }
+      .batch-btn:hover { background: var(--tms-muted); }
+      .batch-btn svg { width: 14px; height: 14px; }
+      .batch-clear { margin-left: auto; font-size: 12px; color: var(--tms-muted-foreground); background: none; border: none; cursor: pointer; }
+
+      /* Modal */
+      .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; display: flex; align-items: center; justify-content: center; animation: fadeIn 150ms ease; }
+      .modal-overlay.hidden { display: none; }
+      .modal-container { background: var(--tms-card); border-radius: var(--tms-radius-large); box-shadow: var(--tms-shadow-3); width: 90%; max-width: 720px; max-height: 85vh; display: flex; flex-direction: column; animation: slideUp 200ms ease; }
+      .modal-container.modal-wide { max-width: 960px; }
+      .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--tms-border); }
+      .modal-header h3 { font-size: 16px; font-weight: 600; }
+      .modal-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); font-size: 18px; transition: background-color 120ms ease; }
+      .modal-close:hover { background: var(--tms-muted); }
+      .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+      .modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding: 16px 20px; border-top: 1px solid var(--tms-border); }
+
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+      /* Slide Panel */
+      .slide-panel { position: fixed; top: 0; right: 0; width: 600px; height: 100vh; background: var(--tms-card); box-shadow: var(--tms-shadow-3); z-index: 1001; transform: translateX(100%); transition: transform 250ms ease; display: flex; flex-direction: column; }
+      .slide-panel.is-open { transform: translateX(0); }
+      .slide-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--tms-border); }
+      .slide-panel-header h3 { font-size: 16px; font-weight: 600; }
+      .slide-panel-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--tms-border); overflow-x: auto; }
+      .slide-panel-tab { padding: 10px 14px; font-size: 12px; color: var(--tms-muted-foreground); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; margin-bottom: -1px; transition: color 120ms ease, border-color 120ms ease; }
+      .slide-panel-tab:hover { color: var(--tms-foreground); }
+      .slide-panel-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+      .slide-panel-body { flex: 1; overflow-y: auto; padding: 16px 20px; }
+      .slide-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 1000; display: none; }
+      .slide-overlay.is-visible { display: block; }
+
+      /* Toast */
+      .toast-container { position: fixed; top: 20px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
+      .toast { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); box-shadow: var(--tms-shadow-2); font-size: 13px; color: var(--tms-foreground); animation: slideIn 200ms ease; min-width: 240px; }
+      .toast.toast-success { border-left: 3px solid var(--state-success); }
+      .toast.toast-error { border-left: 3px solid var(--state-error); }
+      .toast.toast-warning { border-left: 3px solid var(--state-warning); }
+      .toast.toast-info { border-left: 3px solid var(--state-info); }
+      @keyframes slideIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+
+      /* Form helpers */
+      .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+      .form-group label { font-size: 13px; font-weight: 500; color: var(--tms-foreground); }
+      .form-group label .required { color: var(--state-error); }
+      .form-input, .form-select, .form-textarea { width: 100%; height: 36px; padding: 0 10px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); outline: none; box-sizing: border-box; }
+      .form-textarea { height: auto; padding: 10px; resize: vertical; min-height: 80px; }
+      .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+      .form-input.error { border-color: var(--state-error); }
+      .form-hint { font-size: 11px; color: var(--state-error); }
+
+      .radio-group { display: flex; gap: 20px; }
+      .radio-item { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+      .radio-item input[type="radio"] { accent-color: var(--tms-primary); }
+
+      .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--tms-border); font-size: 13px; }
+      .info-row:last-child { border-bottom: none; }
+      .info-row .info-label { color: var(--tms-muted-foreground); }
+      .info-row .info-value { font-weight: 500; }
+
+      .upload-area { border: 2px dashed var(--tms-border); border-radius: var(--tms-radius-medium); padding: 30px; text-align: center; cursor: pointer; transition: border-color 120ms ease, background-color 120ms ease; }
+      .upload-area:hover { border-color: var(--tms-primary-300); background: var(--tms-muted); }
+      .upload-area.has-file { border-color: var(--state-success); background: var(--state-success-light); }
+      .upload-area .upload-icon { color: var(--tms-muted-foreground); margin-bottom: 8px; }
+      .upload-area .upload-text { font-size: 13px; color: var(--tms-muted-foreground); }
+      .upload-area .upload-file-name { font-size: 12px; color: var(--state-success); margin-top: 6px; }
+
+      .preview-panel { background: var(--tms-muted); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 14px; margin-top: 12px; }
+      .preview-panel .preview-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+      .preview-panel .preview-row .preview-label { color: var(--tms-muted-foreground); }
+      .preview-panel .preview-row .preview-value { font-weight: 600; font-family: var(--tms-font-mono); }
+
+      .tab-content { display: none; }
+      .tab-content.is-active { display: block; }
+
+      .file-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: var(--state-success-light); color: var(--state-success); border-radius: var(--tms-radius-small); font-size: 11px; }
+      .file-tag svg { width: 12px; height: 12px; }
+
+      .timeline { position: relative; padding-left: 24px; }
+      .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--tms-border); }
+      .timeline-item { position: relative; margin-bottom: 16px; }
+      .timeline-item::before { content: ''; position: absolute; left: -20px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--tms-primary); border: 2px solid var(--tms-card); }
+      .timeline-item .tl-time { font-size: 11px; color: var(--tms-muted-foreground); }
+      .timeline-item .tl-content { font-size: 13px; margin-top: 2px; }
+      .timeline-item .tl-operator { font-size: 11px; color: var(--tms-muted-foreground); }
     </style>
 
     <div class="app-layout">
-      <!-- Sidebar -->
+      <!-- ===== Sidebar ===== -->
       <aside class="app-sidebar">
         <div class="sidebar-logo">
           <h1>TMS 物流管理</h1>
           <span>智慧运输管理平台</span>
         </div>
         <nav style="flex:1; padding: 12px 0;">
-          <div class="nav-section-label">业务管理</div>
-          <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
-          <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
-          <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
-          <a data-nav-key="addr-lib" data-dom-id="nav-addr-lib" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
-          <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超长超重管理</span></a>
-          <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
-          <div class="nav-section-label">系统管理</div>
-          <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
-          <a data-nav-key="receivable" data-dom-id="nav-receivable" href="receivable-report.html" class="nav-item" data-active="true"><i data-lucide="trending-up"></i><span>应收报表</span></a>
-          <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
-        </nav>
-        <!-- Sidebar Footer -->
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" href="receivable-report.html" class="nav-item" data-active="true"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
         <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
           <div style="display:flex; align-items:center; gap:8px;">
             <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
@@ -444,7 +515,7 @@ h1, h2, h3, h4, h5, h6 {
         </div>
       </aside>
 
-      <!-- Main Area -->
+      <!-- ===== Main Area ===== -->
       <div class="app-main-area">
         <!-- Header -->
         <header class="app-header">
@@ -471,611 +542,563 @@ h1, h2, h3, h4, h5, h6 {
           <div class="page-header">
             <div>
               <h2 class="tms-serif-title">应收报表</h2>
-              <div class="page-header-sub">客户应收账款统计与分析</div>
+              <div class="page-header-sub">客户应收账款统计、核销、审计与分析</div>
             </div>
             <div style="display:flex; align-items:center; gap:12px;">
-              <div class="ar-date-tabs" data-dom-id="ar-date-tabs">
+              <div class="ar-date-tabs">
                 <button class="ar-date-tab is-active" data-range="month">本月</button>
                 <button class="ar-date-tab" data-range="quarter">本季度</button>
                 <button class="ar-date-tab" data-range="year">本年</button>
                 <button class="ar-date-tab" data-range="custom">自定义</button>
               </div>
-              <button class="tms-btn tms-btn-outline" data-dom-id="ar-btn-export">
+              <button class="tms-btn tms-btn-outline" onclick="handleExport()">
                 <i data-lucide="download"></i><span>导出</span>
               </button>
-              <button class="tms-btn tms-btn-primary" data-dom-id="ar-btn-export-excel">
+              <button class="tms-btn tms-btn-primary" onclick="handleExportExcel()">
                 <i data-lucide="file-spreadsheet"></i><span>导出Excel</span>
               </button>
             </div>
           </div>
 
-          <!-- KPI Cards Row -->
-          <div style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:16px; margin-bottom:24px;">
-            <!-- KPI 1: 应收总额 -->
-            <div class="ar-kpi-card accent-primary" data-dom-id="ar-kpi-total">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-                <span style="font-size:13px; color:var(--tms-muted-foreground);">应收总额</span>
-                <i data-lucide="wallet" style="width:16px; height:16px; color:var(--tms-primary-500);"></i>
-              </div>
-              <div class="tms-mono-data" style="font-size:24px; line-height:1.1; color:var(--tms-foreground);">¥2,856,430.00</div>
-              <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
-                <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
-                <span class="tms-mono-data trend-up" style="font-size:12px;">+12.5%</span>
-                <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
-              </div>
-            </div>
-            <!-- KPI 2: 已收金额 -->
-            <div class="ar-kpi-card accent-success" data-dom-id="ar-kpi-received">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-                <span style="font-size:13px; color:var(--tms-muted-foreground);">已收金额</span>
-                <i data-lucide="check-circle" style="width:16px; height:16px; color:var(--state-success);"></i>
-              </div>
-              <div class="tms-mono-data" style="font-size:24px; line-height:1.1; color:var(--tms-foreground);">¥1,923,580.00</div>
-              <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
-                <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
-                <span class="tms-mono-data trend-up" style="font-size:12px;">+8.2%</span>
-                <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
-              </div>
-            </div>
-            <!-- KPI 3: 未收金额 -->
-            <div class="ar-kpi-card accent-warning" data-dom-id="ar-kpi-uncollected">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-                <span style="font-size:13px; color:var(--tms-muted-foreground);">未收金额</span>
-                <i data-lucide="clock" style="width:16px; height:16px; color:var(--state-warning);"></i>
-              </div>
-              <div class="tms-mono-data" style="font-size:24px; line-height:1.1; color:var(--tms-foreground);">¥932,850.00</div>
-              <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
-                <i data-lucide="trending-down" class="trend-down" style="width:14px; height:14px;"></i>
-                <span class="tms-mono-data trend-down" style="font-size:12px;">-3.1%</span>
-                <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
-              </div>
-            </div>
-            <!-- KPI 4: 逾期金额 -->
-            <div class="ar-kpi-card accent-error" data-dom-id="ar-kpi-overdue">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-                <span style="font-size:13px; color:var(--tms-muted-foreground);">逾期金额</span>
-                <i data-lucide="alert-triangle" style="width:16px; height:16px; color:var(--state-error);"></i>
-              </div>
-              <div class="tms-mono-data" style="font-size:24px; line-height:1.1; color:var(--tms-foreground);">¥186,200.00</div>
-              <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
-                <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
-                <span class="tms-mono-data trend-up" style="font-size:12px;">+5.7%</span>
-                <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
-              </div>
-            </div>
-            <!-- KPI 5: 收款率 -->
-            <div class="ar-kpi-card accent-info" data-dom-id="ar-kpi-rate">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
-                <span style="font-size:13px; color:var(--tms-muted-foreground);">收款率</span>
-                <i data-lucide="percent" style="width:16px; height:16px; color:var(--state-info);"></i>
-              </div>
-              <div class="tms-mono-data" style="font-size:24px; line-height:1.1; color:var(--tms-foreground);">67.4%</div>
-              <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
-                <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
-                <span class="tms-mono-data trend-up" style="font-size:12px;">+2.3%</span>
-                <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
-              </div>
-            </div>
+          <!-- ===== MAIN TAB NAVIGATION ===== -->
+          <div class="main-tabs" id="mainTabs">
+            <button class="main-tab is-active" data-tab="tab-receivable"><i data-lucide="list"></i>应收列表</button>
+            <button class="main-tab" data-tab="tab-reconciliation"><i data-lucide="check-circle"></i>核销管理</button>
+            <button class="main-tab" data-tab="tab-discount"><i data-lucide="percent"></i>优惠统计</button>
+            <button class="main-tab" data-tab="tab-recon-records"><i data-lucide="file-check"></i>核销记录</button>
+            <button class="main-tab" data-tab="tab-cost-audit"><i data-lucide="search-check"></i>费用审计</button>
           </div>
 
-          <!-- Charts Section -->
-          <div style="display:grid; grid-template-columns:3fr 2fr; gap:16px; margin-bottom:24px;">
-            <!-- Left: 应收趋势分析 -->
-            <div class="chart-card">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <i data-lucide="trending-up" style="width:18px; height:18px; color:var(--tms-primary-500);"></i>
-                  <h3 style="font-size:16px; font-weight:600;">应收趋势分析</h3>
+          <!-- ============ TAB 1: 应收列表 ============ -->
+          <div class="tab-content is-active" id="tab-receivable">
+            <!-- Batch Action Bar -->
+            <div class="batch-bar" id="batchBar">
+              <span class="selected-count">已选 <span id="selectedCount">0</span> 项</span>
+              <div class="batch-divider"></div>
+              <button class="batch-btn" onclick="showBatchConfirm()"><i data-lucide="check"></i>批量确认</button>
+              <button class="batch-btn" onclick="handleBatchExport()"><i data-lucide="download"></i>批量导出</button>
+              <button class="batch-btn" onclick="showBatchNotes()"><i data-lucide="sticky-note"></i>批量修改备注</button>
+              <button class="batch-btn" onclick="showBatchAmortization()"><i data-lucide="scale"></i>批量平摊费用</button>
+              <button class="batch-btn" onclick="handleBatchUndo()"><i data-lucide="undo-2"></i>撤销平摊</button>
+              <button class="batch-clear" onclick="clearBatchSelection()">取消选择</button>
+            </div>
+
+            <!-- KPI Cards Row -->
+            <div style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:16px; margin-bottom:24px;">
+              <div class="ar-kpi-card accent-primary">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                  <span style="font-size:13px; color:var(--tms-muted-foreground);">应收总额</span>
+                  <i data-lucide="wallet" style="width:16px; height:16px; color:var(--tms-primary-500);"></i>
                 </div>
-                <span style="font-size:12px; color:var(--tms-muted-foreground);">2026年1月 - 7月</span>
-              </div>
-              <div style="height:280px; position:relative;">
-                <canvas id="arTrendChart"></canvas>
-              </div>
-            </div>
-            <!-- Right: 账龄分析 -->
-            <div class="chart-card">
-              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <i data-lucide="bar-chart-3" style="width:18px; height:18px; color:var(--tms-primary-500);"></i>
-                  <h3 style="font-size:16px; font-weight:600;">账龄分析</h3>
+                <div class="tms-mono-data" style="font-size:24px; line-height:1.1;">¥2,856,430.00</div>
+                <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+                  <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+                  <span class="tms-mono-data trend-up" style="font-size:12px;">+12.5%</span>
+                  <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
                 </div>
-                <span style="font-size:12px; color:var(--tms-muted-foreground);">总未收 ¥932,850</span>
               </div>
-              <div style="height:280px; position:relative;">
-                <canvas id="arAgingChart"></canvas>
+              <div class="ar-kpi-card accent-success">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                  <span style="font-size:13px; color:var(--tms-muted-foreground);">已收金额</span>
+                  <i data-lucide="check-circle" style="width:16px; height:16px; color:var(--state-success);"></i>
+                </div>
+                <div class="tms-mono-data" style="font-size:24px; line-height:1.1;">¥1,923,580.00</div>
+                <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+                  <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+                  <span class="tms-mono-data trend-up" style="font-size:12px;">+8.2%</span>
+                  <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+                </div>
+              </div>
+              <div class="ar-kpi-card accent-warning">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                  <span style="font-size:13px; color:var(--tms-muted-foreground);">未收金额</span>
+                  <i data-lucide="clock" style="width:16px; height:16px; color:var(--state-warning);"></i>
+                </div>
+                <div class="tms-mono-data" style="font-size:24px; line-height:1.1;">¥932,850.00</div>
+                <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+                  <i data-lucide="trending-down" class="trend-down" style="width:14px; height:14px;"></i>
+                  <span class="tms-mono-data trend-down" style="font-size:12px;">-3.1%</span>
+                  <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+                </div>
+              </div>
+              <div class="ar-kpi-card accent-error">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                  <span style="font-size:13px; color:var(--tms-muted-foreground);">逾期金额</span>
+                  <i data-lucide="alert-triangle" style="width:16px; height:16px; color:var(--state-error);"></i>
+                </div>
+                <div class="tms-mono-data" style="font-size:24px; line-height:1.1;">¥186,200.00</div>
+                <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+                  <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+                  <span class="tms-mono-data trend-up" style="font-size:12px;">+5.7%</span>
+                  <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+                </div>
+              </div>
+              <div class="ar-kpi-card accent-info">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+                  <span style="font-size:13px; color:var(--tms-muted-foreground);">收款率</span>
+                  <i data-lucide="percent" style="width:16px; height:16px; color:var(--state-info);"></i>
+                </div>
+                <div class="tms-mono-data" style="font-size:24px; line-height:1.1;">67.4%</div>
+                <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+                  <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+                  <span class="tms-mono-data trend-up" style="font-size:12px;">+2.3%</span>
+                  <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div style="display:grid; grid-template-columns:3fr 2fr; gap:16px; margin-bottom:24px;">
+              <div class="chart-card">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <i data-lucide="trending-up" style="width:18px; height:18px; color:var(--tms-primary-500);"></i>
+                    <h3 style="font-size:16px; font-weight:600;">应收趋势分析</h3>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:12px; color:var(--tms-muted-foreground);">2026年1月 - 7月</span>
+                    <button class="tms-btn tms-btn-outline tms-btn-sm" onclick="openEnhModal('trendModal')"><i data-lucide="expand" style="width:14px;height:14px;"></i>展开详情</button>
+                  </div>
+                </div>
+                <div style="height:280px; position:relative;"><canvas id="arTrendChart"></canvas></div>
+              </div>
+              <div class="chart-card">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <i data-lucide="bar-chart-3" style="width:18px; height:18px; color:var(--tms-primary-500);"></i>
+                    <h3 style="font-size:16px; font-weight:600;">账龄分析</h3>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:12px; color:var(--tms-muted-foreground);">总未收 ¥932,850</span>
+                    <button class="tms-btn tms-btn-outline tms-btn-sm" onclick="openEnhModal('agingModal')"><i data-lucide="expand" style="width:14px;height:14px;"></i>展开详情</button>
+                  </div>
+                </div>
+                <div style="height:280px; position:relative;"><canvas id="arAgingChart"></canvas></div>
+              </div>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="tms-card-surface section-gap">
+              <div class="filter-bar">
+                <div class="filter-field">
+                  <label class="filter-label">起始日期</label>
+                  <input class="filter-input filter-date" type="date" value="2026-07-01">
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">截止日期</label>
+                  <input class="filter-input filter-date" type="date" value="2026-07-29">
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">客户名称</label>
+                  <select class="filter-select" style="width:180px;">
+                    <option>全部客户</option>
+                    <option>上海华贸物流</option>
+                    <option>深圳前海供应链</option>
+                    <option>宁波远洋货运</option>
+                    <option>广州港集团物流</option>
+                    <option>厦门海沧国际货运</option>
+                    <option>青岛前湾港物流</option>
+                    <option>天津中远海运</option>
+                    <option>大连集装箱物流</option>
+                    <option>烟台港国际货运</option>
+                    <option>连云港海运集团</option>
+                  </select>
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">账单状态</label>
+                  <select class="filter-select" style="width:140px;">
+                    <option>全部</option>
+                    <option>待收款</option>
+                    <option>部分收款</option>
+                    <option>已结清</option>
+                    <option>逾期</option>
+                  </select>
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">账龄区间</label>
+                  <select class="filter-select" style="width:140px;">
+                    <option>全部</option>
+                    <option>0-30天</option>
+                    <option>31-60天</option>
+                    <option>61-90天</option>
+                    <option>90天以上</option>
+                  </select>
+                </div>
+                <div class="filter-field" style="flex-direction:row; gap:8px;">
+                  <button class="tms-btn tms-btn-primary"><i data-lucide="search"></i><span>查询</span></button>
+                  <button class="tms-btn tms-btn-outline"><i data-lucide="rotate-ccw"></i><span>重置</span></button>
+                  <button class="tms-btn tms-btn-outline" onclick="showStatisticsModal()"><i data-lucide="bar-chart-3"></i><span>查看统计</span></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Summary Stats Bar -->
+            <div class="tms-card-surface section-gap">
+              <div class="stats-bar">
+                <div class="stat-item"><span class="stat-label">应收笔数</span><span class="stat-value tms-mono-data">342</span></div>
+                <div class="stat-item"><span class="stat-label">已收笔数</span><span class="stat-value stat-value--success tms-mono-data">231</span></div>
+                <div class="stat-item"><span class="stat-label">待收笔数</span><span class="stat-value stat-value--warning tms-mono-data">111</span></div>
+                <div class="stat-item"><span class="stat-label">逾期笔数</span><span class="stat-value stat-value--error tms-mono-data">28</span></div>
+              </div>
+            </div>
+
+            <!-- Detailed Data Table -->
+            <div class="tms-card-surface section-gap" style="overflow:hidden;">
+              <div class="table-wrap">
+                <table class="tms-table-dense" style="width:100%; border-collapse:collapse;" id="receivableTable">
+                  <thead>
+                    <tr>
+                      <th style="width:40px;"><input type="checkbox" id="selectAll" onchange="toggleSelectAll(this)"></th>
+                      <th>账单编号</th>
+                      <th>客户名称</th>
+                      <th>关联提单号</th>
+                      <th>关联运单号</th>
+                      <th style="text-align:right;">应收金额</th>
+                      <th style="text-align:right;">已收金额</th>
+                      <th style="text-align:right;">未收金额</th>
+                      <th>账单日期</th>
+                      <th>到期日</th>
+                      <th style="text-align:right;">逾期天数</th>
+                      <th>状态</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="receivableTbody">
+                  </tbody>
+                </table>
+              </div>
+              <div class="pagination" style="border-top:1px solid var(--tms-border);">
+                <div class="pagination-info">显示 <span class="tms-mono-data">1-10</span> 条，共 <span class="tms-mono-data">342</span> 条</div>
+                <div class="pagination-pages">
+                  <button class="page-btn" disabled><i data-lucide="chevron-left" style="width:14px;height:14px;"></i></button>
+                  <button class="page-btn is-active">1</button>
+                  <button class="page-btn">2</button>
+                  <button class="page-btn">3</button>
+                  <button class="page-btn">4</button>
+                  <button class="page-btn">5</button>
+                  <span style="color:var(--tms-muted-foreground); padding:0 4px;">...</span>
+                  <button class="page-btn">35</button>
+                  <button class="page-btn"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i></button>
+                </div>
+                <div class="page-size-wrap">
+                  <span>每页</span>
+                  <select class="page-size-select"><option>10</option><option>20</option><option>50</option><option>100</option></select>
+                  <span>条</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Filter Bar -->
-          <div class="tms-card-surface section-gap">
-            <div class="filter-bar">
-              <div class="filter-field">
-                <label class="filter-label">起始日期</label>
-                <input class="filter-input filter-date" type="date" value="2026-07-01">
+          <!-- ============ TAB 2: 核销管理 ============ -->
+          <div class="tab-content" id="tab-reconciliation">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <!-- Left: 核销表单 -->
+              <div class="tms-card-surface" style="padding:20px;">
+                <h3 style="font-size:16px; margin-bottom:16px;">核销操作</h3>
+                <div class="form-group">
+                  <label>选择客户 <span class="required">*</span></label>
+                  <select class="form-select" id="reconCustomer" onchange="updateReconPreview()">
+                    <option value="">请选择客户</option>
+                    <option value="上海华贸物流" data-uncollected="0">上海华贸物流</option>
+                    <option value="深圳前海供应链" data-uncollected="182480">深圳前海供应链</option>
+                    <option value="宁波远洋货运" data-uncollected="289600">宁波远洋货运</option>
+                    <option value="广州港集团物流" data-uncollected="205120">广州港集团物流</option>
+                    <option value="青岛前湾港物流" data-uncollected="258360">青岛前湾港物流</option>
+                    <option value="天津中远海运" data-uncollected="239070">天津中远海运</option>
+                    <option value="大连集装箱物流" data-uncollected="215700">大连集装箱物流</option>
+                    <option value="连云港海运集团" data-uncollected="141920">连云港海运集团</option>
+                  </select>
+                </div>
+                <div style="display:flex; gap:12px; margin-bottom:14px;">
+                  <div class="form-group" style="flex:1;">
+                    <label>客户待核销总金额</label>
+                    <div class="tms-mono-data" style="font-size:20px; color:var(--state-warning);" id="reconUncollected">¥0.00</div>
+                  </div>
+                  <div class="form-group" style="flex:1;">
+                    <label>已核销总金额</label>
+                    <div class="tms-mono-data" style="font-size:20px; color:var(--state-success);" id="reconCollected">¥0.00</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>凭证上传</label>
+                  <div class="upload-area" id="uploadInvoice" onclick="simulateUpload('uploadInvoice')">
+                    <i data-lucide="image" class="upload-icon" style="width:24px;height:24px;"></i>
+                    <div class="upload-text">点击上传发票截图</div>
+                    <div class="upload-file-name" style="display:none;" id="uploadInvoiceName"></div>
+                  </div>
+                  <div class="upload-area" id="uploadBankSlip" onclick="simulateUpload('uploadBankSlip')" style="margin-top:8px;">
+                    <i data-lucide="landmark" class="upload-icon" style="width:24px;height:24px;"></i>
+                    <div class="upload-text">点击上传银行回单</div>
+                    <div class="upload-file-name" style="display:none;" id="uploadBankSlipName"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>回款流水号 <span class="required">*</span></label>
+                  <input type="text" class="form-input" id="reconFlowNo" placeholder="请输入银行回款流水号" oninput="updateReconPreview()">
+                </div>
+                <div class="form-group">
+                  <button class="tms-btn tms-btn-primary" onclick="generateReconBillNo()"><i data-lucide="hash"></i>生成回款账单号</button>
+                  <span id="reconBillNo" class="tms-mono-data" style="margin-left:12px; font-size:13px; color:var(--tms-primary);"></span>
+                </div>
+                <div class="form-group">
+                  <label>核销方式 <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="reconMode" value="by-customer" checked onchange="updateReconPreview()">按客户总金额核销</label>
+                    <label class="radio-item"><input type="radio" name="reconMode" value="by-waybill" onchange="updateReconPreview()">按某一笔运单核销</label>
+                  </div>
+                  <select class="form-select" id="reconWaybill" style="display:none; margin-top:8px;" onchange="updateReconPreview()">
+                    <option value="">选择运单</option>
+                    <option value="WB-2026-0705-089" data-amount="182480">WB-2026-0705-089 (¥182,480)</option>
+                    <option value="WB-2026-0708-112" data-amount="289600">WB-2026-0708-112 (¥289,600)</option>
+                    <option value="WB-2026-0615-034" data-amount="205120">WB-2026-0615-034 (¥205,120)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>充值金额 <span class="required">*</span></label>
+                  <input type="number" class="form-input" id="reconAmount" placeholder="请输入本次充值金额" oninput="updateReconPreview()" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                  <label>供应商结算方式</label>
+                  <select class="form-select" id="supplierSettleMode">
+                    <option value="prepaid">预充</option>
+                    <option value="credit">账期</option>
+                    <option value="cash">现结</option>
+                  </select>
+                  <div id="cashApprovalHint" style="display:none; margin-top:8px; padding:10px; background:var(--state-warning-light); border-radius:var(--tms-radius-medium); font-size:12px; color:var(--state-warning);">
+                    <i data-lucide="info" style="width:14px;height:14px; display:inline-block; vertical-align:middle;"></i>
+                    现结需走审批流程：客服申请 -> 主管审批 -> 抄送管理员
+                  </div>
+                </div>
+                <!-- 核销预览 -->
+                <div class="preview-panel" id="reconPreview">
+                  <div class="preview-row"><span class="preview-label">充值金额</span><span class="preview-value" id="pvRecharge">¥0.00</span></div>
+                  <div class="preview-row"><span class="preview-label">本次核销金额</span><span class="preview-value" id="pvReconAmount">¥0.00</span></div>
+                  <div class="preview-row"><span class="preview-label">剩余余额</span><span class="preview-value" id="pvRemaining">¥0.00</span></div>
+                </div>
+                <div style="margin-top:16px;">
+                  <button class="tms-btn tms-btn-primary" onclick="executeReconciliation()" style="width:100%; justify-content:center;">
+                    <i data-lucide="check-circle"></i>执行核销
+                  </button>
+                </div>
               </div>
-              <div class="filter-field">
-                <label class="filter-label">截止日期</label>
-                <input class="filter-input filter-date" type="date" value="2026-07-29">
-              </div>
-              <div class="filter-field">
-                <label class="filter-label">客户名称</label>
-                <select class="filter-select" style="width:180px;">
-                  <option>全部客户</option>
-                  <option>上海华贸物流</option>
-                  <option>深圳前海供应链</option>
-                  <option>宁波远洋货运</option>
-                  <option>广州港集团物流</option>
-                  <option>厦门海沧国际货运</option>
-                  <option>青岛前湾港物流</option>
-                  <option>天津中远海运</option>
-                  <option>大连集装箱物流</option>
-                  <option>烟台港国际货运</option>
-                  <option>连云港海运集团</option>
-                </select>
-              </div>
-              <div class="filter-field">
-                <label class="filter-label">账单状态</label>
-                <select class="filter-select" style="width:140px;">
-                  <option>全部</option>
-                  <option>待收款</option>
-                  <option>部分收款</option>
-                  <option>已结清</option>
-                  <option>逾期</option>
-                </select>
-              </div>
-              <div class="filter-field">
-                <label class="filter-label">账龄区间</label>
-                <select class="filter-select" style="width:140px;">
-                  <option>全部</option>
-                  <option>0-30天</option>
-                  <option>31-60天</option>
-                  <option>61-90天</option>
-                  <option>90天以上</option>
-                </select>
-              </div>
-              <div class="filter-field" style="flex-direction:row; gap:8px;">
-                <button class="tms-btn tms-btn-primary"><i data-lucide="search"></i><span>查询</span></button>
-                <button class="tms-btn tms-btn-outline"><i data-lucide="rotate-ccw"></i><span>重置</span></button>
+
+              <!-- Right: 帮助说明 -->
+              <div class="tms-card-surface" style="padding:20px;">
+                <h3 style="font-size:16px; margin-bottom:16px;">核销说明</h3>
+                <div style="font-size:13px; color:var(--tms-muted-foreground); line-height:1.8;">
+                  <p><strong>1. 选择客户</strong>：从下拉列表中选择待核销客户，系统会自动显示该客户的待核销总金额。</p>
+                  <p style="margin-top:8px;"><strong>2. 上传凭证</strong>：上传发票截图和银行回单作为核销凭证。</p>
+                  <p style="margin-top:8px;"><strong>3. 填写回款流水号</strong>：输入银行回款流水号，确保可追溯。</p>
+                  <p style="margin-top:8px;"><strong>4. 生成回款账单号</strong>：点击按钮自动生成唯一的回款账单号。</p>
+                  <p style="margin-top:8px;"><strong>5. 选择核销方式</strong>：</p>
+                  <p style="margin-left:12px;">- 按客户总金额：一次性核销该客户所有未收金额</p>
+                  <p style="margin-left:12px;">- 按某一笔运单：仅核销指定运单的未收金额</p>
+                  <p style="margin-top:8px;"><strong>6. 输入充值金额</strong>：填写客户本次充值金额。</p>
+                  <p style="margin-top:8px;"><strong>7. 选择结算方式</strong>：</p>
+                  <p style="margin-left:12px;">- 预充：客户预先充值，按实际费用扣减</p>
+                  <p style="margin-left:12px;">- 账期：按月/季度结算</p>
+                  <p style="margin-left:12px;">- 现结：单笔结算，需走审批流程</p>
+                  <p style="margin-top:8px;"><strong>8. 执行核销</strong>：确认信息无误后执行核销操作。</p>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Summary Stats Bar -->
-          <div class="tms-card-surface section-gap">
-            <div class="stats-bar">
-              <div class="stat-item">
-                <span class="stat-label">应收笔数</span>
-                <span class="stat-value tms-mono-data">342</span>
+          <!-- ============ TAB 3: 优惠统计 ============ -->
+          <div class="tab-content" id="tab-discount">
+            <!-- Summary Cards -->
+            <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:16px; margin-bottom:20px;">
+              <div class="ar-kpi-card accent-primary">
+                <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:8px;">优惠总金额</div>
+                <div class="tms-mono-data" style="font-size:22px;">¥128,450.00</div>
               </div>
-              <div class="stat-item">
-                <span class="stat-label">已收笔数</span>
-                <span class="stat-value stat-value--success tms-mono-data">231</span>
+              <div class="ar-kpi-card accent-success">
+                <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:8px;">涉及订单数</div>
+                <div class="tms-mono-data" style="font-size:22px;">47</div>
               </div>
-              <div class="stat-item">
-                <span class="stat-label">待收笔数</span>
-                <span class="stat-value stat-value--warning tms-mono-data">111</span>
+              <div class="ar-kpi-card accent-info">
+                <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:8px;">优惠笔数</div>
+                <div class="tms-mono-data" style="font-size:22px;">63</div>
               </div>
-              <div class="stat-item">
-                <span class="stat-label">逾期笔数</span>
-                <span class="stat-value stat-value--error tms-mono-data">28</span>
+              <div class="ar-kpi-card accent-warning">
+                <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:8px;">占应收比例</div>
+                <div class="tms-mono-data" style="font-size:22px;">4.5%</div>
+              </div>
+            </div>
+            <!-- Filter -->
+            <div class="tms-card-surface section-gap" style="padding:14px 16px;">
+              <div style="display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap;">
+                <div class="filter-field">
+                  <label class="filter-label">客户/账单号</label>
+                  <input class="filter-input" placeholder="搜索客户或账单号" style="width:200px;">
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">优惠类型</label>
+                  <select class="filter-select" style="width:150px;">
+                    <option>全部</option>
+                    <option>运费优惠</option>
+                    <option>仓储费优惠</option>
+                    <option>报关费优惠</option>
+                    <option>综合优惠</option>
+                  </select>
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">分组方式</label>
+                  <select class="filter-select" style="width:140px;">
+                    <option>按账单</option>
+                    <option>按客户</option>
+                  </select>
+                </div>
+                <button class="tms-btn tms-btn-primary tms-btn-sm"><i data-lucide="search"></i>查询</button>
+                <button class="tms-btn tms-btn-outline tms-btn-sm" onclick="toggleAllDiscounts()"><i data-lucide="eye"></i><span id="discountToggleLabel">查看全部优惠</span></button>
+              </div>
+            </div>
+            <!-- Table -->
+            <div class="tms-card-surface" style="overflow:hidden;">
+              <div class="table-wrap">
+                <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+                  <thead>
+                    <tr>
+                      <th>账单号</th>
+                      <th>客户</th>
+                      <th style="text-align:right;">优惠金额</th>
+                      <th>优惠类型</th>
+                      <th>优惠原因</th>
+                      <th>审批人</th>
+                      <th>时间</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="discountTbody">
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
 
-          <!-- Detailed Data Table -->
-          <div class="tms-card-surface section-gap" style="overflow:hidden;">
-            <div class="table-wrap">
-              <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
-                <thead>
-                  <tr>
-                    <th>账单编号</th>
-                    <th>客户名称</th>
-                    <th>关联提单号</th>
-                    <th>关联运单号</th>
-                    <th style="text-align:right;">应收金额</th>
-                    <th style="text-align:right;">已收金额</th>
-                    <th style="text-align:right;">未收金额</th>
-                    <th>账单日期</th>
-                    <th>到期日</th>
-                    <th style="text-align:right;">逾期天数</th>
-                    <th>状态</th>
-                    <th>操作</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Row 1: 已结清 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-001</span></td>
-                    <td>上海华贸物流</td>
-                    <td><span class="tms-mono-data">BL-2026-0701-128</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0701-045</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥328,500.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥328,500.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">¥0.00</span></td>
-                    <td><span class="tms-mono-data">2026-07-01</span></td>
-                    <td><span class="tms-mono-data">2026-07-31</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">—</span></td>
-                    <td><span class="tms-status tms-status--success">已结清</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 2: 部分收款 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-002</span></td>
-                    <td>深圳前海供应链</td>
-                    <td><span class="tms-mono-data">BL-2026-0705-203</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0705-089</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥456,200.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥273,720.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-warning);">¥182,480.00</span></td>
-                    <td><span class="tms-mono-data">2026-07-05</span></td>
-                    <td><span class="tms-mono-data">2026-08-04</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">—</span></td>
-                    <td><span class="tms-status tms-status--warning">部分收款</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 3: 待收款 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-003</span></td>
-                    <td>宁波远洋货运</td>
-                    <td><span class="tms-mono-data">BL-2026-0708-156</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0708-112</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥289,600.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">¥0.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-warning);">¥289,600.00</span></td>
-                    <td><span class="tms-mono-data">2026-07-08</span></td>
-                    <td><span class="tms-mono-data">2026-08-07</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">—</span></td>
-                    <td><span class="tms-status tms-status--info">待收款</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 4: 逾期 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-004</span></td>
-                    <td>广州港集团物流</td>
-                    <td><span class="tms-mono-data">BL-2026-0615-089</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0615-034</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥512,800.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥307,680.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-error);">¥205,120.00</span></td>
-                    <td><span class="tms-mono-data">2026-06-15</span></td>
-                    <td><span class="tms-mono-data">2026-07-15</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data ar-overdue-days">14</span></td>
-                    <td><span class="tms-status tms-status--error">逾期</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 5: 已结清 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-005</span></td>
-                    <td>厦门海沧国际货运</td>
-                    <td><span class="tms-mono-data">BL-2026-0712-178</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0712-067</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥178,300.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥178,300.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">¥0.00</span></td>
-                    <td><span class="tms-mono-data">2026-07-12</span></td>
-                    <td><span class="tms-mono-data">2026-08-11</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">—</span></td>
-                    <td><span class="tms-status tms-status--success">已结清</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 6: 逾期 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-006</span></td>
-                    <td>青岛前湾港物流</td>
-                    <td><span class="tms-mono-data">BL-2026-0628-145</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0628-051</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥645,900.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥387,540.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-error);">¥258,360.00</span></td>
-                    <td><span class="tms-mono-data">2026-06-28</span></td>
-                    <td><span class="tms-mono-data">2026-07-28</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data ar-overdue-days">1</span></td>
-                    <td><span class="tms-status tms-status--error">逾期</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 7: 部分收款 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-007</span></td>
-                    <td>天津中远海运</td>
-                    <td><span class="tms-mono-data">BL-2026-0718-221</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0718-098</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥398,450.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥159,380.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-warning);">¥239,070.00</span></td>
-                    <td><span class="tms-mono-data">2026-07-18</span></td>
-                    <td><span class="tms-mono-data">2026-08-17</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">—</span></td>
-                    <td><span class="tms-status tms-status--warning">部分收款</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 8: 待收款 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-008</span></td>
-                    <td>大连集装箱物流</td>
-                    <td><span class="tms-mono-data">BL-2026-0720-167</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0720-075</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥215,700.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">¥0.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-warning);">¥215,700.00</span></td>
-                    <td><span class="tms-mono-data">2026-07-20</span></td>
-                    <td><span class="tms-mono-data">2026-08-19</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">—</span></td>
-                    <td><span class="tms-status tms-status--info">待收款</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 9: 已结清 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-009</span></td>
-                    <td>烟台港国际货运</td>
-                    <td><span class="tms-mono-data">BL-2026-0605-098</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0605-028</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥487,200.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥487,200.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">¥0.00</span></td>
-                    <td><span class="tms-mono-data">2026-06-05</span></td>
-                    <td><span class="tms-mono-data">2026-07-05</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--tms-muted-foreground);">—</span></td>
-                    <td><span class="tms-status tms-status--success">已结清</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Row 10: 逾期 -->
-                  <tr>
-                    <td><span class="bill-no tms-mono-data">AR-2026-0729-010</span></td>
-                    <td>连云港海运集团</td>
-                    <td><span class="tms-mono-data">BL-2026-0620-134</span></td>
-                    <td><span class="tms-mono-data">WB-2026-0620-046</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥354,800.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥212,880.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-error);">¥141,920.00</span></td>
-                    <td><span class="tms-mono-data">2026-06-20</span></td>
-                    <td><span class="tms-mono-data">2026-07-20</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data ar-overdue-days">9</span></td>
-                    <td><span class="tms-status tms-status--error">逾期</span></td>
-                    <td>
-                      <button class="row-action" title="查看"><i data-lucide="eye"></i></button>
-                      <button class="row-action" title="收款"><i data-lucide="dollar-sign"></i></button>
-                      <button class="row-action" title="详情"><i data-lucide="more-horizontal"></i></button>
-                    </td>
-                  </tr>
-                  <!-- Summary Row -->
-                  <tr class="ar-summary-row">
-                    <td colspan="4" style="text-align:right;">合计</td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥3,867,450.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥2,335,200.00</span></td>
-                    <td style="text-align:right;"><span class="tms-mono-data">¥1,532,250.00</span></td>
-                    <td colspan="5"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination" style="border-top:1px solid var(--tms-border);">
-              <div class="pagination-info">显示 <span class="tms-mono-data">1-10</span> 条，共 <span class="tms-mono-data">342</span> 条</div>
-              <div class="pagination-pages">
-                <button class="page-btn" disabled><i data-lucide="chevron-left" style="width:14px;height:14px;"></i></button>
-                <button class="page-btn is-active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">4</button>
-                <button class="page-btn">5</button>
-                <span style="color:var(--tms-muted-foreground); padding:0 4px;">...</span>
-                <button class="page-btn">35</button>
-                <button class="page-btn"><i data-lucide="chevron-right" style="width:14px;height:14px;"></i></button>
+          <!-- ============ TAB 4: 核销记录 ============ -->
+          <div class="tab-content" id="tab-recon-records">
+            <div class="tms-card-surface section-gap" style="padding:14px 16px;">
+              <div style="display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap;">
+                <div class="filter-field">
+                  <label class="filter-label">客户关键字</label>
+                  <input class="filter-input" placeholder="搜索客户名称" style="width:180px;">
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">开始日期</label>
+                  <input class="filter-input filter-date" type="date" value="2026-07-01">
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">结束日期</label>
+                  <input class="filter-input filter-date" type="date" value="2026-07-29">
+                </div>
+                <div class="filter-field">
+                  <label class="filter-label">核销方式</label>
+                  <select class="filter-select" style="width:180px;">
+                    <option>全部</option>
+                    <option>按客户总金额核销</option>
+                    <option>按某一笔运单核销</option>
+                  </select>
+                </div>
+                <button class="tms-btn tms-btn-primary tms-btn-sm"><i data-lucide="search"></i>查询</button>
+                <button class="tms-btn tms-btn-outline tms-btn-sm" onclick="exportReconRecords()"><i data-lucide="download"></i>导出</button>
               </div>
-              <div class="page-size-wrap">
-                <span>每页</span>
-                <select class="page-size-select">
-                  <option>10</option>
-                  <option>20</option>
-                  <option>50</option>
-                  <option>100</option>
-                </select>
-                <span>条</span>
+            </div>
+            <div class="tms-card-surface" style="overflow:hidden;">
+              <div class="table-wrap">
+                <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+                  <thead>
+                    <tr>
+                      <th>核销单号</th>
+                      <th>客户</th>
+                      <th>回款流水号</th>
+                      <th>回款账单号</th>
+                      <th style="text-align:right;">充值金额</th>
+                      <th>凭证</th>
+                      <th>核销方式</th>
+                      <th>核销运单</th>
+                      <th style="text-align:right;">本次核销</th>
+                      <th style="text-align:right;">剩余余额</th>
+                      <th>操作人</th>
+                      <th>时间</th>
+                    </tr>
+                  </thead>
+                  <tbody id="reconRecordsTbody">
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
 
-          <!-- Chart.js Initialization -->
+          <!-- ============ TAB 5: 费用审计 ============ -->
+          <div class="tab-content" id="tab-cost-audit">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+              <button class="tms-btn tms-btn-primary tms-btn-sm" onclick="showAddCostModal()"><i data-lucide="plus"></i>增加费用</button>
+              <button class="tms-btn tms-btn-outline tms-btn-sm" onclick="handleReAudit()"><i data-lucide="refresh-cw"></i>重新审计</button>
+              <button class="tms-btn tms-btn-outline tms-btn-sm" onclick="handleReverseAudit()"><i data-lucide="undo-2"></i>反审计</button>
+            </div>
+            <div class="tms-card-surface" style="overflow:hidden;">
+              <div class="table-wrap">
+                <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+                  <thead>
+                    <tr>
+                      <th>账单编号</th>
+                      <th>费用科目</th>
+                      <th style="text-align:right;">金额</th>
+                      <th>审计状态</th>
+                      <th>审计人</th>
+                      <th>审计时间</th>
+                      <th>备注</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="costAuditTbody">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== Chart.js ===== -->
           <script>
             (function () {
               var root = getComputedStyle(document.documentElement);
-              var token = function (name, fallback) {
-                var v = root.getPropertyValue(name).trim();
-                return v || fallback;
-              };
+              var token = function (name, fallback) { var v = root.getPropertyValue(name).trim(); return v || fallback; };
               var primary = token('--tms-primary-500', '#1B4332');
-              var primary400 = token('--tms-primary-400', '#3A7250');
-              var primary300 = token('--tms-primary-300', '#5E9273');
-              var primary200 = token('--tms-primary-200', '#97BDA5');
-              var primary100 = token('--tms-primary-100', '#C8DCCF');
               var success = token('--state-success', '#2D7D5F');
               var errorColor = token('--state-error', '#B5453C');
               var cardBg = token('--tms-card', '#FFFFFF');
               var gridColor = token('--tms-border', '#EAE8E1');
               var mutedFg = token('--tms-muted-foreground', '#6B6B65');
               var foreground = token('--tms-foreground', '#1A1A17');
+              var primary400 = token('--tms-primary-400', '#3A7250');
 
-              // Line chart — 应收趋势分析
               var trendCanvas = document.getElementById('arTrendChart');
               if (trendCanvas && window.Chart) {
                 new Chart(trendCanvas, {
-                  type: 'line',
-                  data: {
+                  type: 'line', data: {
                     labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
                     datasets: [
-                      {
-                        label: '应收金额',
-                        data: [2150400, 2386700, 2643200, 2517800, 2892400, 2736500, 2856430],
-                        borderColor: primary,
-                        backgroundColor: 'rgba(27, 67, 50, 0.08)',
-                        borderWidth: 2,
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: primary,
-                        pointBorderColor: cardBg,
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                      },
-                      {
-                        label: '已收金额',
-                        data: [1482300, 1628400, 1856700, 1794200, 2103600, 1987400, 1923580],
-                        borderColor: success,
-                        backgroundColor: 'rgba(45, 125, 95, 0.06)',
-                        borderWidth: 2,
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: success,
-                        pointBorderColor: cardBg,
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                      }
+                      { label: '应收金额', data: [2150400, 2386700, 2643200, 2517800, 2892400, 2736500, 2856430], borderColor: primary, backgroundColor: 'rgba(27,67,50,0.08)', borderWidth: 2, tension: 0.4, fill: true, pointBackgroundColor: primary, pointBorderColor: cardBg, pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6 },
+                      { label: '已收金额', data: [1482300, 1628400, 1856700, 1794200, 2103600, 1987400, 1923580], borderColor: success, backgroundColor: 'rgba(45,125,95,0.06)', borderWidth: 2, tension: 0.4, fill: true, pointBackgroundColor: success, pointBorderColor: cardBg, pointBorderWidth: 2, pointRadius: 4, pointHoverRadius: 6 }
                     ]
                   },
                   options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     interaction: { mode: 'index', intersect: false },
-                    plugins: {
-                      legend: {
-                        position: 'top',
-                        align: 'end',
-                        labels: {
-                          color: foreground,
-                          font: { size: 12 },
-                          boxWidth: 10,
-                          boxHeight: 10,
-                          padding: 12,
-                          usePointStyle: true,
-                          pointStyle: 'circle'
-                        }
-                      },
-                      tooltip: {
-                        backgroundColor: foreground,
-                        titleColor: cardBg,
-                        bodyColor: cardBg,
-                        padding: 10,
-                        cornerRadius: 4,
-                        callbacks: {
-                          label: function (ctx) {
-                            return ctx.dataset.label + ': ¥' + ctx.parsed.y.toLocaleString('zh-CN');
-                          }
-                        }
-                      }
-                    },
-                    scales: {
-                      x: {
-                        grid: { display: false },
-                        border: { color: gridColor },
-                        ticks: { color: mutedFg, font: { size: 12 } }
-                      },
-                      y: {
-                        beginAtZero: true,
-                        grid: { color: gridColor },
-                        border: { display: false },
-                        ticks: {
-                          color: mutedFg,
-                          font: { size: 12 },
-                          callback: function (value) {
-                            if (value >= 10000) {
-                              return (value / 10000).toFixed(0) + '万';
-                            }
-                            return value;
-                          }
-                        }
-                      }
-                    }
+                    plugins: { legend: { position: 'top', align: 'end', labels: { color: foreground, font: { size: 12 }, boxWidth: 10, boxHeight: 10, padding: 12, usePointStyle: true, pointStyle: 'circle' } }, tooltip: { backgroundColor: foreground, titleColor: cardBg, bodyColor: cardBg, padding: 10, cornerRadius: 4, callbacks: { label: function (ctx) { return ctx.dataset.label + ': ¥' + ctx.parsed.y.toLocaleString('zh-CN'); } } } },
+                    scales: { x: { grid: { display: false }, border: { color: gridColor }, ticks: { color: mutedFg, font: { size: 12 } } }, y: { beginAtZero: true, grid: { color: gridColor }, border: { display: false }, ticks: { color: mutedFg, font: { size: 12 }, callback: function (v) { return v >= 10000 ? (v / 10000).toFixed(0) + '万' : v; } } } }
                   }
                 });
               }
 
-              // Doughnut chart — 账龄分析
               var agingCanvas = document.getElementById('arAgingChart');
               if (agingCanvas && window.Chart) {
                 new Chart(agingCanvas, {
-                  type: 'doughnut',
-                  data: {
-                    labels: ['0-30天', '31-60天', '61-90天', '90天以上'],
-                    datasets: [{
-                      data: [458200, 287600, 125400, 61650],
-                      backgroundColor: [primary, primary400, primary300, errorColor],
-                      borderColor: cardBg,
-                      borderWidth: 2,
-                      hoverOffset: 4
-                    }]
-                  },
+                  type: 'doughnut', data: { labels: ['0-30天', '31-60天', '61-90天', '90天以上'], datasets: [{ data: [458200, 287600, 125400, 61650], backgroundColor: [primary, primary400, primary, errorColor], borderColor: cardBg, borderWidth: 2, hoverOffset: 4 }] },
                   options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '58%',
-                    plugins: {
-                      legend: {
-                        position: 'right',
-                        labels: {
-                          color: foreground,
-                          font: { size: 12 },
-                          boxWidth: 10,
-                          boxHeight: 10,
-                          padding: 12,
-                          usePointStyle: true,
-                          pointStyle: 'circle'
-                        }
-                      },
-                      tooltip: {
-                        backgroundColor: foreground,
-                        titleColor: cardBg,
-                        bodyColor: cardBg,
-                        padding: 10,
-                        cornerRadius: 4,
-                        callbacks: {
-                          label: function (ctx) {
-                            var total = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0);
-                            var pct = ((ctx.parsed / total) * 100).toFixed(1);
-                            return ctx.label + ': ¥' + ctx.parsed.toLocaleString('zh-CN') + ' (' + pct + '%)';
-                          }
-                        }
-                      }
-                    }
+                    responsive: true, maintainAspectRatio: false, cutout: '58%',
+                    plugins: { legend: { position: 'right', labels: { color: foreground, font: { size: 12 }, boxWidth: 10, boxHeight: 10, padding: 12, usePointStyle: true, pointStyle: 'circle' } }, tooltip: { backgroundColor: foreground, titleColor: cardBg, bodyColor: cardBg, padding: 10, cornerRadius: 4, callbacks: { label: function (ctx) { var t = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0); var p = ((ctx.parsed / t) * 100).toFixed(1); return ctx.label + ': ¥' + ctx.parsed.toLocaleString('zh-CN') + ' (' + p + '%)'; } } } }
                   }
                 });
               }
@@ -1084,17 +1107,1347 @@ h1, h2, h3, h4, h5, h6 {
         </main>
       </div>
     </div>
+
+    <!-- ===== SLIDE PANEL - Bill Detail ===== -->
+    <div class="slide-overlay" id="slideOverlay" onclick="closeSlidePanel()"></div>
+    <div class="slide-panel" id="slidePanel">
+      <div class="slide-panel-header">
+        <h3>账单详情 - <span id="slideBillNo" class="tms-mono-data">AR-2026-0729-001</span></h3>
+        <button class="modal-close" onclick="closeSlidePanel()">&times;</button>
+      </div>
+      <div class="slide-panel-tabs" id="slidePanelTabs">
+        <button class="slide-panel-tab is-active" data-slide-tab="sp-basic">基本信息</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-dept">部门上传数据</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-cost">费用科目</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-collection">收款记录</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-recon">核销记录</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-finance">财务审核</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-discount">优惠记录</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-logs">操作日志</button>
+        <button class="slide-panel-tab" data-slide-tab="sp-linked">关联运单</button>
+      </div>
+      <div class="slide-panel-body" id="slidePanelBody">
+      </div>
+    </div>
+
+    <!-- ===== MODALS ===== -->
+    <!-- Statistics Modal -->
+    <div class="modal-overlay hidden" id="statsModal">
+      <div class="modal-container modal-wide">
+        <div class="modal-header"><h3>应收统计概览</h3><button class="modal-close" onclick="closeModal('statsModal')">&times;</button></div>
+        <div class="modal-body" id="statsModalBody"></div>
+        <div class="modal-footer"><button class="tms-btn tms-btn-outline" onclick="closeModal('statsModal')">关闭</button></div>
+      </div>
+    </div>
+
+    <!-- Batch Notes Modal -->
+    <div class="modal-overlay hidden" id="batchNotesModal">
+      <div class="modal-container">
+        <div class="modal-header"><h3>批量修改备注</h3><button class="modal-close" onclick="closeModal('batchNotesModal')">&times;</button></div>
+        <div class="modal-body">
+          <div class="form-group"><label>备注内容</label><textarea class="form-textarea" id="batchNotesText" placeholder="请输入备注内容" rows="4"></textarea></div>
+          <div style="font-size:12px; color:var(--tms-muted-foreground);">已选 <span id="batchNotesCount">0</span> 条记录</div>
+        </div>
+        <div class="modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeModal('batchNotesModal')">取消</button>
+          <button class="tms-btn tms-btn-primary" onclick="submitBatchNotes()">确认修改</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Batch Amortization Modal -->
+    <div class="modal-overlay hidden" id="batchAmortModal">
+      <div class="modal-container modal-wide">
+        <div class="modal-header"><h3>批量平摊费用</h3><button class="modal-close" onclick="closeModal('batchAmortModal')">&times;</button></div>
+        <div class="modal-body">
+          <div class="form-group"><label>平摊规则</label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="amortRule" value="weight" checked onchange="updateAmortPreview()">按收费重</label>
+              <label class="radio-item"><input type="radio" name="amortRule" value="ticket" onchange="updateAmortPreview()">按票</label>
+              <label class="radio-item"><input type="radio" name="amortRule" value="box" onchange="updateAmortPreview()">按箱数</label>
+              <label class="radio-item"><input type="radio" name="amortRule" value="volume" onchange="updateAmortPreview()">按体积</label>
+            </div>
+          </div>
+          <div class="form-group"><label>平摊费用总额</label><input type="number" class="form-input" id="amortTotal" placeholder="请输入平摊费用总额" value="50000" oninput="updateAmortPreview()" min="0" step="0.01"></div>
+          <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:10px;">已选 <span id="amortCount">0</span> 条记录</div>
+          <div class="preview-panel" id="amortPreviewPanel"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeModal('batchAmortModal')">取消</button>
+          <button class="tms-btn tms-btn-primary" onclick="submitAmortization()">确认平摊</button>
+          <button class="tms-btn tms-btn-outline" onclick="exportAmortResult()"><i data-lucide="download"></i>导出预览</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reconciliation Execution Modal -->
+    <div class="modal-overlay hidden" id="reconConfirmModal">
+      <div class="modal-container">
+        <div class="modal-header"><h3>确认核销</h3><button class="modal-close" onclick="closeModal('reconConfirmModal')">&times;</button></div>
+        <div class="modal-body" id="reconConfirmBody"></div>
+        <div class="modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeModal('reconConfirmModal')">取消</button>
+          <button class="tms-btn tms-btn-primary" onclick="confirmReconciliation()">确认核销</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discount Detail Modal -->
+    <div class="modal-overlay hidden" id="discountDetailModal">
+      <div class="modal-container">
+        <div class="modal-header"><h3>优惠详情</h3><button class="modal-close" onclick="closeModal('discountDetailModal')">&times;</button></div>
+        <div class="modal-body" id="discountDetailBody"></div>
+        <div class="modal-footer"><button class="tms-btn tms-btn-outline" onclick="closeModal('discountDetailModal')">关闭</button></div>
+      </div>
+    </div>
+
+    <!-- Cost Audit Modal -->
+    <div class="modal-overlay hidden" id="costAuditModal">
+      <div class="modal-container">
+        <div class="modal-header"><h3>增加费用</h3><button class="modal-close" onclick="closeModal('costAuditModal')">&times;</button></div>
+        <div class="modal-body">
+          <div class="form-group"><label>账单编号</label><select class="form-select" id="newCostBillNo"><option>AR-2026-0729-001</option><option>AR-2026-0729-002</option><option>AR-2026-0729-003</option></select></div>
+          <div class="form-group"><label>费用科目</label><input type="text" class="form-input" id="newCostItem" placeholder="例如：仓储附加费"></div>
+          <div class="form-group"><label>金额</label><input type="number" class="form-input" id="newCostAmount" placeholder="请输入金额" min="0" step="0.01"></div>
+          <div class="form-group"><label>备注</label><textarea class="form-textarea" id="newCostRemark" placeholder="备注说明" rows="3"></textarea></div>
+        </div>
+        <div class="modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeModal('costAuditModal')">取消</button>
+          <button class="tms-btn tms-btn-primary" onclick="submitNewCost()">确认增加</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== ENHANCED MODALS ===== -->
+    <!-- Payment Registration Modal -->
+    <div class="enh-modal-overlay" id="paymentRegModal">
+      <div class="enh-modal">
+        <div class="enh-modal-header"><h3><i data-lucide="dollar-sign" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:4px;color:var(--tms-primary);"></i>收款登记</h3><button class="enh-modal-close" onclick="closeEnhModal('paymentRegModal')">&times;</button></div>
+        <div class="enh-modal-body">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div class="form-group">
+              <label>运单号 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="prWaybill" placeholder="请输入运单号">
+            </div>
+            <div class="form-group">
+              <label>提单号</label>
+              <input type="text" class="form-input" id="prBlNo" placeholder="请输入提单号">
+            </div>
+            <div class="form-group">
+              <label>客户名称 <span class="required">*</span></label>
+              <select class="form-select" id="prCustomer">
+                <option value="">请选择客户</option>
+                <option>上海华贸物流</option>
+                <option>深圳前海供应链</option>
+                <option>宁波远洋货运</option>
+                <option>广州港集团物流</option>
+                <option>厦门海沧国际货运</option>
+                <option>青岛前湾港物流</option>
+                <option>天津中远海运</option>
+                <option>大连集装箱物流</option>
+                <option>烟台港国际货运</option>
+                <option>连云港海运集团</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>应收金额 <span class="required">*</span></label>
+              <input type="number" class="form-input" id="prReceivable" placeholder="应收金额" min="0" step="0.01">
+            </div>
+            <div class="form-group">
+              <label>本次收款金额 <span class="required">*</span></label>
+              <input type="number" class="form-input" id="prAmount" placeholder="本次收款金额" min="0" step="0.01" oninput="validatePaymentAmount()">
+            </div>
+            <div class="form-group">
+              <label>收款日期 <span class="required">*</span></label>
+              <input type="date" class="form-input" id="prDate">
+            </div>
+            <div class="form-group">
+              <label>收款方式 <span class="required">*</span></label>
+              <select class="form-select" id="prMethod">
+                <option value="bank">银行转账</option>
+                <option value="cash">现金</option>
+                <option value="check">支票</option>
+                <option value="other">其他</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>备注</label>
+            <textarea class="form-textarea" id="prRemark" placeholder="请输入备注信息" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label>凭证上传</label>
+            <div class="upload-area" id="prUpload" onclick="simulateUpload('prUpload')">
+              <i data-lucide="upload" class="upload-icon" style="width:24px;height:24px;"></i>
+              <div class="upload-text">点击上传收款凭证</div>
+              <div class="upload-file-name" style="display:none;" id="prUploadName"></div>
+            </div>
+          </div>
+          <div id="prAmountHint" style="font-size:12px; color:var(--state-error); display:none; margin-top:8px;"></div>
+        </div>
+        <div class="enh-modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeEnhModal('paymentRegModal')">取消</button>
+          <button class="tms-btn tms-btn-primary" onclick="submitPaymentRegistration()"><i data-lucide="check"></i>确认登记</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reconciliation Modal -->
+    <div class="enh-modal-overlay" id="reconModal">
+      <div class="enh-modal enh-modal-wide">
+        <div class="enh-modal-header"><h3><i data-lucide="check-circle" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:4px;color:var(--tms-primary);"></i>核销管理</h3><button class="enh-modal-close" onclick="closeEnhModal('reconModal')">&times;</button></div>
+        <div class="enh-modal-body">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <div class="form-group">
+              <label>选择客户 <span class="required">*</span></label>
+              <select class="form-select" id="rmCustomer" onchange="updateReconModalPreview()">
+                <option value="">请选择客户</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>核销日期 <span class="required">*</span></label>
+              <input type="date" class="form-input" id="rmDate">
+            </div>
+            <div class="form-group">
+              <label>核销金额 <span class="required">*</span></label>
+              <input type="number" class="form-input" id="rmAmount" placeholder="请输入核销金额" min="0" step="0.01" oninput="updateReconModalPreview()">
+            </div>
+            <div class="form-group">
+              <label>核销类型 <span class="required">*</span></label>
+              <select class="form-select" id="rmType" onchange="updateReconModalPreview()">
+                <option value="full">全额核销</option>
+                <option value="partial">部分核销</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:10px; font-size:13px; color:var(--tms-muted-foreground);">待核销账单：</div>
+          <div style="max-height:200px; overflow-y:auto; border:1px solid var(--tms-border); border-radius:var(--tms-radius-medium); margin-top:8px;" id="rmInvoiceList"></div>
+          <div class="preview-panel" style="margin-top:12px;">
+            <div class="preview-row"><span class="preview-label">客户待核销总额</span><span class="preview-value" id="rmTotal">¥0.00</span></div>
+            <div class="preview-row"><span class="preview-label">本次核销金额</span><span class="preview-value" id="rmReconAmount">¥0.00</span></div>
+          </div>
+        </div>
+        <div class="enh-modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeEnhModal('reconModal')">取消</button>
+          <button class="tms-btn tms-btn-primary" onclick="submitReconciliation()"><i data-lucide="check"></i>执行核销</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Aging Analysis Modal -->
+    <div class="enh-modal-overlay" id="agingModal">
+      <div class="enh-modal enh-modal-wide">
+        <div class="enh-modal-header"><h3><i data-lucide="bar-chart-3" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:4px;color:var(--tms-primary);"></i>账龄分析</h3><button class="enh-modal-close" onclick="closeEnhModal('agingModal')">&times;</button></div>
+        <div class="enh-modal-body">
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px;" id="agingBuckets"></div>
+          <div class="bar-chart-legend">
+            <div class="bar-legend-item"><div class="bar-legend-dot" style="background:var(--tms-primary-500);"></div>0-30天</div>
+            <div class="bar-legend-item"><div class="bar-legend-dot" style="background:var(--tms-primary-400);"></div>31-60天</div>
+            <div class="bar-legend-item"><div class="bar-legend-dot" style="background:var(--tms-primary-300);"></div>61-90天</div>
+            <div class="bar-legend-item"><div class="bar-legend-dot" style="background:var(--state-error);"></div>90天以上</div>
+          </div>
+          <div class="bar-chart-wrap" id="agingBarChart"></div>
+          <div style="margin-top:20px;">
+            <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+              <span style="font-size:14px; font-weight:600;">按客户分组</span>
+              <select class="filter-select" id="agingGroupBy" onchange="renderAgingAnalysis()" style="width:180px;">
+                <option value="customer">按客户</option>
+                <option value="route">按线路</option>
+              </select>
+            </div>
+            <div style="max-height:300px; overflow-y:auto;" id="agingDetailTable"></div>
+          </div>
+        </div>
+        <div class="enh-modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeEnhModal('agingModal')">关闭</button>
+          <button class="tms-btn tms-btn-primary" onclick="exportAgingCSV()"><i data-lucide="download"></i>导出账龄分析</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trend Analysis Modal -->
+    <div class="enh-modal-overlay" id="trendModal">
+      <div class="enh-modal enh-modal-wide">
+        <div class="enh-modal-header"><h3><i data-lucide="trending-up" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:4px;color:var(--tms-primary);"></i>趋势分析</h3><button class="enh-modal-close" onclick="closeEnhModal('trendModal')">&times;</button></div>
+        <div class="enh-modal-body">
+          <div class="bar-chart-legend">
+            <div class="bar-legend-item"><div class="bar-legend-dot" style="background:var(--tms-primary-500);"></div>应收金额</div>
+            <div class="bar-legend-item"><div class="bar-legend-dot" style="background:var(--state-success);"></div>已收金额</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <span style="font-size:14px; font-weight:600;">近12个月趋势</span>
+            <select class="filter-select" id="trendGroupBy" onchange="renderTrendAnalysis()" style="width:180px;">
+              <option value="month">按月</option>
+              <option value="customer">按客户</option>
+              <option value="route">按线路</option>
+            </select>
+          </div>
+          <div class="bar-chart-wrap" id="trendBarChart" style="height:220px;"></div>
+          <div style="margin-top:16px; max-height:300px; overflow-y:auto;" id="trendDetailTable"></div>
+        </div>
+        <div class="enh-modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeEnhModal('trendModal')">关闭</button>
+          <button class="tms-btn tms-btn-primary" onclick="exportTrendCSV()"><i data-lucide="download"></i>导出趋势分析</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fee Detail Modal (click row) -->
+    <div class="enh-modal-overlay" id="feeDetailModal">
+      <div class="enh-modal">
+        <div class="enh-modal-header"><h3><i data-lucide="receipt" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:4px;color:var(--tms-primary);"></i>费用明细</h3><button class="enh-modal-close" onclick="closeEnhModal('feeDetailModal')">&times;</button></div>
+        <div class="enh-modal-body" id="feeDetailBody"></div>
+        <div class="enh-modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeEnhModal('feeDetailModal')">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cost Allocation Modal -->
+    <div class="enh-modal-overlay" id="allocModal">
+      <div class="enh-modal enh-modal-wide">
+        <div class="enh-modal-header"><h3><i data-lucide="scale" style="width:18px;height:18px;display:inline-block;vertical-align:middle;margin-right:4px;color:var(--tms-primary);"></i>平摊费用</h3><button class="enh-modal-close" onclick="closeEnhModal('allocModal')">&times;</button></div>
+        <div class="enh-modal-body">
+          <div class="form-group">
+            <label>选择费用项目 <span class="required">*</span></label>
+            <select class="form-select" id="allocExpenseItem">
+              <option value="">请选择费用项目</option>
+              <option value="海运费" data-amount="280000">海运费 (¥280,000.00)</option>
+              <option value="报关费" data-amount="45000">报关费 (¥45,000.00)</option>
+              <option value="仓储费" data-amount="68000">仓储费 (¥68,000.00)</option>
+              <option value="附加费" data-amount="32000">附加费 (¥32,000.00)</option>
+              <option value="配送费" data-amount="18500">配送费 (¥18,500.00)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>平摊方式 <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="allocMethod" value="weight" checked onchange="updateAllocPreview()">按重量</label>
+              <label class="radio-item"><input type="radio" name="allocMethod" value="volume" onchange="updateAllocPreview()">按体积</label>
+              <label class="radio-item"><input type="radio" name="allocMethod" value="pieces" onchange="updateAllocPreview()">按件数</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>平摊到运单</label>
+            <div style="max-height:200px; overflow-y:auto; border:1px solid var(--tms-border); border-radius:var(--tms-radius-medium);" id="allocWaybillList"></div>
+          </div>
+          <div class="preview-panel" style="margin-top:12px;" id="allocPreview"></div>
+        </div>
+        <div class="enh-modal-footer">
+          <button class="tms-btn tms-btn-outline" onclick="closeEnhModal('allocModal')">取消</button>
+          <button class="tms-btn tms-btn-primary" onclick="submitAllocation()"><i data-lucide="check"></i>确认平摊</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CSV Export Hidden Frame -->
+    <a class="csv-download-link" id="csvDownloadLink" href="#" download="export.csv"></a>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== SCRIPTS ===== -->
     <script>lucide.createIcons();</script>
     <script id="nav-link-resolver">
-      (function(){
-        var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
-        document.querySelectorAll('a[data-nav-key]').forEach(function(a){
-          var href = a.getAttribute('href');
-          if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
-            a.setAttribute('href', new URL(href, currentDir).href);
+      (function(){ var d = window.location.href.replace(/\/[^\/]*$/, '/'); document.querySelectorAll('a[data-nav-key]').forEach(function(a){ var h = a.getAttribute('href'); if (h && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(h)) { a.setAttribute('href', new URL(h, d).href); } }); })();
+    </script>
+
+    <script>
+      // ============ DATA STORE ============
+      var receivableData = [
+        { id: 'AR-2026-0729-001', customer: '上海华贸物流', bl: 'BL-2026-0701-128', wb: 'WB-2026-0701-045', total: 328500, received: 328500, uncollected: 0, date: '2026-07-01', due: '2026-07-31', overdue: '—', status: '已结清', statusClass: 'tms-status--success', notes: '' },
+        { id: 'AR-2026-0729-002', customer: '深圳前海供应链', bl: 'BL-2026-0705-203', wb: 'WB-2026-0705-089', total: 456200, received: 273720, uncollected: 182480, date: '2026-07-05', due: '2026-08-04', overdue: '—', status: '部分收款', statusClass: 'tms-status--warning', notes: '' },
+        { id: 'AR-2026-0729-003', customer: '宁波远洋货运', bl: 'BL-2026-0708-156', wb: 'WB-2026-0708-112', total: 289600, received: 0, uncollected: 289600, date: '2026-07-08', due: '2026-08-07', overdue: '—', status: '待收款', statusClass: 'tms-status--info', notes: '' },
+        { id: 'AR-2026-0729-004', customer: '广州港集团物流', bl: 'BL-2026-0615-089', wb: 'WB-2026-0615-034', total: 512800, received: 307680, uncollected: 205120, date: '2026-06-15', due: '2026-07-15', overdue: '14', status: '逾期', statusClass: 'tms-status--error', notes: '' },
+        { id: 'AR-2026-0729-005', customer: '厦门海沧国际货运', bl: 'BL-2026-0712-178', wb: 'WB-2026-0712-067', total: 178300, received: 178300, uncollected: 0, date: '2026-07-12', due: '2026-08-11', overdue: '—', status: '已结清', statusClass: 'tms-status--success', notes: '' },
+        { id: 'AR-2026-0729-006', customer: '青岛前湾港物流', bl: 'BL-2026-0628-145', wb: 'WB-2026-0628-051', total: 645900, received: 387540, uncollected: 258360, date: '2026-06-28', due: '2026-07-28', overdue: '1', status: '逾期', statusClass: 'tms-status--error', notes: '' },
+        { id: 'AR-2026-0729-007', customer: '天津中远海运', bl: 'BL-2026-0718-221', wb: 'WB-2026-0718-098', total: 398450, received: 159380, uncollected: 239070, date: '2026-07-18', due: '2026-08-17', overdue: '—', status: '部分收款', statusClass: 'tms-status--warning', notes: '' },
+        { id: 'AR-2026-0729-008', customer: '大连集装箱物流', bl: 'BL-2026-0720-167', wb: 'WB-2026-0720-075', total: 215700, received: 0, uncollected: 215700, date: '2026-07-20', due: '2026-08-19', overdue: '—', status: '待收款', statusClass: 'tms-status--info', notes: '' },
+        { id: 'AR-2026-0729-009', customer: '烟台港国际货运', bl: 'BL-2026-0605-098', wb: 'WB-2026-0605-028', total: 487200, received: 487200, uncollected: 0, date: '2026-06-05', due: '2026-07-05', overdue: '—', status: '已结清', statusClass: 'tms-status--success', notes: '' },
+        { id: 'AR-2026-0729-010', customer: '连云港海运集团', bl: 'BL-2026-0620-134', wb: 'WB-2026-0620-046', total: 354800, received: 212880, uncollected: 141920, date: '2026-06-20', due: '2026-07-20', overdue: '9', status: '逾期', statusClass: 'tms-status--error', notes: '' }
+      ];
+
+      var discountData = [
+        { billNo: 'AR-2026-0729-001', customer: '上海华贸物流', amount: 12500, type: '运费优惠', reason: '长期合作客户折扣', approver: '张主管', time: '2026-07-02 10:30' },
+        { billNo: 'AR-2026-0729-002', customer: '深圳前海供应链', amount: 8500, type: '仓储费优惠', reason: '仓储破损补偿', approver: '李经理', time: '2026-07-06 14:15' },
+        { billNo: 'AR-2026-0729-004', customer: '广州港集团物流', amount: 15800, type: '综合优惠', reason: '年度大客户优惠', approver: '王总监', time: '2026-06-17 09:00' },
+        { billNo: 'AR-2026-0729-005', customer: '厦门海沧国际货运', amount: 3200, type: '报关费优惠', reason: '报关差错补偿', approver: '赵主管', time: '2026-07-13 16:40' },
+        { billNo: 'AR-2026-0729-007', customer: '天津中远海运', amount: 9600, type: '运费优惠', reason: '批量运输折扣', approver: '张主管', time: '2026-07-19 11:20' },
+        { billNo: 'AR-2026-0729-009', customer: '烟台港国际货运', amount: 4500, type: '仓储费优惠', reason: '提前结清奖励', approver: '李经理', time: '2026-06-08 08:50' },
+        { billNo: 'AR-2026-0729-010', customer: '连云港海运集团', amount: 7350, type: '运费优惠', reason: '新客户首单优惠', approver: '王总监', time: '2026-06-22 15:30' }
+      ];
+
+      var reconRecordsData = [
+        { id: 'RX-2026-0720-001', customer: '上海华贸物流', flowNo: 'BANK20260720001', billNo: 'HK-20260720-001', amount: 328500, voucher: '有', mode: '按客户总金额核销', wb: '—', reconAmount: 328500, remaining: 0, operator: '管理员', time: '2026-07-20 14:30' },
+        { id: 'RX-2026-0715-002', customer: '深圳前海供应链', flowNo: 'BANK20260715002', billNo: 'HK-20260715-002', amount: 300000, voucher: '有', mode: '按客户总金额核销', wb: '—', reconAmount: 273720, remaining: 26280, operator: '张主管', time: '2026-07-15 10:15' },
+        { id: 'RX-2026-0710-003', customer: '广州港集团物流', flowNo: 'BANK20260710003', billNo: 'HK-20260710-003', amount: 500000, voucher: '有', mode: '按某一笔运单核销', wb: 'WB-2026-0615-034', reconAmount: 307680, remaining: 192320, operator: '李经理', time: '2026-07-10 16:00' },
+        { id: 'RX-2026-0708-004', customer: '厦门海沧国际货运', flowNo: 'BANK20260708004', billNo: 'HK-20260708-004', amount: 178300, voucher: '有', mode: '按客户总金额核销', wb: '—', reconAmount: 178300, remaining: 0, operator: '管理员', time: '2026-07-08 09:45' },
+        { id: 'RX-2026-0705-005', customer: '青岛前湾港物流', flowNo: 'BANK20260705005', billNo: 'HK-20260705-005', amount: 400000, voucher: '有', mode: '按客户总金额核销', wb: '—', reconAmount: 387540, remaining: 12460, operator: '王总监', time: '2026-07-05 11:30' }
+      ];
+
+      var costAuditData = [
+        { billNo: 'AR-2026-0729-001', item: '海运费', amount: 280000, status: '已审计', statusClass: 'tms-status--success', auditor: '张主管', time: '2026-07-03', remark: '正常' },
+        { billNo: 'AR-2026-0729-001', item: '报关费', amount: 12500, status: '已审计', statusClass: 'tms-status--success', auditor: '张主管', time: '2026-07-03', remark: '正常' },
+        { billNo: 'AR-2026-0729-001', item: '仓储费', amount: 36000, status: '已审计', statusClass: 'tms-status--success', auditor: '张主管', time: '2026-07-03', remark: '正常' },
+        { billNo: 'AR-2026-0729-002', item: '海运费', amount: 420000, status: '审计中', statusClass: 'tms-status--warning', auditor: '李经理', time: '2026-07-06', remark: '待确认运费明细' },
+        { billNo: 'AR-2026-0729-002', item: '报关费', amount: 16200, status: '已审计', statusClass: 'tms-status--success', auditor: '李经理', time: '2026-07-06', remark: '正常' },
+        { billNo: 'AR-2026-0729-002', item: '附加费', amount: 20000, status: '未审计', statusClass: 'tms-status--neutral', auditor: '—', time: '—', remark: '待审核' },
+        { billNo: 'AR-2026-0729-004', item: '海运费', amount: 480000, status: '已审计', statusClass: 'tms-status--success', auditor: '王总监', time: '2026-06-17', remark: '正常' },
+        { billNo: 'AR-2026-0729-004', item: '仓储费', amount: 32800, status: '未审计', statusClass: 'tms-status--neutral', auditor: '—', time: '—', remark: '待审核' }
+      ];
+
+      var selectedRows = [];
+      var allDiscountsShown = false;
+
+      // ============ RENDER RECEIVABLE TABLE ============
+      function renderReceivableTable() {
+        var tbody = document.getElementById('receivableTbody');
+        var html = '';
+        var totalSum = 0, receivedSum = 0, uncollectedSum = 0;
+        for (var i = 0; i < receivableData.length; i++) {
+          var r = receivableData[i];
+          totalSum += r.total; receivedSum += r.received; uncollectedSum += r.uncollected;
+          var uncollectedColor = r.uncollected === 0 ? 'var(--tms-muted-foreground)' : (r.status === '逾期' ? 'var(--state-error)' : 'var(--state-warning)');
+          var overdueColor = r.overdue === '—' ? 'var(--tms-muted-foreground)' : '';
+          var checked = selectedRows.indexOf(r.id) >= 0 ? 'checked' : '';
+          html += '<tr>';
+          html += '<td><input type="checkbox" value="' + r.id + '" ' + checked + ' onchange="toggleRowSelect(this)"></td>';
+          html += '<td><span class="bill-no tms-mono-data">' + r.id + '</span></td>';
+          html += '<td>' + r.customer + '</td>';
+          html += '<td><span class="tms-mono-data">' + r.bl + '</span></td>';
+          html += '<td><span class="tms-mono-data">' + r.wb + '</span></td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(r.total) + '</span></td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(r.received) + '</span></td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data" style="color:' + uncollectedColor + ';">' + fmtMoney(r.uncollected) + '</span></td>';
+          html += '<td><span class="tms-mono-data">' + r.date + '</span></td>';
+          html += '<td><span class="tms-mono-data">' + r.due + '</span></td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data' + (r.overdue !== '—' ? ' ar-overdue-days' : '') + '" style="color:' + overdueColor + '">' + r.overdue + '</span></td>';
+          html += '<td><span class="tms-status ' + r.statusClass + '">' + r.status + '</span></td>';
+          html += '<td>';
+          html += '<button class="row-action" title="查看详情" onclick="openSlidePanel(\'' + r.id + '\')"><i data-lucide="eye"></i></button>';
+          html += '<button class="row-action" title="收款" onclick="quickCollect(\'' + r.id + '\')"><i data-lucide="dollar-sign"></i></button>';
+          html += '<button class="row-action" title="更多" onclick="showToast(\'功能开发中\', \'info\')"><i data-lucide="more-horizontal"></i></button>';
+          html += '</td>';
+          html += '</tr>';
+        }
+        html += '<tr class="ar-summary-row"><td colspan="6" style="text-align:right;">合计</td>';
+        html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(totalSum) + '</span></td>';
+        html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(receivedSum) + '</span></td>';
+        html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(uncollectedSum) + '</span></td>';
+        html += '<td colspan="5"></td></tr>';
+        tbody.innerHTML = html;
+        lucide.createIcons();
+      }
+
+      function renderDiscountTable() {
+        var tbody = document.getElementById('discountTbody');
+        var html = '';
+        var data = allDiscountsShown ? discountData : discountData.slice(0, 5);
+        for (var i = 0; i < data.length; i++) {
+          var d = data[i];
+          html += '<tr>';
+          html += '<td><span class="tms-mono-data bill-no">' + d.billNo + '</span></td>';
+          html += '<td>' + d.customer + '</td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data" style="color:var(--state-success);">-' + fmtMoney(d.amount) + '</span></td>';
+          html += '<td><span class="tms-status tms-status--info">' + d.type + '</span></td>';
+          html += '<td>' + d.reason + '</td>';
+          html += '<td>' + d.approver + '</td>';
+          html += '<td><span class="tms-mono-data">' + d.time + '</span></td>';
+          html += '<td><button class="row-action" title="查看详情" onclick="showDiscountDetail(\'' + d.billNo + '\')"><i data-lucide="eye"></i></button></td>';
+          html += '</tr>';
+        }
+        tbody.innerHTML = html;
+        lucide.createIcons();
+      }
+
+      function renderReconRecordsTable() {
+        var tbody = document.getElementById('reconRecordsTbody');
+        var html = '';
+        for (var i = 0; i < reconRecordsData.length; i++) {
+          var r = reconRecordsData[i];
+          html += '<tr>';
+          html += '<td><span class="tms-mono-data bill-no">' + r.id + '</span></td>';
+          html += '<td>' + r.customer + '</td>';
+          html += '<td><span class="tms-mono-data">' + r.flowNo + '</span></td>';
+          html += '<td><span class="tms-mono-data">' + r.billNo + '</span></td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(r.amount) + '</span></td>';
+          html += '<td><span class="file-tag"><i data-lucide="file-check"></i>' + r.voucher + '</span></td>';
+          html += '<td>' + r.mode + '</td>';
+          html += '<td><span class="tms-mono-data">' + r.wb + '</span></td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(r.reconAmount) + '</span></td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(r.remaining) + '</span></td>';
+          html += '<td>' + r.operator + '</td>';
+          html += '<td><span class="tms-mono-data">' + r.time + '</span></td>';
+          html += '</tr>';
+        }
+        tbody.innerHTML = html;
+        lucide.createIcons();
+      }
+
+      function renderCostAuditTable() {
+        var tbody = document.getElementById('costAuditTbody');
+        var html = '';
+        for (var i = 0; i < costAuditData.length; i++) {
+          var c = costAuditData[i];
+          html += '<tr>';
+          html += '<td><span class="tms-mono-data bill-no">' + c.billNo + '</span></td>';
+          html += '<td>' + c.item + '</td>';
+          html += '<td style="text-align:right;"><span class="tms-mono-data">' + fmtMoney(c.amount) + '</span></td>';
+          html += '<td><span class="tms-status ' + c.statusClass + '">' + c.status + '</span></td>';
+          html += '<td>' + c.auditor + '</td>';
+          html += '<td><span class="tms-mono-data">' + c.time + '</span></td>';
+          html += '<td>' + c.remark + '</td>';
+          html += '<td><button class="row-action" title="审计" onclick="auditCost(\'' + c.billNo + '\',\'' + c.item + '\')"><i data-lucide="search-check"></i></button></td>';
+          html += '</tr>';
+        }
+        tbody.innerHTML = html;
+        lucide.createIcons();
+      }
+
+      function fmtMoney(v) { return '¥' + v.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+      // ============ TAB SWITCHING ============
+      document.getElementById('mainTabs').addEventListener('click', function (e) {
+        var tab = e.target.closest('.main-tab');
+        if (!tab) return;
+        var tabId = tab.getAttribute('data-tab');
+        document.querySelectorAll('#mainTabs .main-tab').forEach(function (t) { t.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        document.querySelectorAll('.tab-content').forEach(function (c) { c.classList.remove('is-active'); });
+        var target = document.getElementById(tabId);
+        if (target) { target.classList.add('is-active'); }
+        if (tabId === 'tab-discount') renderDiscountTable();
+        if (tabId === 'tab-recon-records') renderReconRecordsTable();
+        if (tabId === 'tab-cost-audit') renderCostAuditTable();
+      });
+
+      // ============ ROW SELECTION ============
+      function toggleRowSelect(cb) {
+        var id = cb.value;
+        if (cb.checked) { if (selectedRows.indexOf(id) < 0) selectedRows.push(id); }
+        else { selectedRows = selectedRows.filter(function (x) { return x !== id; }); }
+        updateBatchBar();
+      }
+
+      function toggleSelectAll(cb) {
+        selectedRows = [];
+        if (cb.checked) { for (var i = 0; i < receivableData.length; i++) { selectedRows.push(receivableData[i].id); } }
+        document.querySelectorAll('#receivableTbody input[type="checkbox"]').forEach(function (c) { c.checked = cb.checked; });
+        updateBatchBar();
+      }
+
+      function clearBatchSelection() {
+        selectedRows = [];
+        document.getElementById('selectAll').checked = false;
+        document.querySelectorAll('#receivableTbody input[type="checkbox"]').forEach(function (c) { c.checked = false; });
+        updateBatchBar();
+      }
+
+      function updateBatchBar() {
+        var bar = document.getElementById('batchBar');
+        document.getElementById('selectedCount').textContent = selectedRows.length;
+        if (selectedRows.length > 0) { bar.classList.add('is-visible'); } else { bar.classList.remove('is-visible'); }
+      }
+
+      // ============ BATCH ACTIONS ============
+      function showBatchConfirm() {
+        if (selectedRows.length === 0) { showToast('请先选择记录', 'warning'); return; }
+        showToast('已批量确认 ' + selectedRows.length + ' 条记录', 'success');
+        clearBatchSelection();
+      }
+
+      function handleBatchExport() {
+        if (selectedRows.length === 0) { showToast('请先选择记录', 'warning'); return; }
+        showToast('已导出 ' + selectedRows.length + ' 条记录', 'success');
+      }
+
+      function showBatchNotes() {
+        if (selectedRows.length === 0) { showToast('请先选择记录', 'warning'); return; }
+        document.getElementById('batchNotesCount').textContent = selectedRows.length;
+        document.getElementById('batchNotesText').value = '';
+        openModal('batchNotesModal');
+      }
+
+      function submitBatchNotes() {
+        var text = document.getElementById('batchNotesText').value;
+        if (!text.trim()) { showToast('请输入备注内容', 'warning'); return; }
+        for (var i = 0; i < receivableData.length; i++) {
+          if (selectedRows.indexOf(receivableData[i].id) >= 0) { receivableData[i].notes = text; }
+        }
+        showToast('已为 ' + selectedRows.length + ' 条记录添加备注', 'success');
+        closeModal('batchNotesModal');
+        clearBatchSelection();
+      }
+
+      function showBatchAmortization() {
+        if (selectedRows.length === 0) { showToast('请先选择记录', 'warning'); return; }
+        document.getElementById('amortCount').textContent = selectedRows.length;
+        openModal('batchAmortModal');
+        updateAmortPreview();
+      }
+
+      function updateAmortPreview() {
+        var total = parseFloat(document.getElementById('amortTotal').value) || 0;
+        var count = selectedRows.length || 1;
+        var rule = document.querySelector('input[name="amortRule"]:checked').value;
+        var ruleName = { weight: '收费重', ticket: '票', box: '箱数', volume: '体积' }[rule];
+        var perItem = total / count;
+        var panel = document.getElementById('amortPreviewPanel');
+        var html = '<div style="font-size:13px; font-weight:600; margin-bottom:8px;">平摊预览（按' + ruleName + '）</div>';
+        html += '<div class="preview-row"><span class="preview-label">平摊总费用</span><span class="preview-value">' + fmtMoney(total) + '</span></div>';
+        html += '<div class="preview-row"><span class="preview-label">涉及记录数</span><span class="preview-value">' + count + ' 条</span></div>';
+        html += '<div class="preview-row"><span class="preview-label">每笔平摊</span><span class="preview-value">' + fmtMoney(perItem) + '</span></div>';
+        html += '<div style="margin-top:10px; overflow-x:auto;"><table class="tms-table-dense" style="width:100%;"><thead><tr><th>账单编号</th><th>客户</th><th style="text-align:right;">原始应收</th><th style="text-align:right;">平摊后</th></tr></thead><tbody>';
+        for (var i = 0; i < receivableData.length; i++) {
+          if (selectedRows.indexOf(receivableData[i].id) >= 0) {
+            html += '<tr><td>' + receivableData[i].id + '</td><td>' + receivableData[i].customer + '</td><td style="text-align:right;">' + fmtMoney(receivableData[i].total) + '</td><td style="text-align:right;">' + fmtMoney(receivableData[i].total + perItem) + '</td></tr>';
+          }
+        }
+        html += '</tbody></table></div>';
+        panel.innerHTML = html;
+      }
+
+      function submitAmortization() {
+        showToast('平摊费用已执行', 'success');
+        closeModal('batchAmortModal');
+        clearBatchSelection();
+      }
+
+      function exportAmortResult() {
+        showToast('平摊预览已导出', 'success');
+      }
+
+      function handleBatchUndo() {
+        if (selectedRows.length === 0) { showToast('请先选择记录', 'warning'); return; }
+        showToast('已撤销 ' + selectedRows.length + ' 条记录的平摊', 'success');
+        clearBatchSelection();
+      }
+
+      // ============ STATISTICS MODAL ============
+      function showStatisticsModal() {
+        var body = document.getElementById('statsModalBody');
+        var html = '<div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">';
+        var stats = [
+          ['客户数', '10'], ['运单数', '342'], ['箱数', '1,856'],
+          ['实重', '48,320 kg'], ['材积重', '52,100 kg'], ['体积', '186.5 m³'],
+          ['收费重', '52,100 kg'], ['应收', '¥2,856,430.00'], ['已收', '¥1,923,580.00'],
+          ['未收', '¥932,850.00'], ['应付', '¥2,140,000.00'], ['毛利', '¥716,430.00'],
+          ['利润率', '25.08%'], ['优惠统计', '¥128,450.00 (63笔)']
+        ];
+        for (var i = 0; i < stats.length; i++) {
+          html += '<div class="info-row"><span class="info-label">' + stats[i][0] + '</span><span class="info-value tms-mono-data">' + stats[i][1] + '</span></div>';
+        }
+        html += '</div>';
+        body.innerHTML = html;
+        openModal('statsModal');
+      }
+
+      // ============ RECONCILIATION ============
+      function updateReconPreview() {
+        var sel = document.getElementById('reconCustomer');
+        var opt = sel.options[sel.selectedIndex];
+        var uncollected = opt ? parseFloat(opt.getAttribute('data-uncollected')) || 0 : 0;
+        document.getElementById('reconUncollected').textContent = fmtMoney(uncollected);
+        var mode = document.querySelector('input[name="reconMode"]:checked').value;
+        var wbSel = document.getElementById('reconWaybill');
+        wbSel.style.display = mode === 'by-waybill' ? 'block' : 'none';
+        var reconAmount = uncollected;
+        if (mode === 'by-waybill') {
+          var wbOpt = wbSel.options[wbSel.selectedIndex];
+          reconAmount = wbOpt ? parseFloat(wbOpt.getAttribute('data-amount')) || 0 : 0;
+        }
+        var recharge = parseFloat(document.getElementById('reconAmount').value) || 0;
+        document.getElementById('pvRecharge').textContent = fmtMoney(recharge);
+        document.getElementById('pvReconAmount').textContent = fmtMoney(Math.min(reconAmount, recharge));
+        document.getElementById('pvRemaining').textContent = fmtMoney(Math.max(0, recharge - Math.min(reconAmount, recharge)));
+        var settleMode = document.getElementById('supplierSettleMode').value;
+        document.getElementById('cashApprovalHint').style.display = settleMode === 'cash' ? 'block' : 'none';
+      }
+
+      function generateReconBillNo() {
+        var now = new Date();
+        var no = 'HK-' + now.getFullYear() + ('0' + (now.getMonth() + 1)).slice(-2) + ('0' + now.getDate()).slice(-2) + '-' + ('000' + Math.floor(Math.random() * 1000)).slice(-3);
+        document.getElementById('reconBillNo').textContent = no;
+        showToast('回款账单号已生成：' + no, 'success');
+      }
+
+      function executeReconciliation() {
+        var customer = document.getElementById('reconCustomer').value;
+        var flowNo = document.getElementById('reconFlowNo').value;
+        var billNo = document.getElementById('reconBillNo').textContent;
+        var amount = document.getElementById('reconAmount').value;
+        var mode = document.querySelector('input[name="reconMode"]:checked').value;
+        var missing = [];
+        if (!customer) missing.push('客户');
+        if (!flowNo) missing.push('回款流水号');
+        if (!billNo) missing.push('回款账单号');
+        if (!amount || parseFloat(amount) <= 0) missing.push('充值金额');
+        if (missing.length > 0) {
+          showToast('请填写：' + missing.join('、'), 'warning');
+          document.querySelectorAll('#tab-reconciliation .form-input').forEach(function (el) {
+            if (!el.value && (el.id === 'reconFlowNo' || el.id === 'reconAmount')) { el.classList.add('error'); }
+          });
+          return;
+        }
+        document.querySelectorAll('#tab-reconciliation .form-input').forEach(function (el) { el.classList.remove('error'); });
+        var modeLabel = mode === 'by-customer' ? '按客户总金额核销' : '按某一笔运单核销';
+        var body = document.getElementById('reconConfirmBody');
+        body.innerHTML = '<div class="info-row"><span class="info-label">客户</span><span class="info-value">' + customer + '</span></div>'
+          + '<div class="info-row"><span class="info-label">回款流水号</span><span class="info-value tms-mono-data">' + flowNo + '</span></div>'
+          + '<div class="info-row"><span class="info-label">回款账单号</span><span class="info-value tms-mono-data">' + billNo + '</span></div>'
+          + '<div class="info-row"><span class="info-label">核销方式</span><span class="info-value">' + modeLabel + '</span></div>'
+          + '<div class="info-row"><span class="info-label">充值金额</span><span class="info-value tms-mono-data">' + fmtMoney(parseFloat(amount)) + '</span></div>'
+          + '<div class="info-row"><span class="info-label">本次核销</span><span class="info-value tms-mono-data" style="color:var(--state-success);">' + document.getElementById('pvReconAmount').textContent + '</span></div>'
+          + '<div class="info-row"><span class="info-label">剩余余额</span><span class="info-value tms-mono-data">' + document.getElementById('pvRemaining').textContent + '</span></div>';
+        openModal('reconConfirmModal');
+      }
+
+      function confirmReconciliation() {
+        var customer = document.getElementById('reconCustomer').value;
+        var flowNo = document.getElementById('reconFlowNo').value;
+        var billNo = document.getElementById('reconBillNo').textContent;
+        var amount = parseFloat(document.getElementById('reconAmount').value) || 0;
+        var mode = document.querySelector('input[name="reconMode"]:checked').value;
+        var modeLabel = mode === 'by-customer' ? '按客户总金额核销' : '按某一笔运单核销';
+        var wb = mode === 'by-waybill' ? document.getElementById('reconWaybill').value : '—';
+        var reconAmount = parseFloat(document.getElementById('pvReconAmount').textContent.replace(/[^0-9.]/g, '')) || 0;
+        var remaining = parseFloat(document.getElementById('pvRemaining').textContent.replace(/[^0-9.]/g, '')) || 0;
+        var now = new Date();
+        var id = 'RX-' + now.getFullYear() + ('0' + (now.getMonth() + 1)).slice(-2) + ('0' + now.getDate()).slice(-2) + '-' + ('000' + Math.floor(Math.random() * 1000)).slice(-3);
+        reconRecordsData.unshift({
+          id: id, customer: customer, flowNo: flowNo, billNo: billNo, amount: amount, voucher: '有',
+          mode: modeLabel, wb: wb, reconAmount: reconAmount, remaining: remaining,
+          operator: '管理员', time: now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2) + ' ' + ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2)
+        });
+        showToast('核销成功！核销单号：' + id, 'success');
+        closeModal('reconConfirmModal');
+        document.getElementById('reconCustomer').value = '';
+        document.getElementById('reconFlowNo').value = '';
+        document.getElementById('reconAmount').value = '';
+        document.getElementById('reconBillNo').textContent = '';
+        document.getElementById('reconUncollected').textContent = '¥0.00';
+        document.getElementById('pvRecharge').textContent = '¥0.00';
+        document.getElementById('pvReconAmount').textContent = '¥0.00';
+        document.getElementById('pvRemaining').textContent = '¥0.00';
+        document.getElementById('uploadInvoiceName').style.display = 'none';
+        document.getElementById('uploadBankSlipName').style.display = 'none';
+        document.getElementById('uploadInvoice').classList.remove('has-file');
+        document.getElementById('uploadBankSlip').classList.remove('has-file');
+      }
+
+      function simulateUpload(elId) {
+        var el = document.getElementById(elId);
+        el.classList.add('has-file');
+        var nameEl = document.getElementById(elId + 'Name');
+        nameEl.style.display = 'block';
+        nameEl.textContent = elId === 'uploadInvoice' ? '发票截图_20260729.png' : '银行回单_20260729.pdf';
+        showToast('凭证上传成功', 'success');
+      }
+
+      // ============ DISCOUNT ============
+      function toggleAllDiscounts() {
+        allDiscountsShown = !allDiscountsShown;
+        document.getElementById('discountToggleLabel').textContent = allDiscountsShown ? '收起' : '查看全部优惠';
+        renderDiscountTable();
+      }
+
+      function showDiscountDetail(billNo) {
+        var d = null;
+        for (var i = 0; i < discountData.length; i++) { if (discountData[i].billNo === billNo) { d = discountData[i]; break; } }
+        if (!d) return;
+        var body = document.getElementById('discountDetailBody');
+        body.innerHTML = '<div class="info-row"><span class="info-label">账单号</span><span class="info-value tms-mono-data">' + d.billNo + '</span></div>'
+          + '<div class="info-row"><span class="info-label">客户</span><span class="info-value">' + d.customer + '</span></div>'
+          + '<div class="info-row"><span class="info-label">优惠金额</span><span class="info-value tms-mono-data" style="color:var(--state-success);">-' + fmtMoney(d.amount) + '</span></div>'
+          + '<div class="info-row"><span class="info-label">优惠类型</span><span class="info-value">' + d.type + '</span></div>'
+          + '<div class="info-row"><span class="info-label">优惠原因</span><span class="info-value">' + d.reason + '</span></div>'
+          + '<div class="info-row"><span class="info-label">审批人</span><span class="info-value">' + d.approver + '</span></div>'
+          + '<div class="info-row"><span class="info-label">时间</span><span class="info-value tms-mono-data">' + d.time + '</span></div>';
+        openModal('discountDetailModal');
+      }
+
+      // ============ RECON RECORDS ============
+      function exportReconRecords() { showToast('核销记录已导出', 'success'); }
+
+      // ============ COST AUDIT ============
+      function showAddCostModal() { openModal('costAuditModal'); }
+
+      function submitNewCost() {
+        var billNo = document.getElementById('newCostBillNo').value;
+        var item = document.getElementById('newCostItem').value;
+        var amount = parseFloat(document.getElementById('newCostAmount').value) || 0;
+        var remark = document.getElementById('newCostRemark').value;
+        if (!item || amount <= 0) { showToast('请填写费用科目和金额', 'warning'); return; }
+        costAuditData.push({ billNo: billNo, item: item, amount: amount, status: '未审计', statusClass: 'tms-status--neutral', auditor: '—', time: '—', remark: remark });
+        showToast('费用科目已增加', 'success');
+        closeModal('costAuditModal');
+        renderCostAuditTable();
+      }
+
+      function handleReAudit() { showToast('已启动重新审计流程', 'info'); }
+
+      function handleReverseAudit() { showToast('反审计操作已执行', 'info'); }
+
+      function auditCost(billNo, item) { showToast('审计功能：' + billNo + ' - ' + item, 'info'); }
+
+      function quickCollect(id) {
+        // 填充收款登记弹窗
+        for (var qi = 0; qi < receivableData.length; qi++) {
+          if (receivableData[qi].id === id) {
+            var r = receivableData[qi];
+            document.getElementById('prWaybill').value = r.wb;
+            document.getElementById('prBlNo').value = r.bl;
+            var custSel = document.getElementById('prCustomer');
+            custSel.value = r.customer;
+            document.getElementById('prReceivable').value = r.uncollected;
+            document.getElementById('prAmount').value = '';
+            document.getElementById('prRemark').value = '';
+            var nameEl = document.getElementById('prUploadName');
+            if (nameEl) { nameEl.style.display = 'none'; }
+            document.getElementById('prAmountHint').style.display = 'none';
+            break;
+          }
+        }
+        openEnhModal('paymentRegModal');
+      }
+
+      // ============ SLIDE PANEL ============
+      function openSlidePanel(billNo) {
+        var r = null;
+        for (var i = 0; i < receivableData.length; i++) { if (receivableData[i].id === billNo) { r = receivableData[i]; break; } }
+        if (!r) return;
+        document.getElementById('slideBillNo').textContent = r.id;
+        window._slideData = r;
+        document.getElementById('slideOverlay').classList.add('is-visible');
+        document.getElementById('slidePanel').classList.add('is-open');
+        document.querySelectorAll('#slidePanelTabs .slide-panel-tab').forEach(function (t) { t.classList.remove('is-active'); });
+        document.querySelector('#slidePanelTabs .slide-panel-tab[data-slide-tab="sp-basic"]').classList.add('is-active');
+        renderSlidePanelContent('sp-basic');
+      }
+
+      function closeSlidePanel() {
+        document.getElementById('slideOverlay').classList.remove('is-visible');
+        document.getElementById('slidePanel').classList.remove('is-open');
+      }
+
+      document.getElementById('slidePanelTabs').addEventListener('click', function (e) {
+        var tab = e.target.closest('.slide-panel-tab');
+        if (!tab) return;
+        document.querySelectorAll('#slidePanelTabs .slide-panel-tab').forEach(function (t) { t.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        renderSlidePanelContent(tab.getAttribute('data-slide-tab'));
+      });
+
+      function renderSlidePanelContent(tabId) {
+        var r = window._slideData;
+        var body = document.getElementById('slidePanelBody');
+        if (!r) { body.innerHTML = '<p>无数据</p>'; return; }
+        var html = '';
+        switch (tabId) {
+          case 'sp-basic':
+            html = '<div class="info-row"><span class="info-label">账单编号</span><span class="info-value tms-mono-data">' + r.id + '</span></div>'
+              + '<div class="info-row"><span class="info-label">客户名称</span><span class="info-value">' + r.customer + '</span></div>'
+              + '<div class="info-row"><span class="info-label">关联提单号</span><span class="info-value tms-mono-data">' + r.bl + '</span></div>'
+              + '<div class="info-row"><span class="info-label">关联运单号</span><span class="info-value tms-mono-data">' + r.wb + '</span></div>'
+              + '<div class="info-row"><span class="info-label">应收金额</span><span class="info-value tms-mono-data">' + fmtMoney(r.total) + '</span></div>'
+              + '<div class="info-row"><span class="info-label">已收金额</span><span class="info-value tms-mono-data">' + fmtMoney(r.received) + '</span></div>'
+              + '<div class="info-row"><span class="info-label">未收金额</span><span class="info-value tms-mono-data" style="color:' + (r.uncollected > 0 ? (r.status === '逾期' ? 'var(--state-error)' : 'var(--state-warning)') : 'var(--tms-muted-foreground)') + ';">' + fmtMoney(r.uncollected) + '</span></div>'
+              + '<div class="info-row"><span class="info-label">账单日期</span><span class="info-value tms-mono-data">' + r.date + '</span></div>'
+              + '<div class="info-row"><span class="info-label">到期日</span><span class="info-value tms-mono-data">' + r.due + '</span></div>'
+              + '<div class="info-row"><span class="info-label">逾期天数</span><span class="info-value tms-mono-data">' + r.overdue + '</span></div>'
+              + '<div class="info-row"><span class="info-label">状态</span><span class="info-value"><span class="tms-status ' + r.statusClass + '">' + r.status + '</span></span></div>'
+              + '<div class="info-row"><span class="info-label">备注</span><span class="info-value">' + (r.notes || '—') + '</span></div>';
+            break;
+          case 'sp-dept':
+            html = '<div style="margin-bottom:16px;"><h4 style="font-size:14px; margin-bottom:10px;">客服部门</h4>'
+              + '<div class="info-row"><span class="info-label">上传状态</span><span class="info-value"><span class="tms-status tms-status--success">已上传</span></span></div>'
+              + '<div class="info-row"><span class="info-label">上传时间</span><span class="info-value tms-mono-data">2026-07-02 09:30</span></div>'
+              + '<div class="info-row"><span class="info-label">审核状态</span><span class="info-value"><span class="tms-status tms-status--success">已审核</span></span></div>'
+              + '<div style="margin-top:10px; display:flex; gap:8px;">'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'数据已上传\',\'success\')"><i data-lucide="upload"></i>上传</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'审核已通过\',\'success\')"><i data-lucide="check"></i>审核</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'补差申请已提交\',\'info\')"><i data-lucide="plus-circle"></i>补差</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'已驳回\',\'warning\')"><i data-lucide="x-circle"></i>驳回</button>'
+              + '</div></div>'
+              + '<div style="margin-bottom:16px;"><h4 style="font-size:14px; margin-bottom:10px;">单证部门</h4>'
+              + '<div class="info-row"><span class="info-label">上传状态</span><span class="info-value"><span class="tms-status tms-status--success">已上传</span></span></div>'
+              + '<div class="info-row"><span class="info-label">上传时间</span><span class="info-value tms-mono-data">2026-07-03 14:20</span></div>'
+              + '<div class="info-row"><span class="info-label">审核状态</span><span class="info-value"><span class="tms-status tms-status--warning">审核中</span></span></div>'
+              + '<div style="margin-top:10px; display:flex; gap:8px;">'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'数据已上传\',\'success\')"><i data-lucide="upload"></i>上传</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'审核已通过\',\'success\')"><i data-lucide="check"></i>审核</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'补差申请已提交\',\'info\')"><i data-lucide="plus-circle"></i>补差</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'已驳回\',\'warning\')"><i data-lucide="x-circle"></i>驳回</button>'
+              + '</div></div>'
+              + '<div style="margin-bottom:16px;"><h4 style="font-size:14px; margin-bottom:10px;">海外仓部门</h4>'
+              + '<div class="info-row"><span class="info-label">上传状态</span><span class="info-value"><span class="tms-status tms-status--neutral">未上传</span></span></div>'
+              + '<div class="info-row"><span class="info-label">上传时间</span><span class="info-value tms-mono-data">—</span></div>'
+              + '<div class="info-row"><span class="info-label">审核状态</span><span class="info-value"><span class="tms-status tms-status--neutral">—</span></span></div>'
+              + '<div style="margin-top:10px; display:flex; gap:8px;">'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'数据已上传\',\'success\')"><i data-lucide="upload"></i>上传</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'审核已通过\',\'success\')"><i data-lucide="check"></i>审核</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'补差申请已提交\',\'info\')"><i data-lucide="plus-circle"></i>补差</button>'
+              + '<button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'已驳回\',\'warning\')"><i data-lucide="x-circle"></i>驳回</button>'
+              + '</div></div>';
+            break;
+          case 'sp-cost':
+            html = '<div style="margin-bottom:12px;"><button class="tms-btn tms-btn-sm tms-btn-primary" onclick="showToast(\'费用科目已添加\',\'success\')"><i data-lucide="plus"></i>添加费用科目</button></div>'
+              + '<div class="info-row"><span class="info-label">海运费</span><span class="info-value tms-mono-data">' + fmtMoney(r.total * 0.75) + '</span></div>'
+              + '<div class="info-row"><span class="info-label">报关费</span><span class="info-value tms-mono-data">' + fmtMoney(r.total * 0.08) + '</span></div>'
+              + '<div class="info-row"><span class="info-label">仓储费</span><span class="info-value tms-mono-data">' + fmtMoney(r.total * 0.1) + '</span></div>'
+              + '<div class="info-row"><span class="info-label">附加费</span><span class="info-value tms-mono-data">' + fmtMoney(r.total * 0.07) + '</span></div>';
+            break;
+          case 'sp-collection':
+            html = '<div class="info-row"><span class="info-label">收款流水号</span><span class="info-value tms-mono-data">PAY-20260715-001</span></div>'
+              + '<div class="info-row"><span class="info-label">收款金额</span><span class="info-value tms-mono-data" style="color:var(--state-success);">' + fmtMoney(r.received) + '</span></div>'
+              + '<div class="info-row"><span class="info-label">收款方式</span><span class="info-value">银行转账</span></div>'
+              + '<div class="info-row"><span class="info-label">收款时间</span><span class="info-value tms-mono-data">2026-07-15 10:30</span></div>'
+              + '<div class="info-row"><span class="info-label">操作人</span><span class="info-value">张主管</span></div>';
+            break;
+          case 'sp-recon':
+            html = '<div class="timeline">'
+              + '<div class="timeline-item"><div class="tl-time">2026-07-20 14:30</div><div class="tl-content">核销完成，金额 ' + fmtMoney(r.received * 0.5) + '</div><div class="tl-operator">操作人：管理员</div></div>'
+              + '<div class="timeline-item"><div class="tl-time">2026-07-15 10:15</div><div class="tl-content">部分核销，金额 ' + fmtMoney(r.received * 0.3) + '</div><div class="tl-operator">操作人：张主管</div></div>'
+              + '<div class="timeline-item"><div class="tl-time">2026-07-05 09:00</div><div class="tl-content">回款到账，金额 ' + fmtMoney(r.received * 0.2) + '</div><div class="tl-operator">操作人：系统自动</div></div>'
+              + '</div>';
+            break;
+          case 'sp-finance':
+            html = '<div class="form-group"><label>审核结论</label>'
+              + '<div class="radio-group">'
+              + '<label class="radio-item"><input type="radio" name="financeResult" value="correct" checked onchange="toggleFinanceExtra()">正确</label>'
+              + '<label class="radio-item"><input type="radio" name="financeResult" value="add" onchange="toggleFinanceExtra()">需增加费用</label>'
+              + '<label class="radio-item"><input type="radio" name="financeResult" value="discount" onchange="toggleFinanceExtra()">需优惠</label>'
+              + '</div></div>'
+              + '<div id="financeExtra" style="display:none;">'
+              + '<div class="form-group"><label>金额</label><input type="number" class="form-input" id="financeExtraAmount" placeholder="请输入金额" min="0" step="0.01"></div>'
+              + '<div class="form-group"><label>原因</label><textarea class="form-textarea" id="financeExtraReason" placeholder="请输入原因" rows="3"></textarea></div>'
+              + '</div>'
+              + '<button class="tms-btn tms-btn-primary" onclick="showToast(\'财务审核已提交\',\'success\')" style="width:100%; justify-content:center;">提交审核</button>';
+            break;
+          case 'sp-discount':
+            var hasDiscount = false;
+            for (var di = 0; di < discountData.length; di++) {
+              if (discountData[di].billNo === r.id) { hasDiscount = true; html += '<div class="info-row"><span class="info-label">优惠金额</span><span class="info-value tms-mono-data" style="color:var(--state-success);">-' + fmtMoney(discountData[di].amount) + '</span></div><div class="info-row"><span class="info-label">优惠原因</span><span class="info-value">' + discountData[di].reason + '</span></div><div class="info-row"><span class="info-label">审批人</span><span class="info-value">' + discountData[di].approver + '</span></div><div class="info-row"><span class="info-label">时间</span><span class="info-value tms-mono-data">' + discountData[di].time + '</span></div>'; break; }
+            }
+            if (!hasDiscount) html = '<p style="color:var(--tms-muted-foreground);">暂无优惠记录</p>';
+            break;
+          case 'sp-logs':
+            html = '<div class="timeline">'
+              + '<div class="timeline-item"><div class="tl-time">2026-07-29 08:00</div><div class="tl-content">系统生成账单</div><div class="tl-operator">操作人：系统自动</div></div>'
+              + '<div class="timeline-item"><div class="tl-time">2026-07-15 14:30</div><div class="tl-content">客服确认费用明细</div><div class="tl-operator">操作人：客服小王</div></div>'
+              + '<div class="timeline-item"><div class="tl-time">2026-07-10 16:00</div><div class="tl-content">财务审核通过</div><div class="tl-operator">操作人：张主管</div></div>'
+              + '<div class="timeline-item"><div class="tl-time">2026-07-05 09:30</div><div class="tl-content">运单完成，自动生成应收</div><div class="tl-operator">操作人：系统自动</div></div>'
+              + '</div>';
+            break;
+          case 'sp-linked':
+            html = '<div class="info-row"><span class="info-label">关联运单号</span><span class="info-value tms-mono-data bill-no">' + r.wb + '</span></div>'
+              + '<div class="info-row"><span class="info-label">关联提单号</span><span class="info-value tms-mono-data bill-no">' + r.bl + '</span></div>'
+              + '<div class="info-row"><span class="info-label">运单状态</span><span class="info-value"><span class="tms-status tms-status--success">已完成</span></span></div>'
+              + '<div class="info-row"><span class="info-label">起运港</span><span class="info-value">上海港</span></div>'
+              + '<div class="info-row"><span class="info-label">目的港</span><span class="info-value">洛杉矶港</span></div>'
+              + '<div class="info-row"><span class="info-label">箱型</span><span class="info-value">40HQ x 2</span></div>'
+              + '<div style="margin-top:12px;"><button class="tms-btn tms-btn-sm tms-btn-outline" onclick="showToast(\'跳转至运单详情\',\'info\')"><i data-lucide="external-link"></i>查看运单详情</button></div>';
+            break;
+          default: html = '<p>内容加载中...</p>';
+        }
+        body.innerHTML = html;
+        lucide.createIcons();
+      }
+
+      function toggleFinanceExtra() {
+        var val = document.querySelector('input[name="financeResult"]:checked').value;
+        document.getElementById('financeExtra').style.display = val === 'add' || val === 'discount' ? 'block' : 'none';
+      }
+
+      // ============ MODAL HELPERS ============
+      function openModal(id) {
+        var el = document.getElementById(id);
+        if (el) { el.classList.remove('hidden'); }
+      }
+
+      function closeModal(id) {
+        var el = document.getElementById(id);
+        if (el) { el.classList.add('hidden'); }
+      }
+
+      // ============ TOAST ============
+      function showToast(msg, type) {
+        type = type || 'info';
+        var container = document.getElementById('toastContainer');
+        var toast = document.createElement('div');
+        toast.className = 'toast toast-' + type;
+        var icon = { success: 'check-circle', error: 'x-circle', warning: 'alert-triangle', info: 'info' }[type] || 'info';
+        toast.innerHTML = '<i data-lucide="' + icon + '" style="width:16px;height:16px;flex-shrink:0;"></i>' + msg;
+        container.appendChild(toast);
+        lucide.createIcons();
+        setTimeout(function () { toast.remove(); }, 3000);
+      }
+
+      // ============ EXPORT ============
+      function handleExport() { showToast('导出功能已触发', 'success'); }
+      function handleExportExcel() { showToast('Excel导出已触发', 'success'); }
+
+      // ============ KEYBOARD ============
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          var openModals = document.querySelectorAll('.modal-overlay:not(.hidden)');
+          var openSlide = document.getElementById('slidePanel').classList.contains('is-open');
+          if (openSlide) { closeSlidePanel(); }
+          else if (openModals.length > 0) { closeModal(openModals[openModals.length - 1].id); }
+        }
+      });
+
+      // Close modals when clicking overlay
+      document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('modal-overlay') && !e.target.classList.contains('hidden')) {
+          closeModal(e.target.id);
+        }
+      });
+
+      // ============ DATE TAB SWITCHING ============
+      document.querySelector('.ar-date-tabs').addEventListener('click', function (e) {
+        var tab = e.target.closest('.ar-date-tab');
+        if (!tab) return;
+        this.querySelectorAll('.ar-date-tab').forEach(function (t) { t.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        showToast('已切换至：' + tab.textContent, 'info');
+      });
+
+      // ============ ENHANCED MODAL HELPERS ============
+      function openEnhModal(id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.classList.add('is-visible');
+          document.body.style.overflow = 'hidden';
+          if (id === 'agingModal') renderAgingAnalysis();
+          if (id === 'trendModal') renderTrendAnalysis();
+          if (id === 'reconModal') fillReconModalCustomers();
+          if (id === 'allocModal') renderAllocWaybills();
+          lucide.createIcons();
+        }
+      }
+
+      function closeEnhModal(id) {
+        var el = document.getElementById(id);
+        if (el) {
+          el.classList.remove('is-visible');
+          var anyOpen = document.querySelectorAll('.enh-modal-overlay.is-visible').length;
+          if (!anyOpen) document.body.style.overflow = '';
+        }
+      }
+
+      // Click overlay to close enh modal
+      document.querySelectorAll('.enh-modal-overlay').forEach(function (ov) {
+        ov.addEventListener('click', function (e) {
+          if (e.target === ov) closeEnhModal(ov.id);
+        });
+      });
+
+      // ============ PAYMENT REGISTRATION ============
+      function validatePaymentAmount() {
+        var hint = document.getElementById('prAmountHint');
+        var amount = parseFloat(document.getElementById('prAmount').value) || 0;
+        var receivable = parseFloat(document.getElementById('prReceivable').value) || 0;
+        if (!hint) return;
+        if (amount > receivable) {
+          hint.style.display = 'block';
+          hint.textContent = '本次收款金额不能大于应收金额（¥' + fmtMoney(receivable) + '）';
+        } else {
+          hint.style.display = 'none';
+        }
+      }
+
+      function submitPaymentRegistration() {
+        var waybill = document.getElementById('prWaybill').value.trim();
+        var customer = document.getElementById('prCustomer').value;
+        var amount = parseFloat(document.getElementById('prAmount').value) || 0;
+        if (!waybill) { showToast('请填写运单号', 'error'); return; }
+        if (!customer) { showToast('请选择客户', 'error'); return; }
+        if (amount <= 0) { showToast('请输入有效的收款金额', 'error'); return; }
+        closeEnhModal('paymentRegModal');
+        showToast('收款登记成功：' + customer + ' ¥' + fmtMoney(amount), 'success');
+      }
+
+      // ============ RECONCILIATION MODAL ============
+      function fillReconModalCustomers() {
+        var sel = document.getElementById('rmCustomer');
+        if (!sel) return;
+        var opts = '<option value="">请选择客户</option>';
+        var seen = {};
+        receivableData.forEach(function (r) {
+          if (!seen[r.customer]) {
+            seen[r.customer] = true;
+            opts += '<option value="' + r.customer + '">' + r.customer + '</option>';
           }
         });
-      })();
+        sel.innerHTML = opts;
+        sel.value = '';
+        document.getElementById('rmAmount').value = '';
+        document.getElementById('rmDate').value = new Date().toISOString().slice(0, 10);
+        document.getElementById('rmInvoiceList').innerHTML = '';
+        document.getElementById('rmTotal').textContent = '¥0.00';
+        document.getElementById('rmReconAmount').textContent = '¥0.00';
+      }
+
+      function updateReconModalPreview() {
+        var customer = document.getElementById('rmCustomer').value;
+        var amount = parseFloat(document.getElementById('rmAmount').value) || 0;
+        var type = document.getElementById('rmType').value;
+        var listEl = document.getElementById('rmInvoiceList');
+        var total = 0, html = '';
+        receivableData.forEach(function (r) {
+          if (r.customer === customer) {
+            total += r.uncollected;
+            html += '<div style="display:flex; justify-content:space-between; padding:8px 12px; border-bottom:1px solid var(--tms-border); font-size:13px;">' +
+              '<span class="tms-mono-data">' + r.id + '</span>' +
+              '<span class="tms-mono-data">' + r.wb + '</span>' +
+              '<span class="tms-mono-data">' + fmtMoney(r.uncollected) + '</span>' +
+              '<span class="tms-status ' + r.statusClass + '">' + r.status + '</span>' +
+              '</div>';
+          }
+        });
+        if (listEl) {
+          listEl.innerHTML = html || '<div style="padding:16px; text-align:center; color:var(--tms-muted-foreground); font-size:13px;">请选择客户</div>';
+        }
+        document.getElementById('rmTotal').textContent = '¥' + total.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        var reconAmount = type === 'full' ? total : amount;
+        document.getElementById('rmReconAmount').textContent = '¥' + reconAmount.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function submitReconciliation() {
+        var customer = document.getElementById('rmCustomer').value;
+        var amount = parseFloat(document.getElementById('rmAmount').value) || 0;
+        if (!customer) { showToast('请选择客户', 'error'); return; }
+        if (amount <= 0) { showToast('请输入有效的核销金额', 'error'); return; }
+        closeEnhModal('reconModal');
+        showToast('核销完成：' + customer + ' ¥' + fmtMoney(amount), 'success');
+      }
+
+      // ============ AGING ANALYSIS ============
+      var agingBucketsData = [
+        { label: '0-30天', amount: 385600, color: 'var(--tms-primary-500)' },
+        { label: '31-60天', amount: 286450, color: 'var(--tms-primary-400)' },
+        { label: '61-90天', amount: 164800, color: 'var(--tms-primary-300)' },
+        { label: '90天以上', amount: 96000, color: 'var(--state-error)' }
+      ];
+
+      function renderAgingAnalysis() {
+        var bucketsEl = document.getElementById('agingBuckets');
+        var barEl = document.getElementById('agingBarChart');
+        var detailEl = document.getElementById('agingDetailTable');
+        if (bucketsEl) {
+          bucketsEl.innerHTML = agingBucketsData.map(function (b) {
+            return '<div class="aging-bucket" onclick="showToast(\'账龄明细已筛选：' + b.label + '\', \'info\')">' +
+              '<div class="aging-bucket-header"><span class="aging-bucket-label">' + b.label + '</span></div>' +
+              '<div class="aging-bucket-amount">' + fmtMoney(b.amount) + '</div>' +
+              '<div class="aging-bucket-bar"><div class="aging-bucket-fill" style="width:' + Math.round(b.amount / 385600 * 100) + '%; background:' + b.color + ';"></div></div>' +
+              '</div>';
+          }).join('');
+        }
+        if (barEl) {
+          var maxA = Math.max.apply(null, agingBucketsData.map(function (b) { return b.amount; }));
+          barEl.innerHTML = '<div style="display:flex; align-items:flex-end; gap:16px; height:200px; padding:0 8px;">' +
+            agingBucketsData.map(function (b) {
+              return '<div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">' +
+                '<span class="tms-mono-data" style="font-size:12px; color:var(--tms-foreground);">' + fmtMoney(b.amount) + '</span>' +
+                '<div style="width:100%; max-width:90px; height:' + Math.round(b.amount / maxA * 160) + 'px; min-height:20px; border-radius:6px 6px 0 0; background:' + b.color + ';"></div>' +
+                '<span style="font-size:12px; color:var(--tms-muted-foreground);">' + b.label + '</span>' +
+                '</div>';
+            }).join('') + '</div>';
+        }
+        if (detailEl) {
+          var rows = '';
+          receivableData.filter(function (r) { return r.status !== '已结清'; }).forEach(function (r) {
+            rows += '<tr>' +
+              '<td class="tms-mono-data">' + r.id + '</td>' +
+              '<td>' + r.customer + '</td>' +
+              '<td class="tms-mono-data">' + r.wb + '</td>' +
+              '<td style="text-align:right;" class="tms-mono-data">' + fmtMoney(r.uncollected) + '</td>' +
+              '<td><span class="tms-status ' + r.statusClass + '">' + r.status + '</span></td>' +
+              '</tr>';
+          });
+          detailEl.innerHTML = '<table style="width:100%; border-collapse:collapse; font-size:13px;"><thead><tr>' +
+            '<th style="text-align:left; padding:8px 10px; background:var(--tms-muted);">账单号</th>' +
+            '<th style="text-align:left; padding:8px 10px; background:var(--tms-muted);">客户</th>' +
+            '<th style="text-align:left; padding:8px 10px; background:var(--tms-muted);">运单号</th>' +
+            '<th style="text-align:right; padding:8px 10px; background:var(--tms-muted);">未收金额</th>' +
+            '<th style="text-align:left; padding:8px 10px; background:var(--tms-muted);">状态</th>' +
+            '</tr></thead><tbody>' + rows + '</tbody></table>';
+        }
+      }
+
+      function exportAgingCSV() {
+        var rows = [['账龄区间', '金额']];
+        agingBucketsData.forEach(function (b) { rows.push([b.label, b.amount]); });
+        rows.push(['', '']);
+        rows.push(['账单号', '客户', '运单号', '未收金额', '状态']);
+        receivableData.filter(function (r) { return r.status !== '已结清'; }).forEach(function (r) {
+          rows.push([r.id, r.customer, r.wb, r.uncollected, r.status]);
+        });
+        var csv = '\uFEFF' + rows.map(function (r) { return r.join(','); }).join('\n');
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '应收账龄分析.csv';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+        showToast('账龄分析已导出', 'success');
+      }
+
+      // ============ TREND ANALYSIS ============
+      var trendMonthlyData = [
+        { month: '2026-01', rece: 268000, paid: 205000 },
+        { month: '2026-02', rece: 312000, paid: 241000 },
+        { month: '2026-03', rece: 296000, paid: 228000 },
+        { month: '2026-04', rece: 354000, paid: 276000 },
+        { month: '2026-05', rece: 381000, paid: 305000 },
+        { month: '2026-06', rece: 347000, paid: 289000 },
+        { month: '2026-07', rece: 402000, paid: 312000 }
+      ];
+
+      function renderTrendAnalysis() {
+        var groupBy = document.getElementById('trendGroupBy') ? document.getElementById('trendGroupBy').value : 'month';
+        var barEl = document.getElementById('trendBarChart');
+        var detailEl = document.getElementById('trendDetailTable');
+        var data = trendMonthlyData;
+        if (groupBy !== 'month') {
+          var map = {};
+          receivableData.forEach(function (r) {
+            var key = groupBy === 'customer' ? r.customer : '美线/欧线';
+            if (!map[key]) map[key] = { rece: 0, paid: 0 };
+            map[key].rece += r.total;
+            map[key].paid += r.received;
+          });
+          data = Object.keys(map).map(function (k) { return { month: k, rece: map[k].rece, paid: map[k].paid }; });
+        }
+        if (barEl) {
+          var maxT = Math.max.apply(null, data.map(function (d) { return Math.max(d.rece, d.paid); }));
+          barEl.innerHTML = '<div style="display:flex; align-items:flex-end; gap:10px; height:200px; padding:0 8px;">' +
+            data.map(function (d) {
+              return '<div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px;">' +
+                '<div style="display:flex; gap:4px; align-items:flex-end; height:170px;">' +
+                '<div style="width:14px; height:' + Math.round(d.rece / maxT * 160) + 'px; min-height:8px; border-radius:4px 4px 0 0; background:var(--tms-primary-500);"></div>' +
+                '<div style="width:14px; height:' + Math.round(d.paid / maxT * 160) + 'px; min-height:8px; border-radius:4px 4px 0 0; background:var(--state-success);"></div>' +
+                '</div>' +
+                '<span style="font-size:11px; color:var(--tms-muted-foreground); white-space:nowrap;">' + d.month + '</span>' +
+                '</div>';
+            }).join('') + '</div>';
+        }
+        if (detailEl) {
+          detailEl.innerHTML = '<table style="width:100%; border-collapse:collapse; font-size:13px;"><thead><tr>' +
+            '<th style="text-align:left; padding:8px 10px; background:var(--tms-muted);">' + (groupBy === 'month' ? '月份' : '维度') + '</th>' +
+            '<th style="text-align:right; padding:8px 10px; background:var(--tms-muted);">应收金额</th>' +
+            '<th style="text-align:right; padding:8px 10px; background:var(--tms-muted);">已收金额</th>' +
+            '<th style="text-align:right; padding:8px 10px; background:var(--tms-muted);">回收率</th>' +
+            '</tr></thead><tbody>' +
+            data.map(function (d) {
+              var pct = d.rece > 0 ? Math.round(d.paid / d.rece * 100) : 0;
+              return '<tr><td style="padding:8px 10px;">' + d.month + '</td>' +
+                '<td style="text-align:right; padding:8px 10px;" class="tms-mono-data">' + fmtMoney(d.rece) + '</td>' +
+                '<td style="text-align:right; padding:8px 10px;" class="tms-mono-data">' + fmtMoney(d.paid) + '</td>' +
+                '<td style="text-align:right; padding:8px 10px;" class="tms-mono-data">' + pct + '%</td></tr>';
+            }).join('') + '</tbody></table>';
+        }
+      }
+
+      function exportTrendCSV() {
+        var rows = [['月份/维度', '应收金额', '已收金额', '回收率']];
+        trendMonthlyData.forEach(function (d) {
+          var pct = d.rece > 0 ? Math.round(d.paid / d.rece * 100) : 0;
+          rows.push([d.month, d.rece, d.paid, pct + '%']);
+        });
+        var csv = '\uFEFF' + rows.map(function (r) { return r.join(','); }).join('\n');
+        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = '应收趋势分析.csv';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(a.href);
+        showToast('趋势分析已导出', 'success');
+      }
+
+      // ============ COST ALLOCATION ============
+      function renderAllocWaybills() {
+        var listEl = document.getElementById('allocWaybillList');
+        if (!listEl) return;
+        var html = '<table style="width:100%; border-collapse:collapse; font-size:13px;"><thead><tr>' +
+          '<th style="padding:8px 10px; text-align:left; background:var(--tms-muted);"><input type="checkbox" id="alloc-check-all" onchange="toggleAllocCheckAll(this)"></th>' +
+          '<th style="padding:8px 10px; text-align:left; background:var(--tms-muted);">运单号</th>' +
+          '<th style="padding:8px 10px; text-align:left; background:var(--tms-muted);">客户</th>' +
+          '<th style="padding:8px 10px; text-align:right; background:var(--tms-muted);">重量(kg)</th>' +
+          '<th style="padding:8px 10px; text-align:right; background:var(--tms-muted);">体积(m³)</th>' +
+          '</tr></thead><tbody>';
+        receivableData.slice(0, 6).forEach(function (r, i) {
+          html += '<tr>' +
+            '<td style="padding:8px 10px;"><input type="checkbox" class="alloc-check" value="' + r.wb + '" data-weight="' + (25 + i * 3) + '" data-volume="' + (0.2 + i * 0.05) + '" checked></td>' +
+            '<td style="padding:8px 10px;" class="tms-mono-data">' + r.wb + '</td>' +
+            '<td style="padding:8px 10px;">' + r.customer + '</td>' +
+            '<td style="padding:8px 10px; text-align:right;" class="tms-mono-data">' + (25 + i * 3) + '</td>' +
+            '<td style="padding:8px 10px; text-align:right;" class="tms-mono-data">' + (0.2 + i * 0.05).toFixed(2) + '</td>' +
+            '</tr>';
+        });
+        html += '</tbody></table>';
+        listEl.innerHTML = html;
+        updateAllocPreview();
+      }
+
+      function toggleAllocCheckAll(cb) {
+        document.querySelectorAll('.alloc-check').forEach(function (c) { c.checked = cb.checked; });
+        updateAllocPreview();
+      }
+
+      function updateAllocPreview() {
+        var itemSel = document.getElementById('allocExpenseItem');
+        var method = document.querySelector('input[name="allocMethod"]:checked');
+        var previewEl = document.getElementById('allocPreview');
+        if (!itemSel || !previewEl) return;
+        var amount = parseFloat(itemSel.selectedOptions[0] ? itemSel.selectedOptions[0].getAttribute('data-amount') : '0') || 0;
+        var methodName = method ? method.value : 'weight';
+        var methodLabel = { weight: '按重量', volume: '按体积', pieces: '按件数' }[methodName] || '';
+        var checks = Array.prototype.slice.call(document.querySelectorAll('.alloc-check:checked'));
+        if (checks.length === 0) {
+          previewEl.innerHTML = '<div class="preview-row"><span class="preview-label">请选择至少一条运单</span></div>';
+          return;
+        }
+        var totalFactor = 0;
+        checks.forEach(function (c) {
+          totalFactor += parseFloat(c.getAttribute('data-' + (methodName === 'volume' ? 'volume' : 'weight'))) || 0;
+        });
+        var perUnit = totalFactor > 0 ? amount / totalFactor : 0;
+        var html = '<div class="preview-row"><span class="preview-label">平摊方式</span><span class="preview-value">' + methodLabel + '</span></div>' +
+          '<div class="preview-row"><span class="preview-label">平摊总金额</span><span class="preview-value">' + fmtMoney(amount) + '</span></div>' +
+          '<div class="preview-row"><span class="preview-label">参与运单</span><span class="preview-value">' + checks.length + ' 单</span></div>' +
+          '<div class="preview-row"><span class="preview-label">预计每单分摊</span><span class="preview-value tms-mono-data">≈' + fmtMoney(perUnit) + '</span></div>';
+        previewEl.innerHTML = html;
+      }
+
+      function submitAllocation() {
+        var itemSel = document.getElementById('allocExpenseItem');
+        if (!itemSel || !itemSel.value) { showToast('请选择费用项目', 'error'); return; }
+        var checks = document.querySelectorAll('.alloc-check:checked');
+        if (checks.length === 0) { showToast('请选择需要平摊的运单', 'error'); return; }
+        closeEnhModal('allocModal');
+        showToast('费用平摊完成：' + itemSel.value + ' 分摊至 ' + checks.length + ' 单', 'success');
+      }
+
+      // Open fee detail modal
+      function openFeeDetail(waybillNo) {
+        var body = document.getElementById('feeDetailBody');
+        if (body) {
+          body.innerHTML = '<div class="info-row"><span class="info-label">运单号</span><span class="info-value tms-mono-data bill-no">' + waybillNo + '</span></div>' +
+            '<div class="info-row"><span class="info-label">海运费</span><span class="info-value tms-mono-data">¥280,000.00</span></div>' +
+            '<div class="info-row"><span class="info-label">报关费</span><span class="info-value tms-mono-data">¥12,500.00</span></div>' +
+            '<div class="info-row"><span class="info-label">仓储费</span><span class="info-value tms-mono-data">¥36,000.00</span></div>' +
+            '<div class="info-row"><span class="info-label">附加费</span><span class="info-value tms-mono-data">¥20,000.00</span></div>';
+        }
+        openEnhModal('feeDetailModal');
+      }
+
+      // ============ INITIALIZATION ============
+      renderReceivableTable();
+      renderDiscountTable();
+      renderReconRecordsTable();
+      renderCostAuditTable();
     </script>
 </body>
 </html>

@@ -1,0 +1,1730 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>供应商管理</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+.tms-serif-title { font-family: var(--tms-font-serif); font-weight: 600; letter-spacing: -0.01em; }
+.tms-sans-body { font-family: var(--tms-font-sans); font-weight: 400; }
+.tms-mono-data { font-family: var(--tms-font-mono); font-variant-numeric: tabular-nums; font-weight: 500; }
+
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.tms-status--success { background-color: var(--state-success-light); color: var(--state-success); }
+.tms-status--warning { background-color: var(--state-warning-light); color: var(--state-warning); }
+.tms-status--error { background-color: var(--state-error-light); color: var(--state-error); }
+.tms-status--info { background-color: var(--state-info-light); color: var(--state-info); }
+.tms-status--neutral { background-color: var(--tms-muted); color: var(--tms-muted-foreground); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { word-break: break-all; word-break: auto-phrase; }
+    th { white-space: nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<style id="critical-layout">
+  .app-layout { display: flex; min-height: 100vh; }
+  .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+  .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+  .app-content { flex: 1; overflow: auto; padding: 24px; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+  .header-search { position: relative; }
+  .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+  .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+  .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+  .header-icon-btn:hover { background: var(--tms-muted); }
+  .header-user { display: flex; align-items: center; gap: 8px; }
+  .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+  .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+  .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+</style>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-logo">
+      <h1>TMS 物流管理</h1>
+      <span>智慧运输管理平台</span>
+    </div>
+    <nav style="flex:1; padding: 12px 0;">
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" href="supplier-mgmt.html" class="nav-item" data-active="true"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
+    <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+        <div>
+          <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="app-main-area">
+    <!-- Header -->
+    <header class="app-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="搜索供应商、报价编号、联系人...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+        <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+        <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+        <div class="header-user">
+          <div class="header-avatar">WB</div>
+          <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="app-content">
+
+<!-- ============ Page-Specific Styles ============ -->
+<style>
+  .sm-page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .sm-page-header h2 { font-size: 24px; color: var(--tms-foreground); line-height: 1.2; }
+  .sm-page-header .header-sub { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+  /* Page Tabs */
+  .sm-tabs { display: flex; align-items: center; gap: 0; border-bottom: 1px solid var(--tms-border); margin-bottom: 20px; }
+  .sm-tab { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; font-size: 14px; color: var(--tms-muted-foreground); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 120ms ease, border-color 120ms ease; margin-bottom: -1px; }
+  .sm-tab:hover { color: var(--tms-foreground); }
+  .sm-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+  .sm-tab svg { width: 16px; height: 16px; }
+
+  .sm-tab-content { display: none; }
+  .sm-tab-content.is-active { display: block; }
+
+  /* Filter Bar */
+  .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 16px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); margin-bottom: 16px; }
+  .filter-input, .filter-select { height: 34px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); padding: 0 10px; outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; }
+  .filter-input::placeholder { color: var(--tms-neutral-400); }
+  .filter-input:focus, .filter-select:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--tms-muted-foreground); pointer-events: none; }
+  .search-wrap .filter-input { padding-left: 32px; width: 280px; }
+  .btn-search { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--tms-primary); color: var(--tms-primary-foreground); font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-search:hover { background: var(--tms-primary-600); }
+  .btn-search svg { width: 15px; height: 15px; }
+  .btn-reset { display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; font-weight: 500; border: 1px solid var(--tms-border); cursor: pointer; transition: background-color 120ms ease; }
+  .btn-reset:hover { background: var(--tms-muted); }
+  .filter-label { font-size: 12px; color: var(--tms-muted-foreground); }
+
+  /* Table Card */
+  .table-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+  .tms-table-dense { width: 100%; border-collapse: collapse; }
+  .tms-table-dense thead th { text-align: left; position: sticky; top: 0; z-index: 1; }
+  .tms-table-dense .col-num { text-align: right; white-space: nowrap; }
+  .tms-table-dense .col-center { text-align: center; }
+  .tms-table-dense .col-action { width: 130px; white-space: nowrap; }
+  .tms-table-dense .supplier-code { color: var(--tms-primary-600); font-weight: 600; }
+  .action-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--tms-radius-small); border: none; background: transparent; color: var(--tms-muted-foreground); cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .action-btn:hover { background: var(--tms-muted); color: var(--tms-primary-600); }
+  .action-btn svg { width: 15px; height: 15px; }
+  .action-btn--danger:hover { color: var(--state-error); background: var(--state-error-light); }
+  .service-tag { display: inline-block; padding: 1px 8px; border-radius: var(--tms-radius-small); font-size: 12px; border: 1px solid var(--tms-border); color: var(--tms-muted-foreground); }
+  .level-badge { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: var(--tms-radius-small); font-size: 13px; font-weight: 700; font-family: var(--tms-font-mono); }
+  .level-badge--a { background: var(--state-success-light); color: var(--state-success); }
+  .level-badge--b { background: var(--state-info-light); color: var(--state-info); }
+  .level-badge--c { background: var(--state-warning-light); color: var(--state-warning); }
+
+  /* TMS Buttons */
+  .tms-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--tms-font-sans);
+    border-radius: var(--tms-radius-medium);
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+    text-decoration: none;
+    border: none;
+  }
+  .tms-btn-outline { border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); }
+  .tms-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+  .tms-btn-primary { background: var(--tms-primary-500); color: var(--tms-primary-foreground); }
+  .tms-btn-primary:hover { background: var(--tms-primary-600); }
+  .tms-btn-danger { background: var(--state-error); color: #fff; }
+  .tms-btn-danger:hover { background: #A03D35; }
+  .tms-btn-sm { height: 28px; padding: 0 10px; font-size: 12px; }
+  .tms-btn svg { width: 14px; height: 14px; }
+
+  .btn-create { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: var(--tms-radius-medium); background: var(--tms-primary); color: var(--tms-primary-foreground); font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-create:hover { background: var(--tms-primary-600); }
+  .btn-create svg { width: 16px; height: 16px; }
+
+  /* Pagination Bar */
+  .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; flex-wrap: wrap; gap: 12px; }
+  .pagination-info { font-size: 13px; color: var(--tms-muted-foreground); }
+  .pagination-info .tms-mono-data { color: var(--tms-foreground); font-weight: 600; }
+  .pagination-center { display: flex; align-items: center; gap: 4px; }
+  .page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .page-btn:hover:not(:disabled):not(.is-active) { background: var(--tms-muted); }
+  .page-btn.is-active { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); font-weight: 600; }
+  .page-btn:disabled { color: var(--tms-neutral-400); cursor: not-allowed; }
+  .page-btn svg { width: 14px; height: 14px; }
+  .page-ellipsis { color: var(--tms-muted-foreground); padding: 0 4px; font-size: 13px; }
+  .page-size-wrap { display: flex; align-items: center; gap: 8px; }
+  .page-size-select { height: 30px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); padding: 0 8px; cursor: pointer; outline: none; }
+
+  /* Modal */
+  .sm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 23, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+    z-index: 200;
+  }
+  .sm-modal-overlay.is-visible { opacity: 1; visibility: visible; }
+  .sm-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.96);
+    width: 640px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    background: var(--tms-card);
+    border-radius: var(--tms-radius-large);
+    box-shadow: var(--tms-shadow-3);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+    z-index: 201;
+  }
+  .sm-modal--lg { width: 800px; }
+  .sm-modal.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+  .sm-modal-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--tms-border);
+  }
+  .sm-modal-header h3 { margin: 0; font-size: 16px; color: var(--tms-foreground); }
+  .sm-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--tms-radius-small);
+    background: transparent;
+    color: var(--tms-muted-foreground);
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .sm-modal-close:hover { background: var(--tms-muted); color: var(--tms-foreground); }
+  .sm-modal-close svg { width: 18px; height: 18px; }
+  .sm-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .sm-modal-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--tms-border);
+    background: var(--tms-card);
+    border-radius: 0 0 var(--tms-radius-large) var(--tms-radius-large);
+  }
+
+  /* Form */
+  .sm-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sm-form-grid--full { grid-template-columns: 1fr; }
+  .sm-form-group { display: flex; flex-direction: column; gap: 6px; }
+  .sm-form-group label { font-size: 13px; font-weight: 500; color: var(--tms-foreground); }
+  .sm-form-group label .required { color: var(--state-error); margin-left: 2px; }
+  .sm-form-input, .sm-form-select, .sm-form-textarea {
+    height: 36px;
+    font-size: 13px;
+    border-radius: var(--tms-radius-small);
+    border: 1px solid var(--tms-border);
+    background: var(--tms-background);
+    color: var(--tms-foreground);
+    padding: 0 10px;
+    outline: none;
+    font-family: var(--tms-font-sans);
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+  }
+  .sm-form-textarea { height: 80px; padding: 10px; resize: vertical; }
+  .sm-form-input:focus, .sm-form-select:focus, .sm-form-textarea:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .sm-form-input::placeholder { color: var(--tms-neutral-400); }
+
+  /* Detail grid */
+  .sm-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
+  .sm-detail-item { display: flex; flex-direction: column; gap: 4px; }
+  .sm-detail-label { font-size: 12px; color: var(--tms-muted-foreground); }
+  .sm-detail-value { font-size: 13px; color: var(--tms-foreground); font-weight: 500; word-break: break-all; }
+  .sm-detail-full { grid-column: 1 / -1; }
+
+  /* Toast */
+  .sm-toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+  }
+  .sm-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--tms-card);
+    border: 1px solid var(--tms-border);
+    border-radius: var(--tms-radius-medium);
+    box-shadow: var(--tms-shadow-2);
+    font-size: 13px;
+    color: var(--tms-foreground);
+    pointer-events: auto;
+    transform: translateX(120%);
+    animation: sm-toast-in 300ms ease forwards;
+    max-width: 360px;
+  }
+  .sm-toast--success { border-left: 3px solid var(--state-success); }
+  .sm-toast--error { border-left: 3px solid var(--state-error); }
+  .sm-toast--warning { border-left: 3px solid var(--state-warning); }
+  .sm-toast--info { border-left: 3px solid var(--state-info); }
+  .sm-toast.removing { animation: sm-toast-out 300ms ease forwards; }
+  @keyframes sm-toast-in { to { transform: translateX(0); } }
+  @keyframes sm-toast-out { to { transform: translateX(120%); opacity: 0; } }
+  .sm-toast-icon { width: 18px; height: 18px; flex-shrink: 0; }
+  .sm-toast--success .sm-toast-icon { color: var(--state-success); }
+  .sm-toast--error .sm-toast-icon { color: var(--state-error); }
+  .sm-toast--warning .sm-toast-icon { color: var(--state-warning); }
+  .sm-toast--info .sm-toast-icon { color: var(--state-info); }
+  .sm-toast-close { margin-left: auto; background: none; border: none; cursor: pointer; color: var(--tms-muted-foreground); padding: 2px; border-radius: 2px; }
+  .sm-toast-close:hover { color: var(--tms-foreground); }
+
+  /* File upload */
+  .sm-upload-zone {
+    border: 2px dashed var(--tms-border);
+    border-radius: var(--tms-radius-medium);
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 120ms ease, background-color 120ms ease;
+  }
+  .sm-upload-zone:hover { border-color: var(--tms-primary-400); background: var(--tms-muted); }
+  .sm-upload-zone svg { width: 32px; height: 32px; color: var(--tms-muted-foreground); margin-bottom: 8px; }
+  .sm-upload-zone p { font-size: 13px; color: var(--tms-muted-foreground); margin: 0; }
+  .sm-upload-zone p strong { color: var(--tms-primary); }
+  .sm-upload-file { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--tms-muted); border-radius: var(--tms-radius-small); margin-top: 8px; font-size: 13px; }
+  .sm-upload-file svg { width: 16px; height: 16px; color: var(--state-success); }
+  .sm-upload-file .remove-file { margin-left: auto; cursor: pointer; color: var(--tms-muted-foreground); }
+  .sm-upload-file .remove-file:hover { color: var(--state-error); }
+
+  /* Confirm dialog */
+  .sm-confirm-icon { width: 48px; height: 48px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .sm-confirm-icon--warning { background: var(--state-warning-light); color: var(--state-warning); }
+  .sm-confirm-icon--danger { background: var(--state-error-light); color: var(--state-error); }
+  .sm-confirm-icon svg { width: 24px; height: 24px; }
+  .sm-confirm-msg { text-align: center; font-size: 14px; color: var(--tms-foreground); margin-bottom: 8px; }
+  .sm-confirm-detail { text-align: center; font-size: 13px; color: var(--tms-muted-foreground); }
+
+  /* Sync status */
+  .sync-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; }
+  .sync-badge--synced { color: var(--state-success); }
+  .sync-badge--not-synced { color: var(--state-warning); }
+  .sync-badge svg { width: 14px; height: 14px; }
+
+  /* Detail Modal Tabs */
+  .sm-detail-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--tms-border); margin-bottom: 16px; }
+  .sm-detail-tab { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13px; color: var(--tms-muted-foreground); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 120ms ease, border-color 120ms ease; margin-bottom: -1px; }
+  .sm-detail-tab:hover { color: var(--tms-foreground); }
+  .sm-detail-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+  .sm-detail-tab svg { width: 14px; height: 14px; }
+  .sm-detail-panel { display: none; }
+  .sm-detail-panel.is-active { display: block; }
+  .sm-detail-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .sm-detail-table td { padding: 8px 12px; border-bottom: 1px solid var(--tms-border); }
+  .sm-detail-table td:first-child { color: var(--tms-muted-foreground); width: 120px; white-space: nowrap; }
+  .sm-detail-table td:last-child { color: var(--tms-foreground); font-weight: 500; }
+
+  /* Checkbox */
+  .sm-checkbox { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid var(--tms-neutral-300); background: var(--tms-card); cursor: pointer; transition: all 120ms ease; flex-shrink: 0; }
+  .sm-checkbox.is-checked { background: var(--tms-primary); border-color: var(--tms-primary); }
+  .sm-checkbox.is-checked::after { content: ''; display: block; width: 4px; height: 8px; border: solid #fff; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg) translateY(-1px); }
+  .sm-checkbox:hover { border-color: var(--tms-primary-400); }
+  .sm-check-cell { width: 40px; padding: 8px 12px; text-align: center; }
+  .sm-check-cell .sm-checkbox { margin: 0 auto; }
+
+  /* Batch Action Bar */
+  .batch-bar { display: none; align-items: center; gap: 12px; padding: 10px 16px; background: var(--tms-primary-50); border: 1px solid var(--tms-primary-200); border-radius: var(--tms-radius-medium); margin-bottom: 12px; }
+  .batch-bar.is-visible { display: flex; }
+  .batch-bar .batch-count { font-size: 13px; color: var(--tms-primary-600); font-weight: 500; }
+  .batch-bar .batch-count strong { font-weight: 700; }
+
+  /* Export button */
+  .btn-export { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--state-success); color: #fff; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-export:hover { background: #25704F; }
+  .btn-export svg { width: 15px; height: 15px; }
+  .btn-batch-delete { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--state-error); color: #fff; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-batch-delete:hover { background: #A03D35; }
+  .btn-batch-delete svg { width: 15px; height: 15px; }
+  .btn-export-csv { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--state-info); color: #fff; font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-export-csv:hover { background: #2E5A75; }
+  .btn-export-csv svg { width: 15px; height: 15px; }
+
+  /* Row clickable */
+  .tms-table-dense tbody tr[data-id] { cursor: pointer; }
+  .tms-table-dense tbody tr[data-id]:hover { background-color: var(--tms-neutral-100); }
+
+  /* Detail modal stats */
+  .sm-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+  .sm-stat-card { background: var(--tms-muted); border-radius: var(--tms-radius-medium); padding: 14px; text-align: center; }
+  .sm-stat-card .stat-value { font-size: 22px; font-weight: 700; color: var(--tms-primary); font-family: var(--tms-font-mono); }
+  .sm-stat-card .stat-label { font-size: 12px; color: var(--tms-muted-foreground); margin-top: 4px; }
+</style>
+
+<!-- ===== Page Header ===== -->
+<div class="sm-page-header">
+  <div>
+    <h2>供应商管理</h2>
+    <div class="header-sub">管理供应商档案、报价信息及运价同步</div>
+  </div>
+  <div style="display:flex; gap:8px;">
+    <button class="btn-create" id="btn-add-supplier">
+      <i data-lucide="plus"></i>
+      <span>新增供应商</span>
+    </button>
+    <button class="btn-create" id="btn-import-quote" style="background: var(--tms-primary-400);">
+      <i data-lucide="upload"></i>
+      <span>导入报价</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===== Tab Navigation ===== -->
+<div class="sm-tabs">
+  <button class="sm-tab is-active" data-tab="supplier">
+    <i data-lucide="users"></i>
+    <span>供应商档案</span>
+  </button>
+  <button class="sm-tab" data-tab="quote">
+    <i data-lucide="file-spreadsheet"></i>
+    <span>报价管理</span>
+  </button>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 1: 供应商档案 -->
+<!-- ============================================================ -->
+<div class="sm-tab-content is-active" id="tab-supplier">
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" id="supplier-search" placeholder="供应商名称/编码/联系人">
+    </div>
+    <select class="filter-select" id="supplier-filter-type">
+      <option value="all">全部供应商类型</option>
+      <option value="运输公司">运输公司</option>
+      <option value="清关代理">清关代理</option>
+      <option value="报关代理">报关代理</option>
+      <option value="仓库">仓库</option>
+      <option value="其他">其他</option>
+    </select>
+    <select class="filter-select" id="supplier-filter-service">
+      <option value="all">全部服务类型</option>
+      <option value="海运">海运</option>
+      <option value="空运">空运</option>
+      <option value="陆运">陆运</option>
+      <option value="仓储">仓储</option>
+      <option value="清关">清关</option>
+      <option value="综合">综合</option>
+    </select>
+    <select class="filter-select" id="supplier-filter-level">
+      <option value="all">全部资质等级</option>
+      <option value="A">A级</option>
+      <option value="B">B级</option>
+      <option value="C">C级</option>
+    </select>
+    <select class="filter-select" id="supplier-filter-country">
+      <option value="all">全部国家/地区</option>
+      <option value="中国">中国</option>
+      <option value="美国">美国</option>
+      <option value="日本">日本</option>
+      <option value="韩国">韩国</option>
+      <option value="德国">德国</option>
+      <option value="新加坡">新加坡</option>
+    </select>
+    <select class="filter-select" id="supplier-filter-status">
+      <option value="all">全部状态</option>
+      <option value="启用">启用</option>
+      <option value="停用">停用</option>
+    </select>
+    <button class="btn-search" id="btn-supplier-search">
+      <i data-lucide="search"></i>
+      <span>查询</span>
+    </button>
+    <button class="btn-reset" id="btn-supplier-reset">
+      <span>重置</span>
+    </button>
+    <span style="flex:1;"></span>
+    <button class="btn-export-csv" id="btn-export-csv" title="导出CSV">
+      <i data-lucide="download"></i>
+      <span>导出CSV</span>
+    </button>
+  </div>
+
+  <!-- Table Card -->
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense" id="supplier-table">
+        <thead>
+          <tr>
+            <th>供应商名称</th>
+            <th>供应商编码</th>
+            <th>服务类型</th>
+            <th>联系人</th>
+            <th>联系电话</th>
+            <th>联系邮箱</th>
+            <th class="col-center">资质等级</th>
+            <th>费用类型</th>
+            <th>结算方式</th>
+            <th class="col-num">信用额度</th>
+            <th>状态</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody id="supplier-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data" id="supplier-total">0</span> 条记录</div>
+      <div class="pagination-center" id="supplier-pagination"></div>
+      <div class="page-size-wrap">
+        <select class="page-size-select" id="supplier-page-size">
+          <option value="10" selected>10 条/页</option>
+          <option value="20">20 条/页</option>
+          <option value="50">50 条/页</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- TAB 2: 报价管理 -->
+<!-- ============================================================ -->
+<div class="sm-tab-content" id="tab-quote">
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" id="quote-search" placeholder="供应商名称/报价编号">
+    </div>
+    <select class="filter-select" id="quote-filter-service">
+      <option value="all">全部服务类型</option>
+      <option value="海运">海运</option>
+      <option value="空运">空运</option>
+      <option value="陆运">陆运</option>
+      <option value="仓储">仓储</option>
+      <option value="清关">清关</option>
+      <option value="综合">综合</option>
+    </select>
+    <select class="filter-select" id="quote-filter-status">
+      <option value="all">全部确认状态</option>
+      <option value="待确认">待确认</option>
+      <option value="已确认">已确认</option>
+      <option value="已驳回">已驳回</option>
+    </select>
+    <select class="filter-select" id="quote-filter-sync">
+      <option value="all">全部同步状态</option>
+      <option value="已同步">已同步</option>
+      <option value="未同步">未同步</option>
+    </select>
+    <button class="btn-search" id="btn-quote-search">
+      <i data-lucide="search"></i>
+      <span>查询</span>
+    </button>
+    <button class="btn-reset" id="btn-quote-reset">
+      <span>重置</span>
+    </button>
+  </div>
+
+  <!-- Table Card -->
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense" id="quote-table">
+        <thead>
+          <tr>
+            <th>供应商名称</th>
+            <th>报价编号</th>
+            <th>服务类型</th>
+            <th>报价日期</th>
+            <th>有效期</th>
+            <th>币种</th>
+            <th>报价附件</th>
+            <th class="col-center">关联运价状态</th>
+            <th class="col-center">确认状态</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody id="quote-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data" id="quote-total">0</span> 条记录</div>
+      <div class="pagination-center" id="quote-pagination"></div>
+      <div class="page-size-wrap">
+        <select class="page-size-select" id="quote-page-size">
+          <option value="10" selected>10 条/页</option>
+          <option value="20">20 条/页</option>
+          <option value="50">50 条/页</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: Add/Edit Supplier -->
+<!-- ============================================================ -->
+<div class="sm-modal-overlay" id="modal-supplier-overlay"></div>
+<div class="sm-modal sm-modal--lg" id="modal-supplier">
+  <div class="sm-modal-header">
+    <h3 id="modal-supplier-title">新增供应商</h3>
+    <button class="sm-modal-close" id="modal-supplier-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="sm-modal-body">
+    <input type="hidden" id="supplier-edit-id" value="">
+    <div class="sm-form-grid">
+      <div class="sm-form-group">
+        <label>供应商名称 <span class="required">*</span></label>
+        <input type="text" class="sm-form-input" id="sup-name" placeholder="请输入供应商名称">
+      </div>
+      <div class="sm-form-group">
+        <label>供应商编码 <span class="required">*</span></label>
+        <input type="text" class="sm-form-input" id="sup-code" placeholder="系统自动生成" readonly style="background:var(--tms-muted);">
+      </div>
+      <div class="sm-form-group">
+        <label>服务类型 <span class="required">*</span></label>
+        <select class="sm-form-select" id="sup-service">
+          <option value="">请选择</option>
+          <option value="海运">海运</option>
+          <option value="空运">空运</option>
+          <option value="陆运">陆运</option>
+          <option value="仓储">仓储</option>
+          <option value="清关">清关</option>
+          <option value="综合">综合</option>
+        </select>
+      </div>
+      <div class="sm-form-group">
+        <label>费用类型</label>
+        <select class="sm-form-select" id="sup-cost-type">
+          <option value="">请选择</option>
+          <option value="运费">运费</option>
+          <option value="仓储费">仓储费</option>
+          <option value="清关费">清关费</option>
+          <option value="港杂费">港杂费</option>
+          <option value="拖车费">拖车费</option>
+          <option value="报关费">报关费</option>
+        </select>
+      </div>
+      <div class="sm-form-group">
+        <label>联系人 <span class="required">*</span></label>
+        <input type="text" class="sm-form-input" id="sup-contact" placeholder="请输入联系人">
+      </div>
+      <div class="sm-form-group">
+        <label>联系电话</label>
+        <input type="text" class="sm-form-input" id="sup-phone" placeholder="请输入联系电话">
+      </div>
+      <div class="sm-form-group">
+        <label>联系邮箱</label>
+        <input type="email" class="sm-form-input" id="sup-email" placeholder="请输入联系邮箱">
+      </div>
+      <div class="sm-form-group">
+        <label>资质等级 <span class="required">*</span></label>
+        <select class="sm-form-select" id="sup-level">
+          <option value="">请选择</option>
+          <option value="A">A级</option>
+          <option value="B">B级</option>
+          <option value="C">C级</option>
+        </select>
+      </div>
+      <div class="sm-form-group">
+        <label>结算方式</label>
+        <select class="sm-form-select" id="sup-settlement">
+          <option value="">请选择</option>
+          <option value="预充">预充</option>
+          <option value="账期">账期</option>
+          <option value="现结">现结</option>
+        </select>
+      </div>
+      <div class="sm-form-group">
+        <label>信用额度 (CNY)</label>
+        <input type="number" class="sm-form-input" id="sup-credit" placeholder="请输入信用额度" min="0" step="10000">
+      </div>
+      <div class="sm-form-group">
+        <label>状态</label>
+        <select class="sm-form-select" id="sup-status">
+          <option value="启用">启用</option>
+          <option value="停用">停用</option>
+        </select>
+      </div>
+    </div>
+    <div class="sm-form-group" style="margin-top:16px;">
+      <label>备注</label>
+      <textarea class="sm-form-textarea" id="sup-remark" placeholder="请输入备注信息"></textarea>
+    </div>
+  </div>
+  <div class="sm-modal-footer">
+    <button class="tms-btn tms-btn-outline" id="modal-supplier-cancel">取消</button>
+    <button class="tms-btn tms-btn-primary" id="modal-supplier-save">保存</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: Import Quote -->
+<!-- ============================================================ -->
+<div class="sm-modal-overlay" id="modal-quote-import-overlay"></div>
+<div class="sm-modal" id="modal-quote-import">
+  <div class="sm-modal-header">
+    <h3>导入报价</h3>
+    <button class="sm-modal-close" id="modal-quote-import-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="sm-modal-body">
+    <div class="sm-form-grid">
+      <div class="sm-form-group">
+        <label>供应商 <span class="required">*</span></label>
+        <select class="sm-form-select" id="quote-import-supplier">
+          <option value="">请选择供应商</option>
+        </select>
+      </div>
+      <div class="sm-form-group">
+        <label>服务类型 <span class="required">*</span></label>
+        <select class="sm-form-select" id="quote-import-service">
+          <option value="">请选择</option>
+          <option value="海运">海运</option>
+          <option value="空运">空运</option>
+          <option value="陆运">陆运</option>
+          <option value="仓储">仓储</option>
+          <option value="清关">清关</option>
+          <option value="综合">综合</option>
+        </select>
+      </div>
+      <div class="sm-form-group">
+        <label>报价日期</label>
+        <input type="date" class="sm-form-input" id="quote-import-date">
+      </div>
+      <div class="sm-form-group">
+        <label>有效期</label>
+        <input type="date" class="sm-form-input" id="quote-import-expiry">
+      </div>
+      <div class="sm-form-group">
+        <label>币种</label>
+        <select class="sm-form-select" id="quote-import-currency">
+          <option value="RMB">RMB</option>
+          <option value="USD">USD</option>
+        </select>
+      </div>
+    </div>
+    <div class="sm-form-group" style="margin-top:16px;">
+      <label>上传报价文件 <span class="required">*</span></label>
+      <div class="sm-upload-zone" id="quote-upload-zone">
+        <i data-lucide="upload-cloud"></i>
+        <p>点击或拖拽文件到此处上传</p>
+        <p style="font-size:12px;color:var(--tms-neutral-400);">支持 .xlsx, .pdf, .docx 格式，最大 10MB</p>
+      </div>
+      <div id="quote-upload-files"></div>
+    </div>
+    <div class="sm-form-group" style="margin-top:16px;">
+      <label>备注</label>
+      <textarea class="sm-form-textarea" id="quote-import-remark" placeholder="请输入备注信息"></textarea>
+    </div>
+  </div>
+  <div class="sm-modal-footer">
+    <button class="tms-btn tms-btn-outline" id="modal-quote-import-cancel">取消</button>
+    <button class="tms-btn tms-btn-primary" id="modal-quote-import-save">提交报价</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: View Quote Detail -->
+<!-- ============================================================ -->
+<div class="sm-modal-overlay" id="modal-quote-detail-overlay"></div>
+<div class="sm-modal" id="modal-quote-detail">
+  <div class="sm-modal-header">
+    <h3>报价详情</h3>
+    <button class="sm-modal-close" id="modal-quote-detail-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="sm-modal-body">
+    <div class="sm-detail-grid">
+      <div class="sm-detail-item"><div class="sm-detail-label">报价编号</div><div class="sm-detail-value tms-mono-data" id="qd-code">-</div></div>
+      <div class="sm-detail-item"><div class="sm-detail-label">供应商名称</div><div class="sm-detail-value" id="qd-supplier">-</div></div>
+      <div class="sm-detail-item"><div class="sm-detail-label">服务类型</div><div class="sm-detail-value" id="qd-service">-</div></div>
+      <div class="sm-detail-item"><div class="sm-detail-label">币种</div><div class="sm-detail-value" id="qd-currency">-</div></div>
+      <div class="sm-detail-item"><div class="sm-detail-label">报价日期</div><div class="sm-detail-value" id="qd-date">-</div></div>
+      <div class="sm-detail-item"><div class="sm-detail-label">有效期</div><div class="sm-detail-value" id="qd-expiry">-</div></div>
+      <div class="sm-detail-item"><div class="sm-detail-label">确认状态</div><div class="sm-detail-value" id="qd-confirm-status">-</div></div>
+      <div class="sm-detail-item"><div class="sm-detail-label">关联运价状态</div><div class="sm-detail-value" id="qd-sync-status">-</div></div>
+      <div class="sm-detail-item sm-detail-full"><div class="sm-detail-label">报价附件</div><div class="sm-detail-value" id="qd-attachment">-</div></div>
+      <div class="sm-detail-item sm-detail-full"><div class="sm-detail-label">备注</div><div class="sm-detail-value" id="qd-remark">-</div></div>
+    </div>
+  </div>
+  <div class="sm-modal-footer">
+    <button class="tms-btn tms-btn-outline" id="modal-quote-detail-download"><i data-lucide="download"></i><span>下载附件</span></button>
+    <button class="tms-btn tms-btn-outline" id="modal-quote-detail-sync" style="color:var(--state-success);border-color:var(--state-success-light);"><i data-lucide="refresh-cw"></i><span>同步运价</span></button>
+    <button class="tms-btn tms-btn-primary" id="modal-quote-detail-confirm"><i data-lucide="check-circle"></i><span>确认报价</span></button>
+    <button class="tms-btn tms-btn-outline" id="modal-quote-detail-close-btn">关闭</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: Disable/Delete Confirmation -->
+<!-- ============================================================ -->
+<div class="sm-modal-overlay" id="modal-confirm-overlay"></div>
+<div class="sm-modal" id="modal-confirm" style="width:440px;">
+  <div class="sm-modal-header">
+    <h3 id="modal-confirm-title">确认操作</h3>
+    <button class="sm-modal-close" id="modal-confirm-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="sm-modal-body" style="text-align:center;">
+    <div class="sm-confirm-icon sm-confirm-icon--warning" id="modal-confirm-icon">
+      <i data-lucide="alert-triangle"></i>
+    </div>
+    <div class="sm-confirm-msg" id="modal-confirm-msg">确定要执行此操作吗？</div>
+    <div class="sm-confirm-detail" id="modal-confirm-detail"></div>
+  </div>
+  <div class="sm-modal-footer" style="justify-content:center;">
+    <button class="tms-btn tms-btn-outline" id="modal-confirm-cancel">取消</button>
+    <button class="tms-btn tms-btn-danger" id="modal-confirm-ok">确认</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- Toast Container -->
+<!-- ============================================================ -->
+<div class="sm-toast-container" id="toast-container"></div>
+
+<!-- ============================================================ -->
+<!-- SCRIPTS -->
+<!-- ============================================================ -->
+<script>lucide.createIcons();</script>
+
+<script id="supplier-data">
+(function() {
+  // ===== DATA =====
+  var suppliers = [
+    { id:1, name:'中远海运物流有限公司', code:'SUP-2024-001', service:'海运', contact:'陈建国', phone:'021-6321-8888', email:'chenjg@cosco-logistics.com', level:'A', costType:'运费', settlement:'账期', credit:500000, status:'启用', remark:'中国远洋海运集团旗下核心物流企业' },
+    { id:2, name:'上海港务物流有限公司', code:'SUP-2024-002', service:'仓储', contact:'张丽华', phone:'021-5678-1234', email:'zhanglh@sh-port.com', level:'A', costType:'仓储费', settlement:'预充', credit:300000, status:'启用', remark:'上海港区仓储服务商' },
+    { id:3, name:'顺丰航空货运有限公司', code:'SUP-2024-003', service:'空运', contact:'李明辉', phone:'0755-8866-7788', email:'limh@sf-air.com', level:'A', costType:'运费', settlement:'现结', credit:200000, status:'启用', remark:'顺丰集团旗下航空货运服务' },
+    { id:4, name:'德邦快运有限公司', code:'SUP-2024-004', service:'陆运', contact:'王志强', phone:'021-3498-7766', email:'wangzq@deppon.com', level:'B', costType:'拖车费', settlement:'账期', credit:150000, status:'启用', remark:'全国公路运输网络覆盖' },
+    { id:5, name:'深圳海迅报关有限公司', code:'SUP-2024-005', service:'清关', contact:'刘晓芳', phone:'0755-2233-4455', email:'liuxf@hx-broker.com', level:'B', costType:'报关费', settlement:'现结', credit:80000, status:'启用', remark:'深圳各口岸清关代理' },
+    { id:6, name:'天津港集装箱服务有限公司', code:'SUP-2024-006', service:'综合', contact:'赵伟民', phone:'022-2567-8901', email:'zhaowm@tj-container.com', level:'A', costType:'港杂费', settlement:'账期', credit:400000, status:'启用', remark:'天津港集装箱堆场及码头服务' },
+    { id:7, name:'宁波港通物流有限公司', code:'SUP-2024-007', service:'海运', contact:'孙海涛', phone:'0574-8765-4321', email:'sunht@nb-port.com', level:'B', costType:'运费', settlement:'预充', credit:250000, status:'启用', remark:'宁波舟山港海运物流服务' },
+    { id:8, name:'广州南沙保税物流有限公司', code:'SUP-2024-008', service:'仓储', contact:'周文斌', phone:'020-3468-9900', email:'zhouwb@gz-ns.com', level:'C', costType:'仓储费', settlement:'现结', credit:100000, status:'停用', remark:'南沙保税区仓储服务（资质到期暂停）' },
+    { id:9, name:'青岛远洋大亚物流有限公司', code:'SUP-2024-009', service:'综合', contact:'马俊杰', phone:'0532-8388-6655', email:'majj@qd-yd.com', level:'B', costType:'清关费', settlement:'账期', credit:180000, status:'启用', remark:'青岛港综合物流服务商' },
+    { id:10, name:'厦门港务发展股份有限公司', code:'SUP-2024-010', service:'海运', contact:'林志强', phone:'0592-5829-7788', email:'linzq@xm-port.com', level:'A', costType:'运费', settlement:'预充', credit:350000, status:'启用', remark:'厦门港码头及海运服务' }
+  ];
+
+  var quotes = [
+    { id:1, supplierId:1, supplierName:'中远海运物流有限公司', code:'QT-2024-001', service:'海运', date:'2024-07-15', expiry:'2024-12-31', currency:'RMB', attachment:'中远海运报价单_2024Q3.xlsx', syncStatus:'已同步', confirmStatus:'已确认', remark:'2024年第三季度海运报价' },
+    { id:2, supplierId:3, supplierName:'顺丰航空货运有限公司', code:'QT-2024-002', service:'空运', date:'2024-07-20', expiry:'2024-10-31', currency:'USD', attachment:'顺丰航空报价_2024Q3.pdf', syncStatus:'已同步', confirmStatus:'已确认', remark:'国际空运线报价' },
+    { id:3, supplierId:4, supplierName:'德邦快运有限公司', code:'QT-2024-003', service:'陆运', date:'2024-08-01', expiry:'2025-01-31', currency:'RMB', attachment:'德邦陆运报价_2024H2.xlsx', syncStatus:'未同步', confirmStatus:'待确认', remark:'下半年陆运干线报价' },
+    { id:4, supplierId:2, supplierName:'上海港务物流有限公司', code:'QT-2024-004', service:'仓储', date:'2024-06-10', expiry:'2024-09-30', currency:'RMB', attachment:'上海港仓储报价_2024Q2.pdf', syncStatus:'已同步', confirmStatus:'已确认', remark:'仓储服务费报价' },
+    { id:5, supplierId:5, supplierName:'深圳海迅报关有限公司', code:'QT-2024-005', service:'清关', date:'2024-08-05', expiry:'2025-02-28', currency:'RMB', attachment:'海迅清关报价_2024.xlsx', syncStatus:'未同步', confirmStatus:'待确认', remark:'深圳口岸清关代理报价' },
+    { id:6, supplierId:6, supplierName:'天津港集装箱服务有限公司', code:'QT-2024-006', service:'综合', date:'2024-07-25', expiry:'2024-11-30', currency:'USD', attachment:'天津港综合报价_2024Q3.pdf', syncStatus:'已同步', confirmStatus:'已确认', remark:'天津港综合服务报价' },
+    { id:7, supplierId:1, supplierName:'中远海运物流有限公司', code:'QT-2024-007', service:'海运', date:'2024-08-10', expiry:'2025-03-31', currency:'RMB', attachment:'中远海运补充报价_2024H2.xlsx', syncStatus:'未同步', confirmStatus:'待确认', remark:'下半年海运补充报价' },
+    { id:8, supplierId:9, supplierName:'青岛远洋大亚物流有限公司', code:'QT-2024-008', service:'综合', date:'2024-07-30', expiry:'2024-12-31', currency:'RMB', attachment:'青岛大亚报价_2024Q3.pdf', syncStatus:'已同步', confirmStatus:'已确认', remark:'青岛港综合服务报价' },
+    { id:9, supplierId:10, supplierName:'厦门港务发展股份有限公司', code:'QT-2024-009', service:'海运', date:'2024-08-12', expiry:'2025-06-30', currency:'USD', attachment:'厦门港务报价_2024.xlsx', syncStatus:'未同步', confirmStatus:'已驳回', remark:'报价需重新审核（费率争议）' },
+    { id:10, supplierId:7, supplierName:'宁波港通物流有限公司', code:'QT-2024-010', service:'海运', date:'2024-08-15', expiry:'2025-01-31', currency:'RMB', attachment:'宁波港通报价_2024H2.pdf', syncStatus:'未同步', confirmStatus:'待确认', remark:'宁波舟山港下半年海运报价' }
+  ];
+
+  var nextSupplierId = 11;
+  var nextQuoteId = 11;
+
+  // ===== STATE =====
+  var currentTab = 'supplier';
+  var supplierPage = 1;
+  var supplierPageSize = 10;
+  var supplierFilters = { search:'', service:'all', level:'all', status:'all' };
+  var quotePage = 1;
+  var quotePageSize = 10;
+  var quoteFilters = { search:'', service:'all', confirmStatus:'all', syncStatus:'all' };
+
+  var confirmCallback = null;
+
+  // ===== TOAST =====
+  function showToast(message, type) {
+    type = type || 'info';
+    var container = document.getElementById('toast-container');
+    var icons = { success:'check-circle', error:'x-circle', warning:'alert-triangle', info:'info' };
+    var toast = document.createElement('div');
+    toast.className = 'sm-toast sm-toast--' + type;
+    toast.innerHTML = '<i data-lucide="' + (icons[type] || 'info') + '" class="sm-toast-icon"></i><span>' + message + '</span><button class="sm-toast-close"><i data-lucide="x" style="width:14px;height:14px;"></i></button>';
+    container.appendChild(toast);
+    lucide.createIcons({ nodes: [toast] });
+    var closeBtn = toast.querySelector('.sm-toast-close');
+    var timer = setTimeout(function() { removeToast(toast); }, 3500);
+    closeBtn.addEventListener('click', function() { clearTimeout(timer); removeToast(toast); });
+  }
+
+  function removeToast(toast) {
+    toast.classList.add('removing');
+    toast.addEventListener('animationend', function() { if (toast.parentNode) toast.parentNode.removeChild(toast); });
+  }
+
+  // ===== MODAL HELPERS =====
+  function openModal(overlayId, modalId) {
+    document.getElementById(overlayId).classList.add('is-visible');
+    document.getElementById(modalId).classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(overlayId, modalId) {
+    document.getElementById(overlayId).classList.remove('is-visible');
+    document.getElementById(modalId).classList.remove('is-visible');
+    document.body.style.overflow = '';
+  }
+
+  // ===== SUPPLIER TABLE =====
+  function getFilteredSuppliers() {
+    return suppliers.filter(function(s) {
+      var match = true;
+      if (supplierFilters.search) {
+        var kw = supplierFilters.search.toLowerCase();
+        match = match && (s.name.toLowerCase().indexOf(kw) !== -1 || s.code.toLowerCase().indexOf(kw) !== -1 || s.contact.toLowerCase().indexOf(kw) !== -1);
+      }
+      if (supplierFilters.service !== 'all') match = match && s.service === supplierFilters.service;
+      if (supplierFilters.level !== 'all') match = match && s.level === supplierFilters.level;
+      if (supplierFilters.status !== 'all') match = match && s.status === supplierFilters.status;
+      return match;
+    });
+  }
+
+  function renderSupplierBadge(s) {
+    var cls = 'level-badge level-badge--' + s.level.toLowerCase();
+    return '<span class="' + cls + '">' + s.level + '</span>';
+  }
+
+  function renderSupplierStatus(s) {
+    var cls = s.status === '启用' ? 'tms-status tms-status--success' : 'tms-status tms-status--error';
+    return '<span class="' + cls + '">' + s.status + '</span>';
+  }
+
+  function renderSupplierTable() {
+    var filtered = getFilteredSuppliers();
+    var total = filtered.length;
+    var start = (supplierPage - 1) * supplierPageSize;
+    var pageData = filtered.slice(start, start + supplierPageSize);
+    var tbody = document.getElementById('supplier-tbody');
+    var html = '';
+    pageData.forEach(function(s) {
+      html += '<tr data-id="' + s.id + '">';
+      html += '<td style="font-weight:600;">' + s.name + '</td>';
+      html += '<td class="supplier-code tms-mono-data">' + s.code + '</td>';
+      html += '<td><span class="service-tag">' + s.service + '</span></td>';
+      html += '<td>' + s.contact + '</td>';
+      html += '<td class="tms-mono-data">' + (s.phone || '-') + '</td>';
+      html += '<td>' + (s.email || '-') + '</td>';
+      html += '<td class="col-center">' + renderSupplierBadge(s) + '</td>';
+      html += '<td><span class="service-tag">' + (s.costType || '-') + '</span></td>';
+      html += '<td>' + (s.settlement || '-') + '</td>';
+      html += '<td class="col-num tms-mono-data">' + (s.credit ? s.credit.toLocaleString() : '-') + '</td>';
+      html += '<td>' + renderSupplierStatus(s) + '</td>';
+      html += '<td class="col-action">';
+      html += '<button class="action-btn" title="编辑" data-action="edit" data-id="' + s.id + '"><i data-lucide="pencil"></i></button>';
+      html += '<button class="action-btn action-btn--danger" title="' + (s.status === '启用' ? '停用' : '启用') + '" data-action="toggle" data-id="' + s.id + '"><i data-lucide="' + (s.status === '启用' ? 'ban' : 'check-circle') + '"></i></button>';
+      html += '<button class="action-btn" title="报价" data-action="quote" data-id="' + s.id + '"><i data-lucide="file-text"></i></button>';
+      html += '<button class="action-btn" title="查看" data-action="view" data-id="' + s.id + '"><i data-lucide="eye"></i></button>';
+      html += '</td>';
+      html += '</tr>';
+    });
+    tbody.innerHTML = html;
+    document.getElementById('supplier-total').textContent = total;
+    renderSupplierPagination(total);
+    lucide.createIcons({ nodes: [tbody] });
+    bindSupplierActions();
+  }
+
+  function renderSupplierPagination(total) {
+    var totalPages = Math.ceil(total / supplierPageSize) || 1;
+    var container = document.getElementById('supplier-pagination');
+    var html = '';
+    html += '<button class="page-btn" ' + (supplierPage <= 1 ? 'disabled' : '') + ' data-page="' + (supplierPage - 1) + '"><i data-lucide="chevron-left"></i></button>';
+    for (var i = 1; i <= totalPages; i++) {
+      if (totalPages <= 7 || i === 1 || i === totalPages || (i >= supplierPage - 1 && i <= supplierPage + 1)) {
+        html += '<button class="page-btn' + (i === supplierPage ? ' is-active' : '') + '" data-page="' + i + '">' + i + '</button>';
+      } else if (i === supplierPage - 2 || i === supplierPage + 2) {
+        html += '<span class="page-ellipsis">...</span>';
+      }
+    }
+    html += '<button class="page-btn" ' + (supplierPage >= totalPages ? 'disabled' : '') + ' data-page="' + (supplierPage + 1) + '"><i data-lucide="chevron-right"></i></button>';
+    container.innerHTML = html;
+    lucide.createIcons({ nodes: [container] });
+    container.querySelectorAll('.page-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var p = parseInt(btn.getAttribute('data-page'));
+        if (!isNaN(p) && p >= 1 && p <= totalPages) { supplierPage = p; renderSupplierTable(); }
+      });
+    });
+  }
+
+  function bindSupplierActions() {
+    document.querySelectorAll('#supplier-tbody .action-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var action = btn.getAttribute('data-action');
+        var id = parseInt(btn.getAttribute('data-id'));
+        var sup = suppliers.find(function(s) { return s.id === id; });
+        if (!sup) return;
+        if (action === 'edit') openSupplierModal(sup);
+        else if (action === 'toggle') toggleSupplierStatus(sup);
+        else if (action === 'quote') openQuoteImportForSupplier(sup);
+        else if (action === 'view') showSupplierDetail(sup);
+      });
+    });
+  }
+
+  function showSupplierDetail(sup) {
+    showToast('查看供应商: ' + sup.name + ' (' + sup.code + ')', 'info');
+  }
+
+  function toggleSupplierStatus(sup) {
+    var newStatus = sup.status === '启用' ? '停用' : '启用';
+    var actionText = sup.status === '启用' ? '停用' : '启用';
+    showConfirm(
+      '确认' + actionText + '供应商',
+      '确定要' + actionText + '供应商 "' + sup.name + '" 吗？',
+      '该操作将影响关联的报价和运价数据。',
+      function() {
+        sup.status = newStatus;
+        renderSupplierTable();
+        syncQuoteSupplierNames();
+        showToast('供应商 ' + sup.name + ' 已' + actionText, 'success');
+      }
+    );
+  }
+
+  function openQuoteImportForSupplier(sup) {
+    document.getElementById('quote-import-supplier').value = sup.id;
+    openModal('modal-quote-import-overlay', 'modal-quote-import');
+  }
+
+  // ===== SUPPLIER MODAL =====
+  function openSupplierModal(sup) {
+    document.getElementById('supplier-edit-id').value = sup ? sup.id : '';
+    document.getElementById('modal-supplier-title').textContent = sup ? '编辑供应商' : '新增供应商';
+    document.getElementById('sup-name').value = sup ? sup.name : '';
+    document.getElementById('sup-code').value = sup ? sup.code : 'SUP-' + new Date().getFullYear() + '-' + String(nextSupplierId).padStart(3, '0');
+    document.getElementById('sup-service').value = sup ? sup.service : '';
+    document.getElementById('sup-cost-type').value = sup ? sup.costType : '';
+    document.getElementById('sup-contact').value = sup ? sup.contact : '';
+    document.getElementById('sup-phone').value = sup ? sup.phone : '';
+    document.getElementById('sup-email').value = sup ? sup.email : '';
+    document.getElementById('sup-level').value = sup ? sup.level : '';
+    document.getElementById('sup-settlement').value = sup ? sup.settlement : '';
+    document.getElementById('sup-credit').value = sup ? sup.credit : '';
+    document.getElementById('sup-status').value = sup ? sup.status : '启用';
+    document.getElementById('sup-remark').value = sup ? sup.remark : '';
+    if (!sup) {
+      document.getElementById('sup-code').value = 'SUP-' + new Date().getFullYear() + '-' + String(nextSupplierId).padStart(3, '0');
+    }
+    openModal('modal-supplier-overlay', 'modal-supplier');
+  }
+
+  function saveSupplier() {
+    var id = document.getElementById('supplier-edit-id').value;
+    var name = document.getElementById('sup-name').value.trim();
+    var code = document.getElementById('sup-code').value.trim();
+    var service = document.getElementById('sup-service').value;
+    var contact = document.getElementById('sup-contact').value.trim();
+    var level = document.getElementById('sup-level').value;
+    if (!name || !code || !service || !contact || !level) {
+      showToast('请填写所有必填字段', 'warning');
+      return;
+    }
+    var data = {
+      name: name, code: code, service: service,
+      costType: document.getElementById('sup-cost-type').value,
+      contact: contact, phone: document.getElementById('sup-phone').value.trim(),
+      email: document.getElementById('sup-email').value.trim(),
+      level: level, settlement: document.getElementById('sup-settlement').value,
+      credit: parseFloat(document.getElementById('sup-credit').value) || 0,
+      status: document.getElementById('sup-status').value,
+      remark: document.getElementById('sup-remark').value.trim()
+    };
+    if (id) {
+      var sup = suppliers.find(function(s) { return s.id === parseInt(id); });
+      if (sup) { Object.assign(sup, data); }
+      showToast('供应商 ' + name + ' 已更新', 'success');
+    } else {
+      data.id = nextSupplierId++;
+      suppliers.push(data);
+      showToast('供应商 ' + name + ' 已创建', 'success');
+    }
+    closeModal('modal-supplier-overlay', 'modal-supplier');
+    renderSupplierTable();
+    syncQuoteSupplierNames();
+    populateQuoteSupplierOptions();
+  }
+
+  // ===== QUOTE TABLE =====
+  function getFilteredQuotes() {
+    return quotes.filter(function(q) {
+      var match = true;
+      if (quoteFilters.search) {
+        var kw = quoteFilters.search.toLowerCase();
+        match = match && (q.supplierName.toLowerCase().indexOf(kw) !== -1 || q.code.toLowerCase().indexOf(kw) !== -1);
+      }
+      if (quoteFilters.service !== 'all') match = match && q.service === quoteFilters.service;
+      if (quoteFilters.confirmStatus !== 'all') match = match && q.confirmStatus === quoteFilters.confirmStatus;
+      if (quoteFilters.syncStatus !== 'all') match = match && q.syncStatus === quoteFilters.syncStatus;
+      return match;
+    });
+  }
+
+  function renderQuoteStatus(s) {
+    if (s === '已确认') return '<span class="tms-status tms-status--success">已确认</span>';
+    if (s === '已驳回') return '<span class="tms-status tms-status--error">已驳回</span>';
+    return '<span class="tms-status tms-status--warning">待确认</span>';
+  }
+
+  function renderSyncStatus(s) {
+    if (s === '已同步') return '<span class="sync-badge sync-badge--synced"><i data-lucide="check-circle"></i>已同步</span>';
+    return '<span class="sync-badge sync-badge--not-synced"><i data-lucide="alert-circle"></i>未同步</span>';
+  }
+
+  function renderQuoteTable() {
+    var filtered = getFilteredQuotes();
+    var total = filtered.length;
+    var start = (quotePage - 1) * quotePageSize;
+    var pageData = filtered.slice(start, start + quotePageSize);
+    var tbody = document.getElementById('quote-tbody');
+    var html = '';
+    pageData.forEach(function(q) {
+      html += '<tr data-id="' + q.id + '">';
+      html += '<td style="font-weight:600;">' + q.supplierName + '</td>';
+      html += '<td class="supplier-code tms-mono-data">' + q.code + '</td>';
+      html += '<td><span class="service-tag">' + q.service + '</span></td>';
+      html += '<td>' + q.date + '</td>';
+      html += '<td>' + q.expiry + '</td>';
+      html += '<td><span class="tms-mono-data">' + q.currency + '</span></td>';
+      html += '<td><a href="#" class="action-btn" title="下载" style="display:inline-flex;gap:4px;width:auto;padding:0 6px;color:var(--tms-primary-600);" data-action="download" data-id="' + q.id + '"><i data-lucide="paperclip"></i><span style="font-size:12px;">' + q.attachment + '</span></a></td>';
+      html += '<td class="col-center">' + renderSyncStatus(q.syncStatus) + '</td>';
+      html += '<td class="col-center">' + renderQuoteStatus(q.confirmStatus) + '</td>';
+      html += '<td class="col-action">';
+      html += '<button class="action-btn" title="查看" data-action="view" data-id="' + q.id + '"><i data-lucide="eye"></i></button>';
+      html += '<button class="action-btn" title="下载" data-action="download" data-id="' + q.id + '"><i data-lucide="download"></i></button>';
+      if (q.confirmStatus === '待确认') {
+        html += '<button class="action-btn" title="确认" data-action="confirm" data-id="' + q.id + '" style="color:var(--state-success);"><i data-lucide="check-circle"></i></button>';
+      }
+      if (q.syncStatus === '未同步') {
+        html += '<button class="action-btn" title="同步运价" data-action="sync" data-id="' + q.id + '" style="color:var(--state-info);"><i data-lucide="refresh-cw"></i></button>';
+      }
+      html += '</td>';
+      html += '</tr>';
+    });
+    tbody.innerHTML = html;
+    document.getElementById('quote-total').textContent = total;
+    renderQuotePagination(total);
+    lucide.createIcons({ nodes: [tbody] });
+    bindQuoteActions();
+  }
+
+  function renderQuotePagination(total) {
+    var totalPages = Math.ceil(total / quotePageSize) || 1;
+    var container = document.getElementById('quote-pagination');
+    var html = '';
+    html += '<button class="page-btn" ' + (quotePage <= 1 ? 'disabled' : '') + ' data-page="' + (quotePage - 1) + '"><i data-lucide="chevron-left"></i></button>';
+    for (var i = 1; i <= totalPages; i++) {
+      if (totalPages <= 7 || i === 1 || i === totalPages || (i >= quotePage - 1 && i <= quotePage + 1)) {
+        html += '<button class="page-btn' + (i === quotePage ? ' is-active' : '') + '" data-page="' + i + '">' + i + '</button>';
+      } else if (i === quotePage - 2 || i === quotePage + 2) {
+        html += '<span class="page-ellipsis">...</span>';
+      }
+    }
+    html += '<button class="page-btn" ' + (quotePage >= totalPages ? 'disabled' : '') + ' data-page="' + (quotePage + 1) + '"><i data-lucide="chevron-right"></i></button>';
+    container.innerHTML = html;
+    lucide.createIcons({ nodes: [container] });
+    container.querySelectorAll('.page-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var p = parseInt(btn.getAttribute('data-page'));
+        if (!isNaN(p) && p >= 1 && p <= totalPages) { quotePage = p; renderQuoteTable(); }
+      });
+    });
+  }
+
+  function bindQuoteActions() {
+    document.querySelectorAll('#quote-tbody .action-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var action = btn.getAttribute('data-action');
+        var id = parseInt(btn.getAttribute('data-id'));
+        var q = quotes.find(function(q) { return q.id === id; });
+        if (!q) return;
+        if (action === 'view') openQuoteDetail(q);
+        else if (action === 'download') downloadQuoteAttachment(q);
+        else if (action === 'confirm') confirmQuote(q);
+        else if (action === 'sync') syncQuote(q);
+      });
+    });
+  }
+
+  function openQuoteDetail(q) {
+    document.getElementById('qd-code').textContent = q.code;
+    document.getElementById('qd-supplier').textContent = q.supplierName;
+    document.getElementById('qd-service').textContent = q.service;
+    document.getElementById('qd-currency').textContent = q.currency;
+    document.getElementById('qd-date').textContent = q.date;
+    document.getElementById('qd-expiry').textContent = q.expiry;
+    document.getElementById('qd-confirm-status').innerHTML = renderQuoteStatus(q.confirmStatus);
+    document.getElementById('qd-sync-status').innerHTML = renderSyncStatus(q.syncStatus);
+    document.getElementById('qd-attachment').textContent = q.attachment;
+    document.getElementById('qd-remark').textContent = q.remark || '-';
+    document.getElementById('modal-quote-detail').setAttribute('data-quote-id', q.id);
+    lucide.createIcons({ nodes: [document.getElementById('modal-quote-detail')] });
+    openModal('modal-quote-detail-overlay', 'modal-quote-detail');
+  }
+
+  function downloadQuoteAttachment(q) {
+    showToast('正在下载附件: ' + q.attachment + ' (模拟)', 'info');
+  }
+
+  function confirmQuote(q) {
+    showConfirm(
+      '确认报价',
+      '确定要确认报价 "' + q.code + '" 吗？',
+      '确认后报价将生效并可用于运价关联。',
+      function() {
+        q.confirmStatus = '已确认';
+        renderQuoteTable();
+        showToast('报价 ' + q.code + ' 已确认', 'success');
+      }
+    );
+  }
+
+  function syncQuote(q) {
+    showConfirm(
+      '同步运价',
+      '确定要将报价 "' + q.code + '" 同步到运价系统吗？',
+      '同步后报价费率将自动更新到运价维护模块。',
+      function() {
+        q.syncStatus = '已同步';
+        renderQuoteTable();
+        showToast('报价 ' + q.code + ' 已同步到运价系统', 'success');
+      }
+    );
+  }
+
+  function syncQuoteSupplierNames() {
+    quotes.forEach(function(q) {
+      var sup = suppliers.find(function(s) { return s.id === q.supplierId; });
+      if (sup) q.supplierName = sup.name;
+    });
+  }
+
+  function populateQuoteSupplierOptions() {
+    var sel = document.getElementById('quote-import-supplier');
+    var currentVal = sel.value;
+    sel.innerHTML = '<option value="">请选择供应商</option>';
+    suppliers.filter(function(s) { return s.status === '启用'; }).forEach(function(s) {
+      sel.innerHTML += '<option value="' + s.id + '">' + s.name + '</option>';
+    });
+    sel.value = currentVal;
+  }
+
+  // ===== QUOTE IMPORT MODAL =====
+  function openQuoteImportModal() {
+    populateQuoteSupplierOptions();
+    document.getElementById('quote-import-service').value = '';
+    document.getElementById('quote-import-date').value = new Date().toISOString().split('T')[0];
+    document.getElementById('quote-import-expiry').value = '';
+    document.getElementById('quote-import-currency').value = 'RMB';
+    document.getElementById('quote-import-remark').value = '';
+    document.getElementById('quote-upload-files').innerHTML = '';
+    document.getElementById('quote-import-supplier').value = '';
+    openModal('modal-quote-import-overlay', 'modal-quote-import');
+  }
+
+  function saveQuoteImport() {
+    var supplierId = document.getElementById('quote-import-supplier').value;
+    var service = document.getElementById('quote-import-service').value;
+    var date = document.getElementById('quote-import-date').value;
+    var expiry = document.getElementById('quote-import-expiry').value;
+    var currency = document.getElementById('quote-import-currency').value;
+    if (!supplierId || !service) {
+      showToast('请选择供应商和服务类型', 'warning');
+      return;
+    }
+    var sup = suppliers.find(function(s) { return s.id === parseInt(supplierId); });
+    var code = 'QT-' + new Date().getFullYear() + '-' + String(nextQuoteId).padStart(3, '0');
+    var uploadedFile = document.getElementById('quote-upload-files').querySelector('.sm-upload-file');
+    var attachment = uploadedFile ? uploadedFile.getAttribute('data-filename') : '报价文件_' + code + '.xlsx';
+    var newQuote = {
+      id: nextQuoteId++,
+      supplierId: parseInt(supplierId),
+      supplierName: sup ? sup.name : '',
+      code: code,
+      service: service,
+      date: date,
+      expiry: expiry,
+      currency: currency,
+      attachment: attachment,
+      syncStatus: '未同步',
+      confirmStatus: '待确认',
+      remark: document.getElementById('quote-import-remark').value.trim()
+    };
+    quotes.push(newQuote);
+    closeModal('modal-quote-import-overlay', 'modal-quote-import');
+    if (currentTab === 'quote') renderQuoteTable();
+    showToast('报价 ' + code + ' 已导入', 'success');
+  }
+
+  // ===== CONFIRM MODAL =====
+  function showConfirm(title, message, detail, callback) {
+    document.getElementById('modal-confirm-title').textContent = title;
+    document.getElementById('modal-confirm-msg').textContent = message;
+    document.getElementById('modal-confirm-detail').textContent = detail || '';
+    confirmCallback = callback;
+    openModal('modal-confirm-overlay', 'modal-confirm');
+  }
+
+  // ===== UPLOAD SIMULATION =====
+  function simulateUpload(zone) {
+    zone.addEventListener('click', function() {
+      var container = document.getElementById('quote-upload-files');
+      var fileName = '供应商报价_' + new Date().toISOString().split('T')[0] + '.xlsx';
+      container.innerHTML = '<div class="sm-upload-file" data-filename="' + fileName + '"><i data-lucide="file-check"></i><span>' + fileName + '</span><span class="remove-file" title="移除"><i data-lucide="x" style="width:14px;height:14px;"></i></span></div>';
+      lucide.createIcons({ nodes: [container] });
+      container.querySelector('.remove-file').addEventListener('click', function(e) {
+        e.stopPropagation();
+        container.innerHTML = '';
+      });
+      showToast('文件 ' + fileName + ' 上传成功（模拟）', 'success');
+    });
+  }
+
+  // ===== EVENT BINDINGS =====
+  document.getElementById('btn-add-supplier').addEventListener('click', function() { openSupplierModal(null); });
+  document.getElementById('btn-import-quote').addEventListener('click', openQuoteImportModal);
+
+  document.getElementById('modal-supplier-close').addEventListener('click', function() { closeModal('modal-supplier-overlay', 'modal-supplier'); });
+  document.getElementById('modal-supplier-cancel').addEventListener('click', function() { closeModal('modal-supplier-overlay', 'modal-supplier'); });
+  document.getElementById('modal-supplier-overlay').addEventListener('click', function() { closeModal('modal-supplier-overlay', 'modal-supplier'); });
+  document.getElementById('modal-supplier-save').addEventListener('click', saveSupplier);
+
+  document.getElementById('modal-quote-import-close').addEventListener('click', function() { closeModal('modal-quote-import-overlay', 'modal-quote-import'); });
+  document.getElementById('modal-quote-import-cancel').addEventListener('click', function() { closeModal('modal-quote-import-overlay', 'modal-quote-import'); });
+  document.getElementById('modal-quote-import-overlay').addEventListener('click', function() { closeModal('modal-quote-import-overlay', 'modal-quote-import'); });
+  document.getElementById('modal-quote-import-save').addEventListener('click', saveQuoteImport);
+
+  document.getElementById('modal-quote-detail-close').addEventListener('click', function() { closeModal('modal-quote-detail-overlay', 'modal-quote-detail'); });
+  document.getElementById('modal-quote-detail-close-btn').addEventListener('click', function() { closeModal('modal-quote-detail-overlay', 'modal-quote-detail'); });
+  document.getElementById('modal-quote-detail-overlay').addEventListener('click', function() { closeModal('modal-quote-detail-overlay', 'modal-quote-detail'); });
+  document.getElementById('modal-quote-detail-download').addEventListener('click', function() {
+    var qId = parseInt(document.getElementById('modal-quote-detail').getAttribute('data-quote-id'));
+    var q = quotes.find(function(q) { return q.id === qId; });
+    if (q) downloadQuoteAttachment(q);
+  });
+  document.getElementById('modal-quote-detail-sync').addEventListener('click', function() {
+    var qId = parseInt(document.getElementById('modal-quote-detail').getAttribute('data-quote-id'));
+    var q = quotes.find(function(q) { return q.id === qId; });
+    if (q && q.syncStatus === '未同步') { closeModal('modal-quote-detail-overlay', 'modal-quote-detail'); syncQuote(q); }
+    else if (q) showToast('该报价已同步', 'info');
+  });
+  document.getElementById('modal-quote-detail-confirm').addEventListener('click', function() {
+    var qId = parseInt(document.getElementById('modal-quote-detail').getAttribute('data-quote-id'));
+    var q = quotes.find(function(q) { return q.id === qId; });
+    if (q && q.confirmStatus === '待确认') { closeModal('modal-quote-detail-overlay', 'modal-quote-detail'); confirmQuote(q); }
+    else if (q) showToast('该报价已确认', 'info');
+  });
+
+  document.getElementById('modal-confirm-close').addEventListener('click', function() { closeModal('modal-confirm-overlay', 'modal-confirm'); });
+  document.getElementById('modal-confirm-cancel').addEventListener('click', function() { closeModal('modal-confirm-overlay', 'modal-confirm'); });
+  document.getElementById('modal-confirm-overlay').addEventListener('click', function() { closeModal('modal-confirm-overlay', 'modal-confirm'); });
+  document.getElementById('modal-confirm-ok').addEventListener('click', function() {
+    closeModal('modal-confirm-overlay', 'modal-confirm');
+    if (typeof confirmCallback === 'function') confirmCallback();
+    confirmCallback = null;
+  });
+
+  // Tab switching
+  document.querySelectorAll('.sm-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.sm-tab').forEach(function(t) { t.classList.remove('is-active'); });
+      tab.classList.add('is-active');
+      currentTab = tab.getAttribute('data-tab');
+      document.querySelectorAll('.sm-tab-content').forEach(function(c) { c.classList.remove('is-active'); });
+      document.getElementById('tab-' + currentTab).classList.add('is-active');
+      if (currentTab === 'quote') renderQuoteTable();
+      if (currentTab === 'supplier') renderSupplierTable();
+    });
+  });
+
+  // Supplier search
+  document.getElementById('btn-supplier-search').addEventListener('click', function() {
+    supplierFilters.search = document.getElementById('supplier-search').value.trim();
+    supplierFilters.service = document.getElementById('supplier-filter-service').value;
+    supplierFilters.level = document.getElementById('supplier-filter-level').value;
+    supplierFilters.status = document.getElementById('supplier-filter-status').value;
+    supplierPage = 1;
+    renderSupplierTable();
+  });
+  document.getElementById('btn-supplier-reset').addEventListener('click', function() {
+    document.getElementById('supplier-search').value = '';
+    document.getElementById('supplier-filter-service').value = 'all';
+    document.getElementById('supplier-filter-level').value = 'all';
+    document.getElementById('supplier-filter-status').value = 'all';
+    supplierFilters = { search:'', service:'all', level:'all', status:'all' };
+    supplierPage = 1;
+    renderSupplierTable();
+  });
+  document.getElementById('supplier-search').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('btn-supplier-search').click();
+  });
+
+  // Quote search
+  document.getElementById('btn-quote-search').addEventListener('click', function() {
+    quoteFilters.search = document.getElementById('quote-search').value.trim();
+    quoteFilters.service = document.getElementById('quote-filter-service').value;
+    quoteFilters.confirmStatus = document.getElementById('quote-filter-status').value;
+    quoteFilters.syncStatus = document.getElementById('quote-filter-sync').value;
+    quotePage = 1;
+    renderQuoteTable();
+  });
+  document.getElementById('btn-quote-reset').addEventListener('click', function() {
+    document.getElementById('quote-search').value = '';
+    document.getElementById('quote-filter-service').value = 'all';
+    document.getElementById('quote-filter-status').value = 'all';
+    document.getElementById('quote-filter-sync').value = 'all';
+    quoteFilters = { search:'', service:'all', confirmStatus:'all', syncStatus:'all' };
+    quotePage = 1;
+    renderQuoteTable();
+  });
+  document.getElementById('quote-search').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('btn-quote-search').click();
+  });
+
+  // Page size
+  document.getElementById('supplier-page-size').addEventListener('change', function() {
+    supplierPageSize = parseInt(this.value);
+    supplierPage = 1;
+    renderSupplierTable();
+  });
+  document.getElementById('quote-page-size').addEventListener('change', function() {
+    quotePageSize = parseInt(this.value);
+    quotePage = 1;
+    renderQuoteTable();
+  });
+
+  // Upload simulation
+  simulateUpload(document.getElementById('quote-upload-zone'));
+
+  // Keyboard ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var modals = [
+        ['modal-supplier-overlay', 'modal-supplier'],
+        ['modal-quote-import-overlay', 'modal-quote-import'],
+        ['modal-quote-detail-overlay', 'modal-quote-detail'],
+        ['modal-confirm-overlay', 'modal-confirm']
+      ];
+      for (var i = 0; i < modals.length; i++) {
+        if (document.getElementById(modals[i][0]).classList.contains('is-visible')) {
+          closeModal(modals[i][0], modals[i][1]);
+          break;
+        }
+      }
+    }
+  });
+
+  // ===== INIT =====
+  populateQuoteSupplierOptions();
+  renderSupplierTable();
+  showToast('供应商管理页面加载完成', 'info');
+})();
+</script>
+
+</body>
+</html>

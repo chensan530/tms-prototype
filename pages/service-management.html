@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN" class="light">
 <head>
     <meta charset="UTF-8">
@@ -307,18 +307,40 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--tms-font-serif); font-weight: 600; l
           <span>智慧运输管理平台</span>
         </div>
         <nav style="flex:1; padding: 12px 0;">
-          <div class="nav-section-label">业务管理</div>
-          <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
-          <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
-          <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" href="service-management.html" class="nav-item" data-active="true"><i data-lucide="layers"></i><span>服务管理</span></a>
-          <a data-nav-key="addr-lib" data-dom-id="nav-addr-lib" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
-          <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超长超重管理</span></a>
-          <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
-          <div class="nav-section-label">系统管理</div>
-          <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
-          <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
-          <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
-        </nav>
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" href="service-management.html" class="nav-item" data-active="true"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
         <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
           <div style="display:flex; align-items:center; gap:8px;">
             <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
@@ -654,6 +676,719 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--tms-font-serif); font-weight: 600; l
           }
         });
       })();
+    </script>
+    <script id="page-interactions">
+(function () {
+  'use strict';
+
+  /* ================= 公共工具 ================= */
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function nowText() {
+    var d = new Date();
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    return p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + String(d.getFullYear()).slice(2) +
+      ' ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+  }
+  function findBtn(scope, text) {
+    var list = scope.querySelectorAll('button');
+    for (var i = 0; i < list.length; i++) {
+      var span = list[i].querySelector('span');
+      if (span && span.textContent.trim() === text) return list[i];
+    }
+    return null;
+  }
+
+  /* ================= 样式注入 ================= */
+  var css =
+    '#toast-container{position:fixed;top:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:8px;}' +
+    '.tms-toast{display:flex;align-items:center;gap:10px;padding:12px 18px;background:var(--tms-card);border:1px solid var(--tms-border);border-radius:var(--tms-radius-medium);box-shadow:var(--tms-shadow-2);font-size:13px;color:var(--tms-foreground);min-width:260px;animation:tms-toast-in 250ms ease;}' +
+    '.tms-toast.success{border-left:3px solid var(--state-success);}.tms-toast.error{border-left:3px solid var(--state-error);}.tms-toast.info{border-left:3px solid var(--state-info);}.tms-toast.warning{border-left:3px solid var(--state-warning);}' +
+    '.tms-toast svg{width:16px;height:16px;flex-shrink:0;}' +
+    '.tms-toast.success svg{color:var(--state-success);}.tms-toast.error svg{color:var(--state-error);}.tms-toast.info svg{color:var(--state-info);}.tms-toast.warning svg{color:var(--state-warning);}' +
+    '@keyframes tms-toast-in{from{opacity:0;transform:translateX(40px);}to{opacity:1;transform:translateX(0);}}' +
+    '.tms-toast.fade-out{opacity:0;transform:translateX(40px);transition:all 250ms ease;}' +
+    '.tms-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;}' +
+    '.tms-modal{background:var(--tms-card);border-radius:12px;box-shadow:var(--tms-shadow-3);width:100%;max-width:560px;max-height:86vh;display:flex;flex-direction:column;}' +
+    '.tms-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--tms-border);flex-shrink:0;}' +
+    '.tms-modal-header h3{font-size:16px;margin:0;font-family:var(--tms-font-serif);}' +
+    '.tms-modal-close{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:none;border-radius:var(--tms-radius-small);background:transparent;color:var(--tms-muted-foreground);cursor:pointer;}' +
+    '.tms-modal-close:hover{background:var(--tms-muted);}.tms-modal-close svg{width:16px;height:16px;}' +
+    '.tms-modal-body{padding:20px;overflow-y:auto;font-size:13px;color:var(--tms-foreground);}' +
+    '.tms-modal-footer{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--tms-border);flex-shrink:0;}' +
+    '.tms-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;}' +
+    '.tms-form-item{display:flex;flex-direction:column;gap:6px;}' +
+    '.tms-form-item--full{grid-column:1 / -1;}' +
+    '.tms-form-item label{font-size:13px;color:var(--tms-muted-foreground);}' +
+    '.tms-form-item label .req{color:var(--state-error);}' +
+    '.tms-form-item input,.tms-form-item select,.tms-form-item textarea{height:34px;font-size:13px;border-radius:var(--tms-radius-small);border:1px solid var(--tms-border);background:var(--tms-background);color:var(--tms-foreground);padding:0 10px;outline:none;width:100%;box-sizing:border-box;font-family:inherit;}' +
+    '.tms-form-item textarea{height:auto;min-height:80px;padding:8px 10px;resize:vertical;}' +
+    '.tms-form-item input:focus,.tms-form-item select:focus,.tms-form-item textarea:focus{border-color:var(--tms-primary-400);box-shadow:0 0 0 2px rgba(27,67,50,0.12);}' +
+    '.tms-detail-list{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;}' +
+    '.tms-detail-item .dt{font-size:12px;color:var(--tms-muted-foreground);margin-bottom:2px;}' +
+    '.tms-detail-item .dd{font-size:13px;color:var(--tms-foreground);word-break:break-all;}' +
+    '.tms-detail-item--full{grid-column:1 / -1;}' +
+    '.batch-bar{display:none;align-items:center;gap:12px;padding:10px 16px;background:var(--tms-primary-50);border:1px solid var(--tms-primary-100);border-radius:var(--tms-radius-medium);margin-bottom:12px;flex-wrap:wrap;}' +
+    '.batch-bar.is-visible{display:flex;}' +
+    '.batch-bar .selected-count{font-size:13px;color:var(--tms-primary-600);font-weight:600;white-space:nowrap;}' +
+    '.batch-bar .batch-divider{width:1px;height:20px;background:var(--tms-primary-100);}' +
+    '.batch-btn{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 12px;border-radius:var(--tms-radius-small);background:var(--tms-card);color:var(--tms-foreground);font-size:12px;font-weight:500;border:1px solid var(--tms-primary-100);cursor:pointer;transition:background-color 120ms ease;}' +
+    '.batch-btn:hover{background:var(--tms-primary-100);}.batch-btn svg{width:14px;height:14px;}' +
+    '.batch-btn--danger{color:var(--state-error);border-color:var(--state-error-light);}' +
+    '.batch-btn--danger:hover{background:var(--state-error-light);}' +
+    '.batch-btn--primary{background:var(--tms-primary);color:var(--tms-primary-foreground);border-color:var(--tms-primary);}' +
+    '.batch-btn--primary:hover{background:var(--tms-primary-600);}' +
+    '.row-actions{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;}' +
+    '.row-action-btn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:none;border-radius:var(--tms-radius-small);background:transparent;color:var(--tms-muted-foreground);cursor:pointer;transition:color 120ms ease,background-color 120ms ease;}' +
+    '.row-action-btn:hover{background:var(--tms-muted);color:var(--tms-primary);}' +
+    '.row-action-btn svg{width:15px;height:15px;}' +
+    '.row-action-btn--danger:hover{color:var(--state-error);background:var(--state-error-light);}' +
+    'tr.is-inactive{opacity:0.55;}' +
+    '.sort-list{display:flex;flex-direction:column;gap:8px;}' +
+    '.sort-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--tms-border);border-radius:var(--tms-radius-small);background:var(--tms-background);}' +
+    '.sort-item .sort-info{flex:1;min-width:0;}' +
+    '.sort-item .sort-name{font-size:13px;font-weight:500;}' +
+    '.sort-item .sort-code{font-size:12px;color:var(--tms-muted-foreground);font-family:var(--tms-font-mono);}' +
+    '.category-tree{font-size:13px;}' +
+    '.category-node{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:var(--tms-radius-small);}' +
+    '.category-node:hover{background:var(--tms-muted);}' +
+    '.category-node--child{padding-left:28px;}' +
+    '.category-node input{accent-color:var(--tms-primary-500);}';
+  var styleEl = document.createElement('style');
+  styleEl.id = 'tms-interaction-styles';
+  styleEl.textContent = css;
+  document.head.appendChild(styleEl);
+
+  /* ================= Toast ================= */
+  function showToast(msg, type) {
+    var container = document.getElementById('toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'toast-container';
+      document.body.appendChild(container);
+    }
+    var toast = document.createElement('div');
+    toast.className = 'tms-toast ' + (type || 'success');
+    var iconName = type === 'error' ? 'circle-x' : (type === 'warning' ? 'triangle-alert' : (type === 'info' ? 'info' : 'circle-check'));
+    var icon = document.createElement('i');
+    icon.setAttribute('data-lucide', iconName);
+    toast.appendChild(icon);
+    var span = document.createElement('span');
+    span.textContent = msg;
+    toast.appendChild(span);
+    container.appendChild(toast);
+    if (window.lucide) lucide.createIcons();
+    setTimeout(function () {
+      toast.classList.add('fade-out');
+      setTimeout(function () { toast.remove(); }, 300);
+    }, 3000);
+  }
+
+  /* ================= Modal ================= */
+  var modalOverlay = null;
+  function closeModal() {
+    if (modalOverlay) { modalOverlay.remove(); modalOverlay = null; }
+  }
+  function openModal(opts) {
+    if (modalOverlay) modalOverlay.remove();
+    modalOverlay = document.createElement('div');
+    modalOverlay.className = 'tms-modal-overlay';
+    document.body.appendChild(modalOverlay);
+    modalOverlay.innerHTML =
+      '<div class="tms-modal">' +
+        '<div class="tms-modal-header"><h3>' + esc(opts.title) + '</h3>' +
+          '<button type="button" class="tms-modal-close" title="关闭"><i data-lucide="x"></i></button></div>' +
+        '<div class="tms-modal-body"></div>' +
+        '<div class="tms-modal-footer">' +
+          '<button type="button" class="btn-reset tms-modal-cancel">取消</button>' +
+          '<button type="button" class="btn-search tms-modal-confirm">' + esc(opts.confirmText || '确定') + '</button>' +
+        '</div>' +
+      '</div>';
+    var bodyEl = modalOverlay.querySelector('.tms-modal-body');
+    if (typeof opts.body === 'string') bodyEl.innerHTML = opts.body;
+    else if (opts.body && opts.body.nodeType === 1) bodyEl.appendChild(opts.body);
+    if (window.lucide) lucide.createIcons();
+    modalOverlay.querySelector('.tms-modal-close').addEventListener('click', closeModal);
+    modalOverlay.querySelector('.tms-modal-cancel').addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', function (e) {
+      if (e.target === modalOverlay) closeModal();
+    });
+    modalOverlay.querySelector('.tms-modal-confirm').addEventListener('click', function () {
+      var keepOpen = opts.onConfirm ? opts.onConfirm() : false;
+      if (!keepOpen) closeModal();
+    });
+  }
+
+  /* ================= DOM 引用 ================= */
+  var table = document.querySelector('.table-card .tms-table-dense');
+  var tbody = table.querySelector('tbody');
+  var checkAll = document.getElementById('check-all');
+  var tableCard = document.querySelector('.table-card');
+
+  /* ================= 行操作列 ================= */
+  function actionCellHTML() {
+    return '<div class="row-actions">' +
+      '<button type="button" class="row-action-btn" data-act="view" title="查看"><i data-lucide="eye"></i></button>' +
+      '<button type="button" class="row-action-btn" data-act="edit" title="编辑"><i data-lucide="pencil"></i></button>' +
+      '<button type="button" class="row-action-btn row-action-btn--danger" data-act="delete" title="删除"><i data-lucide="trash-2"></i></button>' +
+      '</div>';
+  }
+  (function addActionColumn() {
+    var th = document.createElement('th');
+    th.className = 'col-center';
+    th.textContent = '操作';
+    table.querySelector('thead tr').appendChild(th);
+    tbody.querySelectorAll('tr').forEach(function (tr) {
+      var td = document.createElement('td');
+      td.className = 'col-center';
+      td.innerHTML = actionCellHTML();
+      tr.appendChild(td);
+      if (!tr.getAttribute('data-status')) tr.setAttribute('data-status', 'active');
+    });
+    if (window.lucide) lucide.createIcons();
+  })();
+
+  /* ================= 批次操作栏 ================= */
+  var batchBar = document.createElement('div');
+  batchBar.className = 'batch-bar';
+  batchBar.innerHTML =
+    '<span class="selected-count" id="svc-batch-count">已选 0 项</span>' +
+    '<span class="batch-divider"></span>' +
+    '<button type="button" class="batch-btn" data-batch="modify"><i data-lucide="pencil"></i>批量修改</button>' +
+    '<button type="button" class="batch-btn" data-batch="copy"><i data-lucide="copy"></i>复制</button>' +
+    '<button type="button" class="batch-btn" data-batch="disable"><i data-lucide="circle-pause"></i>停用</button>' +
+    '<button type="button" class="batch-btn batch-btn--danger" data-batch="delete"><i data-lucide="trash-2"></i>删除</button>' +
+    '<span style="flex:1"></span>' +
+    '<button type="button" class="batch-btn" data-batch="clear"><i data-lucide="x"></i>取消选择</button>';
+  tableCard.parentNode.insertBefore(batchBar, tableCard);
+  if (window.lucide) lucide.createIcons();
+
+  function getSelectedRows() {
+    return Array.prototype.slice.call(tbody.querySelectorAll('.row-check-input:checked')).map(function (cb) {
+      return cb.closest('tr');
+    });
+  }
+  function updateSelection() {
+    var n = getSelectedRows().length;
+    var countEl = document.getElementById('svc-batch-count');
+    if (countEl) countEl.textContent = '已选 ' + n + ' 项';
+    batchBar.classList.toggle('is-visible', n > 0);
+    var all = tbody.querySelectorAll('.row-check-input');
+    if (checkAll) checkAll.checked = all.length > 0 && n === all.length;
+  }
+
+  if (checkAll) {
+    checkAll.addEventListener('change', function () {
+      tbody.querySelectorAll('.row-check-input').forEach(function (cb) {
+        var tr = cb.closest('tr');
+        if (!tr || tr.style.display === 'none') return;
+        cb.checked = checkAll.checked;
+        tr.classList.toggle('is-selected', cb.checked);
+      });
+      updateSelection();
+    });
+  }
+  tbody.addEventListener('change', function (e) {
+    if (e.target.classList.contains('row-check-input')) {
+      var tr = e.target.closest('tr');
+      if (tr) tr.classList.toggle('is-selected', e.target.checked);
+      updateSelection();
+    }
+  });
+
+  /* ================= 服务字段 ================= */
+  var SERVICE_FIELDS = [
+    { key: 'name', label: '服务名称', required: true, type: 'input' },
+    { key: 'code', label: '服务代码', required: true, type: 'input' },
+    { key: 'type', label: '类型', required: true, type: 'select', options: ['大货', '快递', '小包', '其他'] },
+    { key: 'carrier', label: '承运类型', required: false, type: 'select', options: ['', '空运', '海运', '卡派', '铁路', '快递'] },
+    { key: 'category', label: '服务分类', required: false, type: 'select', options: ['', '美森CLX卡派', '快船卡派', '普船卡派', '合德快船', '合德定提', 'sav', '纽约', '芝加哥', '美森海派13天', '合德18天'] },
+    { key: 'billing', label: '计费方式', required: true, type: 'select', options: ['重量(kg)', '票', '体积', '件数'] },
+    { key: 'weight', label: '计重方式', required: false, type: 'select', options: ['票', '实际重', '体积重', '取大者'] },
+    { key: 'factor', label: '计泡系数', required: false, type: 'input' },
+    { key: 'split', label: '分泡比例', required: false, type: 'input' },
+    { key: 'range', label: '件数范围', required: false, type: 'input' },
+    { key: 'account', label: '打单账号', required: false, type: 'input' },
+    { key: 'label', label: '打印标签类型', required: false, type: 'select', options: ['系统标签', '自定义标签', '无标签'] },
+    { key: 'note', label: '备注', required: false, type: 'textarea', full: true }
+  ];
+
+  function readServiceRow(tr) {
+    var c = tr.children;
+    function t(i) {
+      var s = c[i] ? c[i].textContent.trim() : '';
+      return s === '--' ? '' : s;
+    }
+    return {
+      name: t(1), code: t(2), type: t(3), carrier: t(4), category: t(5),
+      billing: t(6), weight: t(7), factor: t(8), split: t(9), range: t(10),
+      account: t(11), label: t(12),
+      note: tr.getAttribute('data-note') || ''
+    };
+  }
+
+  function fillServiceRow(tr, v) {
+    var c = tr.children;
+    c[1].textContent = v.name || '';
+    c[2].textContent = v.code || '';
+    c[3].innerHTML = '<span class="svc-type-tag">' + esc(v.type || '大货') + '</span>';
+    c[4].textContent = v.carrier || '--';
+    c[5].textContent = v.category || '--';
+    c[6].textContent = v.billing || '--';
+    c[7].textContent = v.weight || '--';
+    c[8].textContent = v.factor || '--';
+    c[9].textContent = v.split || '--';
+    c[10].textContent = v.range || '--';
+    c[11].textContent = v.account || '--';
+    c[12].textContent = v.label || '--';
+    tr.setAttribute('data-note', v.note || '');
+  }
+
+  function createServiceRow(v) {
+    var tr = document.createElement('tr');
+    tr.setAttribute('data-status', 'active');
+    tr.innerHTML =
+      '<td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>' +
+      '<td></td>' +
+      '<td class="svc-code"></td>' +
+      '<td></td>' +
+      '<td class="dash-text"></td>' +
+      '<td></td><td></td><td></td>' +
+      '<td class="col-num tms-mono-data"></td>' +
+      '<td class="col-num tms-mono-data"></td>' +
+      '<td class="tms-mono-data"></td>' +
+      '<td class="empty-text"></td>' +
+      '<td></td>' +
+      '<td class="col-center"></td>';
+    fillServiceRow(tr, v);
+    tr.lastElementChild.innerHTML = actionCellHTML();
+    return tr;
+  }
+
+  function serviceFormHTML(v) {
+    v = v || {};
+    var html = '<div class="tms-form-grid">';
+    SERVICE_FIELDS.forEach(function (f) {
+      var val = v[f.key] || '';
+      html += '<div class="tms-form-item' + (f.full ? ' tms-form-item--full' : '') + '">';
+      html += '<label>' + esc(f.label) + (f.required ? ' <span class="req">*</span>' : '') + '</label>';
+      if (f.type === 'select') {
+        html += '<select id="svc-f-' + f.key + '">';
+        f.options.forEach(function (o) {
+          html += '<option value="' + esc(o) + '"' + (o === val ? ' selected' : '') + '>' + esc(o || '— 无 —') + '</option>';
+        });
+        html += '</select>';
+      } else if (f.type === 'textarea') {
+        html += '<textarea id="svc-f-' + f.key + '">' + esc(val) + '</textarea>';
+      } else {
+        html += '<input type="text" id="svc-f-' + f.key + '" value="' + esc(val) + '" placeholder="请输入' + esc(f.label) + '">';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function serviceDetailHTML(v) {
+    var items = [
+      ['服务名称', v.name], ['服务代码', v.code], ['类型', v.type], ['承运类型', v.carrier || '--'],
+      ['服务分类', v.category || '--'], ['计费方式', v.billing], ['计重方式', v.weight || '--'],
+      ['计泡系数', v.factor || '--'], ['分泡比例', v.split || '--'], ['件数范围', v.range || '--'],
+      ['打单账号', v.account || '--'], ['打印标签类型', v.label || '--']
+    ];
+    var html = '<div class="tms-detail-list">';
+    items.forEach(function (it) {
+      html += '<div class="tms-detail-item"><div class="dt">' + esc(it[0]) + '</div><div class="dd">' + esc(it[1]) + '</div></div>';
+    });
+    html += '<div class="tms-detail-item tms-detail-item--full"><div class="dt">备注</div><div class="dd">' + esc(v.note || '--') + '</div></div>';
+    html += '</div>';
+    return html;
+  }
+
+  /* ================= 创建 / 编辑 / 详情 ================= */
+  function openServiceForm(tr) {
+    var isEdit = !!tr;
+    var v = isEdit ? readServiceRow(tr) : {};
+    openModal({
+      title: isEdit ? '编辑服务' : '创建服务',
+      body: serviceFormHTML(v),
+      onConfirm: function () {
+        var nv = {};
+        SERVICE_FIELDS.forEach(function (f) {
+          var el = document.getElementById('svc-f-' + f.key);
+          nv[f.key] = el ? el.value.trim() : '';
+        });
+        if (!nv.name || !nv.code || !nv.type || !nv.billing) {
+          showToast('请填写必填项：服务名称、服务代码、类型、计费方式', 'error');
+          return true;
+        }
+        if (isEdit) {
+          fillServiceRow(tr, nv);
+          showToast('服务「' + nv.name + '」已更新', 'success');
+        } else {
+          tbody.appendChild(createServiceRow(nv));
+          if (window.lucide) lucide.createIcons();
+          showToast('服务「' + nv.name + '」创建成功', 'success');
+        }
+        refreshCounts();
+        applyFilter();
+      }
+    });
+  }
+
+  function openServiceDetail(tr) {
+    openModal({
+      title: '服务详情',
+      confirmText: '关闭',
+      body: serviceDetailHTML(readServiceRow(tr))
+    });
+  }
+
+  /* ================= 批量创建 ================= */
+  function openBatchCreate() {
+    openModal({
+      title: '批量创建服务',
+      confirmText: '创建',
+      body: '<div class="tms-form-item tms-form-item--full"><label>服务代码列表（每行一个，保存后自动创建对应服务）</label>' +
+        '<textarea id="svc-batch-text" placeholder="例如：&#10;SVC001&#10;SVC002&#10;SVC003"></textarea></div>',
+      onConfirm: function () {
+        var ta = document.getElementById('svc-batch-text');
+        var lines = ta.value.split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+        if (!lines.length) { showToast('请输入至少一个服务代码', 'error'); return true; }
+        lines.forEach(function (code) {
+          tbody.appendChild(createServiceRow({
+            name: code, code: code, type: '大货', billing: '重量(kg)', weight: '票',
+            factor: '6000', split: '0', range: '1~2999', label: '系统标签'
+          }));
+        });
+        if (window.lucide) lucide.createIcons();
+        showToast('已批量创建 ' + lines.length + ' 个服务', 'success');
+        refreshCounts();
+        applyFilter();
+      }
+    });
+  }
+
+  /* ================= 排序管理 ================= */
+  function openSortModal() {
+    var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+    if (!rows.length) { showToast('暂无可排序的数据', 'error'); return; }
+    var order = rows.slice();
+    var wrap = document.createElement('div');
+    wrap.innerHTML = '<div class="tms-form-item tms-form-item--full" style="margin-bottom:12px;"><label>通过上移 / 下移调整服务显示顺序</label></div>';
+    var listWrap = document.createElement('div');
+    listWrap.className = 'sort-list';
+    wrap.appendChild(listWrap);
+    function renderList() {
+      listWrap.innerHTML = '';
+      order.forEach(function (tr, idx) {
+        var name = tr.children[1] ? tr.children[1].textContent.trim() : '';
+        var code = tr.children[2] ? tr.children[2].textContent.trim() : '';
+        var item = document.createElement('div');
+        item.className = 'sort-item';
+        item.setAttribute('data-idx', idx);
+        item.innerHTML =
+          '<span class="tms-mono-data" style="color:var(--tms-muted-foreground);width:22px;">' + (idx + 1) + '</span>' +
+          '<div class="sort-info"><div class="sort-name">' + esc(name) + '</div><div class="sort-code">' + esc(code) + '</div></div>' +
+          '<div class="sort-actions">' +
+          '<button type="button" class="row-action-btn" data-dir="up" title="上移"><i data-lucide="chevron-up"></i></button>' +
+          '<button type="button" class="row-action-btn" data-dir="down" title="下移"><i data-lucide="chevron-down"></i></button>' +
+          '</div>';
+        listWrap.appendChild(item);
+      });
+      if (window.lucide) lucide.createIcons();
+      listWrap.querySelectorAll('.sort-actions .row-action-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var item = btn.closest('.sort-item');
+          var idx = parseInt(item.getAttribute('data-idx'), 10);
+          var dir = btn.getAttribute('data-dir');
+          var target = dir === 'up' ? idx - 1 : idx + 1;
+          if (target < 0 || target >= order.length) return;
+          var tmp = order[idx];
+          order[idx] = order[target];
+          order[target] = tmp;
+          renderList();
+        });
+      });
+    }
+    renderList();
+    openModal({
+      title: '排序管理',
+      body: wrap,
+      onConfirm: function () {
+        order.forEach(function (tr) { tbody.appendChild(tr); });
+        showToast('服务排序已保存', 'success');
+      }
+    });
+  }
+
+  /* ================= 服务分类 ================= */
+  function openCategoryModal() {
+    var tree = [
+      { name: '卡派', children: ['美森CLX卡派', '快船卡派', '普船卡派'] },
+      { name: '海派', children: ['美森海派13天', '合德18天'] },
+      { name: '空派', children: ['美国空派', '欧洲空派'] },
+      { name: '铁派', children: ['中欧铁路'] }
+    ];
+    var html = '<div class="category-tree">';
+    tree.forEach(function (node) {
+      html += '<div class="category-node"><input type="checkbox" checked><strong>' + esc(node.name) + '</strong></div>';
+      node.children.forEach(function (c) {
+        html += '<div class="category-node category-node--child"><input type="checkbox" checked>' + esc(c) + '</div>';
+      });
+    });
+    html += '</div>';
+    openModal({
+      title: '服务分类',
+      body: html,
+      onConfirm: function () {
+        showToast('服务分类配置已保存', 'success');
+      }
+    });
+  }
+
+  /* ================= 批量修改 ================= */
+  function openBatchModify() {
+    var selected = getSelectedRows();
+    if (!selected.length) { showToast('请先勾选需要修改的服务', 'error'); return; }
+    var fields = [
+      { v: 'type', t: '类型' }, { v: 'carrier', t: '承运类型' }, { v: 'category', t: '服务分类' },
+      { v: 'billing', t: '计费方式' }, { v: 'weight', t: '计重方式' },
+      { v: 'account', t: '打单账号' }, { v: 'label', t: '打印标签类型' }
+    ];
+    openModal({
+      title: '批量修改（已选 ' + selected.length + ' 项）',
+      confirmText: '应用',
+      body: '<div class="tms-form-item tms-form-item--full"><label>修改字段</label>' +
+        '<select id="svc-bm-field">' + fields.map(function (f) { return '<option value="' + f.v + '">' + f.t + '</option>'; }).join('') + '</select></div>' +
+        '<div class="tms-form-item tms-form-item--full"><label>修改为</label><input type="text" id="svc-bm-value" placeholder="请输入新值"></div>',
+      onConfirm: function () {
+        var key = document.getElementById('svc-bm-field').value;
+        var val = document.getElementById('svc-bm-value').value.trim();
+        if (!val) { showToast('请输入修改后的值', 'error'); return true; }
+        var idxMap = { type: 3, carrier: 4, category: 5, billing: 6, weight: 7, account: 11, label: 12 };
+        var idx = idxMap[key];
+        var applied = getSelectedRows();
+        applied.forEach(function (tr) {
+          if (key === 'type') {
+            tr.children[idx].innerHTML = '<span class="svc-type-tag">' + esc(val) + '</span>';
+          } else {
+            tr.children[idx].textContent = val;
+          }
+        });
+        showToast('已批量修改 ' + applied.length + ' 个服务', 'success');
+      }
+    });
+  }
+
+  /* ================= 复制 / 停用 / 删除 ================= */
+  function batchCopy() {
+    var selected = getSelectedRows();
+    if (!selected.length) { showToast('请先勾选需要复制的服务', 'error'); return; }
+    openModal({
+      title: '复制服务',
+      confirmText: '确认复制',
+      body: '<div style="font-size:13px;color:var(--tms-muted-foreground);line-height:1.7;">确认复制选中的 <b style="color:var(--tms-foreground);">' + selected.length + '</b> 个服务？复制后将生成名称带「副本」的新服务。</div>',
+      onConfirm: function () {
+        selected.forEach(function (tr) {
+          var v = readServiceRow(tr);
+          var copy = createServiceRow({
+            name: v.name + ' 副本', code: (v.code || 'SVC') + '-C', type: v.type, carrier: v.carrier,
+            category: v.category, billing: v.billing, weight: v.weight, factor: v.factor,
+            split: v.split, range: v.range, account: v.account, label: v.label, note: v.note
+          });
+          tr.parentNode.insertBefore(copy, tr.nextSibling);
+        });
+        if (window.lucide) lucide.createIcons();
+        showToast('已复制 ' + selected.length + ' 个服务', 'success');
+        refreshCounts();
+        applyFilter();
+      }
+    });
+  }
+
+  function batchDisable() {
+    var selected = getSelectedRows();
+    if (!selected.length) { showToast('请先勾选需要停用的服务', 'error'); return; }
+    openModal({
+      title: '停用服务',
+      confirmText: '确认停用',
+      body: '<div style="font-size:13px;color:var(--tms-muted-foreground);line-height:1.7;">确认停用选中的 <b style="color:var(--tms-foreground);">' + selected.length + '</b> 个服务？停用后相关运单将不能选择该服务。</div>',
+      onConfirm: function () {
+        selected.forEach(function (tr) {
+          tr.setAttribute('data-status', 'inactive');
+          tr.classList.add('is-inactive');
+        });
+        showToast('已停用 ' + selected.length + ' 个服务', 'warning');
+        refreshCounts();
+        applyFilter();
+      }
+    });
+  }
+
+  function batchDelete(list) {
+    var rows = list || getSelectedRows();
+    if (!rows.length) { showToast('请先勾选需要删除的服务', 'error'); return; }
+    openModal({
+      title: '删除服务',
+      confirmText: '确认删除',
+      body: '<div style="font-size:13px;color:var(--tms-muted-foreground);line-height:1.7;">确认删除选中的 <b style="color:var(--tms-foreground);">' + rows.length + '</b> 个服务？此操作不可恢复。</div>',
+      onConfirm: function () {
+        rows.forEach(function (tr) { tr.remove(); });
+        showToast('已删除 ' + rows.length + ' 个服务', 'success');
+        updateSelection();
+        refreshCounts();
+        applyFilter();
+      }
+    });
+  }
+
+  /* ================= 状态 Tab / 统计 ================= */
+  var currentStatus = 'all';
+  var statusTabs = document.querySelectorAll('.status-tab');
+  statusTabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      statusTabs.forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+      currentStatus = tab.getAttribute('data-status');
+      applyFilter();
+    });
+  });
+
+  function refreshCounts() {
+    var active = 0, inactive = 0;
+    tbody.querySelectorAll('tr').forEach(function (tr) {
+      if ((tr.getAttribute('data-status') || 'active') === 'inactive') inactive++; else active++;
+    });
+    var tA = document.querySelector('.status-tab[data-status="active"] .tab-count');
+    var tI = document.querySelector('.status-tab[data-status="inactive"] .tab-count');
+    if (tA) tA.textContent = active;
+    if (tI) tI.textContent = inactive;
+  }
+
+  /* ================= 筛选 ================= */
+  var filterInputs = document.querySelectorAll('.filter-card .filter-input');
+  var nameInput = filterInputs[0];
+  var codeInput = filterInputs[1];
+  var categorySelect = document.querySelector('.filter-card .filter-select');
+  var searchBtn = document.querySelector('.filter-card .btn-search');
+  var resetBtn = document.querySelector('.filter-card .btn-reset');
+  var CAT_KEYS = { 'card-truck': '卡派', 'sea-truck': '海派', 'air-truck': '空派', 'rail-truck': '铁派' };
+
+  function applyFilter() {
+    var kwName = (nameInput ? nameInput.value : '').trim().toLowerCase();
+    var kwCode = (codeInput ? codeInput.value : '').trim().toLowerCase();
+    var cat = categorySelect ? categorySelect.value : 'all';
+    var visible = 0;
+    tbody.querySelectorAll('tr').forEach(function (tr) {
+      var name = (tr.children[1] ? tr.children[1].textContent : '').trim();
+      var code = (tr.children[2] ? tr.children[2].textContent : '').trim();
+      var rowCat = (tr.children[5] ? tr.children[5].textContent : '').trim();
+      var rowStatus = tr.getAttribute('data-status') || 'active';
+      var ok = true;
+      if (kwName && name.toLowerCase().indexOf(kwName) === -1) ok = false;
+      if (kwCode && code.toLowerCase().indexOf(kwCode) === -1) ok = false;
+      if (ok && cat !== 'all' && CAT_KEYS[cat]) {
+        if (rowCat.indexOf(CAT_KEYS[cat]) === -1) ok = false;
+      }
+      if (ok && currentStatus !== 'all' && rowStatus !== currentStatus) ok = false;
+      tr.style.display = ok ? '' : 'none';
+      if (ok) visible++;
+    });
+    var info = document.querySelector('.pagination-info .tms-mono-data');
+    if (info) info.textContent = visible;
+  }
+
+  if (searchBtn) searchBtn.addEventListener('click', applyFilter);
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function () {
+      if (nameInput) nameInput.value = '';
+      if (codeInput) codeInput.value = '';
+      if (categorySelect) categorySelect.selectedIndex = 0;
+      applyFilter();
+      showToast('筛选条件已重置', 'info');
+    });
+  }
+
+  /* ================= 行交互（点击行查看详情） ================= */
+  tbody.addEventListener('click', function (e) {
+    var tr = e.target.closest('tr');
+    if (!tr) return;
+    if (e.target.closest('.row-check-input')) return;
+    var btn = e.target.closest('.row-action-btn');
+    if (btn) {
+      var act = btn.getAttribute('data-act');
+      if (act === 'view') openServiceDetail(tr);
+      else if (act === 'edit') openServiceForm(tr);
+      else if (act === 'delete') batchDelete([tr]);
+      return;
+    }
+    openServiceDetail(tr);
+  });
+
+  /* ================= 批次栏事件 ================= */
+  batchBar.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-batch]');
+    if (!btn) return;
+    var act = btn.getAttribute('data-batch');
+    if (act === 'modify') openBatchModify();
+    else if (act === 'copy') batchCopy();
+    else if (act === 'disable') batchDisable();
+    else if (act === 'delete') batchDelete(null);
+    else if (act === 'clear') {
+      tbody.querySelectorAll('.row-check-input').forEach(function (cb) { cb.checked = false; });
+      tbody.querySelectorAll('tr.is-selected').forEach(function (tr) { tr.classList.remove('is-selected'); });
+      if (checkAll) checkAll.checked = false;
+      updateSelection();
+    }
+  });
+
+  /* ================= 操作栏按钮 ================= */
+  var createAnchor = document.querySelector('[data-dom-id="btn-create-service"]');
+  if (createAnchor) {
+    createAnchor.addEventListener('click', function (e) { e.preventDefault(); openServiceForm(null); });
+  }
+  var actionCard = document.querySelector('.action-card');
+  var btns = [
+    ['批量创建服务', openBatchCreate],
+    ['排序管理', openSortModal],
+    ['服务分类', openCategoryModal],
+    ['批量修改', openBatchModify],
+    ['复制', batchCopy],
+    ['停用', batchDisable],
+    ['删除', function () { batchDelete(null); }]
+  ];
+  btns.forEach(function (pair) {
+    var b = findBtn(actionCard, pair[0]);
+    if (b) b.addEventListener('click', pair[1]);
+  });
+
+  /* ================= 其它按钮（分页 / 页头） ================= */
+  document.querySelectorAll('.page-btn').forEach(function (b) {
+    b.addEventListener('click', function () { showToast('分页导航（演示数据）', 'info'); });
+  });
+  document.querySelectorAll('.page-size-select').forEach(function (s) {
+    s.addEventListener('change', function () { showToast('每页显示 ' + s.value + ' 条（演示）', 'info'); });
+  });
+  var headerBtns = document.querySelectorAll('.header-icon-btn');
+  if (headerBtns[0]) headerBtns[0].addEventListener('click', function () { showToast('暂无新通知', 'info'); });
+  if (headerBtns[1]) headerBtns[1].addEventListener('click', function () { showToast('系统设置（演示）', 'info'); });
+  var headerSearch = document.querySelector('.header-search input');
+  if (headerSearch) {
+    headerSearch.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && headerSearch.value.trim()) {
+        showToast('全局搜索：' + headerSearch.value.trim() + '（演示）', 'info');
+      }
+    });
+  }
+
+  /* ================= 初始化 ================= */
+  refreshCounts();
+  applyFilter();
+  updateSelection();
+})();
     </script>
 </body>
 </html>

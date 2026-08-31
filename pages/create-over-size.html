@@ -546,18 +546,40 @@ h1, h2, h3, h4, h5, h6 {
           <span>智慧运输管理平台</span>
         </div>
         <nav style="flex:1; padding: 12px 0;">
-          <div class="nav-section-label">业务管理</div>
-          <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
-          <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
-          <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
-          <a data-nav-key="addr-lib" data-dom-id="nav-addr-lib" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
-          <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超长超重管理</span></a>
-          <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
-          <div class="nav-section-label">系统管理</div>
-          <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
-          <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
-          <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
-        </nav>
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" href="over-size-management.html" class="nav-item" data-active="true"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
         <!-- Sidebar Footer -->
         <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
           <div style="display:flex; align-items:center; gap:8px;">

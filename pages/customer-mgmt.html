@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客户管理</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow — Static surfaces only use border/surface layering.
+     Floating layers may use deeper elevation. */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<!-- Critical Layout CSS -->
+<style id="critical-layout">
+  .app-layout { display: flex; min-height: 100vh; }
+  .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+  .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+  .app-content { flex: 1; overflow: auto; padding: 24px; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+  .header-search { position: relative; }
+  .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+  .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+  .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+  .header-icon-btn:hover { background: var(--tms-muted); }
+  .header-user { display: flex; align-items: center; gap: 8px; }
+  .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+  .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+  .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+</style>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-logo">
+      <h1>TMS 物流管理</h1>
+      <span>智慧运输管理平台</span>
+    </div>
+    <nav style="flex:1; padding: 12px 0;">
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" href="customer-mgmt.html" class="nav-item" data-active="true"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
+    <!-- Sidebar Footer -->
+    <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+        <div>
+          <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="app-main-area">
+    <!-- Header -->
+    <header class="app-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="搜索订单、运单、客户...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+        <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+        <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+        <div class="header-user">
+          <div class="header-avatar">WB</div>
+          <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="app-content">
+
+<!-- ============ Page-Specific Styles ============ -->
+<style>
+  /* Page Header */
+  .cm-page-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+  .cm-page-header h2 { font-size: 24px; color: var(--tms-foreground); line-height: 1.2; }
+  .cm-page-header .header-sub { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+  .cm-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--tms-muted-foreground); margin-bottom: 4px; }
+  .cm-breadcrumb a { color: var(--tms-muted-foreground); text-decoration: none; }
+  .cm-breadcrumb a:hover { color: var(--tms-primary); }
+  .cm-breadcrumb span { color: var(--tms-foreground); }
+  .btn-create { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 16px; border-radius: var(--tms-radius-medium); background: var(--tms-primary); color: var(--tms-primary-foreground); font-size: 14px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-create:hover { background: var(--tms-primary-600); }
+  .btn-create svg { width: 16px; height: 16px; }
+
+  /* Filter Bar */
+  .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 16px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); margin-bottom: 16px; }
+  .filter-input, .filter-select { height: 34px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); padding: 0 10px; outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; }
+  .filter-input::placeholder { color: var(--tms-neutral-400); }
+  .filter-input:focus, .filter-select:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--tms-muted-foreground); pointer-events: none; }
+  .search-wrap .filter-input { padding-left: 32px; width: 260px; }
+  .filter-label { font-size: 12px; color: var(--tms-muted-foreground); }
+  .btn-search { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--tms-primary); color: var(--tms-primary-foreground); font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-search:hover { background: var(--tms-primary-600); }
+  .btn-search svg { width: 15px; height: 15px; }
+  .btn-reset { display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; font-weight: 500; border: 1px solid var(--tms-border); cursor: pointer; transition: background-color 120ms ease; }
+  .btn-reset:hover { background: var(--tms-muted); }
+
+  /* Summary Bar */
+  .cm-summary-bar { display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); margin-bottom: 16px; }
+  .cm-summary-item { display: flex; align-items: center; gap: 6px; }
+  .cm-summary-label { font-size: 12px; color: var(--tms-muted-foreground); }
+  .cm-summary-value { font-family: var(--tms-font-mono); font-size: 14px; font-weight: 600; color: var(--tms-foreground); }
+  .cm-summary-divider { width: 1px; height: 20px; background: var(--tms-border); }
+
+  /* Table Card */
+  .table-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+  .tms-table-dense { width: 100%; border-collapse: collapse; }
+  .tms-table-dense thead th { text-align: left; position: sticky; top: 0; z-index: 1; }
+  .tms-table-dense .col-center { text-align: center; }
+  .tms-table-dense .col-action { width: 110px; white-space: nowrap; }
+  .tms-table-dense .col-status { width: 80px; }
+  .tms-table-dense .col-level { width: 80px; }
+  .action-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--tms-radius-small); border: none; background: transparent; color: var(--tms-muted-foreground); cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .action-btn:hover { background: var(--tms-muted); color: var(--tms-primary-600); }
+  .action-btn svg { width: 15px; height: 15px; }
+  .action-btn--danger:hover { color: var(--state-error); background: var(--state-error-light); }
+  .customer-name-link { color: var(--tms-primary-600); font-weight: 600; cursor: pointer; text-decoration: none; }
+  .customer-name-link:hover { color: var(--tms-primary-500); text-decoration: underline; }
+
+  /* Level Badge */
+  .level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    border-radius: var(--tms-radius-small);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .level-badge--vip { background: #FBF3DC; color: #B8860B; }
+  .level-badge--normal { background: var(--tms-muted); color: var(--tms-muted-foreground); }
+  .level-badge--potential { background: var(--state-info-light); color: var(--state-info); }
+
+  /* TMS Buttons */
+  .tms-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--tms-font-sans);
+    border-radius: var(--tms-radius-medium);
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+    text-decoration: none;
+  }
+  .tms-btn-outline {
+    border: 1px solid var(--tms-border);
+    background: var(--tms-card);
+    color: var(--tms-foreground);
+  }
+  .tms-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+  .tms-btn-primary {
+    border: none;
+    background: var(--tms-primary-500);
+    color: var(--tms-primary-foreground);
+  }
+  .tms-btn-primary:hover { background: var(--tms-primary-600); }
+  .tms-btn-danger {
+    border: none;
+    background: var(--state-error);
+    color: #fff;
+  }
+  .tms-btn-danger:hover { background: #a03d35; }
+
+  /* Pagination Bar */
+  .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; flex-wrap: wrap; gap: 12px; }
+  .pagination-info { font-size: 13px; color: var(--tms-muted-foreground); }
+  .pagination-info .tms-mono-data { color: var(--tms-foreground); font-weight: 600; }
+  .pagination-center { display: flex; align-items: center; gap: 4px; }
+  .page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .page-btn:hover:not(:disabled):not(.is-active) { background: var(--tms-muted); }
+  .page-btn.is-active { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); font-weight: 600; }
+  .page-btn:disabled { color: var(--tms-neutral-400); cursor: not-allowed; }
+  .page-btn svg { width: 14px; height: 14px; }
+  .page-ellipsis { color: var(--tms-muted-foreground); padding: 0 4px; font-size: 13px; }
+  .page-size-wrap { display: flex; align-items: center; gap: 8px; }
+  .page-size-select { height: 30px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); padding: 0 8px; cursor: pointer; outline: none; }
+
+  /* Modal Overlay */
+  .cm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 23, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+    z-index: 200;
+  }
+  .cm-modal-overlay.is-visible { opacity: 1; visibility: visible; }
+  .cm-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.96);
+    width: 680px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    background: var(--tms-card);
+    border-radius: var(--tms-radius-large);
+    box-shadow: var(--tms-shadow-3);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+    z-index: 201;
+  }
+  .cm-modal.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+  .cm-modal--sm { width: 440px; }
+  .cm-modal-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--tms-border);
+  }
+  .cm-modal-header h3 { margin: 0; font-size: 16px; color: var(--tms-foreground); }
+  .cm-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--tms-radius-small);
+    background: transparent;
+    color: var(--tms-muted-foreground);
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .cm-modal-close:hover { background: var(--tms-muted); color: var(--tms-foreground); }
+  .cm-modal-close svg { width: 18px; height: 18px; }
+  .cm-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .cm-modal-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--tms-border);
+    background: var(--tms-card);
+    border-radius: 0 0 var(--tms-radius-large) var(--tms-radius-large);
+  }
+
+  /* Form styles */
+  .cm-form-group { margin-bottom: 16px; }
+  .cm-form-group:last-child { margin-bottom: 0; }
+  .cm-form-label { display: block; font-size: 13px; font-weight: 500; color: var(--tms-foreground); margin-bottom: 6px; }
+  .cm-form-label .required { color: var(--state-error); margin-left: 2px; }
+  .cm-form-input, .cm-form-select, .cm-form-textarea {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+    font-family: var(--tms-font-sans);
+    border: 1px solid var(--tms-border);
+    border-radius: var(--tms-radius-small);
+    background: var(--tms-background);
+    color: var(--tms-foreground);
+    outline: none;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+    box-sizing: border-box;
+  }
+  .cm-form-input:focus, .cm-form-select:focus, .cm-form-textarea:focus {
+    border-color: var(--tms-primary-400);
+    box-shadow: 0 0 0 2px rgba(27,67,50,0.12);
+  }
+  .cm-form-input.is-error, .cm-form-select.is-error, .cm-form-textarea.is-error {
+    border-color: var(--state-error);
+  }
+  .cm-form-error { font-size: 11px; color: var(--state-error); margin-top: 4px; display: none; }
+  .cm-form-error.is-visible { display: block; }
+  .cm-form-textarea { height: 80px; padding: 8px 10px; resize: vertical; }
+  .cm-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cm-form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* Detail view */
+  .cm-detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 16px; }
+  .cm-detail-item { display: flex; flex-direction: column; gap: 4px; }
+  .cm-detail-label { font-size: 12px; color: var(--tms-muted-foreground); }
+  .cm-detail-value { font-size: 13px; color: var(--tms-foreground); font-weight: 500; word-break: break-all; }
+  .cm-detail-full { grid-column: 1 / -1; }
+
+  /* Toast */
+  .cm-toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .cm-toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: var(--tms-radius-medium);
+    background: var(--tms-card);
+    border: 1px solid var(--tms-border);
+    box-shadow: var(--tms-shadow-2);
+    font-size: 13px;
+    color: var(--tms-foreground);
+    animation: cm-toast-in 240ms ease;
+    max-width: 400px;
+  }
+  .cm-toast--success { border-left: 4px solid var(--state-success); }
+  .cm-toast--error { border-left: 4px solid var(--state-error); }
+  .cm-toast--info { border-left: 4px solid var(--state-info); }
+  .cm-toast svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .cm-toast--success svg { color: var(--state-success); }
+  .cm-toast--error svg { color: var(--state-error); }
+  .cm-toast--info svg { color: var(--state-info); }
+  @keyframes cm-toast-in {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Status toggle */
+  .status-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: var(--tms-radius-small);
+    border: 1px solid var(--tms-border);
+    background: var(--tms-card);
+    transition: all 120ms ease;
+  }
+  .status-toggle:hover { background: var(--tms-muted); }
+  .status-toggle--active { color: var(--state-success); border-color: var(--state-success-light); background: var(--state-success-light); }
+  .status-toggle--inactive { color: var(--state-error); border-color: var(--state-error-light); background: var(--state-error-light); }
+  .status-toggle svg { width: 12px; height: 12px; }
+
+  /* Batch Action Bar */
+  .batch-bar {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--tms-primary-50);
+    border: 1px solid var(--tms-primary-200);
+    border-radius: var(--tms-radius-medium);
+    margin-bottom: 16px;
+  }
+  .batch-bar.is-visible { display: flex; }
+  .batch-bar .batch-count {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--tms-primary-700);
+  }
+  .batch-bar .batch-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  /* Table Checkbox */
+  .table-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--tms-primary-500);
+  }
+  .col-check { width: 40px; text-align: center; }
+
+  /* Export Button */
+  .btn-export {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: var(--tms-radius-medium);
+    background: var(--tms-card);
+    color: var(--tms-primary-600);
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--tms-primary-300);
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease;
+  }
+  .btn-export:hover { background: var(--tms-primary-50); border-color: var(--tms-primary-400); }
+  .btn-export svg { width: 16px; height: 16px; }
+
+  /* Detail Section */
+  .cm-detail-section {
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--tms-border);
+  }
+  .cm-detail-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .cm-detail-section-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--tms-primary-700);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cm-detail-section-title svg { width: 16px; height: 16px; }
+
+  /* Detail Stats */
+  .cm-detail-stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cm-detail-stat {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px;
+    background: var(--tms-muted);
+    border-radius: var(--tms-radius-small);
+    text-align: center;
+  }
+  .cm-detail-stat-value {
+    font-family: var(--tms-font-mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--tms-primary-600);
+  }
+  .cm-detail-stat-label { font-size: 11px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+  /* Table row clickable */
+  .tms-table-dense tbody tr { cursor: pointer; }
+  .tms-table-dense tbody tr:hover { background-color: var(--tms-neutral-100); }
+  .tms-table-dense tbody .col-action { cursor: default; }
+</style>
+
+<!-- Page Header -->
+<div class="cm-page-header">
+  <div>
+    <div class="cm-breadcrumb">
+      <a href="dashboard.html">首页</a>
+      <i data-lucide="chevron-right" style="width:12px;height:12px;"></i>
+      <span>客户管理</span>
+    </div>
+    <h2>客户管理</h2>
+    <div class="header-sub">管理全部客户信息，维护客户档案与状态</div>
+  </div>
+  <div style="display:flex; align-items:center; gap:8px;">
+    <button class="btn-export" id="btn-export-csv" title="导出CSV">
+      <i data-lucide="download"></i>
+      <span>导出数据</span>
+    </button>
+    <button class="btn-create" id="btn-add-customer">
+      <i data-lucide="user-plus"></i>
+      <span>新增客户</span>
+    </button>
+  </div>
+</div>
+
+<!-- Summary Bar -->
+<div class="cm-summary-bar">
+  <div class="cm-summary-item">
+    <span class="cm-summary-label">客户总数</span>
+    <span class="cm-summary-value" id="stat-total">12</span>
+  </div>
+  <div class="cm-summary-divider"></div>
+  <div class="cm-summary-item">
+    <span class="cm-summary-label">VIP客户</span>
+    <span class="cm-summary-value" style="color:#B8860B;" id="stat-vip">3</span>
+  </div>
+  <div class="cm-summary-divider"></div>
+  <div class="cm-summary-item">
+    <span class="cm-summary-label">普通客户</span>
+    <span class="cm-summary-value" id="stat-normal">6</span>
+  </div>
+  <div class="cm-summary-divider"></div>
+  <div class="cm-summary-item">
+    <span class="cm-summary-label">潜在客户</span>
+    <span class="cm-summary-value" style="color:var(--state-info);" id="stat-potential">3</span>
+  </div>
+  <div class="cm-summary-divider"></div>
+  <div class="cm-summary-item">
+    <span class="cm-summary-label">启用中</span>
+    <span class="cm-summary-value" style="color:var(--state-success);" id="stat-active">10</span>
+  </div>
+  <div class="cm-summary-divider"></div>
+  <div class="cm-summary-item">
+    <span class="cm-summary-label">已停用</span>
+    <span class="cm-summary-value" style="color:var(--state-error);" id="stat-inactive">2</span>
+  </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+  <div class="search-wrap">
+    <i data-lucide="search"></i>
+    <input type="text" class="filter-input" id="filter-search" placeholder="客户名称 / 联系人 / 电话">
+  </div>
+  <span class="filter-label">客户等级</span>
+  <select class="filter-select" id="filter-level">
+    <option value="all">全部等级</option>
+    <option value="VIP">VIP</option>
+    <option value="普通">普通</option>
+    <option value="潜在">潜在</option>
+  </select>
+  <span class="filter-label">销售代表</span>
+  <select class="filter-select" id="filter-sales">
+    <option value="all">全部销售</option>
+    <option value="张伟">张伟</option>
+    <option value="李娜">李娜</option>
+    <option value="王磊">王磊</option>
+    <option value="陈静">陈静</option>
+  </select>
+  <span class="filter-label">状态</span>
+  <select class="filter-select" id="filter-status">
+    <option value="all">全部状态</option>
+    <option value="启用">启用</option>
+    <option value="停用">停用</option>
+  </select>
+  <span class="filter-label">国家/地区</span>
+  <select class="filter-select" id="filter-country">
+    <option value="all">全部国家</option>
+    <option value="中国">中国</option>
+    <option value="美国">美国</option>
+    <option value="日本">日本</option>
+    <option value="韩国">韩国</option>
+    <option value="德国">德国</option>
+    <option value="英国">英国</option>
+    <option value="新加坡">新加坡</option>
+    <option value="澳大利亚">澳大利亚</option>
+  </select>
+  <button class="btn-search" id="btn-filter">
+    <i data-lucide="search"></i>
+    <span>查询</span>
+  </button>
+  <button class="btn-reset" id="btn-reset-filter">
+    <span>重置</span>
+  </button>
+</div>
+
+<!-- Batch Action Bar -->
+<div class="batch-bar" id="batch-bar">
+  <i data-lucide="check-square" style="width:16px;height:16px;color:var(--tms-primary-600);"></i>
+  <span class="batch-count">已选择 <strong id="batch-count">0</strong> 项</span>
+  <div class="batch-actions">
+    <button class="tms-btn tms-btn-outline" id="btn-batch-export" style="height:32px;font-size:12px;">
+      <i data-lucide="download" style="width:14px;height:14px;"></i>
+      <span>批量导出</span>
+    </button>
+    <button class="tms-btn tms-btn-danger" id="btn-batch-delete" style="height:32px;font-size:12px;">
+      <i data-lucide="trash-2" style="width:14px;height:14px;"></i>
+      <span>批量删除</span>
+    </button>
+    <button class="tms-btn tms-btn-outline" id="btn-batch-clear" style="height:32px;font-size:12px;">
+      <span>取消选择</span>
+    </button>
+  </div>
+</div>
+
+<!-- Table Card -->
+<div class="table-card">
+  <div class="table-wrap">
+    <table class="tms-table-dense">
+      <thead>
+        <tr>
+          <th class="col-check"><input type="checkbox" class="table-checkbox" id="check-all" title="全选"></th>
+          <th>客户名称</th>
+          <th class="col-level">客户等级</th>
+          <th>联系人</th>
+          <th>联系电话</th>
+          <th>联系邮箱</th>
+          <th>销售代表</th>
+          <th>客服代表</th>
+          <th>财务代表</th>
+          <th>国家</th>
+          <th>创建时间</th>
+          <th class="col-status col-center">状态</th>
+          <th class="col-action col-center">操作</th>
+        </tr>
+      </thead>
+      <tbody id="customer-table-body">
+        <!-- Rendered by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-bar">
+    <div class="pagination-info">
+      共 <span class="tms-mono-data" id="pagination-total">0</span> 条记录，
+      第 <span class="tms-mono-data" id="pagination-range">0-0</span> 条
+    </div>
+    <div class="pagination-center" id="pagination-btns">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="page-size-wrap">
+      <span class="pagination-info">每页</span>
+      <select class="page-size-select" id="page-size-select">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+      </select>
+      <span class="pagination-info">条</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ADD CUSTOMER MODAL ============ -->
+<div class="cm-modal-overlay" id="modal-add-overlay"></div>
+<div class="cm-modal" id="modal-add">
+  <div class="cm-modal-header">
+    <h3>新增客户</h3>
+    <button class="cm-modal-close" id="modal-add-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cm-modal-body">
+    <form id="form-add" novalidate>
+      <div class="cm-form-row-3">
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户名称 <span class="required">*</span></label>
+          <input type="text" class="cm-form-input" id="add-name" placeholder="请输入客户名称" required>
+          <span class="cm-form-error" id="add-name-error">请输入客户名称</span>
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户简称</label>
+          <input type="text" class="cm-form-input" id="add-short-name" placeholder="请输入客户简称">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户编码</label>
+          <input type="text" class="cm-form-input" id="add-code" placeholder="请输入客户编码">
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户等级 <span class="required">*</span></label>
+          <select class="cm-form-select" id="add-level" required>
+            <option value="">请选择客户等级</option>
+            <option value="VIP">VIP</option>
+            <option value="普通">普通</option>
+            <option value="潜在">潜在</option>
+          </select>
+          <span class="cm-form-error" id="add-level-error">请选择客户等级</span>
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">国家/地区</label>
+          <select class="cm-form-select" id="add-country">
+            <option value="">请选择国家/地区</option>
+            <option value="中国">中国</option>
+            <option value="美国">美国</option>
+            <option value="日本">日本</option>
+            <option value="韩国">韩国</option>
+            <option value="德国">德国</option>
+            <option value="英国">英国</option>
+            <option value="新加坡">新加坡</option>
+            <option value="澳大利亚">澳大利亚</option>
+          </select>
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">联系人</label>
+          <input type="text" class="cm-form-input" id="add-contact" placeholder="请输入联系人">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">联系电话</label>
+          <input type="text" class="cm-form-input" id="add-phone" placeholder="请输入联系电话">
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">联系邮箱</label>
+          <input type="email" class="cm-form-input" id="add-email" placeholder="请输入联系邮箱">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">销售代表</label>
+          <select class="cm-form-select" id="add-sales">
+            <option value="">请选择销售代表</option>
+            <option value="张伟">张伟</option>
+            <option value="李娜">李娜</option>
+            <option value="王磊">王磊</option>
+            <option value="陈静">陈静</option>
+          </select>
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">客服代表</label>
+          <input type="text" class="cm-form-input" id="add-cs" placeholder="请输入客服代表">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">财务代表</label>
+          <input type="text" class="cm-form-input" id="add-finance" placeholder="请输入财务代表">
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">邮编</label>
+          <input type="text" class="cm-form-input" id="add-zip" placeholder="请输入邮编">
+        </div>
+      </div>
+      <div class="cm-form-group">
+        <label class="cm-form-label">地址</label>
+        <textarea class="cm-form-textarea" id="add-address" placeholder="请输入详细地址"></textarea>
+      </div>
+      <div class="cm-form-group">
+        <label class="cm-form-label">备注</label>
+        <textarea class="cm-form-textarea" id="add-remark" placeholder="请输入备注信息"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="cm-modal-footer">
+    <button class="tms-btn tms-btn-outline" id="modal-add-cancel">取消</button>
+    <button class="tms-btn tms-btn-primary" id="modal-add-save">
+      <i data-lucide="check" style="width:16px;height:16px;"></i>
+      <span>保存</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============ EDIT CUSTOMER MODAL ============ -->
+<div class="cm-modal-overlay" id="modal-edit-overlay"></div>
+<div class="cm-modal" id="modal-edit">
+  <div class="cm-modal-header">
+    <h3>编辑客户</h3>
+    <button class="cm-modal-close" id="modal-edit-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cm-modal-body">
+    <form id="form-edit" novalidate>
+      <input type="hidden" id="edit-id">
+      <div class="cm-form-row-3">
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户名称 <span class="required">*</span></label>
+          <input type="text" class="cm-form-input" id="edit-name" placeholder="请输入客户名称" required>
+          <span class="cm-form-error" id="edit-name-error">请输入客户名称</span>
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户简称</label>
+          <input type="text" class="cm-form-input" id="edit-short-name" placeholder="请输入客户简称">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户编码</label>
+          <input type="text" class="cm-form-input" id="edit-code" placeholder="请输入客户编码">
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">客户等级 <span class="required">*</span></label>
+          <select class="cm-form-select" id="edit-level" required>
+            <option value="">请选择客户等级</option>
+            <option value="VIP">VIP</option>
+            <option value="普通">普通</option>
+            <option value="潜在">潜在</option>
+          </select>
+          <span class="cm-form-error" id="edit-level-error">请选择客户等级</span>
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">国家/地区</label>
+          <select class="cm-form-select" id="edit-country">
+            <option value="">请选择国家/地区</option>
+            <option value="中国">中国</option>
+            <option value="美国">美国</option>
+            <option value="日本">日本</option>
+            <option value="韩国">韩国</option>
+            <option value="德国">德国</option>
+            <option value="英国">英国</option>
+            <option value="新加坡">新加坡</option>
+            <option value="澳大利亚">澳大利亚</option>
+          </select>
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">联系人</label>
+          <input type="text" class="cm-form-input" id="edit-contact" placeholder="请输入联系人">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">联系电话</label>
+          <input type="text" class="cm-form-input" id="edit-phone" placeholder="请输入联系电话">
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">联系邮箱</label>
+          <input type="email" class="cm-form-input" id="edit-email" placeholder="请输入联系邮箱">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">销售代表</label>
+          <select class="cm-form-select" id="edit-sales">
+            <option value="">请选择销售代表</option>
+            <option value="张伟">张伟</option>
+            <option value="李娜">李娜</option>
+            <option value="王磊">王磊</option>
+            <option value="陈静">陈静</option>
+          </select>
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">客服代表</label>
+          <input type="text" class="cm-form-input" id="edit-cs" placeholder="请输入客服代表">
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">财务代表</label>
+          <input type="text" class="cm-form-input" id="edit-finance" placeholder="请输入财务代表">
+        </div>
+      </div>
+      <div class="cm-form-row">
+        <div class="cm-form-group">
+          <label class="cm-form-label">国家</label>
+          <select class="cm-form-select" id="edit-country">
+            <option value="">请选择国家</option>
+            <option value="中国">中国</option>
+            <option value="美国">美国</option>
+            <option value="日本">日本</option>
+            <option value="韩国">韩国</option>
+            <option value="德国">德国</option>
+            <option value="英国">英国</option>
+            <option value="新加坡">新加坡</option>
+            <option value="澳大利亚">澳大利亚</option>
+          </select>
+        </div>
+        <div class="cm-form-group">
+          <label class="cm-form-label">邮编</label>
+          <input type="text" class="cm-form-input" id="edit-zip" placeholder="请输入邮编">
+        </div>
+      </div>
+      <div class="cm-form-group">
+        <label class="cm-form-label">地址</label>
+        <textarea class="cm-form-textarea" id="edit-address" placeholder="请输入详细地址"></textarea>
+      </div>
+      <div class="cm-form-group">
+        <label class="cm-form-label">备注</label>
+        <textarea class="cm-form-textarea" id="edit-remark" placeholder="请输入备注信息"></textarea>
+      </div>
+    </form>
+  </div>
+  <div class="cm-modal-footer">
+    <button class="tms-btn tms-btn-outline" id="modal-edit-cancel">取消</button>
+    <button class="tms-btn tms-btn-primary" id="modal-edit-save">
+      <i data-lucide="check" style="width:16px;height:16px;"></i>
+      <span>保存</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============ VIEW DETAIL MODAL ============ -->
+<div class="cm-modal-overlay" id="modal-detail-overlay"></div>
+<div class="cm-modal" id="modal-detail">
+  <div class="cm-modal-header">
+    <h3>客户详情</h3>
+    <button class="cm-modal-close" id="modal-detail-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cm-modal-body">
+    <div class="cm-detail-grid" id="detail-content">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+  <div class="cm-modal-footer">
+    <button class="tms-btn tms-btn-outline" id="modal-detail-cancel">关闭</button>
+    <button class="tms-btn tms-btn-primary" id="modal-detail-edit">
+      <i data-lucide="pencil" style="width:16px;height:16px;"></i>
+      <span>编辑</span>
+    </button>
+  </div>
+</div>
+
+<!-- ============ DELETE CONFIRMATION MODAL ============ -->
+<div class="cm-modal-overlay" id="modal-delete-overlay"></div>
+<div class="cm-modal cm-modal--sm" id="modal-delete">
+  <div class="cm-modal-header">
+    <h3>确认删除</h3>
+    <button class="cm-modal-close" id="modal-delete-close" title="关闭"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cm-modal-body" style="text-align:center; padding: 32px 20px;">
+    <i data-lucide="triangle-alert" style="width:48px;height:48px;color:var(--state-error);margin-bottom:12px;"></i>
+    <p style="font-size:14px; color:var(--tms-foreground); margin:0 0 8px;">确定要删除该客户吗？</p>
+    <p style="font-size:13px; color:var(--tms-muted-foreground); margin:0;" id="delete-customer-name">--</p>
+    <p style="font-size:12px; color:var(--state-error); margin:8px 0 0;">此操作不可恢复</p>
+  </div>
+  <div class="cm-modal-footer" style="justify-content:center;">
+    <button class="tms-btn tms-btn-outline" id="modal-delete-cancel">取消</button>
+    <button class="tms-btn tms-btn-danger" id="modal-delete-confirm">
+      <i data-lucide="trash-2" style="width:16px;height:16px;"></i>
+      <span>确认删除</span>
+    </button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="cm-toast-container" id="toast-container"></div>
+
+    </main>
+  </div>
+</div>
+
+<script>lucide.createIcons();</script>
+<script id="nav-link-resolver">
+  (function(){
+    var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+    document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+      var href = a.getAttribute('href');
+      if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+        a.setAttribute('href', new URL(href, currentDir).href);
+      }
+    });
+  })();
+</script>
+<script id="customer-management">
+  (function() {
+    // ============================================================
+    // MOCK DATA — 12 realistic Chinese logistics customer records
+    // ============================================================
+    var customers = [
+      { id: 1, name: '中远海运物流有限公司', level: 'VIP', contact: '陈志强', phone: '138-0001-1001', email: 'chenzq@cosco.com', sales: '张伟', cs: '黄维', finance: '刘均涛', address: '上海市浦东新区陆家嘴环路1000号', country: '中国', zip: '200120', remark: '长期合作VIP客户，月均订单量超500单', status: '启用', createdAt: '2024-01-15 09:30:00' },
+      { id: 2, name: '顺丰供应链管理有限公司', level: 'VIP', contact: '王雪梅', phone: '139-0002-2002', email: 'wangxm@sf-express.com', sales: '李娜', cs: '赵明', finance: '孙丽', address: '深圳市南山区科技园南路1号', country: '中国', zip: '518057', remark: '战略合作伙伴，年度签约客户', status: '启用', createdAt: '2024-02-20 14:15:00' },
+      { id: 3, name: '德邦物流集团有限公司', level: 'VIP', contact: '张建国', phone: '137-0003-3003', email: 'zhangjg@deppon.com', sales: '张伟', cs: '黄维', finance: '刘均涛', address: '上海市青浦区华徐公路199号', country: '中国', zip: '201702', remark: '跨境物流主要合作伙伴', status: '启用', createdAt: '2024-03-08 10:45:00' },
+      { id: 4, name: '京东物流集团', level: '普通', contact: '李明辉', phone: '136-0004-4004', email: 'limh@jd.com', sales: '王磊', cs: '赵明', finance: '孙丽', address: '北京市大兴区亦庄经济开发区科创十一街18号', country: '中国', zip: '100176', remark: '电商物流配送合作', status: '启用', createdAt: '2024-03-25 16:20:00' },
+      { id: 5, name: '圆通速递股份有限公司', level: '普通', contact: '赵晓燕', phone: '135-0005-5005', email: 'zhaoxy@yto.net.cn', sales: '陈静', cs: '周敏', finance: '吴刚', address: '上海市青浦区华新镇华徐公路3029号', country: '中国', zip: '201708', remark: '区域配送合作伙伴', status: '启用', createdAt: '2024-04-10 11:00:00' },
+      { id: 6, name: '申通快递有限公司', level: '普通', contact: '刘大伟', phone: '134-0006-6006', email: 'liudw@sto.cn', sales: '李娜', cs: '周敏', finance: '吴刚', address: '上海市青浦区北青公路6598号', country: '中国', zip: '201707', remark: '标准快递服务合作', status: '启用', createdAt: '2024-04-22 13:30:00' },
+      { id: 7, name: '上海韵达货运有限公司', level: '普通', contact: '黄明哲', phone: '133-0007-7007', email: 'huangmz@yundaex.com', sales: '王磊', cs: '赵明', finance: '孙丽', address: '上海市青浦区盈港东路6679号', country: '中国', zip: '201700', remark: '物流运输服务合作', status: '启用', createdAt: '2024-05-15 09:00:00' },
+      { id: 8, name: 'DHL Global Forwarding', level: '普通', contact: 'Michael Chen', phone: '158-0008-8008', email: 'michael.chen@dhl.com', sales: '张伟', cs: '黄维', finance: '刘均涛', address: '上海市浦东新区外高桥保税区日樱北路353号', country: '中国', zip: '200131', remark: '国际空运海运合作', status: '启用', createdAt: '2024-05-28 15:50:00' },
+      { id: 9, name: '菜鸟网络科技有限公司', level: '普通', contact: '周志强', phone: '159-0009-9009', email: 'zhouzq@cainiao.com', sales: '陈静', cs: '周敏', finance: '吴刚', address: '杭州市余杭区文一西路969号', country: '中国', zip: '311121', remark: '智慧物流平台合作', status: '启用', createdAt: '2024-06-12 10:30:00' },
+      { id: 10, name: '百世物流科技（中国）有限公司', level: '停用', contact: '孙建国', phone: '152-0010-1010', email: 'sunjg@best-inc.com', sales: '李娜', cs: '赵明', finance: '孙丽', address: '杭州市西湖区西溪路550号', country: '中国', zip: '310013', remark: '合同到期，暂缓合作', status: '停用', createdAt: '2024-06-20 08:45:00' },
+      { id: 11, name: '深圳华强北国际物流有限公司', level: '潜在', contact: '林志远', phone: '185-0011-1101', email: 'linzy@hqb-logistics.com', sales: '王磊', cs: '周敏', finance: '吴刚', address: '深圳市福田区华强北路1019号', country: '中国', zip: '518028', remark: '意向客户，已进行初步沟通', status: '启用', createdAt: '2024-07-05 14:20:00' },
+      { id: 12, name: '浙江义乌小商品物流有限公司', level: '潜在', contact: '郑晓峰', phone: '186-0012-1202', email: 'zhengxf@yw-logistics.com', sales: '陈静', cs: '黄维', finance: '刘均涛', address: '浙江省义乌市城北路J180号', country: '中国', zip: '322000', remark: '跨境电商物流需求，预计下月签约', status: '启用', createdAt: '2024-07-18 11:10:00' }
+    ];
+
+    var nextId = 13;
+    var currentPage = 1;
+    var pageSize = 10;
+    var filteredData = customers.slice();
+    var currentDetailId = null;
+    var deleteTargetId = null;
+
+    // ============================================================
+    // TOAST SYSTEM
+    // ============================================================
+    function showToast(message, type) {
+      type = type || 'info';
+      var container = document.getElementById('toast-container');
+      var icons = { success: 'check-circle', error: 'x-circle', info: 'info' };
+      var toast = document.createElement('div');
+      toast.className = 'cm-toast cm-toast--' + type;
+      toast.innerHTML = '<i data-lucide="' + (icons[type] || 'info') + '"></i><span>' + message + '</span>';
+      container.appendChild(toast);
+      lucide.createIcons({ nodes: [toast] });
+      setTimeout(function() {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(20px)';
+        toast.style.transition = 'all 200ms ease';
+        setTimeout(function() { toast.remove(); }, 200);
+      }, 3000);
+    }
+
+    // ============================================================
+    // MODAL HELPERS
+    // ============================================================
+    function openModal(overlayId, modalId) {
+      document.getElementById(overlayId).classList.add('is-visible');
+      document.getElementById(modalId).classList.add('is-visible');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(overlayId, modalId) {
+      document.getElementById(overlayId).classList.remove('is-visible');
+      document.getElementById(modalId).classList.remove('is-visible');
+      document.body.style.overflow = '';
+    }
+
+    function closeAllModals() {
+      var overlays = document.querySelectorAll('.cm-modal-overlay');
+      var modals = document.querySelectorAll('.cm-modal');
+      overlays.forEach(function(o) { o.classList.remove('is-visible'); });
+      modals.forEach(function(m) { m.classList.remove('is-visible'); });
+      document.body.style.overflow = '';
+    }
+
+    // ============================================================
+    // FORM HELPERS
+    // ============================================================
+    function clearFormErrors(prefix) {
+      var errors = document.querySelectorAll('[id^="' + prefix + '-"].cm-form-error');
+      errors.forEach(function(e) { e.classList.remove('is-visible'); });
+      var inputs = document.querySelectorAll('[id^="' + prefix + '-"].cm-form-input, [id^="' + prefix + '-"].cm-form-select');
+      inputs.forEach(function(i) { i.classList.remove('is-error'); });
+    }
+
+    function showFieldError(fieldId, errorId) {
+      document.getElementById(fieldId).classList.add('is-error');
+      document.getElementById(errorId).classList.add('is-visible');
+    }
+
+    function resetForm(prefix) {
+      document.getElementById(prefix + '-name').value = '';
+      document.getElementById(prefix + '-level').value = '';
+      document.getElementById(prefix + '-contact').value = '';
+      document.getElementById(prefix + '-phone').value = '';
+      document.getElementById(prefix + '-email').value = '';
+      document.getElementById(prefix + '-sales').value = '';
+      document.getElementById(prefix + '-cs').value = '';
+      document.getElementById(prefix + '-finance').value = '';
+      document.getElementById(prefix + '-country').value = '';
+      document.getElementById(prefix + '-zip').value = '';
+      document.getElementById(prefix + '-address').value = '';
+      document.getElementById(prefix + '-remark').value = '';
+      clearFormErrors(prefix);
+    }
+
+    function validateForm(prefix) {
+      clearFormErrors(prefix);
+      var valid = true;
+      var name = document.getElementById(prefix + '-name').value.trim();
+      var level = document.getElementById(prefix + '-level').value;
+      if (!name) { showFieldError(prefix + '-name', prefix + '-name-error'); valid = false; }
+      if (!level) { showFieldError(prefix + '-level', prefix + '-level-error'); valid = false; }
+      return valid;
+    }
+
+    // ============================================================
+    // ADD CUSTOMER
+    // ============================================================
+    document.getElementById('btn-add-customer').addEventListener('click', function() {
+      resetForm('add');
+      openModal('modal-add-overlay', 'modal-add');
+    });
+
+    document.getElementById('modal-add-close').addEventListener('click', function() {
+      closeModal('modal-add-overlay', 'modal-add');
+    });
+    document.getElementById('modal-add-cancel').addEventListener('click', function() {
+      closeModal('modal-add-overlay', 'modal-add');
+    });
+    document.getElementById('modal-add-overlay').addEventListener('click', function() {
+      closeModal('modal-add-overlay', 'modal-add');
+    });
+
+    document.getElementById('modal-add-save').addEventListener('click', function() {
+      if (!validateForm('add')) return;
+      var customer = {
+        id: nextId++,
+        name: document.getElementById('add-name').value.trim(),
+        level: document.getElementById('add-level').value,
+        contact: document.getElementById('add-contact').value.trim(),
+        phone: document.getElementById('add-phone').value.trim(),
+        email: document.getElementById('add-email').value.trim(),
+        sales: document.getElementById('add-sales').value,
+        cs: document.getElementById('add-cs').value.trim(),
+        finance: document.getElementById('add-finance').value.trim(),
+        address: document.getElementById('add-address').value.trim(),
+        country: document.getElementById('add-country').value,
+        zip: document.getElementById('add-zip').value.trim(),
+        remark: document.getElementById('add-remark').value.trim(),
+        status: '启用',
+        createdAt: new Date().toISOString().replace('T', ' ').substring(0, 19)
+      };
+      customers.push(customer);
+      closeModal('modal-add-overlay', 'modal-add');
+      applyFilters();
+      showToast('客户 "' + customer.name + '" 添加成功', 'success');
+    });
+
+    // ============================================================
+    // EDIT CUSTOMER
+    // ============================================================
+    function openEditModal(customer) {
+      resetForm('edit');
+      document.getElementById('edit-id').value = customer.id;
+      document.getElementById('edit-name').value = customer.name;
+      document.getElementById('edit-level').value = customer.level;
+      document.getElementById('edit-contact').value = customer.contact;
+      document.getElementById('edit-phone').value = customer.phone;
+      document.getElementById('edit-email').value = customer.email;
+      document.getElementById('edit-sales').value = customer.sales;
+      document.getElementById('edit-cs').value = customer.cs;
+      document.getElementById('edit-finance').value = customer.finance;
+      document.getElementById('edit-country').value = customer.country;
+      document.getElementById('edit-zip').value = customer.zip;
+      document.getElementById('edit-address').value = customer.address;
+      document.getElementById('edit-remark').value = customer.remark;
+      openModal('modal-edit-overlay', 'modal-edit');
+    }
+
+    document.getElementById('modal-edit-close').addEventListener('click', function() {
+      closeModal('modal-edit-overlay', 'modal-edit');
+    });
+    document.getElementById('modal-edit-cancel').addEventListener('click', function() {
+      closeModal('modal-edit-overlay', 'modal-edit');
+    });
+    document.getElementById('modal-edit-overlay').addEventListener('click', function() {
+      closeModal('modal-edit-overlay', 'modal-edit');
+    });
+
+    document.getElementById('modal-edit-save').addEventListener('click', function() {
+      if (!validateForm('edit')) return;
+      var id = parseInt(document.getElementById('edit-id').value);
+      var idx = customers.findIndex(function(c) { return c.id === id; });
+      if (idx === -1) return;
+      customers[idx].name = document.getElementById('edit-name').value.trim();
+      customers[idx].level = document.getElementById('edit-level').value;
+      customers[idx].contact = document.getElementById('edit-contact').value.trim();
+      customers[idx].phone = document.getElementById('edit-phone').value.trim();
+      customers[idx].email = document.getElementById('edit-email').value.trim();
+      customers[idx].sales = document.getElementById('edit-sales').value;
+      customers[idx].cs = document.getElementById('edit-cs').value.trim();
+      customers[idx].finance = document.getElementById('edit-finance').value.trim();
+      customers[idx].country = document.getElementById('edit-country').value;
+      customers[idx].zip = document.getElementById('edit-zip').value.trim();
+      customers[idx].address = document.getElementById('edit-address').value.trim();
+      customers[idx].remark = document.getElementById('edit-remark').value.trim();
+      closeModal('modal-edit-overlay', 'modal-edit');
+      applyFilters();
+      showToast('客户 "' + customers[idx].name + '" 更新成功', 'success');
+    });
+
+    // ============================================================
+    // VIEW DETAIL
+    // ============================================================
+    function openDetailModal(customer) {
+      currentDetailId = customer.id;
+      var levelBadge = '';
+      if (customer.level === 'VIP') levelBadge = '<span class="level-badge level-badge--vip">VIP</span>';
+      else if (customer.level === '潜在') levelBadge = '<span class="level-badge level-badge--potential">潜在</span>';
+      else levelBadge = '<span class="level-badge level-badge--normal">普通</span>';
+      var statusBadge = customer.status === '启用'
+        ? '<span class="tms-status tms-status--success">启用</span>'
+        : '<span class="tms-status tms-status--error">停用</span>';
+      document.getElementById('detail-content').innerHTML =
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">客户名称</span>' +
+          '<span class="cm-detail-value">' + customer.name + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">客户等级</span>' +
+          '<span class="cm-detail-value">' + levelBadge + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">联系人</span>' +
+          '<span class="cm-detail-value">' + (customer.contact || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">联系电话</span>' +
+          '<span class="cm-detail-value">' + (customer.phone || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">联系邮箱</span>' +
+          '<span class="cm-detail-value">' + (customer.email || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">销售代表</span>' +
+          '<span class="cm-detail-value">' + (customer.sales || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">客服代表</span>' +
+          '<span class="cm-detail-value">' + (customer.cs || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">财务代表</span>' +
+          '<span class="cm-detail-value">' + (customer.finance || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">国家</span>' +
+          '<span class="cm-detail-value">' + (customer.country || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">邮编</span>' +
+          '<span class="cm-detail-value">' + (customer.zip || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">创建时间</span>' +
+          '<span class="cm-detail-value tms-mono-data">' + customer.createdAt + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item">' +
+          '<span class="cm-detail-label">状态</span>' +
+          '<span class="cm-detail-value">' + statusBadge + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item cm-detail-full">' +
+          '<span class="cm-detail-label">地址</span>' +
+          '<span class="cm-detail-value">' + (customer.address || '--') + '</span>' +
+        '</div>' +
+        '<div class="cm-detail-item cm-detail-full">' +
+          '<span class="cm-detail-label">备注</span>' +
+          '<span class="cm-detail-value">' + (customer.remark || '--') + '</span>' +
+        '</div>';
+      openModal('modal-detail-overlay', 'modal-detail');
+    }
+
+    document.getElementById('modal-detail-close').addEventListener('click', function() {
+      closeModal('modal-detail-overlay', 'modal-detail');
+    });
+    document.getElementById('modal-detail-cancel').addEventListener('click', function() {
+      closeModal('modal-detail-overlay', 'modal-detail');
+    });
+    document.getElementById('modal-detail-overlay').addEventListener('click', function() {
+      closeModal('modal-detail-overlay', 'modal-detail');
+    });
+    document.getElementById('modal-detail-edit').addEventListener('click', function() {
+      closeModal('modal-detail-overlay', 'modal-detail');
+      if (currentDetailId) {
+        var cust = customers.find(function(c) { return c.id === currentDetailId; });
+        if (cust) openEditModal(cust);
+      }
+    });
+
+    // ============================================================
+    // DELETE CONFIRMATION
+    // ============================================================
+    function openDeleteModal(customer) {
+      deleteTargetId = customer.id;
+      document.getElementById('delete-customer-name').textContent = customer.name;
+      openModal('modal-delete-overlay', 'modal-delete');
+    }
+
+    document.getElementById('modal-delete-close').addEventListener('click', function() {
+      closeModal('modal-delete-overlay', 'modal-delete');
+    });
+    document.getElementById('modal-delete-cancel').addEventListener('click', function() {
+      closeModal('modal-delete-overlay', 'modal-delete');
+    });
+    document.getElementById('modal-delete-overlay').addEventListener('click', function() {
+      closeModal('modal-delete-overlay', 'modal-delete');
+    });
+
+    document.getElementById('modal-delete-confirm').addEventListener('click', function() {
+      if (!deleteTargetId) return;
+      var idx = customers.findIndex(function(c) { return c.id === deleteTargetId; });
+      var name = '';
+      if (idx !== -1) {
+        name = customers[idx].name;
+        customers.splice(idx, 1);
+      }
+      closeModal('modal-delete-overlay', 'modal-delete');
+      applyFilters();
+      showToast('客户 "' + name + '" 已删除', 'success');
+      deleteTargetId = null;
+    });
+
+    // ============================================================
+    // STATUS TOGGLE
+    // ============================================================
+    function toggleStatus(id) {
+      var cust = customers.find(function(c) { return c.id === id; });
+      if (!cust) return;
+      if (cust.status === '启用') {
+        cust.status = '停用';
+        showToast('客户 "' + cust.name + '" 已停用', 'info');
+      } else {
+        cust.status = '启用';
+        showToast('客户 "' + cust.name + '" 已启用', 'success');
+      }
+      applyFilters();
+    }
+
+    // ============================================================
+    // FILTERING
+    // ============================================================
+    function applyFilters() {
+      var search = (document.getElementById('filter-search').value || '').trim().toLowerCase();
+      var level = document.getElementById('filter-level').value;
+      var sales = document.getElementById('filter-sales').value;
+      var status = document.getElementById('filter-status').value;
+
+      filteredData = customers.filter(function(c) {
+        if (search && c.name.toLowerCase().indexOf(search) === -1 && c.contact.toLowerCase().indexOf(search) === -1 && c.phone.toLowerCase().indexOf(search) === -1) {
+          return false;
+        }
+        if (level !== 'all' && c.level !== level) return false;
+        if (sales !== 'all' && c.sales !== sales) return false;
+        if (status !== 'all' && c.status !== status) return false;
+        return true;
+      });
+
+      currentPage = 1;
+      renderTable();
+      updateStats();
+    }
+
+    document.getElementById('btn-filter').addEventListener('click', applyFilters);
+    document.getElementById('btn-reset-filter').addEventListener('click', function() {
+      document.getElementById('filter-search').value = '';
+      document.getElementById('filter-level').value = 'all';
+      document.getElementById('filter-sales').value = 'all';
+      document.getElementById('filter-status').value = 'all';
+      applyFilters();
+    });
+
+    // Real-time search filtering
+    var searchTimeout;
+    document.getElementById('filter-search').addEventListener('input', function() {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(applyFilters, 300);
+    });
+
+    // ============================================================
+    // RENDER TABLE
+    // ============================================================
+    function renderTable() {
+      var tbody = document.getElementById('customer-table-body');
+      var start = (currentPage - 1) * pageSize;
+      var pageData = filteredData.slice(start, start + pageSize);
+      var html = '';
+
+      if (pageData.length === 0) {
+        html = '<tr><td colspan="12" style="text-align:center; padding:48px 16px; color:var(--tms-muted-foreground);">暂无匹配的客户数据</td></tr>';
+      } else {
+        pageData.forEach(function(c) {
+          var levelBadge = '';
+          if (c.level === 'VIP') levelBadge = '<span class="level-badge level-badge--vip">VIP</span>';
+          else if (c.level === '潜在') levelBadge = '<span class="level-badge level-badge--potential">潜在</span>';
+          else levelBadge = '<span class="level-badge level-badge--normal">普通</span>';
+
+          var statusToggle = c.status === '启用'
+            ? '<span class="status-toggle status-toggle--active" onclick="event.stopPropagation(); window._cmToggleStatus(' + c.id + ')" title="点击停用"><i data-lucide="check-circle"></i>启用</span>'
+            : '<span class="status-toggle status-toggle--inactive" onclick="event.stopPropagation(); window._cmToggleStatus(' + c.id + ')" title="点击启用"><i data-lucide="x-circle"></i>停用</span>';
+
+          html += '<tr>' +
+            '<td><span class="customer-name-link" onclick="window._cmViewDetail(' + c.id + ')">' + c.name + '</span></td>' +
+            '<td class="col-center">' + levelBadge + '</td>' +
+            '<td>' + (c.contact || '--') + '</td>' +
+            '<td>' + (c.phone || '--') + '</td>' +
+            '<td>' + (c.email || '--') + '</td>' +
+            '<td>' + (c.sales || '--') + '</td>' +
+            '<td>' + (c.cs || '--') + '</td>' +
+            '<td>' + (c.finance || '--') + '</td>' +
+            '<td>' + (c.country || '--') + '</td>' +
+            '<td class="tms-mono-data" style="font-size:12px; color:var(--tms-muted-foreground);">' + c.createdAt.substring(0, 10) + '</td>' +
+            '<td class="col-center">' + statusToggle + '</td>' +
+            '<td class="col-action col-center">' +
+              '<button class="action-btn" onclick="window._cmViewDetail(' + c.id + ')" title="查看详情"><i data-lucide="eye"></i></button>' +
+              '<button class="action-btn" onclick="window._cmEditCustomer(' + c.id + ')" title="编辑"><i data-lucide="pencil"></i></button>' +
+              '<button class="action-btn action-btn--danger" onclick="window._cmDeleteCustomer(' + c.id + ')" title="删除"><i data-lucide="trash-2"></i></button>' +
+            '</td>' +
+          '</tr>';
+        });
+      }
+
+      tbody.innerHTML = html;
+      lucide.createIcons({ nodes: [tbody] });
+      renderPagination();
+    }
+
+    // ============================================================
+    // PAGINATION
+    // ============================================================
+    function renderPagination() {
+      var total = filteredData.length;
+      var totalPages = Math.ceil(total / pageSize) || 1;
+      var start = total === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+      var end = Math.min(currentPage * pageSize, total);
+
+      document.getElementById('pagination-total').textContent = total;
+      document.getElementById('pagination-range').textContent = total === 0 ? '0-0' : start + '-' + end;
+
+      var btnsHtml = '';
+      btnsHtml += '<button class="page-btn" ' + (currentPage <= 1 ? 'disabled' : '') + ' onclick="window._cmGoPage(' + (currentPage - 1) + ')"><i data-lucide="chevron-left"></i></button>';
+
+      var maxVisible = 5;
+      var startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+      var endPage = Math.min(totalPages, startPage + maxVisible - 1);
+      if (endPage - startPage < maxVisible - 1) {
+        startPage = Math.max(1, endPage - maxVisible + 1);
+      }
+
+      if (startPage > 1) {
+        btnsHtml += '<button class="page-btn" onclick="window._cmGoPage(1)">1</button>';
+        if (startPage > 2) btnsHtml += '<span class="page-ellipsis">...</span>';
+      }
+
+      for (var i = startPage; i <= endPage; i++) {
+        btnsHtml += '<button class="page-btn' + (i === currentPage ? ' is-active' : '') + '" onclick="window._cmGoPage(' + i + ')">' + i + '</button>';
+      }
+
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) btnsHtml += '<span class="page-ellipsis">...</span>';
+        btnsHtml += '<button class="page-btn" onclick="window._cmGoPage(' + totalPages + ')">' + totalPages + '</button>';
+      }
+
+      btnsHtml += '<button class="page-btn" ' + (currentPage >= totalPages ? 'disabled' : '') + ' onclick="window._cmGoPage(' + (currentPage + 1) + ')"><i data-lucide="chevron-right"></i></button>';
+
+      document.getElementById('pagination-btns').innerHTML = btnsHtml;
+      lucide.createIcons({ nodes: [document.getElementById('pagination-btns')] });
+    }
+
+    document.getElementById('page-size-select').addEventListener('change', function() {
+      pageSize = parseInt(this.value);
+      currentPage = 1;
+      renderTable();
+    });
+
+    // ============================================================
+    // EXPOSE GLOBAL FUNCTIONS
+    // ============================================================
+    window._cmGoPage = function(page) {
+      currentPage = page;
+      renderTable();
+    };
+
+    window._cmToggleStatus = function(id) {
+      toggleStatus(id);
+    };
+
+    window._cmViewDetail = function(id) {
+      var cust = customers.find(function(c) { return c.id === id; });
+      if (cust) openDetailModal(cust);
+    };
+
+    window._cmEditCustomer = function(id) {
+      var cust = customers.find(function(c) { return c.id === id; });
+      if (cust) openEditModal(cust);
+    };
+
+    window._cmDeleteCustomer = function(id) {
+      var cust = customers.find(function(c) { return c.id === id; });
+      if (cust) openDeleteModal(cust);
+    };
+
+    // ============================================================
+    // UPDATE SUMMARY STATS
+    // ============================================================
+    function updateStats() {
+      document.getElementById('stat-total').textContent = customers.length;
+      document.getElementById('stat-vip').textContent = customers.filter(function(c) { return c.level === 'VIP'; }).length;
+      document.getElementById('stat-normal').textContent = customers.filter(function(c) { return c.level === '普通'; }).length;
+      document.getElementById('stat-potential').textContent = customers.filter(function(c) { return c.level === '潜在'; }).length;
+      document.getElementById('stat-active').textContent = customers.filter(function(c) { return c.status === '启用'; }).length;
+      document.getElementById('stat-inactive').textContent = customers.filter(function(c) { return c.status === '停用'; }).length;
+    }
+
+    // ============================================================
+    // KEYBOARD SUPPORT
+    // ============================================================
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeAllModals();
+      }
+    });
+
+    // ============================================================
+    // INITIAL RENDER
+    // ============================================================
+    applyFilters();
+    updateStats();
+
+  })();
+</script>
+</body>
+</html>

@@ -12,18 +12,40 @@
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 1042,
+          "contentHeight": 900,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-bc23d3d5",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-d657af7b",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/dashboard.html",
         "interactions": [
           {
+            "domId": "quick-create-waybill",
+            "targetPageId": "page-create-waybill"
+          },
+          {
+            "domId": "quick-create-bill",
+            "targetPageId": "page-create-bill"
+          },
+          {
+            "domId": "quick-create-service",
+            "targetPageId": "page-create-service"
+          },
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-waybill-mgmt",
             "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
             "hideEdge": true
           },
           {
@@ -32,13 +54,43 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-service-mgmt",
             "targetPageId": "page-service-management",
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -57,21 +109,24 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
             "hideEdge": true
           },
           {
-            "domId": "quick-create-waybill",
-            "targetPageId": "page-create-waybill"
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
           },
           {
-            "domId": "quick-create-bill",
-            "targetPageId": "page-create-bill"
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
           },
           {
-            "domId": "quick-create-service",
-            "targetPageId": "page-create-service"
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
           }
         ]
       }
@@ -84,87 +139,23 @@
       "createdAt": 1753737600000,
       "canvasData": {
         "x": 0,
-        "y": 1397,
+        "y": 1385,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 2458,
+          "contentHeight": 1461,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-29cf5950",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-e5d68f57",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/waybill-management.html",
         "interactions": [
           {
-            "domId": "nav-dashboard",
-            "targetPageId": "page-dashboard",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-bill-mgmt",
-            "targetPageId": "page-bill-management",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-service-mgmt",
-            "targetPageId": "page-service-management",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-addr-lib",
-            "targetPageId": "page-addr-library",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-over-size-mgmt",
-            "targetPageId": "page-over-size-management",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-receivable",
-            "targetPageId": "page-receivable-report",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-payable",
-            "targetPageId": "page-payable-report",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
-            "hideEdge": true
-          },
-          {
             "domId": "btn-create-waybill",
             "targetPageId": "page-create-waybill"
-          }
-        ]
-      }
-    },
-    {
-      "id": "page-create-waybill",
-      "title": "创建运单",
-      "type": "page",
-      "version": 1,
-      "createdAt": 1753737600000,
-      "canvasData": {
-        "x": 620,
-        "y": 0,
-        "group": 0,
-        "layoutSnapshot": {
-          "version": 1,
-          "contentHeight": 3081,
-          "viewportWidth": 1440,
-          "sourceHash": "fnv1a-415756ed",
-          "measuredAt": 1785465919175
-        }
-      },
-      "devMetadata": {
-        "htmlSrc": "pages/create-waybill.html",
-        "interactions": [
+          },
           {
             "domId": "nav-dashboard",
             "targetPageId": "page-dashboard",
@@ -176,8 +167,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -186,8 +207,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -206,13 +232,147 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-create-waybill",
+      "title": "创建运单",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 480,
+        "y": 0,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 3081,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-93d86d23",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/create-waybill.html",
+        "interactions": [
+          {
+            "domId": "btn-back-to-waybill-list",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-rates-mgmt",
             "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
-            "domId": "btn-back-to-waybill-list",
-            "targetPageId": "page-waybill-management",
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
             "hideEdge": true
           }
         ]
@@ -226,19 +386,23 @@
       "createdAt": 1753737600000,
       "canvasData": {
         "x": 0,
-        "y": 795,
+        "y": 787,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 1673,
+          "contentHeight": 1721,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-f7f1648f",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-0feece8b",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/bill-management.html",
         "interactions": [
+          {
+            "domId": "btn-create-bill",
+            "targetPageId": "page-create-bill"
+          },
           {
             "domId": "nav-dashboard",
             "targetPageId": "page-dashboard",
@@ -250,13 +414,53 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-service-mgmt",
             "targetPageId": "page-service-management",
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -275,13 +479,24 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
             "hideEdge": true
           },
           {
-            "domId": "btn-create-bill",
-            "targetPageId": "page-create-bill"
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
           }
         ]
       }
@@ -293,20 +508,25 @@
       "version": 1,
       "createdAt": 1753737600000,
       "canvasData": {
-        "x": 620,
-        "y": 1013,
+        "x": 480,
+        "y": 1009,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
           "contentHeight": 4058,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-fd6a9fe3",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-639b368f",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/create-bill.html",
         "interactions": [
+          {
+            "domId": "btn-back-to-bill-list",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
           {
             "domId": "nav-dashboard",
             "targetPageId": "page-dashboard",
@@ -318,8 +538,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -328,8 +578,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -348,13 +603,23 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
             "hideEdge": true
           },
           {
-            "domId": "btn-back-to-bill-list",
-            "targetPageId": "page-bill-management",
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
             "hideEdge": true
           }
         ]
@@ -368,19 +633,23 @@
       "createdAt": 1753737600000,
       "canvasData": {
         "x": 0,
-        "y": 418,
+        "y": 414,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 900,
+          "contentHeight": 1437,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-0012b69f",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-a2a318ef",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/service-management.html",
         "interactions": [
+          {
+            "domId": "btn-create-service",
+            "targetPageId": "page-create-service"
+          },
           {
             "domId": "nav-dashboard",
             "targetPageId": "page-dashboard",
@@ -392,13 +661,53 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -417,13 +726,24 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
             "hideEdge": true
           },
           {
-            "domId": "btn-create-service",
-            "targetPageId": "page-create-service"
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
           }
         ]
       }
@@ -435,15 +755,15 @@
       "version": 1,
       "createdAt": 1753737600000,
       "canvasData": {
-        "x": 620,
-        "y": 2311,
+        "x": 480,
+        "y": 2303,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
           "contentHeight": 7683,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-084cddae",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-0a18ebf2",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
@@ -460,8 +780,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -470,8 +820,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -490,8 +845,23 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
             "hideEdge": true
           }
         ]
@@ -505,19 +875,23 @@
       "createdAt": 1753737600000,
       "canvasData": {
         "x": 0,
-        "y": 4666,
+        "y": 4654,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 1030,
+          "contentHeight": 1437,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-6e40da43",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-7ebdcda5",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/addr-library.html",
         "interactions": [
+          {
+            "domId": "btn-create-addr",
+            "targetPageId": "page-create-addr"
+          },
           {
             "domId": "nav-dashboard",
             "targetPageId": "page-dashboard",
@@ -529,13 +903,53 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
             "hideEdge": true
           },
           {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-service-mgmt",
             "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -554,13 +968,24 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
             "hideEdge": true
           },
           {
-            "domId": "btn-create-addr",
-            "targetPageId": "page-create-addr"
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
           }
         ]
       }
@@ -572,20 +997,30 @@
       "version": 1,
       "createdAt": 1753737600000,
       "canvasData": {
-        "x": 620,
-        "y": 4666,
+        "x": 480,
+        "y": 4654,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 900,
+          "contentHeight": 1437,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-1ea0d756",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-86463ec4",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/create-addr.html",
         "interactions": [
+          {
+            "domId": "btn-back-to-addr-lib",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "btn-close-addr",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
           {
             "domId": "nav-dashboard",
             "targetPageId": "page-dashboard",
@@ -597,8 +1032,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -607,8 +1072,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -627,18 +1097,23 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
             "hideEdge": true
           },
           {
-            "domId": "btn-back-to-addr-lib",
-            "targetPageId": "page-addr-library",
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
             "hideEdge": true
           },
           {
-            "domId": "btn-close-addr",
-            "targetPageId": "page-addr-library",
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
             "hideEdge": true
           }
         ]
@@ -652,20 +1127,24 @@
       "createdAt": 1753737600000,
       "canvasData": {
         "x": 0,
-        "y": 5080,
+        "y": 5064,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
           "contentHeight": 1441,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-26c76ada",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-3c7c1cac",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
         "htmlSrc": "pages/over-size-management.html",
         "interactions": [
           {
+            "domId": "btn-create-over-size",
+            "targetPageId": "page-create-over-size"
+          },
+          {
             "domId": "nav-dashboard",
             "targetPageId": "page-dashboard",
             "hideEdge": true
@@ -676,8 +1155,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -686,76 +1195,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-receivable",
-            "targetPageId": "page-receivable-report",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-payable",
-            "targetPageId": "page-payable-report",
             "hideEdge": true
           },
           {
             "domId": "nav-rates-mgmt",
             "targetPageId": "page-rates-management",
-            "hideEdge": true
-          },
-          {
-            "domId": "btn-create-over-size",
-            "targetPageId": "page-create-over-size"
-          }
-        ]
-      }
-    },
-    {
-      "id": "page-create-over-size",
-      "title": "创建超长超重",
-      "type": "page",
-      "version": 1,
-      "createdAt": 1753737600000,
-      "canvasData": {
-        "x": 620,
-        "y": 5080,
-        "group": 0,
-        "layoutSnapshot": {
-          "version": 1,
-          "contentHeight": 1749,
-          "viewportWidth": 1440,
-          "sourceHash": "fnv1a-5a6888ac",
-          "measuredAt": 1785465919175
-        }
-      },
-      "devMetadata": {
-        "htmlSrc": "pages/create-over-size.html",
-        "interactions": [
-          {
-            "domId": "nav-dashboard",
-            "targetPageId": "page-dashboard",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-waybill-mgmt",
-            "targetPageId": "page-waybill-management",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-bill-mgmt",
-            "targetPageId": "page-bill-management",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-service-mgmt",
-            "targetPageId": "page-service-management",
-            "hideEdge": true
-          },
-          {
-            "domId": "nav-addr-lib",
-            "targetPageId": "page-addr-library",
             "hideEdge": true
           },
           {
@@ -774,10 +1220,49 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
             "hideEdge": true
           },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-create-over-size",
+      "title": "创建超长超重",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1753737600000,
+      "canvasData": {
+        "x": 480,
+        "y": 5064,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1749,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-c1637942",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/create-over-size.html",
+        "interactions": [
           {
             "domId": "btn-back-to-over-size",
             "targetPageId": "page-over-size-management",
@@ -787,6 +1272,101 @@
             "domId": "btn-close-over-size",
             "targetPageId": "page-over-size-management",
             "hideEdge": true
+          },
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
           }
         ]
       }
@@ -795,18 +1375,18 @@
       "id": "page-receivable-report",
       "title": "应收报表",
       "type": "page",
-      "version": 1,
+      "version": 2,
       "createdAt": 1753737600000,
       "canvasData": {
         "x": 0,
-        "y": 5704,
+        "y": 5684,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 2090,
+          "contentHeight": 2159,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-cfeaa01c",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-2ad6252f",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
@@ -823,8 +1403,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -833,8 +1443,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -843,13 +1458,33 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-payable",
             "targetPageId": "page-payable-report",
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
             "hideEdge": true
           }
         ]
@@ -859,18 +1494,18 @@
       "id": "page-payable-report",
       "title": "应付报表",
       "type": "page",
-      "version": 1,
+      "version": 2,
       "createdAt": 1753737600000,
       "canvasData": {
-        "x": 620,
-        "y": 5704,
+        "x": 480,
+        "y": 5684,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 2473,
+          "contentHeight": 1850,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-27bf740f",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-8e5ecb84",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
@@ -887,8 +1522,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -897,8 +1562,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -912,8 +1582,28 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-rates-mgmt",
-            "targetPageId": "page-rates-management",
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
             "hideEdge": true
           }
         ]
@@ -926,15 +1616,15 @@
       "version": 1,
       "createdAt": 1753737600000,
       "canvasData": {
-        "x": 1240,
-        "y": 5704,
+        "x": 960,
+        "y": 5684,
         "group": 0,
         "layoutSnapshot": {
           "version": 1,
-          "contentHeight": 900,
+          "contentHeight": 1437,
           "viewportWidth": 1440,
-          "sourceHash": "fnv1a-5f94908e",
-          "measuredAt": 1785465919175
+          "sourceHash": "fnv1a-e4732c1b",
+          "measuredAt": 1787708247657
         }
       },
       "devMetadata": {
@@ -951,8 +1641,38 @@
             "hideEdge": true
           },
           {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
             "domId": "nav-bill-mgmt",
             "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
             "hideEdge": true
           },
           {
@@ -961,8 +1681,13 @@
             "hideEdge": true
           },
           {
-            "domId": "nav-addr-lib",
+            "domId": "nav-addr-library",
             "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
             "hideEdge": true
           },
           {
@@ -978,6 +1703,978 @@
           {
             "domId": "nav-payable",
             "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-customer-mgmt",
+      "title": "客户管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 1440,
+        "y": 5684,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-45143ab1",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/customer-mgmt.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-supplier-mgmt",
+      "title": "供应商管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 1920,
+        "y": 5684,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-5b596de3",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/supplier-mgmt.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-system-mgmt",
+      "title": "系统管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 2400,
+        "y": 5684,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-7e60bc45",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/system-mgmt.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-department-data",
+      "title": "部门数据协同",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 2880,
+        "y": 5684,
+        "group": 0,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-631f92b4",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/department-data.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-container-loading",
+      "title": "装柜配载",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 3360,
+        "y": 5684,
+        "group": 1,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-a43d3390",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/container-loading.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-warehouse",
+      "title": "仓库管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 3840,
+        "y": 5684,
+        "group": 1,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-1ece4192",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/warehouse.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-customs",
+      "title": "清关管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 4320,
+        "y": 5684,
+        "group": 1,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-22a7c169",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/customs.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
+            "hideEdge": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-data-reports",
+      "title": "数据报表",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1787643583000,
+      "canvasData": {
+        "x": 4800,
+        "y": 5684,
+        "group": 1,
+        "layoutSnapshot": {
+          "version": 1,
+          "contentHeight": 1437,
+          "viewportWidth": 1440,
+          "sourceHash": "fnv1a-a43687d4",
+          "measuredAt": 1787708247657
+        }
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/data-reports.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-waybill-mgmt",
+            "targetPageId": "page-waybill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-waybill",
+            "targetPageId": "page-create-waybill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-bill-mgmt",
+            "targetPageId": "page-bill-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-create-bill",
+            "targetPageId": "page-create-bill",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-container-loading",
+            "targetPageId": "page-container-loading",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-warehouse",
+            "targetPageId": "page-warehouse",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customer-mgmt",
+            "targetPageId": "page-customer-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-supplier-mgmt",
+            "targetPageId": "page-supplier-mgmt",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-service-mgmt",
+            "targetPageId": "page-service-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-addr-library",
+            "targetPageId": "page-addr-library",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-rates-mgmt",
+            "targetPageId": "page-rates-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-over-size-mgmt",
+            "targetPageId": "page-over-size-management",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-receivable",
+            "targetPageId": "page-receivable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-payable",
+            "targetPageId": "page-payable-report",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-customs",
+            "targetPageId": "page-customs",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-dept-data",
+            "targetPageId": "page-department-data",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-data-reports",
+            "targetPageId": "page-data-reports",
+            "hideEdge": true
+          },
+          {
+            "domId": "nav-system-mgmt",
+            "targetPageId": "page-system-mgmt",
             "hideEdge": true
           }
         ]

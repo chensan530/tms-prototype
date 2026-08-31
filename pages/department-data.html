@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部门数据协同</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;
+  --tms-neutral-100: #F4F3EF;
+  --tms-neutral-200: #EAE8E1;
+  --tms-neutral-300: #D8D5CB;
+  --tms-neutral-400: #B5B1A4;
+  --tms-neutral-500: #8C887B;
+  --tms-neutral-600: #6B6B65;
+  --tms-neutral-700: #4A4A44;
+  --tms-neutral-800: #2D2D28;
+  --tms-neutral-900: #1A1A17;
+
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success { background-color: var(--state-success-light); color: var(--state-success); }
+.tms-status--warning { background-color: var(--state-warning-light); color: var(--state-warning); }
+.tms-status--error { background-color: var(--state-error-light); color: var(--state-error); }
+.tms-status--info { background-color: var(--state-info-light); color: var(--state-info); }
+.tms-status--neutral { background-color: var(--tms-muted); color: var(--tms-muted-foreground); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { word-break: break-all; word-break: auto-phrase; }
+    th { white-space: nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<style id="critical-layout">
+  .app-layout { display: flex; min-height: 100vh; }
+  .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+  .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+  .app-content { flex: 1; overflow: auto; padding: 24px; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+  .header-search { position: relative; }
+  .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+  .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+  .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+  .header-icon-btn:hover { background: var(--tms-muted); }
+  .header-user { display: flex; align-items: center; gap: 8px; }
+  .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+  .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+  .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+</style>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-logo">
+      <h1>TMS 物流管理</h1>
+      <span>智慧运输管理平台</span>
+    </div>
+    <nav style="flex:1; padding: 12px 0;">
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" href="department-data.html" class="nav-item" data-active="true"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
+    <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+        <div>
+          <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="app-main-area">
+    <header class="app-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="搜索运单号、提单号、客户名称...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+        <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+        <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+        <div class="header-user">
+          <div class="header-avatar">WB</div>
+          <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-content">
+      <!-- ============ Page-Specific Styles ============ -->
+      <style>
+        /* Page Header */
+        .dept-page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .dept-page-header h2 { font-size: 24px; color: var(--tms-foreground); line-height: 1.2; }
+        .dept-page-header .header-sub { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+        /* qbtn */
+        .qbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13px; font-weight: 500; border-radius: var(--tms-radius-medium); cursor: pointer; transition: background-color 120ms ease, border-color 120ms ease; border: 1px solid transparent; text-decoration: none; }
+        .qbtn svg { width: 16px; height: 16px; }
+        .qbtn-primary { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); }
+        .qbtn-primary:hover { background: var(--tms-primary-600); border-color: var(--tms-primary-600); }
+        .qbtn-outline { background: var(--tms-card); color: var(--tms-foreground); border-color: var(--tms-border); }
+        .qbtn-outline:hover { background: var(--tms-muted); }
+        .qbtn-sm { padding: 5px 10px; font-size: 12px; }
+        .qbtn-sm svg { width: 13px; height: 13px; }
+        .qbtn-danger { background: var(--state-error); color: #fff; border-color: var(--state-error); }
+        .qbtn-danger:hover { background: #9A3A32; }
+        .qbtn-success { background: var(--state-success); color: #fff; border-color: var(--state-success); }
+        .qbtn-success:hover { background: #246B4F; }
+        .qbtn-warning { background: var(--state-warning); color: #fff; border-color: var(--state-warning); }
+        .qbtn-warning:hover { background: #9E7309; }
+
+        /* Tab Navigation */
+        .dept-tabs { display: flex; align-items: center; gap: 2px; border-bottom: 1px solid var(--tms-border); margin-bottom: 20px; overflow-x: auto; }
+        .dept-tab { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; font-size: 14px; color: var(--tms-muted-foreground); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 120ms ease, background-color 120ms ease; margin-bottom: -1px; white-space: nowrap; }
+        .dept-tab:hover { color: var(--tms-foreground); background: var(--tms-muted); }
+        .dept-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+        .dept-tab .tab-badge { font-family: var(--tms-font-mono); font-size: 11px; padding: 0 6px; height: 18px; display: inline-flex; align-items: center; border-radius: var(--tms-radius-full); background: var(--tms-muted); color: var(--tms-muted-foreground); }
+        .dept-tab.is-active .tab-badge { background: var(--tms-primary-50); color: var(--tms-primary); }
+
+        /* Tab Panel */
+        .dept-panel { display: none; }
+        .dept-panel.is-active { display: block; }
+
+        /* KPI Cards */
+        .kpi-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 24px; }
+        .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+        .kpi-card .kpi-label { font-size: 12px; color: var(--tms-muted-foreground); margin-bottom: 6px; }
+        .kpi-card .kpi-value { font-size: 28px; font-weight: 700; color: var(--tms-foreground); font-family: var(--tms-font-serif); }
+        .kpi-card .kpi-change { font-size: 12px; margin-top: 4px; }
+        .kpi-card .kpi-change.up { color: var(--state-success); }
+        .kpi-card .kpi-change.down { color: var(--state-error); }
+
+        /* Section Card */
+        .section-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); overflow: hidden; }
+        .table-wrap { overflow-x: auto; }
+
+        /* Filter Bar */
+        .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 16px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); margin-bottom: 16px; }
+        .filter-input, .filter-select { height: 34px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); padding: 0 10px; outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; }
+        .filter-input::placeholder { color: var(--tms-neutral-400); }
+        .filter-input:focus, .filter-select:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+        .search-wrap { position: relative; }
+        .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--tms-muted-foreground); pointer-events: none; }
+        .search-wrap .filter-input { padding-left: 32px; width: 260px; }
+        .date-sep { color: var(--tms-muted-foreground); font-size: 13px; }
+        .filter-label { font-size: 12px; color: var(--tms-muted-foreground); white-space: nowrap; }
+
+        /* Table overrides */
+        .tms-table-dense { width: 100%; border-collapse: collapse; }
+        .tms-table-dense thead th { text-align: left; position: sticky; top: 0; z-index: 1; }
+        .tms-table-dense .col-num { text-align: right; white-space: nowrap; }
+        .tms-table-dense .col-center { text-align: center; }
+        .tms-table-dense .col-action { width: 110px; white-space: nowrap; }
+        .tms-table-dense .wb-link { color: var(--tms-primary-600); font-weight: 600; cursor: pointer; }
+        .tms-table-dense .wb-link:hover { text-decoration: underline; color: var(--tms-primary-500); }
+        .action-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--tms-radius-small); border: none; background: transparent; color: var(--tms-muted-foreground); cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+        .action-btn:hover { background: var(--tms-muted); color: var(--tms-primary-600); }
+        .action-btn svg { width: 15px; height: 15px; }
+
+        /* Pagination */
+        .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; flex-wrap: wrap; gap: 12px; }
+        .pagination-info { font-size: 13px; color: var(--tms-muted-foreground); }
+        .pagination-info .tms-mono-data { color: var(--tms-foreground); font-weight: 600; }
+        .pagination-center { display: flex; align-items: center; gap: 4px; }
+        .page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+        .page-btn:hover:not(:disabled):not(.is-active) { background: var(--tms-muted); }
+        .page-btn.is-active { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); font-weight: 600; }
+        .page-btn:disabled { color: var(--tms-neutral-400); cursor: not-allowed; }
+        .page-btn svg { width: 14px; height: 14px; }
+        .page-ellipsis { color: var(--tms-muted-foreground); padding: 0 4px; font-size: 13px; }
+        .page-size-wrap { display: flex; align-items: center; gap: 8px; }
+        .page-size-select { height: 30px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); padding: 0 8px; cursor: pointer; outline: none; }
+
+        /* Modal */
+        .dept-modal-overlay { position: fixed; inset: 0; background: rgba(26, 26, 23, 0.5); opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 200ms ease; z-index: 200; }
+        .dept-modal-overlay.is-visible { opacity: 1; visibility: visible; }
+        .dept-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.96); width: 680px; max-width: calc(100vw - 32px); max-height: calc(100vh - 80px); background: var(--tms-card); border-radius: var(--tms-radius-large); box-shadow: var(--tms-shadow-3); display: flex; flex-direction: column; opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease; z-index: 201; }
+        .dept-modal.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+        .dept-modal-lg { width: 900px; }
+        .dept-modal-header { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--tms-border); }
+        .dept-modal-header h3 { margin: 0; font-size: 16px; color: var(--tms-foreground); }
+        .dept-modal-close { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: none; border-radius: var(--tms-radius-small); background: transparent; color: var(--tms-muted-foreground); cursor: pointer; transition: background 120ms ease, color 120ms ease; }
+        .dept-modal-close:hover { background: var(--tms-muted); color: var(--tms-foreground); }
+        .dept-modal-close svg { width: 18px; height: 18px; }
+        .dept-modal-body { flex: 1; overflow-y: auto; padding: 20px; }
+        .dept-modal-footer { flex-shrink: 0; display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 14px 20px; border-top: 1px solid var(--tms-border); background: var(--tms-card); border-radius: 0 0 var(--tms-radius-large) var(--tms-radius-large); }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--tms-foreground); margin-bottom: 6px; }
+        .form-group label .required { color: var(--state-error); margin-left: 2px; }
+        .form-input, .form-select, .form-textarea { width: 100%; height: 36px; padding: 0 12px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-input); color: var(--tms-foreground); outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; font-family: var(--tms-font-sans); box-sizing: border-box; }
+        .form-textarea { height: 80px; padding: 10px 12px; resize: vertical; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+        /* Toast */
+        .toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+        .toast { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: var(--tms-radius-medium); background: var(--tms-card); color: var(--tms-foreground); box-shadow: var(--tms-shadow-2); border: 1px solid var(--tms-border); font-size: 13px; animation: toastIn 0.3s ease; max-width: 380px; }
+        .toast.toast-success { border-left: 3px solid var(--state-success); }
+        .toast.toast-error { border-left: 3px solid var(--state-error); }
+        .toast.toast-info { border-left: 3px solid var(--state-info); }
+        .toast.toast-warning { border-left: 3px solid var(--state-warning); }
+        .toast svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .toast.toast-success svg { color: var(--state-success); }
+        .toast.toast-error svg { color: var(--state-error); }
+        .toast.toast-info svg { color: var(--state-info); }
+        .toast.toast-warning svg { color: var(--state-warning); }
+        @keyframes toastIn { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
+
+        /* Audit History */
+        .audit-timeline { display: flex; flex-direction: column; gap: 0; }
+        .audit-timeline-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--tms-border); }
+        .audit-timeline-item:last-child { border-bottom: none; }
+        .audit-timeline-icon { width: 36px; height: 36px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .audit-timeline-icon.pass { background: var(--state-success-light); color: var(--state-success); }
+        .audit-timeline-icon.reject { background: var(--state-error-light); color: var(--state-error); }
+        .audit-timeline-icon.resubmit { background: var(--state-warning-light); color: var(--state-warning); }
+        .audit-timeline-icon.adjust { background: var(--state-info-light); color: var(--state-info); }
+        .audit-timeline-icon svg { width: 16px; height: 16px; }
+        .audit-timeline-body { flex: 1; }
+        .audit-timeline-title { font-size: 13px; font-weight: 600; color: var(--tms-foreground); }
+        .audit-timeline-meta { font-size: 12px; color: var(--tms-muted-foreground); margin-top: 2px; }
+        .audit-timeline-comment { font-size: 12px; color: var(--tms-muted-foreground); margin-top: 4px; padding: 6px 10px; background: var(--tms-muted); border-radius: var(--tms-radius-small); }
+
+        /* Status Flow Diagram */
+        .status-flow { display: flex; align-items: center; gap: 0; padding: 20px 0; overflow-x: auto; }
+        .status-flow-node { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+        .status-flow-dot { width: 36px; height: 36px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .status-flow-dot.active { background: var(--tms-primary); color: #fff; }
+        .status-flow-dot.inactive { background: var(--tms-muted); color: var(--tms-muted-foreground); }
+        .status-flow-dot svg { width: 16px; height: 16px; }
+        .status-flow-label { font-size: 12px; color: var(--tms-muted-foreground); white-space: nowrap; }
+        .status-flow-arrow { width: 50px; height: 2px; background: var(--tms-border); flex-shrink: 0; margin: 0 4px; margin-bottom: 20px; }
+        .status-flow-arrow.dashed { background: repeating-linear-gradient(90deg, var(--tms-border) 0, var(--tms-border) 6px, transparent 6px, transparent 10px); }
+
+        /* Upload zone */
+        .upload-zone { border: 2px dashed var(--tms-border); border-radius: var(--tms-radius-medium); padding: 40px; text-align: center; color: var(--tms-muted-foreground); cursor: pointer; transition: border-color 120ms ease, background-color 120ms ease; }
+        .upload-zone:hover { border-color: var(--tms-primary-400); background: var(--tms-primary-50); }
+        .upload-zone svg { width: 40px; height: 40px; margin-bottom: 12px; color: var(--tms-neutral-400); }
+        .upload-zone .upload-text { font-size: 14px; color: var(--tms-muted-foreground); }
+        .upload-zone .upload-hint { font-size: 12px; color: var(--tms-neutral-400); margin-top: 4px; }
+
+        /* Empty state */
+        .empty-state { text-align: center; padding: 48px 24px; color: var(--tms-muted-foreground); }
+        .empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; color: var(--tms-neutral-400); }
+        .empty-state .empty-title { font-size: 15px; color: var(--tms-foreground); margin-bottom: 4px; }
+        .empty-state .empty-desc { font-size: 13px; }
+
+        .mb-16 { margin-bottom: 16px; }
+        .mt-16 { margin-top: 16px; }
+        .flex-between { display: flex; align-items: center; justify-content: space-between; }
+        .text-right { text-align: right; }
+        .text-mono { font-family: var(--tms-font-mono); }
+      </style>
+
+      <!-- Page Header -->
+      <div class="dept-page-header">
+        <div>
+          <h2>部门数据协同</h2>
+          <div class="header-sub">跨部门数据录入、审核与协同管理</div>
+        </div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="dept-tabs" id="deptTabs">
+        <button class="dept-tab is-active" data-tab="cs">
+          <i data-lucide="headphones" style="width:16px;height:16px;"></i><span>客服数据</span>
+          <span class="tab-badge">12</span>
+        </button>
+        <button class="dept-tab" data-tab="doc">
+          <i data-lucide="file-text" style="width:16px;height:16px;"></i><span>单证数据</span>
+          <span class="tab-badge">8</span>
+        </button>
+        <button class="dept-tab" data-tab="warehouse">
+          <i data-lucide="warehouse" style="width:16px;height:16px;"></i><span>海外仓数据</span>
+          <span class="tab-badge">15</span>
+        </button>
+        <button class="dept-tab" data-tab="audit">
+          <i data-lucide="shield-check" style="width:16px;height:16px;"></i><span>审核流程</span>
+          <span class="tab-badge">5</span>
+        </button>
+      </div>
+
+      <!-- ==================== TAB 1: 客服数据 ==================== -->
+      <div class="dept-panel is-active" id="panel-cs">
+        <!-- KPI -->
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">客服数据总数</div>
+            <div class="kpi-value">12</div>
+            <div class="kpi-change up">+3 本月新增</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">待确认</div>
+            <div class="kpi-value">4</div>
+            <div class="kpi-change down">需处理</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">已确认</div>
+            <div class="kpi-value">7</div>
+            <div class="kpi-change up">确认率 58.3%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">已提交财务</div>
+            <div class="kpi-value">1</div>
+            <div class="kpi-change">待审核中</div>
+          </div>
+        </div>
+
+        <!-- Filter -->
+        <div class="filter-bar">
+          <div class="search-wrap">
+            <i data-lucide="search"></i>
+            <input type="text" class="filter-input" placeholder="运单号/客户名称" id="csSearch">
+          </div>
+          <span class="filter-label">服务类型</span>
+          <select class="filter-select" id="csServiceType">
+            <option value="all">全部</option>
+            <option value="标准">标准</option>
+            <option value="快速">快速</option>
+            <option value="经济">经济</option>
+          </select>
+          <span class="filter-label">确认状态</span>
+          <select class="filter-select" id="csStatus">
+            <option value="all">全部</option>
+            <option value="待确认">待确认</option>
+            <option value="已确认">已确认</option>
+            <option value="已提交">已提交</option>
+          </select>
+          <button class="qbtn qbtn-primary" onclick="filterCsData()"><i data-lucide="search"></i><span>查询</span></button>
+          <button class="qbtn qbtn-outline" onclick="resetCsFilter()"><span>重置</span></button>
+          <button class="qbtn qbtn-outline" onclick="openCsImportModal()" style="margin-left:auto;"><i data-lucide="upload"></i><span>表格导入</span></button>
+          <button class="qbtn qbtn-primary" onclick="openCsEntryModal()"><i data-lucide="plus"></i><span>手动录入</span></button>
+        </div>
+
+        <!-- Table -->
+        <div class="section-card mb-16">
+          <div class="table-wrap">
+            <table class="tms-table-dense" id="csTable">
+              <thead>
+                <tr>
+                  <th>运单号</th>
+                  <th>客户名称</th>
+                  <th>服务类型</th>
+                  <th>下单时间</th>
+                  <th>客服代表</th>
+                  <th>确认状态</th>
+                  <th>提交时间</th>
+                  <th class="col-action">操作</th>
+                </tr>
+              </thead>
+              <tbody id="csTableBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination-bar" id="csPagination">
+            <div class="pagination-info">共 <span class="tms-mono-data" id="csTotal">0</span> 条</div>
+            <div class="pagination-center" id="csPageNav"></div>
+            <div class="page-size-wrap">
+              <span style="font-size:13px;color:var(--tms-muted-foreground);">每页</span>
+              <select class="page-size-select" id="csPageSize" onchange="renderCsData()">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 2: 单证数据 ==================== -->
+      <div class="dept-panel" id="panel-doc">
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">单证总数</div>
+            <div class="kpi-value">8</div>
+            <div class="kpi-change up">+2 本月新增</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">草稿</div>
+            <div class="kpi-value">2</div>
+            <div class="kpi-change">待提交</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">已提交</div>
+            <div class="kpi-value">5</div>
+            <div class="kpi-change up">提交率 62.5%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">已审核</div>
+            <div class="kpi-value">1</div>
+            <div class="kpi-change">审核通过</div>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-wrap">
+            <i data-lucide="search"></i>
+            <input type="text" class="filter-input" placeholder="提单号/运单号/客户" id="docSearch">
+          </div>
+          <span class="filter-label">船公司</span>
+          <select class="filter-select" id="docCarrier">
+            <option value="all">全部</option>
+            <option value="COSCO">COSCO</option>
+            <option value="MAERSK">MAERSK</option>
+            <option value="MSC">MSC</option>
+            <option value="CMA CGM">CMA CGM</option>
+          </select>
+          <span class="filter-label">单据状态</span>
+          <select class="filter-select" id="docStatus">
+            <option value="all">全部</option>
+            <option value="草稿">草稿</option>
+            <option value="已提交">已提交</option>
+            <option value="已审核">已审核</option>
+          </select>
+          <button class="qbtn qbtn-primary" onclick="filterDocData()"><i data-lucide="search"></i><span>查询</span></button>
+          <button class="qbtn qbtn-outline" onclick="resetDocFilter()"><span>重置</span></button>
+          <button class="qbtn qbtn-primary" onclick="openDocModal()" style="margin-left:auto;"><i data-lucide="plus"></i><span>新增单证</span></button>
+        </div>
+
+        <div class="section-card mb-16">
+          <div class="table-wrap">
+            <table class="tms-table-dense" id="docTable">
+              <thead>
+                <tr>
+                  <th>提单号</th>
+                  <th>运单号</th>
+                  <th>客户</th>
+                  <th>船公司</th>
+                  <th>航线</th>
+                  <th>柜号</th>
+                  <th>箱型</th>
+                  <th>单据状态</th>
+                  <th>提交时间</th>
+                  <th class="col-action">操作</th>
+                </tr>
+              </thead>
+              <tbody id="docTableBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination-bar" id="docPagination">
+            <div class="pagination-info">共 <span class="tms-mono-data" id="docTotal">0</span> 条</div>
+            <div class="pagination-center" id="docPageNav"></div>
+            <div class="page-size-wrap">
+              <span style="font-size:13px;color:var(--tms-muted-foreground);">每页</span>
+              <select class="page-size-select" id="docPageSize" onchange="renderDocData()">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 3: 海外仓数据 ==================== -->
+      <div class="dept-panel" id="panel-warehouse">
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">海外仓数据总数</div>
+            <div class="kpi-value">15</div>
+            <div class="kpi-change up">+5 本月新增</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">在仓</div>
+            <div class="kpi-value">8</div>
+            <div class="kpi-change">待出库</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">已出库</div>
+            <div class="kpi-value">6</div>
+            <div class="kpi-change up">出库率 40%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">异常</div>
+            <div class="kpi-value">1</div>
+            <div class="kpi-change down">需处理</div>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-wrap">
+            <i data-lucide="search"></i>
+            <input type="text" class="filter-input" placeholder="运单号/客户/仓库" id="whSearch">
+          </div>
+          <span class="filter-label">状态</span>
+          <select class="filter-select" id="whStatus">
+            <option value="all">全部</option>
+            <option value="在仓">在仓</option>
+            <option value="已出库">已出库</option>
+            <option value="异常">异常</option>
+          </select>
+          <button class="qbtn qbtn-primary" onclick="filterWhData()"><i data-lucide="search"></i><span>查询</span></button>
+          <button class="qbtn qbtn-outline" onclick="resetWhFilter()"><span>重置</span></button>
+          <button class="qbtn qbtn-primary" onclick="openWhModal()" style="margin-left:auto;"><i data-lucide="plus"></i><span>新增数据</span></button>
+        </div>
+
+        <div class="section-card mb-16">
+          <div class="table-wrap">
+            <table class="tms-table-dense" id="whTable">
+              <thead>
+                <tr>
+                  <th>运单号</th>
+                  <th>客户</th>
+                  <th>仓库</th>
+                  <th>到仓时间</th>
+                  <th>出库时间</th>
+                  <th>物流单号</th>
+                  <th>状态</th>
+                  <th>提交时间</th>
+                  <th class="col-action">操作</th>
+                </tr>
+              </thead>
+              <tbody id="whTableBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination-bar" id="whPagination">
+            <div class="pagination-info">共 <span class="tms-mono-data" id="whTotal">0</span> 条</div>
+            <div class="pagination-center" id="whPageNav"></div>
+            <div class="page-size-wrap">
+              <span style="font-size:13px;color:var(--tms-muted-foreground);">每页</span>
+              <select class="page-size-select" id="whPageSize" onchange="renderWhData()">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 4: 审核流程 ==================== -->
+      <div class="dept-panel" id="panel-audit">
+        <!-- Status Flow -->
+        <div class="section-card mb-16" style="padding:20px;">
+          <h3 style="font-size:15px; margin:0 0 16px 0; color:var(--tms-foreground);">审核状态流转</h3>
+          <div class="status-flow">
+            <div class="status-flow-node">
+              <div class="status-flow-dot active"><i data-lucide="file-plus"></i></div>
+              <span class="status-flow-label">待提交</span>
+            </div>
+            <div class="status-flow-arrow"></div>
+            <div class="status-flow-node">
+              <div class="status-flow-dot active"><i data-lucide="clock"></i></div>
+              <span class="status-flow-label">待审核(财务)</span>
+            </div>
+            <div class="status-flow-arrow"></div>
+            <div class="status-flow-node">
+              <div class="status-flow-dot inactive"><i data-lucide="check-circle"></i></div>
+              <span class="status-flow-label">审核通过</span>
+            </div>
+            <div class="status-flow-arrow dashed"></div>
+            <div class="status-flow-node">
+              <div class="status-flow-dot inactive"><i data-lucide="x-circle"></i></div>
+              <span class="status-flow-label">驳回</span>
+            </div>
+            <div class="status-flow-arrow"></div>
+            <div class="status-flow-node">
+              <div class="status-flow-dot inactive"><i data-lucide="refresh-cw"></i></div>
+              <span class="status-flow-label">驳回重提</span>
+            </div>
+            <div class="status-flow-arrow dashed"></div>
+            <div class="status-flow-node">
+              <div class="status-flow-dot inactive"><i data-lucide="dollar-sign"></i></div>
+              <span class="status-flow-label">补差</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-label">待审核</div>
+            <div class="kpi-value">5</div>
+            <div class="kpi-change down">需处理</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">已通过</div>
+            <div class="kpi-value">23</div>
+            <div class="kpi-change up">本月通过</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">已驳回</div>
+            <div class="kpi-value">3</div>
+            <div class="kpi-change">待重提</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">补差处理</div>
+            <div class="kpi-value">2</div>
+            <div class="kpi-change">进行中</div>
+          </div>
+        </div>
+
+        <!-- Pending Review -->
+        <div class="section-card mb-16">
+          <div style="padding:16px 20px; border-bottom:1px solid var(--tms-border);" class="flex-between">
+            <h3 style="font-size:15px; margin:0; color:var(--tms-foreground);">待审核列表</h3>
+            <span style="font-size:13px; color:var(--tms-muted-foreground);">共 5 条待审核数据</span>
+          </div>
+          <div class="table-wrap">
+            <table class="tms-table-dense" id="auditTable">
+              <thead>
+                <tr>
+                  <th>数据类型</th>
+                  <th>运单号</th>
+                  <th>客户</th>
+                  <th>提交人</th>
+                  <th>提交时间</th>
+                  <th>审核状态</th>
+                  <th>金额</th>
+                  <th class="col-action">操作</th>
+                </tr>
+              </thead>
+              <tbody id="auditTableBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination-bar" id="auditPagination">
+            <div class="pagination-info">共 <span class="tms-mono-data" id="auditTotal">0</span> 条</div>
+            <div class="pagination-center" id="auditPageNav"></div>
+          </div>
+        </div>
+
+        <!-- Audit History -->
+        <div class="section-card">
+          <div style="padding:16px 20px; border-bottom:1px solid var(--tms-border);" class="flex-between">
+            <h3 style="font-size:15px; margin:0; color:var(--tms-foreground);">审核历史记录</h3>
+            <div class="search-wrap">
+              <i data-lucide="search"></i>
+              <input type="text" class="filter-input" placeholder="运单号/客户" id="auditHistorySearch" style="width:200px;">
+            </div>
+          </div>
+          <div style="padding:16px 20px;" id="auditHistory"></div>
+        </div>
+      </div>
+
+      <!-- ============ MODALS ============ -->
+
+      <!-- CS Import Modal -->
+      <div class="dept-modal-overlay" id="csImportOverlay"></div>
+      <div class="dept-modal" id="csImportModal">
+        <div class="dept-modal-header">
+          <h3>客服数据导入（一期表格导入）</h3>
+          <button class="dept-modal-close" onclick="closeCsImportModal()"><i data-lucide="x"></i></button>
+        </div>
+        <div class="dept-modal-body">
+          <div class="upload-zone" id="csUploadZone">
+            <i data-lucide="upload-cloud"></i>
+            <div class="upload-text">点击上传或拖拽文件到此区域</div>
+            <div class="upload-hint">支持 .xlsx, .xls, .csv 格式，单次最多500条</div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="font-size:13px;color:var(--tms-muted-foreground);margin-bottom:8px;">模板下载</div>
+            <button class="qbtn qbtn-outline qbtn-sm" onclick="showToast('info','模板下载中...')"><i data-lucide="download"></i><span>下载导入模板</span></button>
+          </div>
+        </div>
+        <div class="dept-modal-footer">
+          <button class="qbtn qbtn-primary" onclick="handleCsImport()"><i data-lucide="upload"></i><span>确认导入</span></button>
+          <button class="qbtn qbtn-outline" onclick="closeCsImportModal()"><span>取消</span></button>
+        </div>
+      </div>
+
+      <!-- CS Entry Modal -->
+      <div class="dept-modal-overlay" id="csEntryOverlay"></div>
+      <div class="dept-modal" id="csEntryModal">
+        <div class="dept-modal-header">
+          <h3 id="csEntryTitle">客服数据录入（二期手动录入）</h3>
+          <button class="dept-modal-close" onclick="closeCsEntryModal()"><i data-lucide="x"></i></button>
+        </div>
+        <div class="dept-modal-body">
+          <input type="hidden" id="csEditId">
+          <div class="form-row">
+            <div class="form-group">
+              <label>运单号 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="csEntryWaybill" placeholder="如 WB20240801001">
+            </div>
+            <div class="form-group">
+              <label>客户 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="csEntryCustomer" placeholder="客户名称">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>计费重 (kg)</label>
+              <input type="text" class="form-input" id="csEntryChargeWeight" placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label>泡比</label>
+              <input type="text" class="form-input" id="csEntryBubbleRatio" placeholder="如 1:300">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>柜号</label>
+              <input type="text" class="form-input" id="csEntryContainerNo" placeholder="柜号">
+            </div>
+            <div class="form-group">
+              <label>费用科目</label>
+              <select class="form-select" id="csEntryFeeItem">
+                <option value="">请选择</option>
+                <option value="海运费">海运费</option>
+                <option value="港杂费">港杂费</option>
+                <option value="报关费">报关费</option>
+                <option value="拖车费">拖车费</option>
+                <option value="仓储费">仓储费</option>
+                <option value="其他">其他</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>金额</label>
+              <input type="text" class="form-input" id="csEntryAmount" placeholder="0.00">
+            </div>
+            <div class="form-group">
+              <label>币种</label>
+              <select class="form-select" id="csEntryCurrency">
+                <option value="CNY">CNY 人民币</option>
+                <option value="USD">USD 美元</option>
+                <option value="EUR">EUR 欧元</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>备注</label>
+            <textarea class="form-textarea" id="csEntryRemark" placeholder="备注信息"></textarea>
+          </div>
+        </div>
+        <div class="dept-modal-footer">
+          <button class="qbtn qbtn-primary" onclick="saveCsEntry()"><i data-lucide="save"></i><span>保存</span></button>
+          <button class="qbtn qbtn-outline" onclick="closeCsEntryModal()"><span>取消</span></button>
+        </div>
+      </div>
+
+      <!-- Doc Entry Modal -->
+      <div class="dept-modal-overlay" id="docOverlay"></div>
+      <div class="dept-modal dept-modal-lg" id="docModal">
+        <div class="dept-modal-header">
+          <h3 id="docTitle">单证数据录入</h3>
+          <button class="dept-modal-close" onclick="closeDocModal()"><i data-lucide="x"></i></button>
+        </div>
+        <div class="dept-modal-body">
+          <input type="hidden" id="docEditId">
+          <div class="form-row">
+            <div class="form-group">
+              <label>提单号 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="docBlNo" placeholder="如 BL20240801001">
+            </div>
+            <div class="form-group">
+              <label>运单号 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="docWaybill" placeholder="关联运单号">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>客户 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="docCustomer" placeholder="客户名称">
+            </div>
+            <div class="form-group">
+              <label>船公司</label>
+              <select class="form-select" id="docCarrierSelect">
+                <option value="">请选择</option>
+                <option value="COSCO">COSCO</option>
+                <option value="MAERSK">MAERSK</option>
+                <option value="MSC">MSC</option>
+                <option value="CMA CGM">CMA CGM</option>
+                <option value="EVERGREEN">EVERGREEN</option>
+                <option value="HMM">HMM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>航线</label>
+              <input type="text" class="form-input" id="docRoute" placeholder="如 中国-美国西海岸">
+            </div>
+            <div class="form-group">
+              <label>柜号</label>
+              <input type="text" class="form-input" id="docContainerNo" placeholder="柜号">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>箱型</label>
+              <select class="form-select" id="docBoxType">
+                <option value="">请选择</option>
+                <option value="20GP">20GP</option>
+                <option value="40GP">40GP</option>
+                <option value="40HQ">40HQ</option>
+                <option value="45HQ">45HQ</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>单据状态</label>
+              <select class="form-select" id="docDocStatus">
+                <option value="草稿">草稿</option>
+                <option value="已提交">已提交</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>上传附件</label>
+            <div class="upload-zone" style="padding:20px;">
+              <i data-lucide="file-up"></i>
+              <div class="upload-text">点击上传单证附件</div>
+              <div class="upload-hint">支持 PDF, JPG, PNG，单文件最大10MB</div>
+            </div>
+          </div>
+        </div>
+        <div class="dept-modal-footer">
+          <button class="qbtn qbtn-primary" onclick="saveDocEntry()"><i data-lucide="save"></i><span>保存</span></button>
+          <button class="qbtn qbtn-outline" onclick="closeDocModal()"><span>取消</span></button>
+        </div>
+      </div>
+
+      <!-- WH Entry Modal -->
+      <div class="dept-modal-overlay" id="whOverlay"></div>
+      <div class="dept-modal" id="whModal">
+        <div class="dept-modal-header">
+          <h3 id="whTitle">海外仓数据录入</h3>
+          <button class="dept-modal-close" onclick="closeWhModal()"><i data-lucide="x"></i></button>
+        </div>
+        <div class="dept-modal-body">
+          <input type="hidden" id="whEditId">
+          <div class="form-row">
+            <div class="form-group">
+              <label>运单号 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="whWaybill" placeholder="运单号">
+            </div>
+            <div class="form-group">
+              <label>客户 <span class="required">*</span></label>
+              <input type="text" class="form-input" id="whCustomer" placeholder="客户名称">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>仓库 <span class="required">*</span></label>
+              <select class="form-select" id="whWarehouse">
+                <option value="">请选择</option>
+                <option value="洛杉矶仓">洛杉矶仓</option>
+                <option value="纽约仓">纽约仓</option>
+                <option value="芝加哥仓">芝加哥仓</option>
+                <option value="休斯顿仓">休斯顿仓</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>物流单号</label>
+              <input type="text" class="form-input" id="whLogisticsNo" placeholder="物流单号">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>到仓时间</label>
+              <input type="datetime-local" class="form-input" id="whArrivalTime">
+            </div>
+            <div class="form-group">
+              <label>出库时间</label>
+              <input type="datetime-local" class="form-input" id="whDepartureTime">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>状态</label>
+              <select class="form-select" id="whDataStatus">
+                <option value="在仓">在仓</option>
+                <option value="已出库">已出库</option>
+                <option value="异常">异常</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="dept-modal-footer">
+          <button class="qbtn qbtn-primary" onclick="saveWhEntry()"><i data-lucide="save"></i><span>保存</span></button>
+          <button class="qbtn qbtn-outline" onclick="closeWhModal()"><span>取消</span></button>
+        </div>
+      </div>
+
+      <!-- Audit Modal -->
+      <div class="dept-modal-overlay" id="auditOverlay"></div>
+      <div class="dept-modal" id="auditModal">
+        <div class="dept-modal-header">
+          <h3>审核操作</h3>
+          <button class="dept-modal-close" onclick="closeAuditModal()"><i data-lucide="x"></i></button>
+        </div>
+        <div class="dept-modal-body">
+          <input type="hidden" id="auditId">
+          <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:16px;" id="auditInfo"></div>
+          <div class="form-group">
+            <label>审核结果</label>
+            <div style="display:flex; gap:12px; margin-top:6px;">
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;">
+                <input type="radio" name="auditResult" value="pass" checked onchange="toggleAuditComment()"> 通过
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;">
+                <input type="radio" name="auditResult" value="reject" onchange="toggleAuditComment()"> 驳回
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;">
+                <input type="radio" name="auditResult" value="adjust" onchange="toggleAuditComment()"> 补差
+              </label>
+            </div>
+          </div>
+          <div class="form-group" id="auditCommentGroup">
+            <label>审核意见 <span class="required">*</span></label>
+            <textarea class="form-textarea" id="auditComment" placeholder="请输入审核意见..."></textarea>
+          </div>
+          <div class="form-group" id="auditAdjustGroup" style="display:none;">
+            <label>补差金额</label>
+            <input type="text" class="form-input" id="auditAdjustAmount" placeholder="0.00">
+          </div>
+        </div>
+        <div class="dept-modal-footer">
+          <button class="qbtn qbtn-primary" onclick="submitAudit()"><i data-lucide="check"></i><span>确认审核</span></button>
+          <button class="qbtn qbtn-outline" onclick="closeAuditModal()"><span>取消</span></button>
+        </div>
+      </div>
+
+      <!-- Toast Container -->
+      <div class="toast-container" id="toastContainer"></div>
+
+    </main>
+  </div>
+</div>
+
+<script>lucide.createIcons();</script>
+<script id="nav-link-resolver">
+  (function(){
+    var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+    document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+      var href = a.getAttribute('href');
+      if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+        a.setAttribute('href', new URL(href, currentDir).href);
+      }
+    });
+  })();
+</script>
+
+<script>
+/* ============ DATA STORE ============ */
+var csData = [
+  { id:1, waybill:'WB20240801001', customer:'华东贸易有限公司', serviceType:'标准', orderTime:'2024-08-01 09:15', csRep:'黄维', status:'已确认', submitTime:'2024-08-01 14:30', chargeWeight:'25.50', bubbleRatio:'1:5000', containerNo:'COSU6234581', feeItem:'海运费', amount:'3200.00', currency:'CNY', remark:'' },
+  { id:2, waybill:'WB20240801002', customer:'跨境物流科技', serviceType:'快速', orderTime:'2024-08-01 10:20', csRep:'张敏', status:'待确认', submitTime:'', chargeWeight:'8.20', bubbleRatio:'1:6000', containerNo:'', feeItem:'报关费', amount:'850.00', currency:'CNY', remark:'' },
+  { id:3, waybill:'WB20240802001', customer:'中通供应链', serviceType:'经济', orderTime:'2024-08-02 08:00', csRep:'黄维', status:'待确认', submitTime:'', chargeWeight:'120.00', bubbleRatio:'1:5000', containerNo:'MSKU9876543', feeItem:'海运费', amount:'12500.00', currency:'USD', remark:'大件货物' },
+  { id:4, waybill:'WB20240802002', customer:'远东贸易集团', serviceType:'标准', orderTime:'2024-08-02 09:45', csRep:'李芳', status:'已确认', submitTime:'2024-08-02 16:00', chargeWeight:'45.30', bubbleRatio:'1:5000', containerNo:'TCLU4567890', feeItem:'拖车费', amount:'2100.00', currency:'CNY', remark:'' },
+  { id:5, waybill:'WB20240803001', customer:'全球速运', serviceType:'快速', orderTime:'2024-08-03 11:30', csRep:'张敏', status:'已确认', submitTime:'2024-08-03 15:00', chargeWeight:'3.60', bubbleRatio:'1:6000', containerNo:'', feeItem:'港杂费', amount:'450.00', currency:'CNY', remark:'文件' },
+  { id:6, waybill:'WB20240803002', customer:'顺达国际物流', serviceType:'经济', orderTime:'2024-08-03 14:00', csRep:'黄维', status:'待确认', submitTime:'', chargeWeight:'78.00', bubbleRatio:'1:5000', containerNo:'EVRG1234567', feeItem:'海运费', amount:'8900.00', currency:'USD', remark:'' },
+  { id:7, waybill:'WB20240804001', customer:'华东贸易有限公司', serviceType:'标准', orderTime:'2024-08-04 09:00', csRep:'李芳', status:'已确认', submitTime:'2024-08-04 11:00', chargeWeight:'32.00', bubbleRatio:'1:5000', containerNo:'COSU7654321', feeItem:'仓储费', amount:'600.00', currency:'CNY', remark:'' },
+  { id:8, waybill:'WB20240804002', customer:'新海丰物流', serviceType:'快速', orderTime:'2024-08-05 13:00', csRep:'张敏', status:'已确认', submitTime:'2024-08-05 17:00', chargeWeight:'15.80', bubbleRatio:'1:6000', containerNo:'', feeItem:'报关费', amount:'1200.00', currency:'CNY', remark:'' },
+  { id:9, waybill:'WB20240805001', customer:'中通供应链', serviceType:'经济', orderTime:'2024-08-05 16:00', csRep:'黄维', status:'已确认', submitTime:'2024-08-06 09:00', chargeWeight:'200.00', bubbleRatio:'1:5000', containerNo:'MSKU2345678', feeItem:'海运费', amount:'18000.00', currency:'USD', remark:'整柜' },
+  { id:10, waybill:'WB20240806001', customer:'跨境物流科技', serviceType:'标准', orderTime:'2024-08-06 10:00', csRep:'李芳', status:'待确认', submitTime:'', chargeWeight:'11.00', bubbleRatio:'1:5000', containerNo:'', feeItem:'其他', amount:'300.00', currency:'CNY', remark:'拼箱' },
+  { id:11, waybill:'WB20240807001', customer:'全球速运', serviceType:'快速', orderTime:'2024-08-07 08:30', csRep:'张敏', status:'已确认', submitTime:'2024-08-07 12:00', chargeWeight:'5.50', bubbleRatio:'1:6000', containerNo:'', feeItem:'港杂费', amount:'350.00', currency:'CNY', remark:'' },
+  { id:12, waybill:'WB20240807002', customer:'顺达国际物流', serviceType:'经济', orderTime:'2024-08-07 15:00', csRep:'黄维', status:'已提交', submitTime:'2024-08-08 10:00', chargeWeight:'95.00', bubbleRatio:'1:5000', containerNo:'EVRG7654321', feeItem:'海运费', amount:'10500.00', currency:'USD', remark:'已提交财务审核' },
+];
+
+var docData = [
+  { id:1, blNo:'BL20240801001', waybill:'WB20240801001', customer:'华东贸易有限公司', carrier:'COSCO', route:'中国-美国西海岸', containerNo:'COSU6234581', boxType:'40HQ', status:'已提交', submitTime:'2024-08-01 15:00' },
+  { id:2, blNo:'BL20240802001', waybill:'WB20240802001', customer:'中通供应链', carrier:'MAERSK', route:'中国-美国东海岸', containerNo:'MSKU9876543', boxType:'40GP', status:'已提交', submitTime:'2024-08-02 10:00' },
+  { id:3, blNo:'BL20240802002', waybill:'WB20240802002', customer:'远东贸易集团', carrier:'COSCO', route:'中国-欧洲', containerNo:'TCLU4567890', boxType:'40HQ', status:'草稿', submitTime:'2024-08-02 16:30' },
+  { id:4, blNo:'BL20240803001', waybill:'WB20240803002', customer:'顺达国际物流', carrier:'MSC', route:'中国-地中海', containerNo:'EVRG1234567', boxType:'20GP', status:'已提交', submitTime:'2024-08-03 16:00' },
+  { id:5, blNo:'BL20240804001', waybill:'WB20240804001', customer:'华东贸易有限公司', carrier:'CMA CGM', route:'中国-美国西海岸', containerNo:'COSU7654321', boxType:'40HQ', status:'已提交', submitTime:'2024-08-04 11:30' },
+  { id:6, blNo:'BL20240805001', waybill:'WB20240805001', customer:'中通供应链', carrier:'MAERSK', route:'中国-美国东海岸', containerNo:'MSKU2345678', boxType:'45HQ', status:'已审核', submitTime:'2024-08-06 09:30' },
+  { id:7, blNo:'BL20240806001', waybill:'WB20240806001', customer:'跨境物流科技', carrier:'EVERGREEN', route:'中国-东南亚', containerNo:'', boxType:'', status:'草稿', submitTime:'2024-08-06 11:00' },
+  { id:8, blNo:'BL20240807001', waybill:'WB20240807002', customer:'顺达国际物流', carrier:'HMM', route:'中国-美国西海岸', containerNo:'EVRG7654321', boxType:'40GP', status:'已提交', submitTime:'2024-08-08 10:30' },
+];
+
+var whData = [
+  { id:1, waybill:'WB20240801001', customer:'华东贸易有限公司', warehouse:'洛杉矶仓', arrivalTime:'2024-08-05 14:00', departureTime:'', logisticsNo:'UPS1Z9999WY', status:'在仓', submitTime:'2024-08-05 14:00' },
+  { id:2, waybill:'WB20240801002', customer:'跨境物流科技', warehouse:'洛杉矶仓', arrivalTime:'2024-08-06 09:00', departureTime:'2024-08-10 16:00', logisticsNo:'UPS1Z8888XX', status:'已出库', submitTime:'2024-08-10 16:00' },
+  { id:3, waybill:'WB20240802001', customer:'中通供应链', warehouse:'纽约仓', arrivalTime:'2024-08-07 11:00', departureTime:'', logisticsNo:'', status:'在仓', submitTime:'2024-08-07 11:00' },
+  { id:4, waybill:'WB20240802002', customer:'远东贸易集团', warehouse:'芝加哥仓', arrivalTime:'2024-08-08 08:00', departureTime:'2024-08-12 14:00', logisticsNo:'FedEx79864512', status:'已出库', submitTime:'2024-08-12 14:00' },
+  { id:5, waybill:'WB20240803001', customer:'全球速运', warehouse:'洛杉矶仓', arrivalTime:'2024-08-09 10:00', departureTime:'', logisticsNo:'', status:'在仓', submitTime:'2024-08-09 10:00' },
+  { id:6, waybill:'WB20240803002', customer:'顺达国际物流', warehouse:'休斯顿仓', arrivalTime:'2024-08-10 15:00', departureTime:'', logisticsNo:'', status:'异常', submitTime:'2024-08-10 15:00' },
+  { id:7, waybill:'WB20240804001', customer:'华东贸易有限公司', warehouse:'洛杉矶仓', arrivalTime:'2024-08-11 07:00', departureTime:'', logisticsNo:'', status:'在仓', submitTime:'2024-08-11 07:00' },
+  { id:8, waybill:'WB20240804002', customer:'新海丰物流', warehouse:'纽约仓', arrivalTime:'2024-08-12 12:00', departureTime:'', logisticsNo:'', status:'在仓', submitTime:'2024-08-12 12:00' },
+  { id:9, waybill:'WB20240805001', customer:'中通供应链', warehouse:'芝加哥仓', arrivalTime:'2024-08-13 09:00', departureTime:'2024-08-18 11:00', logisticsNo:'UPS1Z7777ZZ', status:'已出库', submitTime:'2024-08-18 11:00' },
+  { id:10, waybill:'WB20240806001', customer:'跨境物流科技', warehouse:'洛杉矶仓', arrivalTime:'2024-08-14 16:00', departureTime:'', logisticsNo:'', status:'在仓', submitTime:'2024-08-14 16:00' },
+  { id:11, waybill:'WB20240807001', customer:'全球速运', warehouse:'休斯顿仓', arrivalTime:'2024-08-15 08:00', departureTime:'2024-08-20 13:00', logisticsNo:'FedEx12345678', status:'已出库', submitTime:'2024-08-20 13:00' },
+  { id:12, waybill:'WB20240807002', customer:'顺达国际物流', warehouse:'洛杉矶仓', arrivalTime:'2024-08-16 11:00', departureTime:'', logisticsNo:'', status:'在仓', submitTime:'2024-08-16 11:00' },
+  { id:13, waybill:'WB20240808001', customer:'华东贸易有限公司', warehouse:'纽约仓', arrivalTime:'2024-08-17 14:00', departureTime:'', logisticsNo:'', status:'在仓', submitTime:'2024-08-17 14:00' },
+  { id:14, waybill:'WB20240809001', customer:'远东贸易集团', warehouse:'芝加哥仓', arrivalTime:'2024-08-18 10:00', departureTime:'2024-08-22 15:00', logisticsNo:'UPS1Z6666AA', status:'已出库', submitTime:'2024-08-22 15:00' },
+  { id:15, waybill:'WB20240810001', customer:'全球速运', warehouse:'洛杉矶仓', arrivalTime:'2024-08-20 09:00', departureTime:'2024-08-24 10:00', logisticsNo:'FedEx98765432', status:'已出库', submitTime:'2024-08-24 10:00' },
+];
+
+var auditData = [
+  { id:1, dataType:'客服数据', waybill:'WB20240807002', customer:'顺达国际物流', submitter:'黄维', submitTime:'2024-08-08 10:00', status:'待审核', amount:'10500.00 USD' },
+  { id:2, dataType:'单证数据', waybill:'WB20240805001', customer:'中通供应链', submitter:'李芳', submitTime:'2024-08-06 09:30', status:'待审核', amount:'-' },
+  { id:3, dataType:'客服数据', waybill:'WB20240803001', customer:'全球速运', submitter:'张敏', submitTime:'2024-08-03 15:00', status:'待审核', amount:'450.00 CNY' },
+  { id:4, dataType:'客服数据', waybill:'WB20240804002', customer:'新海丰物流', submitter:'张敏', submitTime:'2024-08-05 17:00', status:'待审核', amount:'1200.00 CNY' },
+  { id:5, dataType:'单证数据', waybill:'WB20240801001', customer:'华东贸易有限公司', submitter:'黄维', submitTime:'2024-08-01 15:00', status:'待审核', amount:'-' },
+];
+
+var auditHistory = [
+  { dataType:'客服数据', waybill:'WB20240803001', customer:'全球速运', action:'pass', result:'审核通过', auditor:'财务部-王芳', time:'2024-08-03 16:00', comment:'费用合理，审核通过。' },
+  { dataType:'客服数据', waybill:'WB20240803002', customer:'顺达国际物流', action:'reject', result:'驳回', auditor:'财务部-王芳', time:'2024-08-03 17:00', comment:'海运费申报金额与市场价差距较大，请核实后重提。' },
+  { dataType:'单证数据', waybill:'WB20240805001', customer:'中通供应链', action:'pass', result:'审核通过', auditor:'财务部-李强', time:'2024-08-06 14:00', comment:'单证齐全，审核通过。' },
+  { dataType:'客服数据', waybill:'WB20240803002', customer:'顺达国际物流', action:'resubmit', result:'驳回重提', auditor:'黄维', time:'2024-08-04 09:00', comment:'已按市场价调整海运费为$8,900.00，重新提交。' },
+  { dataType:'客服数据', waybill:'WB20240802001', customer:'中通供应链', action:'adjust', result:'补差', auditor:'财务部-王芳', time:'2024-08-10 11:00', comment:'计费重量与实际不符，差额$500.00已补录。' },
+  { dataType:'客服数据', waybill:'WB20240804001', customer:'华东贸易有限公司', action:'pass', result:'审核通过', auditor:'财务部-李强', time:'2024-08-04 14:00', comment:'审核通过。' },
+  { dataType:'单证数据', waybill:'WB20240804001', customer:'华东贸易有限公司', action:'pass', result:'审核通过', auditor:'财务部-王芳', time:'2024-08-04 15:00', comment:'柜号信息匹配，审核通过。' },
+];
+
+var csNextId = 13, docNextId = 9, whNextId = 16, auditNextId = 6;
+
+/* ============ TOAST ============ */
+function showToast(type, message) {
+  var container = document.getElementById('toastContainer');
+  var icons = { success:'check-circle', error:'alert-circle', info:'info', warning:'alert-triangle' };
+  var toast = document.createElement('div');
+  toast.className = 'toast toast-' + type;
+  toast.innerHTML = '<i data-lucide="' + (icons[type]||'info') + '"></i><span>' + message + '</span>';
+  container.appendChild(toast);
+  lucide.createIcons({ attrs: { 'data-lucide': icons[type] }, nodes: [toast.querySelector('i')] });
+  setTimeout(function(){ toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(function(){ toast.remove(); }, 300); }, 3000);
+}
+
+/* ============ TAB SWITCHING ============ */
+document.getElementById('deptTabs').addEventListener('click', function(e) {
+  var tab = e.target.closest('.dept-tab');
+  if (!tab) return;
+  document.querySelectorAll('.dept-tab').forEach(function(t){ t.classList.remove('is-active'); });
+  document.querySelectorAll('.dept-panel').forEach(function(p){ p.classList.remove('is-active'); });
+  tab.classList.add('is-active');
+  var panel = document.getElementById('panel-' + tab.getAttribute('data-tab'));
+  if (panel) panel.classList.add('is-active');
+});
+
+/* ============ PAGINATION HELPERS ============ */
+function renderPagination(total, page, pageSize, containerId, renderFn) {
+  var totalPages = Math.ceil(total / pageSize) || 1;
+  var container = document.getElementById(containerId);
+  var html = '';
+  html += '<button class="page-btn" ' + (page <= 1 ? 'disabled' : '') + ' onclick="' + renderFn + '(' + (page-1) + ')"><i data-lucide="chevron-left"></i></button>';
+  for (var i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= page - 1 && i <= page + 1)) {
+      html += '<button class="page-btn' + (i === page ? ' is-active' : '') + '" onclick="' + renderFn + '(' + i + ')">' + i + '</button>';
+    } else if (i === page - 2 || i === page + 2) {
+      html += '<span class="page-ellipsis">...</span>';
+    }
+  }
+  html += '<button class="page-btn" ' + (page >= totalPages ? 'disabled' : '') + ' onclick="' + renderFn + '(' + (page+1) + ')"><i data-lucide="chevron-right"></i></button>';
+  container.innerHTML = html;
+  lucide.createIcons();
+}
+
+/* ============ CS DATA ============ */
+var csPage = 1, csPageSize = 10;
+
+function getFilteredCsData() {
+  var search = (document.getElementById('csSearch')?.value || '').toLowerCase();
+  var serviceType = document.getElementById('csServiceType')?.value || 'all';
+  var status = document.getElementById('csStatus')?.value || 'all';
+  return csData.filter(function(d) {
+    if (search && d.waybill.toLowerCase().indexOf(search) === -1 && d.customer.toLowerCase().indexOf(search) === -1) return false;
+    if (serviceType !== 'all' && d.serviceType !== serviceType) return false;
+    if (status !== 'all' && d.status !== status) return false;
+    return true;
+  });
+}
+
+function renderCsData(page) {
+  if (page) csPage = page;
+  csPageSize = parseInt(document.getElementById('csPageSize')?.value || 10);
+  var filtered = getFilteredCsData();
+  var total = filtered.length;
+  var start = (csPage - 1) * csPageSize;
+  var items = filtered.slice(start, start + csPageSize);
+  var tbody = document.getElementById('csTableBody');
+  var html = '';
+  if (items.length === 0) {
+    html = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--tms-muted-foreground);">暂无数据</td></tr>';
+  } else {
+    items.forEach(function(d) {
+      var statusClass = d.status === '已确认' ? 'tms-status--success' : d.status === '已提交' ? 'tms-status--info' : 'tms-status--warning';
+      html += '<tr>' +
+        '<td class="tms-mono-data wb-link">' + d.waybill + '</td>' +
+        '<td>' + d.customer + '</td>' +
+        '<td>' + d.serviceType + '</td>' +
+        '<td class="tms-mono-data">' + d.orderTime + '</td>' +
+        '<td>' + d.csRep + '</td>' +
+        '<td><span class="tms-status ' + statusClass + '">' + d.status + '</span></td>' +
+        '<td class="tms-mono-data">' + (d.submitTime || '-') + '</td>' +
+        '<td class="col-action">' +
+          '<button class="action-btn" title="编辑" onclick="editCsEntry(' + d.id + ')"><i data-lucide="pencil"></i></button>' +
+          '<button class="action-btn" title="提交" onclick="submitCsToAudit(' + d.id + ')" style="color:var(--state-info);"><i data-lucide="send"></i></button>' +
+          '<button class="action-btn" title="删除" onclick="deleteCsEntry(' + d.id + ')" style="color:var(--state-error);"><i data-lucide="trash-2"></i></button>' +
+        '</td></tr>';
+    });
+  }
+  tbody.innerHTML = html;
+  document.getElementById('csTotal').textContent = total;
+  renderPagination(total, csPage, csPageSize, 'csPageNav', 'renderCsData');
+  lucide.createIcons();
+}
+
+function filterCsData() { csPage = 1; renderCsData(); }
+function resetCsFilter() {
+  document.getElementById('csSearch').value = '';
+  document.getElementById('csServiceType').value = 'all';
+  document.getElementById('csStatus').value = 'all';
+  csPage = 1; renderCsData();
+}
+
+function openCsEntryModal(id) {
+  document.getElementById('csEditId').value = '';
+  document.getElementById('csEntryTitle').textContent = '客服数据录入（二期手动录入）';
+  document.getElementById('csEntryWaybill').value = '';
+  document.getElementById('csEntryCustomer').value = '';
+  document.getElementById('csEntryChargeWeight').value = '';
+  document.getElementById('csEntryBubbleRatio').value = '';
+  document.getElementById('csEntryContainerNo').value = '';
+  document.getElementById('csEntryFeeItem').value = '';
+  document.getElementById('csEntryAmount').value = '';
+  document.getElementById('csEntryCurrency').value = 'CNY';
+  document.getElementById('csEntryRemark').value = '';
+  document.getElementById('csEntryOverlay').classList.add('is-visible');
+  document.getElementById('csEntryModal').classList.add('is-visible');
+}
+
+function editCsEntry(id) {
+  var d = csData.find(function(x){ return x.id === id; });
+  if (!d) return;
+  document.getElementById('csEditId').value = d.id;
+  document.getElementById('csEntryTitle').textContent = '编辑客服数据';
+  document.getElementById('csEntryWaybill').value = d.waybill;
+  document.getElementById('csEntryCustomer').value = d.customer;
+  document.getElementById('csEntryChargeWeight').value = d.chargeWeight || '';
+  document.getElementById('csEntryBubbleRatio').value = d.bubbleRatio || '';
+  document.getElementById('csEntryContainerNo').value = d.containerNo || '';
+  document.getElementById('csEntryFeeItem').value = d.feeItem || '';
+  document.getElementById('csEntryAmount').value = d.amount || '';
+  document.getElementById('csEntryCurrency').value = d.currency || 'CNY';
+  document.getElementById('csEntryRemark').value = d.remark || '';
+  document.getElementById('csEntryOverlay').classList.add('is-visible');
+  document.getElementById('csEntryModal').classList.add('is-visible');
+}
+
+function closeCsEntryModal() {
+  document.getElementById('csEntryOverlay').classList.remove('is-visible');
+  document.getElementById('csEntryModal').classList.remove('is-visible');
+}
+
+function saveCsEntry() {
+  var editId = document.getElementById('csEditId').value;
+  var waybill = document.getElementById('csEntryWaybill').value.trim();
+  var customer = document.getElementById('csEntryCustomer').value.trim();
+  if (!waybill || !customer) { showToast('warning', '运单号和客户为必填项'); return; }
+  var now = new Date();
+  var timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  if (editId) {
+    var idx = csData.findIndex(function(x){ return x.id === parseInt(editId); });
+    if (idx >= 0) {
+      csData[idx].waybill = waybill;
+      csData[idx].customer = customer;
+      csData[idx].chargeWeight = document.getElementById('csEntryChargeWeight').value;
+      csData[idx].bubbleRatio = document.getElementById('csEntryBubbleRatio').value;
+      csData[idx].containerNo = document.getElementById('csEntryContainerNo').value;
+      csData[idx].feeItem = document.getElementById('csEntryFeeItem').value;
+      csData[idx].amount = document.getElementById('csEntryAmount').value;
+      csData[idx].currency = document.getElementById('csEntryCurrency').value;
+      csData[idx].remark = document.getElementById('csEntryRemark').value;
+      showToast('success', '客服数据更新成功');
+    }
+  } else {
+    csData.push({
+      id: csNextId++, waybill: waybill, customer: customer, serviceType: '标准', orderTime: timeStr,
+      csRep: '黄维', status: '待确认', submitTime: '',
+      chargeWeight: document.getElementById('csEntryChargeWeight').value,
+      bubbleRatio: document.getElementById('csEntryBubbleRatio').value,
+      containerNo: document.getElementById('csEntryContainerNo').value,
+      feeItem: document.getElementById('csEntryFeeItem').value,
+      amount: document.getElementById('csEntryAmount').value,
+      currency: document.getElementById('csEntryCurrency').value,
+      remark: document.getElementById('csEntryRemark').value
+    });
+    showToast('success', '客服数据录入成功');
+  }
+  closeCsEntryModal();
+  renderCsData();
+}
+
+function submitCsToAudit(id) {
+  var idx = csData.findIndex(function(x){ return x.id === id; });
+  if (idx < 0) return;
+  if (csData[idx].status === '已提交') { showToast('warning', '该数据已提交，请勿重复提交'); return; }
+  var now = new Date();
+  var timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  csData[idx].status = '已提交';
+  csData[idx].submitTime = timeStr;
+  auditData.push({
+    id: auditNextId++, dataType: '客服数据', waybill: csData[idx].waybill, customer: csData[idx].customer,
+    submitter: csData[idx].csRep, submitTime: timeStr, status: '待审核',
+    amount: (csData[idx].amount || '0') + ' ' + (csData[idx].currency || 'CNY')
+  });
+  showToast('success', '已提交至财务审核');
+  renderCsData();
+  renderAuditData();
+}
+
+function deleteCsEntry(id) {
+  if (!confirm('确定删除该客服数据？')) return;
+  csData = csData.filter(function(x){ return x.id !== id; });
+  showToast('success', '删除成功');
+  renderCsData();
+}
+
+function openCsImportModal() {
+  document.getElementById('csImportOverlay').classList.add('is-visible');
+  document.getElementById('csImportModal').classList.add('is-visible');
+}
+function closeCsImportModal() {
+  document.getElementById('csImportOverlay').classList.remove('is-visible');
+  document.getElementById('csImportModal').classList.remove('is-visible');
+}
+function handleCsImport() {
+  showToast('success', '模拟导入成功，已导入3条数据');
+  closeCsImportModal();
+  renderCsData();
+}
+
+/* ============ DOC DATA ============ */
+var docPage = 1, docPageSize = 10;
+
+function getFilteredDocData() {
+  var search = (document.getElementById('docSearch')?.value || '').toLowerCase();
+  var carrier = document.getElementById('docCarrier')?.value || 'all';
+  var status = document.getElementById('docStatus')?.value || 'all';
+  return docData.filter(function(d) {
+    if (search && d.blNo.toLowerCase().indexOf(search) === -1 && d.waybill.toLowerCase().indexOf(search) === -1 && d.customer.toLowerCase().indexOf(search) === -1) return false;
+    if (carrier !== 'all' && d.carrier !== carrier) return false;
+    if (status !== 'all' && d.status !== status) return false;
+    return true;
+  });
+}
+
+function renderDocData(page) {
+  if (page) docPage = page;
+  docPageSize = parseInt(document.getElementById('docPageSize')?.value || 10);
+  var filtered = getFilteredDocData();
+  var total = filtered.length;
+  var start = (docPage - 1) * docPageSize;
+  var items = filtered.slice(start, start + docPageSize);
+  var tbody = document.getElementById('docTableBody');
+  var html = '';
+  if (items.length === 0) {
+    html = '<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--tms-muted-foreground);">暂无数据</td></tr>';
+  } else {
+    items.forEach(function(d) {
+      var statusClass = d.status === '已审核' ? 'tms-status--success' : d.status === '已提交' ? 'tms-status--info' : 'tms-status--warning';
+      html += '<tr>' +
+        '<td class="tms-mono-data wb-link">' + d.blNo + '</td>' +
+        '<td class="tms-mono-data">' + d.waybill + '</td>' +
+        '<td>' + d.customer + '</td>' +
+        '<td>' + d.carrier + '</td>' +
+        '<td>' + d.route + '</td>' +
+        '<td class="tms-mono-data">' + (d.containerNo || '-') + '</td>' +
+        '<td>' + (d.boxType || '-') + '</td>' +
+        '<td><span class="tms-status ' + statusClass + '">' + d.status + '</span></td>' +
+        '<td class="tms-mono-data">' + d.submitTime + '</td>' +
+        '<td class="col-action">' +
+          '<button class="action-btn" title="编辑" onclick="editDocEntry(' + d.id + ')"><i data-lucide="pencil"></i></button>' +
+          '<button class="action-btn" title="提交审核" onclick="submitDocToAudit(' + d.id + ')" style="color:var(--state-info);"><i data-lucide="send"></i></button>' +
+          '<button class="action-btn" title="删除" onclick="deleteDocEntry(' + d.id + ')" style="color:var(--state-error);"><i data-lucide="trash-2"></i></button>' +
+        '</td></tr>';
+    });
+  }
+  tbody.innerHTML = html;
+  document.getElementById('docTotal').textContent = total;
+  renderPagination(total, docPage, docPageSize, 'docPageNav', 'renderDocData');
+  lucide.createIcons();
+}
+
+function filterDocData() { docPage = 1; renderDocData(); }
+function resetDocFilter() {
+  document.getElementById('docSearch').value = '';
+  document.getElementById('docCarrier').value = 'all';
+  document.getElementById('docStatus').value = 'all';
+  docPage = 1; renderDocData();
+}
+
+function openDocModal() {
+  document.getElementById('docEditId').value = '';
+  document.getElementById('docTitle').textContent = '单证数据录入';
+  document.getElementById('docBlNo').value = '';
+  document.getElementById('docWaybill').value = '';
+  document.getElementById('docCustomer').value = '';
+  document.getElementById('docCarrierSelect').value = '';
+  document.getElementById('docRoute').value = '';
+  document.getElementById('docContainerNo').value = '';
+  document.getElementById('docBoxType').value = '';
+  document.getElementById('docDocStatus').value = '草稿';
+  document.getElementById('docOverlay').classList.add('is-visible');
+  document.getElementById('docModal').classList.add('is-visible');
+}
+function editDocEntry(id) {
+  var d = docData.find(function(x){ return x.id === id; });
+  if (!d) return;
+  document.getElementById('docEditId').value = d.id;
+  document.getElementById('docTitle').textContent = '编辑单证数据';
+  document.getElementById('docBlNo').value = d.blNo;
+  document.getElementById('docWaybill').value = d.waybill;
+  document.getElementById('docCustomer').value = d.customer;
+  document.getElementById('docCarrierSelect').value = d.carrier;
+  document.getElementById('docRoute').value = d.route;
+  document.getElementById('docContainerNo').value = d.containerNo;
+  document.getElementById('docBoxType').value = d.boxType;
+  document.getElementById('docDocStatus').value = d.status;
+  document.getElementById('docOverlay').classList.add('is-visible');
+  document.getElementById('docModal').classList.add('is-visible');
+}
+function closeDocModal() {
+  document.getElementById('docOverlay').classList.remove('is-visible');
+  document.getElementById('docModal').classList.remove('is-visible');
+}
+function saveDocEntry() {
+  var editId = document.getElementById('docEditId').value;
+  var blNo = document.getElementById('docBlNo').value.trim();
+  var waybill = document.getElementById('docWaybill').value.trim();
+  var customer = document.getElementById('docCustomer').value.trim();
+  if (!blNo || !waybill || !customer) { showToast('warning', '提单号、运单号和客户为必填项'); return; }
+  var now = new Date();
+  var timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  if (editId) {
+    var idx = docData.findIndex(function(x){ return x.id === parseInt(editId); });
+    if (idx >= 0) {
+      docData[idx].blNo = blNo; docData[idx].waybill = waybill; docData[idx].customer = customer;
+      docData[idx].carrier = document.getElementById('docCarrierSelect').value;
+      docData[idx].route = document.getElementById('docRoute').value;
+      docData[idx].containerNo = document.getElementById('docContainerNo').value;
+      docData[idx].boxType = document.getElementById('docBoxType').value;
+      docData[idx].status = document.getElementById('docDocStatus').value;
+      showToast('success', '单证数据更新成功');
+    }
+  } else {
+    docData.push({
+      id: docNextId++, blNo: blNo, waybill: waybill, customer: customer,
+      carrier: document.getElementById('docCarrierSelect').value,
+      route: document.getElementById('docRoute').value,
+      containerNo: document.getElementById('docContainerNo').value,
+      boxType: document.getElementById('docBoxType').value,
+      status: document.getElementById('docDocStatus').value,
+      submitTime: document.getElementById('docDocStatus').value === '已提交' ? timeStr : ''
+    });
+    showToast('success', '单证数据录入成功');
+  }
+  closeDocModal();
+  renderDocData();
+}
+function submitDocToAudit(id) {
+  var idx = docData.findIndex(function(x){ return x.id === id; });
+  if (idx < 0) return;
+  if (docData[idx].status === '已审核') { showToast('warning', '该数据已审核，无需重复提交'); return; }
+  var now = new Date();
+  var timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  docData[idx].status = '已提交';
+  docData[idx].submitTime = timeStr;
+  auditData.push({
+    id: auditNextId++, dataType: '单证数据', waybill: docData[idx].waybill, customer: docData[idx].customer,
+    submitter: '李芳', submitTime: timeStr, status: '待审核', amount: '-'
+  });
+  showToast('success', '已提交至财务审核');
+  renderDocData();
+  renderAuditData();
+}
+function deleteDocEntry(id) {
+  if (!confirm('确定删除该单证数据？')) return;
+  docData = docData.filter(function(x){ return x.id !== id; });
+  showToast('success', '删除成功');
+  renderDocData();
+}
+
+/* ============ WH DATA ============ */
+var whPage = 1, whPageSize = 10;
+
+function getFilteredWhData() {
+  var search = (document.getElementById('whSearch')?.value || '').toLowerCase();
+  var status = document.getElementById('whStatus')?.value || 'all';
+  return whData.filter(function(d) {
+    if (search && d.waybill.toLowerCase().indexOf(search) === -1 && d.customer.toLowerCase().indexOf(search) === -1 && d.warehouse.toLowerCase().indexOf(search) === -1) return false;
+    if (status !== 'all' && d.status !== status) return false;
+    return true;
+  });
+}
+
+function renderWhData(page) {
+  if (page) whPage = page;
+  whPageSize = parseInt(document.getElementById('whPageSize')?.value || 10);
+  var filtered = getFilteredWhData();
+  var total = filtered.length;
+  var start = (whPage - 1) * whPageSize;
+  var items = filtered.slice(start, start + whPageSize);
+  var tbody = document.getElementById('whTableBody');
+  var html = '';
+  if (items.length === 0) {
+    html = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--tms-muted-foreground);">暂无数据</td></tr>';
+  } else {
+    items.forEach(function(d) {
+      var statusClass = d.status === '已出库' ? 'tms-status--success' : d.status === '异常' ? 'tms-status--error' : 'tms-status--info';
+      html += '<tr>' +
+        '<td class="tms-mono-data wb-link">' + d.waybill + '</td>' +
+        '<td>' + d.customer + '</td>' +
+        '<td>' + d.warehouse + '</td>' +
+        '<td class="tms-mono-data">' + d.arrivalTime + '</td>' +
+        '<td class="tms-mono-data">' + (d.departureTime || '-') + '</td>' +
+        '<td class="tms-mono-data">' + (d.logisticsNo || '-') + '</td>' +
+        '<td><span class="tms-status ' + statusClass + '">' + d.status + '</span></td>' +
+        '<td class="tms-mono-data">' + d.submitTime + '</td>' +
+        '<td class="col-action">' +
+          '<button class="action-btn" title="编辑" onclick="editWhEntry(' + d.id + ')"><i data-lucide="pencil"></i></button>' +
+          '<button class="action-btn" title="删除" onclick="deleteWhEntry(' + d.id + ')" style="color:var(--state-error);"><i data-lucide="trash-2"></i></button>' +
+        '</td></tr>';
+    });
+  }
+  tbody.innerHTML = html;
+  document.getElementById('whTotal').textContent = total;
+  renderPagination(total, whPage, whPageSize, 'whPageNav', 'renderWhData');
+  lucide.createIcons();
+}
+
+function filterWhData() { whPage = 1; renderWhData(); }
+function resetWhFilter() {
+  document.getElementById('whSearch').value = '';
+  document.getElementById('whStatus').value = 'all';
+  whPage = 1; renderWhData();
+}
+
+function openWhModal() {
+  document.getElementById('whEditId').value = '';
+  document.getElementById('whTitle').textContent = '海外仓数据录入';
+  document.getElementById('whWaybill').value = '';
+  document.getElementById('whCustomer').value = '';
+  document.getElementById('whWarehouse').value = '';
+  document.getElementById('whLogisticsNo').value = '';
+  document.getElementById('whArrivalTime').value = '';
+  document.getElementById('whDepartureTime').value = '';
+  document.getElementById('whDataStatus').value = '在仓';
+  document.getElementById('whOverlay').classList.add('is-visible');
+  document.getElementById('whModal').classList.add('is-visible');
+}
+function editWhEntry(id) {
+  var d = whData.find(function(x){ return x.id === id; });
+  if (!d) return;
+  document.getElementById('whEditId').value = d.id;
+  document.getElementById('whTitle').textContent = '编辑海外仓数据';
+  document.getElementById('whWaybill').value = d.waybill;
+  document.getElementById('whCustomer').value = d.customer;
+  document.getElementById('whWarehouse').value = d.warehouse;
+  document.getElementById('whLogisticsNo').value = d.logisticsNo || '';
+  document.getElementById('whArrivalTime').value = d.arrivalTime.replace(' ', 'T');
+  document.getElementById('whDepartureTime').value = d.departureTime ? d.departureTime.replace(' ', 'T') : '';
+  document.getElementById('whDataStatus').value = d.status;
+  document.getElementById('whOverlay').classList.add('is-visible');
+  document.getElementById('whModal').classList.add('is-visible');
+}
+function closeWhModal() {
+  document.getElementById('whOverlay').classList.remove('is-visible');
+  document.getElementById('whModal').classList.remove('is-visible');
+}
+function saveWhEntry() {
+  var editId = document.getElementById('whEditId').value;
+  var waybill = document.getElementById('whWaybill').value.trim();
+  var customer = document.getElementById('whCustomer').value.trim();
+  var warehouse = document.getElementById('whWarehouse').value;
+  if (!waybill || !customer || !warehouse) { showToast('warning', '运单号、客户和仓库为必填项'); return; }
+  var now = new Date();
+  var timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  if (editId) {
+    var idx = whData.findIndex(function(x){ return x.id === parseInt(editId); });
+    if (idx >= 0) {
+      whData[idx].waybill = waybill; whData[idx].customer = customer; whData[idx].warehouse = warehouse;
+      whData[idx].logisticsNo = document.getElementById('whLogisticsNo').value;
+      whData[idx].arrivalTime = document.getElementById('whArrivalTime').value.replace('T', ' ');
+      whData[idx].departureTime = document.getElementById('whDepartureTime').value.replace('T', ' ');
+      whData[idx].status = document.getElementById('whDataStatus').value;
+      showToast('success', '海外仓数据更新成功');
+    }
+  } else {
+    whData.push({
+      id: whNextId++, waybill: waybill, customer: customer, warehouse: warehouse,
+      arrivalTime: document.getElementById('whArrivalTime').value.replace('T', ' ') || timeStr,
+      departureTime: document.getElementById('whDepartureTime').value.replace('T', ' '),
+      logisticsNo: document.getElementById('whLogisticsNo').value,
+      status: document.getElementById('whDataStatus').value,
+      submitTime: timeStr
+    });
+    showToast('success', '海外仓数据录入成功');
+  }
+  closeWhModal();
+  renderWhData();
+}
+function deleteWhEntry(id) {
+  if (!confirm('确定删除该海外仓数据？')) return;
+  whData = whData.filter(function(x){ return x.id !== id; });
+  showToast('success', '删除成功');
+  renderWhData();
+}
+
+/* ============ AUDIT DATA ============ */
+var auditPage = 1, auditPageSize = 10;
+
+function renderAuditData(page) {
+  if (page) auditPage = page;
+  var total = auditData.length;
+  var start = (auditPage - 1) * auditPageSize;
+  var items = auditData.slice(start, start + auditPageSize);
+  var tbody = document.getElementById('auditTableBody');
+  var html = '';
+  if (items.length === 0) {
+    html = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--tms-muted-foreground);">暂无待审核数据</td></tr>';
+  } else {
+    items.forEach(function(d) {
+      html += '<tr>' +
+        '<td><span class="tms-status tms-status--info">' + d.dataType + '</span></td>' +
+        '<td class="tms-mono-data wb-link">' + d.waybill + '</td>' +
+        '<td>' + d.customer + '</td>' +
+        '<td>' + d.submitter + '</td>' +
+        '<td class="tms-mono-data">' + d.submitTime + '</td>' +
+        '<td><span class="tms-status tms-status--warning">' + d.status + '</span></td>' +
+        '<td class="tms-mono-data">' + d.amount + '</td>' +
+        '<td class="col-action">' +
+          '<button class="action-btn" title="审核" onclick="openAuditModal(' + d.id + ')" style="color:var(--state-success);"><i data-lucide="check-circle"></i></button>' +
+          '<button class="action-btn" title="查看详情" onclick="showToast(\'info\',\'查看运单 ' + d.waybill + ' 详情\')"><i data-lucide="eye"></i></button>' +
+        '</td></tr>';
+    });
+  }
+  tbody.innerHTML = html;
+  document.getElementById('auditTotal').textContent = total;
+  renderPagination(total, auditPage, auditPageSize, 'auditPageNav', 'renderAuditData');
+  lucide.createIcons();
+}
+
+function openAuditModal(id) {
+  var d = auditData.find(function(x){ return x.id === id; });
+  if (!d) return;
+  document.getElementById('auditId').value = id;
+  document.getElementById('auditInfo').textContent = '数据类型: ' + d.dataType + ' | 运单号: ' + d.waybill + ' | 客户: ' + d.customer + ' | 金额: ' + d.amount;
+  document.querySelector('input[name="auditResult"][value="pass"]').checked = true;
+  document.getElementById('auditComment').value = '';
+  document.getElementById('auditAdjustAmount').value = '';
+  toggleAuditComment();
+  document.getElementById('auditOverlay').classList.add('is-visible');
+  document.getElementById('auditModal').classList.add('is-visible');
+}
+
+function closeAuditModal() {
+  document.getElementById('auditOverlay').classList.remove('is-visible');
+  document.getElementById('auditModal').classList.remove('is-visible');
+}
+
+function toggleAuditComment() {
+  var val = document.querySelector('input[name="auditResult"]:checked').value;
+  document.getElementById('auditCommentGroup').style.display = val === 'pass' ? 'none' : '';
+  document.getElementById('auditAdjustGroup').style.display = val === 'adjust' ? '' : 'none';
+}
+
+function submitAudit() {
+  var id = parseInt(document.getElementById('auditId').value);
+  var result = document.querySelector('input[name="auditResult"]:checked').value;
+  var comment = document.getElementById('auditComment').value;
+  var idx = auditData.findIndex(function(x){ return x.id === id; });
+  if (idx < 0) return;
+  if (result === 'reject' && !comment) { showToast('warning', '驳回时请输入审核意见'); return; }
+  var now = new Date();
+  var timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' +
+    String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  var resultMap = { pass: '审核通过', reject: '驳回', adjust: '补差' };
+  var item = auditData[idx];
+  auditHistory.unshift({
+    dataType: item.dataType, waybill: item.waybill, customer: item.customer,
+    action: result, result: resultMap[result], auditor: '财务部-王芳',
+    time: timeStr, comment: comment || '审核通过'
+  });
+  auditData.splice(idx, 1);
+  showToast('success', resultMap[result] + ' 操作完成');
+  closeAuditModal();
+  renderAuditData();
+  renderAuditHistory();
+}
+
+function renderAuditHistory() {
+  var search = (document.getElementById('auditHistorySearch')?.value || '').toLowerCase();
+  var filtered = auditHistory.filter(function(d) {
+    if (search && d.waybill.toLowerCase().indexOf(search) === -1 && d.customer.toLowerCase().indexOf(search) === -1) return false;
+    return true;
+  });
+  var container = document.getElementById('auditHistory');
+  var html = '';
+  if (filtered.length === 0) {
+    html = '<div class="empty-state"><i data-lucide="inbox"></i><div class="empty-title">暂无审核记录</div></div>';
+  } else {
+    html = '<div class="audit-timeline">';
+    filtered.forEach(function(d) {
+      var iconClass = d.action === 'pass' ? 'pass' : d.action === 'reject' ? 'reject' : d.action === 'resubmit' ? 'resubmit' : 'adjust';
+      var iconName = d.action === 'pass' ? 'check' : d.action === 'reject' ? 'x' : d.action === 'resubmit' ? 'refresh-cw' : 'dollar-sign';
+      html += '<div class="audit-timeline-item">' +
+        '<div class="audit-timeline-icon ' + iconClass + '"><i data-lucide="' + iconName + '"></i></div>' +
+        '<div class="audit-timeline-body">' +
+          '<div class="audit-timeline-title">' + d.result + ' — ' + d.dataType + ' | ' + d.waybill + ' | ' + d.customer + '</div>' +
+          '<div class="audit-timeline-meta">' + d.auditor + ' · ' + d.time + '</div>' +
+          (d.comment ? '<div class="audit-timeline-comment">' + d.comment + '</div>' : '') +
+        '</div></div>';
+    });
+    html += '</div>';
+  }
+  container.innerHTML = html;
+  lucide.createIcons();
+}
+
+document.getElementById('auditHistorySearch')?.addEventListener('input', renderAuditHistory);
+
+/* ============ MODAL OVERLAY CLICKS ============ */
+document.querySelectorAll('.dept-modal-overlay').forEach(function(overlay) {
+  overlay.addEventListener('click', function() {
+    overlay.classList.remove('is-visible');
+    overlay.nextElementSibling.classList.remove('is-visible');
+  });
+});
+
+/* ============ INITIAL RENDER ============ */
+renderCsData();
+renderDocData();
+renderWhData();
+renderAuditData();
+renderAuditHistory();
+</script>
+
+</body>
+</html>

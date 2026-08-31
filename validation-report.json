@@ -10,13 +10,13 @@
     "version_source": "skill-release-manifest.json",
     "runtime_skill_dir": null,
     "recorded_at": null,
-    "expected_version": "2026.07.22.00.00.00",
-    "status": "matched",
+    "expected_version": "2026.08.06.19.15.08",
+    "status": "mismatch",
     "read_status": "ok"
   },
   "operatingMode": "free-explore",
   "renderBlockingErrorCount": 0,
-  "softWarningCount": 10,
+  "softWarningCount": 17,
   "renderBlockingErrors": [],
   "errorSignatures": [],
   "softWarnings": [
@@ -29,9 +29,68 @@
     "[repair-ledger] validationRepairLedger[1].revalidationReportHash is missing",
     "[repair-ledger] validationRepairLedger[1].revalidationSuccess should be a boolean",
     "[html-quality] colors_and_type.css: ordinary/static shadow tokens must keep every shadow alpha <= 0.05; deeper shadows are allowed only for floating-layer tokens such as modal/popover/dropdown/drawer/overlay (--tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12), --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20)).",
-    "[html-quality] rates-management.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference."
+    "[html-quality] bill-management.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] customer-mgmt.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] department-data.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] payable-report.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] rates-management.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] receivable-report.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] supplier-mgmt.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] system-mgmt.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference."
   ],
   "repairPlanHints": [
+    {
+      "errorClass": "hardcoded-color-in-body",
+      "owner": "sub-agent",
+      "repairScope": "targeted-token-replace",
+      "strategy": "targeted_token_replace_once",
+      "affectedFiles": [
+        "bill-management.html"
+      ],
+      "repairReportPath": null,
+      "repairAlreadyAttempted": false,
+      "allowSourceRead": "no-full-html-read",
+      "maxValidationRuns": 2
+    },
+    {
+      "errorClass": "hardcoded-color-in-body",
+      "owner": "sub-agent",
+      "repairScope": "targeted-token-replace",
+      "strategy": "targeted_token_replace_once",
+      "affectedFiles": [
+        "customer-mgmt.html"
+      ],
+      "repairReportPath": null,
+      "repairAlreadyAttempted": false,
+      "allowSourceRead": "no-full-html-read",
+      "maxValidationRuns": 2
+    },
+    {
+      "errorClass": "hardcoded-color-in-body",
+      "owner": "sub-agent",
+      "repairScope": "targeted-token-replace",
+      "strategy": "targeted_token_replace_once",
+      "affectedFiles": [
+        "department-data.html"
+      ],
+      "repairReportPath": null,
+      "repairAlreadyAttempted": false,
+      "allowSourceRead": "no-full-html-read",
+      "maxValidationRuns": 2
+    },
+    {
+      "errorClass": "hardcoded-color-in-body",
+      "owner": "sub-agent",
+      "repairScope": "targeted-token-replace",
+      "strategy": "targeted_token_replace_once",
+      "affectedFiles": [
+        "payable-report.html"
+      ],
+      "repairReportPath": null,
+      "repairAlreadyAttempted": false,
+      "allowSourceRead": "no-full-html-read",
+      "maxValidationRuns": 2
+    },
     {
       "errorClass": "hardcoded-color-in-body",
       "owner": "sub-agent",
@@ -44,11 +103,50 @@
       "repairAlreadyAttempted": false,
       "allowSourceRead": "no-full-html-read",
       "maxValidationRuns": 2
+    },
+    {
+      "errorClass": "hardcoded-color-in-body",
+      "owner": "sub-agent",
+      "repairScope": "targeted-token-replace",
+      "strategy": "targeted_token_replace_once",
+      "affectedFiles": [
+        "receivable-report.html"
+      ],
+      "repairReportPath": null,
+      "repairAlreadyAttempted": false,
+      "allowSourceRead": "no-full-html-read",
+      "maxValidationRuns": 2
+    },
+    {
+      "errorClass": "hardcoded-color-in-body",
+      "owner": "sub-agent",
+      "repairScope": "targeted-token-replace",
+      "strategy": "targeted_token_replace_once",
+      "affectedFiles": [
+        "supplier-mgmt.html"
+      ],
+      "repairReportPath": null,
+      "repairAlreadyAttempted": false,
+      "allowSourceRead": "no-full-html-read",
+      "maxValidationRuns": 2
+    },
+    {
+      "errorClass": "hardcoded-color-in-body",
+      "owner": "sub-agent",
+      "repairScope": "targeted-token-replace",
+      "strategy": "targeted_token_replace_once",
+      "affectedFiles": [
+        "system-mgmt.html"
+      ],
+      "repairReportPath": null,
+      "repairAlreadyAttempted": false,
+      "allowSourceRead": "no-full-html-read",
+      "maxValidationRuns": 2
     }
   ],
   "repairActionTable": [],
   "errorCount": 0,
-  "warningCount": 10,
+  "warningCount": 17,
   "errors": [],
   "warnings": [
     "[repair-ledger] validationRepairLedger[0].repairActions[] is missing",
@@ -60,7 +158,14 @@
     "[repair-ledger] validationRepairLedger[1].revalidationReportHash is missing",
     "[repair-ledger] validationRepairLedger[1].revalidationSuccess should be a boolean",
     "[html-quality] colors_and_type.css: ordinary/static shadow tokens must keep every shadow alpha <= 0.05; deeper shadows are allowed only for floating-layer tokens such as modal/popover/dropdown/drawer/overlay (--tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12), --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20)).",
-    "[html-quality] rates-management.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference."
+    "[html-quality] bill-management.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] customer-mgmt.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] department-data.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] payable-report.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] rates-management.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] receivable-report.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] supplier-mgmt.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference.",
+    "[html-quality] system-mgmt.html: hardcoded colors are forbidden outside <style id=\"theme-vars\">. Use brand CSS variables from the token reference."
   ],
   "validationRunDisciplineStatus": {
     "declared": true,
@@ -77,7 +182,7 @@
   "terminalState": null,
   "nextCheck": {
     "type": "finish-readiness",
-    "command": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --check=all",
+    "command": "node \"C:\\Users\\Administrator\\.trae-cn\\builtin\\design\\default\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --check=all",
     "fullValidationAllowed": false,
     "reason": "workspace validation passed; run complete finish readiness before final delivery"
   },
@@ -93,17 +198,17 @@
       "version_source": "skill-release-manifest.json",
       "runtime_skill_dir": null,
       "recorded_at": null,
-      "expected_version": "2026.07.22.00.00.00",
-      "status": "matched",
+      "expected_version": "2026.08.06.19.15.08",
+      "status": "mismatch",
       "read_status": "ok"
     },
     "renderBlockingErrorCount": 0,
-    "softWarningCount": 10,
+    "softWarningCount": 17,
     "renderBlockingErrors": [],
     "repairActionTable": [],
     "nextCheck": {
       "type": "finish-readiness",
-      "command": "node \"c:\\Users\\Administrator\\.trae-cn\\builtin\\design\\hebe\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --check=all",
+      "command": "node \"C:\\Users\\Administrator\\.trae-cn\\builtin\\design\\default\\skills\\solo-design\\shared-runtime\\deterministic-tooling\\validate-finish-readiness.mjs\" \"C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype\" --check=all",
       "fullValidationAllowed": false,
       "reason": "workspace validation passed; run complete finish readiness before final delivery"
     },
@@ -115,26 +220,34 @@
     ]
   },
   "projectFileHashes": {
-    "tms-prototype.design": "3479ea8683d7e03ed067485e4356b38893979935aa23cdc7b0c110428265ec6f",
+    "tms-prototype.design": "989e9b5cac253e5f35c8841aa6a87787464f7281f21af93ba3b8efc3faa8d593",
     "colors_and_type.css": "74b18450072d68887b18cdd56a5ea9a269b477fc4b8e2562687a4b5d6c436192",
     "runtime-orchestration-summary.json": "5a7ae1b2fdbd9fa1a99a4fbfb90f6f5f8d18744632cb028a8401cd4d2551084e",
-    "pages/addr-library.html": "ef3049057d78c01a66dc51e46171adcf8605d19ab79ccdd0813c613edccda6a8",
-    "pages/bill-management.html": "6be2df80a13b7d0b85f65b243c4ab8245225b38fb1458cfd74039de67910a436",
-    "pages/create-addr.html": "239d8ceae7375e776105bef0b4294a7369cd823b19af0d1e0dcf2f202b67d449",
-    "pages/create-bill.html": "5642ca47fb8314579b2c0e9b76e4e6b89fe8f3ab739234db3d9bcee4341da452",
-    "pages/create-over-size.html": "3adce95308d53435c65941103e7071e4c17e5fbe2b5032731a1f1cd351b3b58e",
-    "pages/create-service.html": "3f654c4e6d48ad83a90e9197428a077d5ccb95755d32010a78bd3d89de905005",
-    "pages/create-waybill.html": "f4d211486ceb675c62bcb11518b0a3596ac6e44bec47e424238a6de38bcce33d",
-    "pages/dashboard.html": "4b22dbb54b2ea933d3c5bfae772ac2a077d2a76b84e1c63971f13b23efd03e25",
-    "pages/over-size-management.html": "0a38db5a24f02e70375efe3c22d7632d5e5bd735c60a8ac342ca6526ce267f4f",
-    "pages/payable-report.html": "3f0e4293d9d46e1f645a6c3e385dc4e157f9a8443085f7e37f8b3162f75bf84c",
-    "pages/rates-management.html": "30e655ff40eb96c3231a0aa0faa1d292f74f78b9a4ff05a1da90ed3625fb6d38",
-    "pages/receivable-report.html": "8bef27b10ed676958bf7671eff68fc7dfea80f15e12a2aa1e5c7c661bb145633",
-    "pages/service-management.html": "fab51acdc6b9fc54a7c73825ffd08ee2261e55b8555d7f39264bfabff29c60b1",
-    "pages/waybill-management.html": "686ee60dd5be49ab29180d5f0ad80adcc9b6b8df6dcac9e59fce9e9a5ad38807"
+    "pages/addr-library.html": "3c92940ce6c6aa5ead50b9a45efda14008159456932779ed469aedb0256ce506",
+    "pages/bill-management.html": "d8a420b6cd44392fbfc707270d44880e2718262117b6cf5772c171c406ae6d13",
+    "pages/container-loading.html": "60b29669452144c0580fc7ef947dde2f3d9b89d3daaab44e58aba5bf4f594838",
+    "pages/create-addr.html": "19dfa6fae2dce2a6921d5203a4b1a129296318adbbf2e8f9275e97a220c9df39",
+    "pages/create-bill.html": "81f55c0797f6fd024b77fdf295475f1e3108b9e453cee2362f1f46deb87ede76",
+    "pages/create-over-size.html": "df8fb2508ee5f981c9fa5d8033564fc626de2e14c5f8ee0c3ef617a0650059bc",
+    "pages/create-service.html": "786d1c0bb064ef65707531f8b8191ff48787d44ba2e382d7a9fbc0a74a374a09",
+    "pages/create-waybill.html": "d9cd8ee4c1154b96cfbcabd96c1fd76d0809aa048f8e0704ed66429e1bda5b11",
+    "pages/customer-mgmt.html": "a573371f28aa2d35845e188767e7e407bf01502297be687e857846fb9618e839",
+    "pages/customs.html": "213fbe51e863fb7e005dee5c05bdd89adf7df07059e3269a64f927740ae815ea",
+    "pages/dashboard.html": "10c91e8e035f7a36723662b2442a3ebcd669cec92003a919427dd5dfdc95b9fd",
+    "pages/data-reports.html": "7e1c96dca24406fde1b9da4784804400bc83aff848f6be5e3432e41211ee2ce8",
+    "pages/department-data.html": "4a3c198adaac6dc50cbc168555717eb14dcd5fe150e514e1f722b8b646b54d90",
+    "pages/over-size-management.html": "2d80c00ed1727f8575bc8e74c189a1dde724a258ac67fb02202ac687cddb3b83",
+    "pages/payable-report.html": "08db4dee4b1d74829f63628ee895851b264a373711ec7598ce297fe84058a2f0",
+    "pages/rates-management.html": "7c3d02cd8a7dbfdc03da392cb8691571c2683843a6fdb6beba0538b1dc230d60",
+    "pages/receivable-report.html": "53c9546a010aa50424b5854b9901b4b65621d04ce87aaf62d9da34fedcfe3e01",
+    "pages/service-management.html": "9553277c2ad1f6eae4d9d86b81483fb8af5aa4bc5e4d75daf0c2f25dddc912cb",
+    "pages/supplier-mgmt.html": "8478e624b833a5b50aa756062b046a2721acca3f59765350d35290ee82dcbac8",
+    "pages/system-mgmt.html": "2b16841fd22acb075eac8c5d5542111d6e06e7816972691bfd665359fce84bea",
+    "pages/warehouse.html": "ca2b8ecc4f73448b125833a80362beeffba52673c346d40527398185d0b2832a",
+    "pages/waybill-management.html": "ae67c37358a22652b47f80853f1bee17335061af41db0f411c4536606fc71086"
   },
   "designDir": "C:\\Users\\Administrator\\AppData\\Roaming\\TRAE SOLO CN\\ModularData\\ai-agent\\work-mode-projects\\6a6977bb064c97fc4d4c988c\\tms-prototype",
   "expectedPages": null,
   "requireInteractions": null,
-  "checkedAt": "2026-07-30T03:33:18.200Z"
+  "checkedAt": "2026-08-26T01:24:12.417Z"
 }

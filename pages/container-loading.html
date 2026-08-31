@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单证装柜</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳重数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+<!--
+  Shared Application Shell — TMS Logistics Prototype
+  Container Loading Management Page (单证装柜)
+-->
+<style id="critical-layout">
+  .app-layout { display: flex; min-height: 100vh; }
+  .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+  .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+  .app-content { flex: 1; overflow: auto; padding: 24px; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+  .header-search { position: relative; }
+  .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+  .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+  .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+  .header-icon-btn:hover { background: var(--tms-muted); }
+  .header-user { display: flex; align-items: center; gap: 8px; }
+  .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+  .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+  .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+</style>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-logo">
+      <h1>TMS 物流管理</h1>
+      <span>智慧运输管理平台</span>
+    </div>
+    <nav style="flex:1; padding: 12px 0;">
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" href="container-loading.html" class="nav-item" data-active="true"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
+    <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+        <div>
+          <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="app-main-area">
+    <!-- Header -->
+    <header class="app-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="搜索运单号、柜号、客户名称...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+        <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+        <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+        <div class="header-user">
+          <div class="header-avatar">WB</div>
+          <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="app-content">
+
+<!-- ============ Page-Specific Styles ============ -->
+<style>
+  /* Page Header */
+  .cl-page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .cl-page-header h2 { font-size: 24px; color: var(--tms-foreground); line-height: 1.2; }
+  .cl-page-header .header-sub { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+  /* TMS Buttons */
+  .tms-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--tms-font-sans);
+    border-radius: var(--tms-radius-medium);
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .tms-btn-outline {
+    border: 1px solid var(--tms-border);
+    background: var(--tms-card);
+    color: var(--tms-foreground);
+  }
+  .tms-btn-outline:hover { background: var(--tms-muted); border-color: var(--tms-neutral-300); }
+  .tms-btn-primary {
+    border: none;
+    background: var(--tms-primary-500);
+    color: var(--tms-primary-foreground);
+  }
+  .tms-btn-primary:hover { background: var(--tms-primary-600); }
+  .tms-btn-sm { height: 30px; padding: 0 12px; font-size: 12px; }
+  .tms-btn-xs { height: 26px; padding: 0 8px; font-size: 11px; }
+  .tms-btn-danger { border: 1px solid var(--state-error-light); background: var(--tms-card); color: var(--state-error); }
+  .tms-btn-danger:hover { background: var(--state-error-light); }
+
+  /* Page Navigation Tabs */
+  .cl-nav-tabs { display: flex; align-items: center; gap: 2px; border-bottom: 1px solid var(--tms-border); margin-bottom: 20px; overflow-x: auto; }
+  .cl-nav-tab { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; font-size: 13px; color: var(--tms-muted-foreground); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 120ms ease, background-color 120ms ease; margin-bottom: -1px; white-space: nowrap; }
+  .cl-nav-tab:hover { color: var(--tms-foreground); background: var(--tms-muted); }
+  .cl-nav-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+  .cl-nav-tab svg { width: 16px; height: 16px; }
+
+  /* Tab Content */
+  .cl-tab-content { display: none; }
+  .cl-tab-content.is-active { display: block; }
+
+  /* Filter Bar */
+  .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 16px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); margin-bottom: 16px; }
+  .filter-input, .filter-select { height: 34px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); padding: 0 10px; outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; }
+  .filter-input::placeholder { color: var(--tms-neutral-400); }
+  .filter-input:focus, .filter-select:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--tms-muted-foreground); pointer-events: none; }
+  .search-wrap .filter-input { padding-left: 32px; width: 260px; }
+  .filter-label { font-size: 12px; color: var(--tms-muted-foreground); }
+  .btn-search { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--tms-primary); color: var(--tms-primary-foreground); font-size: 13px; font-weight: 500; border: none; cursor: pointer; transition: background-color 120ms ease; }
+  .btn-search:hover { background: var(--tms-primary-600); }
+  .btn-search svg { width: 15px; height: 15px; }
+  .btn-reset { display: inline-flex; align-items: center; height: 34px; padding: 0 16px; border-radius: var(--tms-radius-small); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; font-weight: 500; border: 1px solid var(--tms-border); cursor: pointer; transition: background-color 120ms ease; }
+  .btn-reset:hover { background: var(--tms-muted); }
+
+  /* Table Card */
+  .table-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+  .tms-table-dense { width: 100%; border-collapse: collapse; }
+  .tms-table-dense thead th { text-align: left; position: sticky; top: 0; z-index: 1; }
+  .tms-table-dense .col-num { text-align: right; white-space: nowrap; }
+  .tms-table-dense .col-center { text-align: center; }
+  .tms-table-dense .row-checkbox { width: 40px; }
+  .tms-table-dense .col-action { width: 100px; white-space: nowrap; }
+  .tms-table-dense tbody tr.is-selected { background: var(--tms-primary-50); }
+  .tms-table-dense tbody tr.is-selected:hover { background: var(--tms-primary-100); }
+  .row-check-input { width: 14px; height: 14px; accent-color: var(--tms-primary-500); cursor: pointer; vertical-align: middle; }
+  .action-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--tms-radius-small); border: none; background: transparent; color: var(--tms-muted-foreground); cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .action-btn:hover { background: var(--tms-muted); color: var(--tms-primary-600); }
+  .action-btn svg { width: 15px; height: 15px; }
+
+  /* Split Panel Layout (Tab 1) */
+  .cl-split-layout { display: flex; gap: 16px; min-height: 520px; }
+  .cl-left-panel { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .cl-right-panel { width: 420px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; }
+
+  /* Container Card */
+  .cl-container-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 16px; }
+  .cl-container-card h4 { font-size: 14px; color: var(--tms-foreground); margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px; }
+  .cl-container-card h4 svg { width: 18px; height: 18px; color: var(--tms-primary); }
+  .cl-container-info { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; font-size: 12px; }
+  .cl-container-info .ci-label { color: var(--tms-muted-foreground); }
+  .cl-container-info .ci-value { color: var(--tms-foreground); font-weight: 500; }
+  .cl-container-info .ci-value.tms-mono-data { font-weight: 500; }
+  .cl-container-meta { display: flex; align-items: center; gap: 16px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--tms-border); }
+  .cl-progress-bar { flex: 1; height: 8px; background: var(--tms-muted); border-radius: var(--tms-radius-full); overflow: hidden; }
+  .cl-progress-fill { height: 100%; background: var(--tms-primary); border-radius: var(--tms-radius-full); transition: width 300ms ease; }
+  .cl-progress-fill--warning { background: var(--state-warning); }
+  .cl-progress-fill--danger { background: var(--state-error); }
+  .cl-progress-label { font-size: 11px; color: var(--tms-muted-foreground); white-space: nowrap; }
+
+  /* Matched Waybills in Container */
+  .cl-matched-list { max-height: 200px; overflow-y: auto; margin-top: 8px; }
+  .cl-matched-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; border-radius: var(--tms-radius-small); font-size: 12px; }
+  .cl-matched-item:hover { background: var(--tms-muted); }
+  .cl-matched-item .remove-btn { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: var(--tms-radius-small); border: none; background: transparent; color: var(--state-error); cursor: pointer; transition: background 120ms ease; }
+  .cl-matched-item .remove-btn:hover { background: var(--state-error-light); }
+  .cl-matched-item .remove-btn svg { width: 14px; height: 14px; }
+
+  /* Modal Styles */
+  .cl-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 23, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+    z-index: 200;
+  }
+  .cl-modal-overlay.is-visible { opacity: 1; visibility: visible; }
+  .cl-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.96);
+    width: 600px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    background: var(--tms-card);
+    border-radius: var(--tms-radius-large);
+    box-shadow: var(--tms-shadow-3);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+    z-index: 201;
+  }
+  .cl-modal--wide { width: 900px; }
+  .cl-modal.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+  .cl-modal-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--tms-border);
+  }
+  .cl-modal-header h3 { margin: 0; font-size: 16px; color: var(--tms-foreground); }
+  .cl-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--tms-radius-small);
+    background: transparent;
+    color: var(--tms-muted-foreground);
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .cl-modal-close:hover { background: var(--tms-muted); color: var(--tms-foreground); }
+  .cl-modal-close svg { width: 18px; height: 18px; }
+  .cl-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .cl-modal-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--tms-border);
+    background: var(--tms-card);
+    border-radius: 0 0 var(--tms-radius-large) var(--tms-radius-large);
+  }
+  .cl-form-group { margin-bottom: 16px; }
+  .cl-form-label { display: block; font-size: 13px; color: var(--tms-muted-foreground); margin-bottom: 6px; font-weight: 500; }
+  .cl-form-input, .cl-form-select, .cl-form-textarea {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px;
+    font-size: 13px;
+    border: 1px solid var(--tms-border);
+    border-radius: var(--tms-radius-small);
+    background: var(--tms-card);
+    color: var(--tms-foreground);
+    outline: none;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+    box-sizing: border-box;
+  }
+  .cl-form-textarea { height: 80px; padding: 10px 12px; resize: vertical; }
+  .cl-form-input:focus, .cl-form-select:focus, .cl-form-textarea:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+
+  /* Pagination */
+  .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; flex-wrap: wrap; gap: 12px; }
+  .pagination-info { font-size: 13px; color: var(--tms-muted-foreground); }
+  .pagination-info .tms-mono-data { color: var(--tms-foreground); font-weight: 600; }
+  .pagination-center { display: flex; align-items: center; gap: 4px; }
+  .page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .page-btn:hover:not(:disabled):not(.is-active) { background: var(--tms-muted); }
+  .page-btn.is-active { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); font-weight: 600; }
+  .page-btn:disabled { color: var(--tms-neutral-400); cursor: not-allowed; }
+  .page-btn svg { width: 14px; height: 14px; }
+
+  /* Toast Notification */
+  .cl-toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    padding: 12px 20px;
+    border-radius: var(--tms-radius-medium);
+    background: var(--tms-card);
+    color: var(--tms-foreground);
+    font-size: 13px;
+    box-shadow: var(--tms-shadow-2);
+    border: 1px solid var(--tms-border);
+    z-index: 300;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 200ms ease;
+    pointer-events: none;
+  }
+  .cl-toast.is-visible { opacity: 1; transform: translateY(0); }
+  .cl-toast--success { border-color: var(--state-success); color: var(--state-success); }
+  .cl-toast--error { border-color: var(--state-error); color: var(--state-error); }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .cl-split-layout { flex-direction: column; }
+    .cl-right-panel { width: 100%; }
+  }
+</style>
+
+<!-- Page Header -->
+<div class="cl-page-header">
+  <div>
+    <h2>单证装柜</h2>
+    <div class="header-sub">集装箱配载、到仓收货、拣货入库、出库管理与库存盘点</div>
+  </div>
+</div>
+
+<!-- Page Navigation Tabs -->
+<div class="cl-nav-tabs" id="cl-nav-tabs">
+  <button class="cl-nav-tab is-active" data-tab="tab-loading">
+    <i data-lucide="container"></i>
+    <span>装柜配载</span>
+  </button>
+  <button class="cl-nav-tab" data-tab="tab-receiving">
+    <i data-lucide="package-check"></i>
+    <span>到仓收货</span>
+  </button>
+  <button class="cl-nav-tab" data-tab="tab-picking">
+    <i data-lucide="clipboard-list"></i>
+    <span>拣货入库</span>
+  </button>
+  <button class="cl-nav-tab" data-tab="tab-outbound">
+    <i data-lucide="truck"></i>
+    <span>出库管理</span>
+  </button>
+  <button class="cl-nav-tab" data-tab="tab-check">
+    <i data-lucide="scan-search"></i>
+    <span>库存盘点</span>
+  </button>
+</div>
+
+<!-- ==================== TAB 1: 装柜配载 ==================== -->
+<div class="cl-tab-content is-active" id="tab-loading">
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <select class="filter-select">
+      <option value="all">全部仓点</option>
+      <option value="yiwu">义乌仓</option>
+      <option value="hangzhou">杭州仓</option>
+      <option value="shenzhen">深圳仓</option>
+    </select>
+    <select class="filter-select">
+      <option value="all">全部状态</option>
+      <option value="received">已收货</option>
+      <option value="warehoused">已入库</option>
+    </select>
+    <select class="filter-select">
+      <option value="all">全部服务</option>
+      <option value="standard">标准</option>
+      <option value="express">快速</option>
+      <option value="economy">经济</option>
+    </select>
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" placeholder="运单号/客户名称">
+    </div>
+    <button class="btn-search">
+      <i data-lucide="search"></i>
+      <span>查询</span>
+    </button>
+    <button class="btn-reset">
+      <span>重置</span>
+    </button>
+  </div>
+
+  <!-- Split Layout -->
+  <div class="cl-split-layout">
+    <!-- Left Panel: 待配柜运单列表 -->
+    <div class="cl-left-panel">
+      <div class="table-card" style="flex:1; display:flex; flex-direction:column;">
+        <div style="padding:12px 16px; border-bottom:1px solid var(--tms-border); display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:14px; font-weight:600; color:var(--tms-foreground);">待配柜运单列表</span>
+          <span style="font-size:12px; color:var(--tms-muted-foreground);">共 <strong style="color:var(--tms-foreground);">18</strong> 条</span>
+        </div>
+        <div class="table-wrap" style="flex:1;">
+          <table class="tms-table-dense">
+            <thead>
+              <tr>
+                <th class="row-checkbox"><input type="checkbox" class="row-check-input" id="cl-check-all"></th>
+                <th>运单号</th>
+                <th>客户</th>
+                <th class="col-num">方数(m³)</th>
+                <th>入库时间</th>
+                <th>仓点</th>
+                <th>服务</th>
+                <th class="col-action">操作</th>
+              </tr>
+            </thead>
+            <tbody id="cl-waybill-tbody">
+              <tr data-waybill="WB20240728001" data-warehouse="yiwu" data-cbm="12.5" data-status="received">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728001</td>
+                <td>华东贸易有限公司</td>
+                <td class="col-num tms-mono-data">12.50</td>
+                <td class="tms-mono-data">2024-07-28 09:15</td>
+                <td><span class="tms-status tms-status--neutral">义乌仓</span></td>
+                <td><span class="tms-status tms-status--info">标准</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+              <tr data-waybill="WB20240728002" data-warehouse="yiwu" data-cbm="8.20" data-status="received">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728002</td>
+                <td>跨境物流科技</td>
+                <td class="col-num tms-mono-data">8.20</td>
+                <td class="tms-mono-data">2024-07-28 08:42</td>
+                <td><span class="tms-status tms-status--neutral">义乌仓</span></td>
+                <td><span class="tms-status tms-status--info">快速</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+              <tr data-waybill="WB20240728003" data-warehouse="yiwu" data-cbm="15.80" data-status="warehoused">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728003</td>
+                <td>中通供应链</td>
+                <td class="col-num tms-mono-data">15.80</td>
+                <td class="tms-mono-data">2024-07-27 16:30</td>
+                <td><span class="tms-status tms-status--neutral">义乌仓</span></td>
+                <td><span class="tms-status tms-status--warning">经济</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+              <tr data-waybill="WB20240728004" data-warehouse="hangzhou" data-cbm="6.30" data-status="received">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728004</td>
+                <td>远东贸易集团</td>
+                <td class="col-num tms-mono-data">6.30</td>
+                <td class="tms-mono-data">2024-07-26 14:20</td>
+                <td><span class="tms-status tms-status--neutral">杭州仓</span></td>
+                <td><span class="tms-status tms-status--info">标准</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+              <tr data-waybill="WB20240728005" data-warehouse="hangzhou" data-cbm="3.80" data-status="warehoused">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728005</td>
+                <td>顺达货运</td>
+                <td class="col-num tms-mono-data">3.80</td>
+                <td class="tms-mono-data">2024-07-28 10:05</td>
+                <td><span class="tms-status tms-status--neutral">杭州仓</span></td>
+                <td><span class="tms-status tms-status--info">快速</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+              <tr data-waybill="WB20240728006" data-warehouse="shenzhen" data-cbm="22.50" data-status="received">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728006</td>
+                <td>海丰国际物流</td>
+                <td class="col-num tms-mono-data">22.50</td>
+                <td class="tms-mono-data">2024-07-27 11:45</td>
+                <td><span class="tms-status tms-status--neutral">深圳仓</span></td>
+                <td><span class="tms-status tms-status--info">标准</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+              <tr data-waybill="WB20240728007" data-warehouse="shenzhen" data-cbm="9.10" data-status="warehoused">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728007</td>
+                <td>德邦快运</td>
+                <td class="col-num tms-mono-data">9.10</td>
+                <td class="tms-mono-data">2024-07-25 09:30</td>
+                <td><span class="tms-status tms-status--neutral">深圳仓</span></td>
+                <td><span class="tms-status tms-status--warning">经济</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+              <tr data-waybill="WB20240728008" data-warehouse="yiwu" data-cbm="11.20" data-status="received">
+                <td class="row-checkbox"><input type="checkbox" class="row-check-input cl-waybill-check"></td>
+                <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240728008</td>
+                <td>京东物流</td>
+                <td class="col-num tms-mono-data">11.20</td>
+                <td class="tms-mono-data">2024-07-28 07:55</td>
+                <td><span class="tms-status tms-status--neutral">义乌仓</span></td>
+                <td><span class="tms-status tms-status--info">快速</span></td>
+                <td class="col-action">
+                  <button class="action-btn cl-transfer-btn" title="调仓"><i data-lucide="shuffle"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination-bar">
+          <div class="pagination-info">共 <span class="tms-mono-data">18</span> 条记录</div>
+          <div class="pagination-center">
+            <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+            <button class="page-btn is-active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: 集装箱配载区 -->
+    <div class="cl-right-panel">
+      <!-- Action Buttons -->
+      <div style="display:flex; gap:8px;">
+        <button class="tms-btn tms-btn-primary" style="flex:1;" id="cl-auto-match">
+          <i data-lucide="zap" style="width:16px;height:16px;"></i>
+          <span>自动配柜</span>
+        </button>
+        <button class="tms-btn tms-btn-outline" style="flex:1;" id="cl-manual-add">
+          <i data-lucide="plus" style="width:16px;height:16px;"></i>
+          <span>追加运单</span>
+        </button>
+      </div>
+
+      <!-- Container Card -->
+      <div class="cl-container-card" id="cl-container-card">
+        <h4><i data-lucide="container"></i>集装箱配载区</h4>
+        <div class="cl-container-info">
+          <div class="ci-label">柜号</div><div class="ci-value tms-mono-data" id="cl-container-no">TGHU8888881</div>
+          <div class="ci-label">船名航次</div><div class="ci-value" id="cl-vessel">COSCO SHIPPING / 0246E</div>
+          <div class="ci-label">装箱规格</div><div class="ci-value" id="cl-spec">40HQ</div>
+          <div class="ci-label">出发地</div><div class="ci-value" id="cl-origin">宁波港</div>
+          <div class="ci-label">目的地</div><div class="ci-value" id="cl-dest">洛杉矶港</div>
+          <div class="ci-label">容积</div><div class="ci-value tms-mono-data" id="cl-capacity">68.00 m³</div>
+        </div>
+        <div class="cl-container-meta">
+          <span class="cl-progress-label">已配 <span id="cl-loaded-count">0</span> 单</span>
+          <div class="cl-progress-bar">
+            <div class="cl-progress-fill" id="cl-progress-bar" style="width:0%;"></div>
+          </div>
+          <span class="cl-progress-label"><span id="cl-used-cbm">0.00</span> / <span id="cl-total-cbm">68.00</span> m³</span>
+        </div>
+        <div style="margin-top:10px; font-size:12px; color:var(--tms-muted-foreground);">
+          剩余方数: <strong style="color:var(--tms-primary);" id="cl-remain-cbm">68.00</strong> m³
+        </div>
+        <div class="cl-matched-list" id="cl-matched-list">
+          <div style="text-align:center; color:var(--tms-muted-foreground); padding:20px; font-size:12px;">
+            <i data-lucide="inbox" style="width:24px;height:24px;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;"></i>
+            暂无已配运单<br>请选择左侧运单进行配柜
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm Button -->
+      <button class="tms-btn tms-btn-primary" style="width:100%;" id="cl-confirm-loading">
+        <i data-lucide="check-circle" style="width:16px;height:16px;"></i>
+        <span>确认预配柜</span>
+      </button>
+      <button class="tms-btn tms-btn-outline" style="width:100%;" id="cl-issue-list">
+        <i data-lucide="send" style="width:16px;height:16px;"></i>
+        <span>下发装柜清单</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 2: 到仓收货 ==================== -->
+<div class="cl-tab-content" id="tab-receiving">
+  <div class="filter-bar">
+    <select class="filter-select">
+      <option value="all">全部仓点</option>
+      <option value="yiwu">义乌仓</option>
+      <option value="hangzhou">杭州仓</option>
+      <option value="shenzhen">深圳仓</option>
+    </select>
+    <select class="filter-select">
+      <option value="all">标签状态</option>
+      <option value="labeled">已贴</option>
+      <option value="unlabeled">未贴</option>
+    </select>
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" placeholder="运单号/客户名称">
+    </div>
+    <button class="btn-search"><i data-lucide="search"></i><span>查询</span></button>
+    <button class="btn-reset"><span>重置</span></button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense">
+        <thead>
+          <tr>
+            <th class="row-checkbox"><input type="checkbox" class="row-check-input"></th>
+            <th>运单号</th>
+            <th>客户</th>
+            <th>到仓时间</th>
+            <th class="col-num">箱数</th>
+            <th>标签状态</th>
+            <th>仓点</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240801001</td>
+            <td>华东贸易有限公司</td>
+            <td class="tms-mono-data">2024-08-01 09:15</td>
+            <td class="col-num tms-mono-data">3</td>
+            <td><span class="tms-status tms-status--success">已贴</span></td>
+            <td><span class="tms-status tms-status--neutral">义乌仓</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-print-label" title="打印标签"><i data-lucide="printer"></i></button>
+              <button class="action-btn cl-confirm-receive" title="确认收货"><i data-lucide="check-circle"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240801002</td>
+            <td>跨境物流科技</td>
+            <td class="tms-mono-data">2024-08-01 08:42</td>
+            <td class="col-num tms-mono-data">5</td>
+            <td><span class="tms-status tms-status--error">未贴</span></td>
+            <td><span class="tms-status tms-status--neutral">义乌仓</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-print-label" title="打印标签"><i data-lucide="printer"></i></button>
+              <button class="action-btn cl-confirm-receive" title="确认收货"><i data-lucide="check-circle"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240801003</td>
+            <td>中通供应链</td>
+            <td class="tms-mono-data">2024-08-01 07:30</td>
+            <td class="col-num tms-mono-data">8</td>
+            <td><span class="tms-status tms-status--success">已贴</span></td>
+            <td><span class="tms-status tms-status--neutral">杭州仓</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-print-label" title="打印标签"><i data-lucide="printer"></i></button>
+              <button class="action-btn cl-confirm-receive" title="确认收货"><i data-lucide="check-circle"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240801004</td>
+            <td>远东贸易集团</td>
+            <td class="tms-mono-data">2024-08-01 10:20</td>
+            <td class="col-num tms-mono-data">2</td>
+            <td><span class="tms-status tms-status--error">未贴</span></td>
+            <td><span class="tms-status tms-status--neutral">深圳仓</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-print-label" title="打印标签"><i data-lucide="printer"></i></button>
+              <button class="action-btn cl-confirm-receive" title="确认收货"><i data-lucide="check-circle"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240801005</td>
+            <td>顺达货运</td>
+            <td class="tms-mono-data">2024-08-01 11:05</td>
+            <td class="col-num tms-mono-data">4</td>
+            <td><span class="tms-status tms-status--success">已贴</span></td>
+            <td><span class="tms-status tms-status--neutral">义乌仓</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-print-label" title="打印标签"><i data-lucide="printer"></i></button>
+              <button class="action-btn cl-confirm-receive" title="确认收货"><i data-lucide="check-circle"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240801006</td>
+            <td>海丰国际物流</td>
+            <td class="tms-mono-data">2024-08-01 06:45</td>
+            <td class="col-num tms-mono-data">6</td>
+            <td><span class="tms-status tms-status--success">已贴</span></td>
+            <td><span class="tms-status tms-status--neutral">杭州仓</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-print-label" title="打印标签"><i data-lucide="printer"></i></button>
+              <button class="action-btn cl-confirm-receive" title="确认收货"><i data-lucide="check-circle"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240801007</td>
+            <td>德邦快运</td>
+            <td class="tms-mono-data">2024-08-01 14:30</td>
+            <td class="col-num tms-mono-data">3</td>
+            <td><span class="tms-status tms-status--error">未贴</span></td>
+            <td><span class="tms-status tms-status--neutral">深圳仓</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-print-label" title="打印标签"><i data-lucide="printer"></i></button>
+              <button class="action-btn cl-confirm-receive" title="确认收货"><i data-lucide="check-circle"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data">7</span> 条记录</div>
+      <div class="pagination-center">
+        <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+        <button class="page-btn is-active">1</button>
+        <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 3: 拣货入库 ==================== -->
+<div class="cl-tab-content" id="tab-picking">
+  <div class="filter-bar">
+    <select class="filter-select">
+      <option value="all">全部仓点</option>
+      <option value="yiwu">义乌仓</option>
+      <option value="hangzhou">杭州仓</option>
+      <option value="shenzhen">深圳仓</option>
+    </select>
+    <select class="filter-select">
+      <option value="all">全部状态</option>
+      <option value="pending">待入库</option>
+      <option value="done">已入库</option>
+    </select>
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" placeholder="运单号/条码">
+    </div>
+    <button class="btn-search"><i data-lucide="search"></i><span>查询</span></button>
+    <button class="btn-reset"><span>重置</span></button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense">
+        <thead>
+          <tr>
+            <th class="row-checkbox"><input type="checkbox" class="row-check-input"></th>
+            <th>运单号</th>
+            <th>客户</th>
+            <th>货位</th>
+            <th class="col-num">重量(kg)</th>
+            <th>尺寸(cm)</th>
+            <th class="col-num">体积(m³)</th>
+            <th>条码</th>
+            <th>状态</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240802001</td>
+            <td>华东贸易有限公司</td>
+            <td>A-01-03</td>
+            <td class="col-num tms-mono-data">25.50</td>
+            <td>120x80x60</td>
+            <td class="col-num tms-mono-data">0.58</td>
+            <td class="tms-mono-data" style="font-size:11px;">TMS20240802001</td>
+            <td><span class="tms-status tms-status--warning">待入库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-manual-entry" title="人工录入"><i data-lucide="pencil"></i></button>
+              <button class="action-btn cl-confirm-warehouse" title="确认入库"><i data-lucide="package-check"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240802002</td>
+            <td>跨境物流科技</td>
+            <td>B-02-05</td>
+            <td class="col-num tms-mono-data">8.20</td>
+            <td>80x50x40</td>
+            <td class="col-num tms-mono-data">0.16</td>
+            <td class="tms-mono-data" style="font-size:11px;">TMS20240802002</td>
+            <td><span class="tms-status tms-status--success">已入库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-manual-entry" title="人工录入"><i data-lucide="pencil"></i></button>
+              <button class="action-btn cl-confirm-warehouse" title="确认入库"><i data-lucide="package-check"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240802003</td>
+            <td>中通供应链</td>
+            <td>C-03-01</td>
+            <td class="col-num tms-mono-data">-</td>
+            <td>-</td>
+            <td class="col-num tms-mono-data">-</td>
+            <td class="tms-mono-data" style="font-size:11px;">TMS20240802003</td>
+            <td><span class="tms-status tms-status--warning">待入库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-manual-entry" title="人工录入"><i data-lucide="pencil"></i></button>
+              <button class="action-btn cl-confirm-warehouse" title="确认入库"><i data-lucide="package-check"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240802004</td>
+            <td>远东贸易集团</td>
+            <td>A-02-04</td>
+            <td class="col-num tms-mono-data">45.30</td>
+            <td>150x100x80</td>
+            <td class="col-num tms-mono-data">1.20</td>
+            <td class="tms-mono-data" style="font-size:11px;">TMS20240802004</td>
+            <td><span class="tms-status tms-status--success">已入库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-manual-entry" title="人工录入"><i data-lucide="pencil"></i></button>
+              <button class="action-btn cl-confirm-warehouse" title="确认入库"><i data-lucide="package-check"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240802005</td>
+            <td>顺达货运</td>
+            <td>B-01-02</td>
+            <td class="col-num tms-mono-data">-</td>
+            <td>-</td>
+            <td class="col-num tms-mono-data">-</td>
+            <td class="tms-mono-data" style="font-size:11px;">TMS20240802005</td>
+            <td><span class="tms-status tms-status--warning">待入库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-manual-entry" title="人工录入"><i data-lucide="pencil"></i></button>
+              <button class="action-btn cl-confirm-warehouse" title="确认入库"><i data-lucide="package-check"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">WB20240802006</td>
+            <td>海丰国际物流</td>
+            <td>C-01-03</td>
+            <td class="col-num tms-mono-data">67.50</td>
+            <td>180x120x100</td>
+            <td class="col-num tms-mono-data">2.16</td>
+            <td class="tms-mono-data" style="font-size:11px;">TMS20240802006</td>
+            <td><span class="tms-status tms-status--success">已入库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-manual-entry" title="人工录入"><i data-lucide="pencil"></i></button>
+              <button class="action-btn cl-confirm-warehouse" title="确认入库"><i data-lucide="package-check"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data">6</span> 条记录</div>
+      <div class="pagination-center">
+        <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+        <button class="page-btn is-active">1</button>
+        <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 4: 出库管理 ==================== -->
+<div class="cl-tab-content" id="tab-outbound">
+  <div class="filter-bar">
+    <select class="filter-select">
+      <option value="all">全部状态</option>
+      <option value="pending">待出库</option>
+      <option value="done">已出库</option>
+    </select>
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" placeholder="柜号/运单号/客户">
+    </div>
+    <button class="btn-search"><i data-lucide="search"></i><span>查询</span></button>
+    <button class="btn-reset"><span>重置</span></button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense">
+        <thead>
+          <tr>
+            <th class="row-checkbox"><input type="checkbox" class="row-check-input"></th>
+            <th>柜号</th>
+            <th>运单号</th>
+            <th>客户</th>
+            <th class="col-num">出库箱数</th>
+            <th>出库时间</th>
+            <th>操作人</th>
+            <th>状态</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">TGHU8888881</td>
+            <td class="tms-mono-data">WB20240803001</td>
+            <td>华东贸易有限公司</td>
+            <td class="col-num tms-mono-data">3</td>
+            <td class="tms-mono-data">2024-08-03 14:20</td>
+            <td>张明华</td>
+            <td><span class="tms-status tms-status--success">已出库</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="打印"><i data-lucide="printer"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">TGHU8888881</td>
+            <td class="tms-mono-data">WB20240803002</td>
+            <td>跨境物流科技</td>
+            <td class="col-num tms-mono-data">5</td>
+            <td class="tms-mono-data">2024-08-03 14:25</td>
+            <td>张明华</td>
+            <td><span class="tms-status tms-status--success">已出库</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="打印"><i data-lucide="printer"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">TGHU8888882</td>
+            <td class="tms-mono-data">WB20240803003</td>
+            <td>中通供应链</td>
+            <td class="col-num tms-mono-data">8</td>
+            <td class="tms-mono-data">-</td>
+            <td>-</td>
+            <td><span class="tms-status tms-status--warning">待出库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-outbound-confirm" title="确认出库"><i data-lucide="truck"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">TGHU8888882</td>
+            <td class="tms-mono-data">WB20240803004</td>
+            <td>远东贸易集团</td>
+            <td class="col-num tms-mono-data">2</td>
+            <td class="tms-mono-data">-</td>
+            <td>-</td>
+            <td><span class="tms-status tms-status--warning">待出库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-outbound-confirm" title="确认出库"><i data-lucide="truck"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">TGHU8888882</td>
+            <td class="tms-mono-data">WB20240803005</td>
+            <td>顺达货运</td>
+            <td class="col-num tms-mono-data">4</td>
+            <td class="tms-mono-data">-</td>
+            <td>-</td>
+            <td><span class="tms-status tms-status--warning">待出库</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-outbound-confirm" title="确认出库"><i data-lucide="truck"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">TGHU8888881</td>
+            <td class="tms-mono-data">WB20240803006</td>
+            <td>海丰国际物流</td>
+            <td class="col-num tms-mono-data">6</td>
+            <td class="tms-mono-data">2024-08-03 14:30</td>
+            <td>李伟</td>
+            <td><span class="tms-status tms-status--success">已出库</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="打印"><i data-lucide="printer"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data">6</span> 条记录</div>
+      <div class="pagination-center">
+        <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+        <button class="page-btn is-active">1</button>
+        <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TAB 5: 库存盘点 ==================== -->
+<div class="cl-tab-content" id="tab-check">
+  <div class="filter-bar">
+    <select class="filter-select">
+      <option value="all">全部仓点</option>
+      <option value="yiwu">义乌仓</option>
+      <option value="hangzhou">杭州仓</option>
+      <option value="shenzhen">深圳仓</option>
+    </select>
+    <select class="filter-select">
+      <option value="all">差异状态</option>
+      <option value="match">无差异</option>
+      <option value="diff">有差异</option>
+    </select>
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" placeholder="仓位/运单号">
+    </div>
+    <button class="btn-search"><i data-lucide="search"></i><span>查询</span></button>
+    <button class="btn-reset"><span>重置</span></button>
+    <button class="tms-btn tms-btn-outline" style="height:34px;" id="cl-pda-scan">
+      <i data-lucide="scan" style="width:15px;height:15px;"></i>
+      <span>PDA 扫码模拟</span>
+    </button>
+    <button class="tms-btn tms-btn-outline" style="height:34px;" id="cl-print-check">
+      <i data-lucide="printer" style="width:15px;height:15px;"></i>
+      <span>打印盘点表</span>
+    </button>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense">
+        <thead>
+          <tr>
+            <th class="row-checkbox"><input type="checkbox" class="row-check-input"></th>
+            <th>仓位</th>
+            <th>运单号</th>
+            <th class="col-num">系统库存</th>
+            <th class="col-num">实际库存</th>
+            <th class="col-num">差异</th>
+            <th>盘点时间</th>
+            <th>操作人</th>
+            <th>状态</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">A-01-03</td>
+            <td class="tms-mono-data">WB20240804001</td>
+            <td class="col-num tms-mono-data">3</td>
+            <td class="col-num tms-mono-data">3</td>
+            <td class="col-num tms-mono-data" style="color:var(--state-success);">0</td>
+            <td class="tms-mono-data">2024-08-04 09:00</td>
+            <td>张明华</td>
+            <td><span class="tms-status tms-status--success">无差异</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">B-02-05</td>
+            <td class="tms-mono-data">WB20240804002</td>
+            <td class="col-num tms-mono-data">5</td>
+            <td class="col-num tms-mono-data">4</td>
+            <td class="col-num tms-mono-data" style="color:var(--state-error);">-1</td>
+            <td class="tms-mono-data">2024-08-04 09:15</td>
+            <td>张明华</td>
+            <td><span class="tms-status tms-status--error">有差异</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">C-03-01</td>
+            <td class="tms-mono-data">WB20240804003</td>
+            <td class="col-num tms-mono-data">8</td>
+            <td class="col-num tms-mono-data">8</td>
+            <td class="col-num tms-mono-data" style="color:var(--state-success);">0</td>
+            <td class="tms-mono-data">2024-08-04 09:30</td>
+            <td>李伟</td>
+            <td><span class="tms-status tms-status--success">无差异</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">A-02-04</td>
+            <td class="tms-mono-data">WB20240804004</td>
+            <td class="col-num tms-mono-data">2</td>
+            <td class="col-num tms-mono-data">2</td>
+            <td class="col-num tms-mono-data" style="color:var(--state-success);">0</td>
+            <td class="tms-mono-data">2024-08-04 09:45</td>
+            <td>李伟</td>
+            <td><span class="tms-status tms-status--success">无差异</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">B-01-02</td>
+            <td class="tms-mono-data">WB20240804005</td>
+            <td class="col-num tms-mono-data">6</td>
+            <td class="col-num tms-mono-data">7</td>
+            <td class="col-num tms-mono-data" style="color:var(--state-warning);">+1</td>
+            <td class="tms-mono-data">2024-08-04 10:00</td>
+            <td>李伟</td>
+            <td><span class="tms-status tms-status--warning">有差异</span></td>
+            <td class="col-action">
+              <button class="action-btn" title="查看详情"><i data-lucide="eye"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);font-weight:600;">C-01-03</td>
+            <td class="tms-mono-data">WB20240804006</td>
+            <td class="col-num tms-mono-data">10</td>
+            <td class="col-num tms-mono-data">-</td>
+            <td class="col-num tms-mono-data" style="color:var(--tms-muted-foreground);">-</td>
+            <td class="tms-mono-data">-</td>
+            <td>-</td>
+            <td><span class="tms-status tms-status--neutral">待盘点</span></td>
+            <td class="col-action">
+              <button class="action-btn cl-check-start" title="开始盘点"><i data-lucide="scan"></i></button>
+              <button class="action-btn" title="编辑"><i data-lucide="pencil"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data">6</span> 条记录</div>
+      <div class="pagination-center">
+        <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+        <button class="page-btn is-active">1</button>
+        <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- Modal: 调仓 (Transfer Warehouse) -->
+<div class="cl-modal-overlay" id="cl-transfer-overlay"></div>
+<div class="cl-modal" id="cl-transfer-modal">
+  <div class="cl-modal-header">
+    <h3>调仓操作</h3>
+    <button class="cl-modal-close" data-close="cl-transfer"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cl-modal-body">
+    <div class="cl-form-group">
+      <label class="cl-form-label">当前运单号</label>
+      <input type="text" class="cl-form-input" id="cl-transfer-waybill" readonly>
+    </div>
+    <div class="cl-form-group">
+      <label class="cl-form-label">当前仓点</label>
+      <input type="text" class="cl-form-input" id="cl-transfer-current-wh" readonly>
+    </div>
+    <div class="cl-form-group">
+      <label class="cl-form-label">目标仓点</label>
+      <select class="cl-form-select" id="cl-transfer-target-wh">
+        <option value="">请选择目标仓点</option>
+        <option value="yiwu">义乌仓</option>
+        <option value="hangzhou">杭州仓</option>
+        <option value="shenzhen">深圳仓</option>
+      </select>
+    </div>
+    <div class="cl-form-group">
+      <label class="cl-form-label">调仓备注</label>
+      <textarea class="cl-form-textarea" id="cl-transfer-remark" placeholder="请输入调仓原因..."></textarea>
+    </div>
+  </div>
+  <div class="cl-modal-footer">
+    <button class="tms-btn tms-btn-outline" data-close="cl-transfer">取消</button>
+    <button class="tms-btn tms-btn-primary" id="cl-transfer-save">确认调仓</button>
+  </div>
+</div>
+
+<!-- Modal: 打印标签 -->
+<div class="cl-modal-overlay" id="cl-print-label-overlay"></div>
+<div class="cl-modal" id="cl-print-label-modal">
+  <div class="cl-modal-header">
+    <h3>打印标签</h3>
+    <button class="cl-modal-close" data-close="cl-print-label"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cl-modal-body">
+    <div class="cl-form-group">
+      <label class="cl-form-label">运单号</label>
+      <input type="text" class="cl-form-input" id="cl-print-waybill" readonly>
+    </div>
+    <div class="cl-form-group">
+      <label class="cl-form-label">标签模板</label>
+      <select class="cl-form-select">
+        <option value="standard">标准标签 (100x150mm)</option>
+        <option value="small">小标签 (80x120mm)</option>
+        <option value="large">大标签 (120x180mm)</option>
+      </select>
+    </div>
+    <div class="cl-form-group">
+      <label class="cl-form-label">打印份数</label>
+      <input type="number" class="cl-form-input" value="1" min="1" max="10">
+    </div>
+    <div class="cl-form-group">
+      <label class="cl-form-label">打印机</label>
+      <select class="cl-form-select">
+        <option value="printer1">Zebra ZT410 (收货区)</option>
+        <option value="printer2">TSC TTP-244 (仓库A)</option>
+        <option value="printer3">Brother QL-820NWB (仓库B)</option>
+      </select>
+    </div>
+    <div style="padding:16px; background:var(--tms-muted); border-radius:var(--tms-radius-medium); text-align:center; margin-top:8px;">
+      <div style="border:2px dashed var(--tms-border); padding:24px; background:var(--tms-card); border-radius:var(--tms-radius-small);">
+        <div style="font-size:12px; color:var(--tms-muted-foreground);">标签预览</div>
+        <div style="font-size:18px; font-weight:700; color:var(--tms-foreground); margin-top:8px;" id="cl-label-preview">WB20240801001</div>
+        <div style="font-size:12px; color:var(--tms-muted-foreground); margin-top:4px;">华东贸易有限公司</div>
+        <div style="margin-top:8px; padding:4px 0; border-top:1px solid var(--tms-border);">
+          <div style="font-size:11px; color:var(--tms-muted-foreground);">义乌仓 | 2024-08-01</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cl-modal-footer">
+    <button class="tms-btn tms-btn-outline" data-close="cl-print-label">取消</button>
+    <button class="tms-btn tms-btn-primary" id="cl-print-label-confirm">
+      <i data-lucide="printer" style="width:16px;height:16px;"></i>
+      <span>确认打印</span>
+    </button>
+  </div>
+</div>
+
+<!-- Modal: 人工录入 (Manual Entry for Picking) -->
+<div class="cl-modal-overlay" id="cl-manual-entry-overlay"></div>
+<div class="cl-modal cl-modal--wide" id="cl-manual-entry-modal">
+  <div class="cl-modal-header">
+    <h3>人工录入 — 拣货数据</h3>
+    <button class="cl-modal-close" data-close="cl-manual-entry"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cl-modal-body">
+    <div class="cl-form-group">
+      <label class="cl-form-label">运单号</label>
+      <input type="text" class="cl-form-input" id="cl-entry-waybill" readonly>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <div class="cl-form-group">
+        <label class="cl-form-label">重量 (kg)</label>
+        <input type="number" class="cl-form-input" id="cl-entry-weight" placeholder="0.00" step="0.01">
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">长 (cm)</label>
+        <input type="number" class="cl-form-input" id="cl-entry-length" placeholder="0" step="0.1">
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">宽 (cm)</label>
+        <input type="number" class="cl-form-input" id="cl-entry-width" placeholder="0" step="0.1">
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <div class="cl-form-group">
+        <label class="cl-form-label">高 (cm)</label>
+        <input type="number" class="cl-form-input" id="cl-entry-height" placeholder="0" step="0.1">
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">条码</label>
+        <input type="text" class="cl-form-input" id="cl-entry-barcode" placeholder="扫描或输入条码">
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">货位</label>
+        <input type="text" class="cl-form-input" id="cl-entry-location" placeholder="如: A-01-03">
+      </div>
+    </div>
+    <div style="padding:12px; background:var(--tms-muted); border-radius:var(--tms-radius-medium); display:flex; gap:24px; align-items:center; flex-wrap:wrap;">
+      <div style="font-size:12px; color:var(--tms-muted-foreground);">计算体积: <strong style="color:var(--tms-foreground);" id="cl-entry-calc-volume">-</strong> m³</div>
+      <div style="font-size:12px; color:var(--tms-muted-foreground);">材积重: <strong style="color:var(--tms-foreground);" id="cl-entry-calc-volumetric">-</strong> kg (系数5000)</div>
+      <div style="font-size:12px; color:var(--tms-muted-foreground);">收费重: <strong style="color:var(--tms-foreground);" id="cl-entry-calc-charge">-</strong> kg</div>
+    </div>
+  </div>
+  <div class="cl-modal-footer">
+    <button class="tms-btn tms-btn-outline" data-close="cl-manual-entry">取消</button>
+    <button class="tms-btn tms-btn-primary" id="cl-manual-entry-save">
+      <i data-lucide="check" style="width:16px;height:16px;"></i>
+      <span>保存入库</span>
+    </button>
+  </div>
+</div>
+
+<!-- Modal: 出库确认 -->
+<div class="cl-modal-overlay" id="cl-outbound-confirm-overlay"></div>
+<div class="cl-modal cl-modal--wide" id="cl-outbound-confirm-modal">
+  <div class="cl-modal-header">
+    <h3>出库确认</h3>
+    <button class="cl-modal-close" data-close="cl-outbound-confirm"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cl-modal-body">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div class="cl-form-group">
+        <label class="cl-form-label">柜号</label>
+        <input type="text" class="cl-form-input" id="cl-outbound-container" readonly>
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">运单号</label>
+        <input type="text" class="cl-form-input" id="cl-outbound-waybill" readonly>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <div class="cl-form-group">
+        <label class="cl-form-label">出库箱数</label>
+        <input type="number" class="cl-form-input" id="cl-outbound-boxes" placeholder="请输入箱数" min="1">
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">出库时间</label>
+        <input type="datetime-local" class="cl-form-input" id="cl-outbound-time">
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">操作人</label>
+        <input type="text" class="cl-form-input" id="cl-outbound-operator" value="张明华">
+      </div>
+    </div>
+    <div class="cl-form-group">
+      <label class="cl-form-label">备注</label>
+      <textarea class="cl-form-textarea" id="cl-outbound-remark" placeholder="出库备注..."></textarea>
+    </div>
+    <div style="padding:12px; background:var(--state-warning-light); border-radius:var(--tms-radius-medium); border:1px solid var(--state-warning-light);">
+      <div style="font-size:12px; color:var(--state-warning); display:flex; align-items:center; gap:6px;">
+        <i data-lucide="alert-triangle" style="width:14px;height:14px;"></i>
+        <span>确认出库后，库存将自动扣减，此操作不可撤销。</span>
+      </div>
+    </div>
+  </div>
+  <div class="cl-modal-footer">
+    <button class="tms-btn tms-btn-outline" data-close="cl-outbound-confirm">取消</button>
+    <button class="tms-btn tms-btn-primary" id="cl-outbound-confirm-save">
+      <i data-lucide="truck" style="width:16px;height:16px;"></i>
+      <span>确认出库</span>
+    </button>
+  </div>
+</div>
+
+<!-- Modal: PDA 扫码模拟 -->
+<div class="cl-modal-overlay" id="cl-pda-overlay"></div>
+<div class="cl-modal" id="cl-pda-modal">
+  <div class="cl-modal-header">
+    <h3>PDA 扫码模拟 — 库存盘点</h3>
+    <button class="cl-modal-close" data-close="cl-pda"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cl-modal-body">
+    <div style="text-align:center; padding:20px 0;">
+      <div style="width:80px; height:80px; margin:0 auto 16px; border:2px dashed var(--tms-border); border-radius:var(--tms-radius-medium); display:flex; align-items:center; justify-content:center;">
+        <i data-lucide="scan" style="width:40px;height:40px;color:var(--tms-primary);"></i>
+      </div>
+      <div class="cl-form-group">
+        <label class="cl-form-label">扫码输入（条码/运单号/仓位）</label>
+        <input type="text" class="cl-form-input" id="cl-pda-input" placeholder="请扫描或输入条码..." autofocus style="text-align:center; font-size:16px; height:44px;">
+      </div>
+      <div style="padding:12px; background:var(--tms-muted); border-radius:var(--tms-radius-medium); margin-top:12px; text-align:left;">
+        <div style="font-size:12px; color:var(--tms-muted-foreground);">扫码记录</div>
+        <div id="cl-pda-records" style="margin-top:8px; max-height:200px; overflow-y:auto;">
+          <div style="font-size:12px; color:var(--tms-muted-foreground); padding:8px; text-align:center;">等待扫码...</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; margin-top:12px; justify-content:center;">
+        <div style="text-align:center; padding:8px 16px; background:var(--state-success-light); border-radius:var(--tms-radius-small);">
+          <div style="font-size:11px; color:var(--state-success);">已扫</div>
+          <div style="font-size:18px; font-weight:700; color:var(--state-success);" id="cl-pda-scanned">0</div>
+        </div>
+        <div style="text-align:center; padding:8px 16px; background:var(--state-warning-light); border-radius:var(--tms-radius-small);">
+          <div style="font-size:11px; color:var(--state-warning);">待扫</div>
+          <div style="font-size:18px; font-weight:700; color:var(--state-warning);" id="cl-pda-remaining">6</div>
+        </div>
+        <div style="text-align:center; padding:8px 16px; background:var(--state-info-light); border-radius:var(--tms-radius-small);">
+          <div style="font-size:11px; color:var(--state-info);">差异</div>
+          <div style="font-size:18px; font-weight:700; color:var(--state-info);" id="cl-pda-diff">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cl-modal-footer">
+    <button class="tms-btn tms-btn-outline" data-close="cl-pda">关闭</button>
+    <button class="tms-btn tms-btn-primary" id="cl-pda-finish">
+      <i data-lucide="check-circle" style="width:16px;height:16px;"></i>
+      <span>完成盘点</span>
+    </button>
+  </div>
+</div>
+
+<!-- Modal: 追加运单 -->
+<div class="cl-modal-overlay" id="cl-add-waybill-overlay"></div>
+<div class="cl-modal cl-modal--wide" id="cl-add-waybill-modal">
+  <div class="cl-modal-header">
+    <h3>追加运单到集装箱</h3>
+    <button class="cl-modal-close" data-close="cl-add-waybill"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cl-modal-body">
+    <div class="filter-bar" style="margin-bottom:12px; padding:10px 12px;">
+      <div class="search-wrap">
+        <i data-lucide="search"></i>
+        <input type="text" class="filter-input" placeholder="搜索运单号..." style="width:200px;">
+      </div>
+      <select class="filter-select">
+        <option value="all">全部仓点</option>
+        <option value="yiwu">义乌仓</option>
+        <option value="hangzhou">杭州仓</option>
+        <option value="shenzhen">深圳仓</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table class="tms-table-dense">
+        <thead>
+          <tr>
+            <th class="row-checkbox"><input type="checkbox" class="row-check-input"></th>
+            <th>运单号</th>
+            <th>客户</th>
+            <th class="col-num">方数(m³)</th>
+            <th>仓点</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);">WB20240728009</td>
+            <td>申通快递</td>
+            <td class="col-num tms-mono-data">5.60</td>
+            <td>义乌仓</td>
+            <td><span class="tms-status tms-status--warning">已收货</span></td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);">WB20240728010</td>
+            <td>圆通速递</td>
+            <td class="col-num tms-mono-data">18.90</td>
+            <td>杭州仓</td>
+            <td><span class="tms-status tms-status--warning">已收货</span></td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);">WB20240728011</td>
+            <td>中外运空运</td>
+            <td class="col-num tms-mono-data">2.10</td>
+            <td>深圳仓</td>
+            <td><span class="tms-status tms-status--success">已入库</span></td>
+          </tr>
+          <tr>
+            <td class="row-checkbox"><input type="checkbox" class="row-check-input"></td>
+            <td class="tms-mono-data" style="color:var(--tms-primary-600);">WB20240728012</td>
+            <td>嘉里大通</td>
+            <td class="col-num tms-mono-data">10.50</td>
+            <td>义乌仓</td>
+            <td><span class="tms-status tms-status--success">已入库</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="cl-modal-footer">
+    <button class="tms-btn tms-btn-outline" data-close="cl-add-waybill">取消</button>
+    <button class="tms-btn tms-btn-primary" id="cl-add-waybill-save">
+      <i data-lucide="plus" style="width:16px;height:16px;"></i>
+      <span>确认追加</span>
+    </button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="cl-toast" id="cl-toast"></div>
+
+<script>lucide.createIcons();</script>
+<script id="nav-link-resolver">
+  (function(){
+    var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+    document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+      var href = a.getAttribute('href');
+      if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+        a.setAttribute('href', new URL(href, currentDir).href);
+      }
+    });
+  })();
+</script>
+<script id="container-loading-logic">
+(function(){
+  // ============== Tab Navigation ==============
+  var navTabs = document.querySelectorAll('.cl-nav-tab');
+  var tabContents = document.querySelectorAll('.cl-tab-content');
+
+  navTabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var targetId = this.getAttribute('data-tab');
+      navTabs.forEach(function(t){ t.classList.remove('is-active'); });
+      this.classList.add('is-active');
+      tabContents.forEach(function(tc){ tc.classList.remove('is-active'); });
+      var target = document.getElementById(targetId);
+      if (target) target.classList.add('is-active');
+      lucide.createIcons();
+    });
+  });
+
+  // ============== Toast ==============
+  var toastTimer = null;
+  function showToast(msg, type){
+    var toast = document.getElementById('cl-toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.className = 'cl-toast cl-toast--' + (type || 'success');
+    toast.classList.add('is-visible');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){
+      toast.classList.remove('is-visible');
+    }, 2000);
+  }
+
+  // ============== Modal Helper ==============
+  function openModal(modalId){
+    var overlay = document.getElementById(modalId + '-overlay');
+    var modal = document.getElementById(modalId + '-modal');
+    if (overlay) overlay.classList.add('is-visible');
+    if (modal) modal.classList.add('is-visible');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(modalId){
+    var overlay = document.getElementById(modalId + '-overlay');
+    var modal = document.getElementById(modalId + '-modal');
+    if (overlay) overlay.classList.remove('is-visible');
+    if (modal) modal.classList.remove('is-visible');
+    document.body.style.overflow = '';
+  }
+
+  // Close modal via data-close attribute
+  document.querySelectorAll('[data-close]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      closeModal(this.getAttribute('data-close'));
+    });
+  });
+
+  // Close modal via overlay click
+  document.querySelectorAll('.cl-modal-overlay').forEach(function(overlay){
+    overlay.addEventListener('click', function(){
+      var modalId = this.id.replace('-overlay','');
+      closeModal(modalId);
+    });
+  });
+
+  // Close modal via Escape
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      document.querySelectorAll('.cl-modal-overlay.is-visible').forEach(function(ov){
+        ov.classList.remove('is-visible');
+        var modal = ov.nextElementSibling;
+        if (modal) modal.classList.remove('is-visible');
+      });
+      document.body.style.overflow = '';
+    }
+  });
+
+  // ============== TAB 1: 装柜配载 ==============
+  var matchedWaybills = [];
+  var totalCBM = 68.00;
+
+  function updateContainerDisplay(){
+    var usedCBM = 0;
+    matchedWaybills.forEach(function(wb){ usedCBM += parseFloat(wb.cbm); });
+    var remainCBM = Math.max(0, totalCBM - usedCBM);
+    var pct = Math.min(100, (usedCBM / totalCBM) * 100);
+
+    document.getElementById('cl-loaded-count').textContent = matchedWaybills.length;
+    document.getElementById('cl-used-cbm').textContent = usedCBM.toFixed(2);
+    document.getElementById('cl-remain-cbm').textContent = remainCBM.toFixed(2);
+    var bar = document.getElementById('cl-progress-bar');
+    bar.style.width = pct + '%';
+    bar.className = 'cl-progress-fill';
+    if (pct > 85) bar.className = 'cl-progress-fill cl-progress-fill--danger';
+    else if (pct > 65) bar.className = 'cl-progress-fill cl-progress-fill--warning';
+
+    // Rebuild matched list
+    var list = document.getElementById('cl-matched-list');
+    if (matchedWaybills.length === 0){
+      list.innerHTML = '<div style="text-align:center; color:var(--tms-muted-foreground); padding:20px; font-size:12px;"><i data-lucide="inbox" style="width:24px;height:24px;margin-bottom:6px;display:block;margin-left:auto;margin-right:auto;"></i>暂无已配运单<br>请选择左侧运单进行配柜</div>';
+    } else {
+      list.innerHTML = matchedWaybills.map(function(wb, idx){
+        return '<div class="cl-matched-item">' +
+          '<span style="color:var(--tms-primary-600);font-weight:600;" class="tms-mono-data">' + wb.no + '</span>' +
+          '<span style="color:var(--tms-muted-foreground);">' + wb.client + '</span>' +
+          '<span class="tms-mono-data">' + wb.cbm + ' m³</span>' +
+          '<button class="remove-btn cl-remove-wb" data-idx="' + idx + '" title="移除"><i data-lucide="x"></i></button>' +
+          '</div>';
+      }).join('');
+    }
+    lucide.createIcons();
+
+    // Bind remove buttons
+    document.querySelectorAll('.cl-remove-wb').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var idx = parseInt(this.getAttribute('data-idx'));
+        if (idx >= 0 && idx < matchedWaybills.length){
+          matchedWaybills.splice(idx, 1);
+          updateContainerDisplay();
+          showToast('已移除运单', 'success');
+        }
+      });
+    });
+  }
+
+  // Auto Match
+  document.getElementById('cl-auto-match').addEventListener('click', function(){
+    var checked = document.querySelectorAll('.cl-waybill-check:checked');
+    if (checked.length === 0){
+      showToast('请先选择待配柜的运单', 'error');
+      return;
+    }
+    checked.forEach(function(cb){
+      var row = cb.closest('tr');
+      var no = row.getAttribute('data-waybill');
+      var cbm = parseFloat(row.getAttribute('data-cbm'));
+      var client = row.querySelectorAll('td')[2].textContent.trim();
+      // Check if already matched
+      if (!matchedWaybills.some(function(wb){ return wb.no === no; })){
+        matchedWaybills.push({no: no, cbm: cbm, client: client});
+        row.classList.add('is-selected');
+      }
+    });
+    updateContainerDisplay();
+    showToast('自动配柜完成，已配 ' + matchedWaybills.length + ' 单', 'success');
+  });
+
+  // Manual Add
+  document.getElementById('cl-manual-add').addEventListener('click', function(){
+    openModal('cl-add-waybill');
+  });
+
+  document.getElementById('cl-add-waybill-save').addEventListener('click', function(){
+    var checkboxes = document.querySelectorAll('#cl-add-waybill-modal .row-check-input:checked');
+    checkboxes.forEach(function(cb){
+      var row = cb.closest('tr');
+      var cells = row.querySelectorAll('td');
+      var no = cells[1].textContent.trim();
+      var client = cells[2].textContent.trim();
+      var cbm = parseFloat(cells[3].textContent.trim());
+      if (!matchedWaybills.some(function(wb){ return wb.no === no; })){
+        matchedWaybills.push({no: no, cbm: cbm, client: client});
+      }
+    });
+    updateContainerDisplay();
+    closeModal('cl-add-waybill');
+    showToast('已追加运单', 'success');
+  });
+
+  // Confirm Pre-loading
+  document.getElementById('cl-confirm-loading').addEventListener('click', function(){
+    if (matchedWaybills.length === 0){
+      showToast('请先配柜后再确认', 'error');
+      return;
+    }
+    showToast('预配柜已确认，配柜清单已生成', 'success');
+  });
+
+  // Issue Loading List
+  document.getElementById('cl-issue-list').addEventListener('click', function(){
+    if (matchedWaybills.length === 0){
+      showToast('请先配柜后再下发', 'error');
+      return;
+    }
+    showToast('装柜清单已下发至仓库', 'success');
+  });
+
+  // Select All
+  document.getElementById('cl-check-all').addEventListener('change', function(){
+    var checked = this.checked;
+    document.querySelectorAll('.cl-waybill-check').forEach(function(cb){
+      cb.checked = checked;
+    });
+  });
+
+  // ============== Transfer Warehouse Modal ==============
+  document.querySelectorAll('.cl-transfer-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = this.closest('tr');
+      var waybillNo = row.getAttribute('data-waybill');
+      var warehouse = row.getAttribute('data-warehouse');
+      var whMap = {yiwu:'义乌仓', hangzhou:'杭州仓', shenzhen:'深圳仓'};
+      document.getElementById('cl-transfer-waybill').value = waybillNo;
+      document.getElementById('cl-transfer-current-wh').value = whMap[warehouse] || warehouse;
+      document.getElementById('cl-transfer-target-wh').value = '';
+      document.getElementById('cl-transfer-remark').value = '';
+      openModal('cl-transfer');
+    });
+  });
+
+  document.getElementById('cl-transfer-save').addEventListener('click', function(){
+    var targetWh = document.getElementById('cl-transfer-target-wh').value;
+    if (!targetWh){
+      showToast('请选择目标仓点', 'error');
+      return;
+    }
+    closeModal('cl-transfer');
+    showToast('调仓操作已提交', 'success');
+  });
+
+  // ============== TAB 2: 打印标签 ==============
+  document.querySelectorAll('.cl-print-label').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = this.closest('tr');
+      var cells = row.querySelectorAll('td');
+      var waybillNo = cells[1].textContent.trim();
+      var client = cells[2].textContent.trim();
+      document.getElementById('cl-print-waybill').value = waybillNo;
+      document.getElementById('cl-label-preview').textContent = waybillNo;
+      openModal('cl-print-label');
+    });
+  });
+
+  document.getElementById('cl-print-label-confirm').addEventListener('click', function(){
+    var waybillNo = document.getElementById('cl-print-waybill').value;
+    closeModal('cl-print-label');
+    showToast('标签已发送至打印机 — ' + waybillNo, 'success');
+  });
+
+  // 确认收货
+  document.querySelectorAll('.cl-confirm-receive').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = this.closest('tr');
+      var cells = row.querySelectorAll('td');
+      var waybillNo = cells[1].textContent.trim();
+      var labelStatus = row.querySelector('.tms-status');
+      var labelText = labelStatus ? labelStatus.textContent.trim() : '';
+      if (labelText === '未贴'){
+        showToast('请先打印标签后再确认收货', 'error');
+        return;
+      }
+      if (confirm('确认收货 ' + waybillNo + '？')){
+        // Update label status cell
+        var statusCell = row.querySelectorAll('td')[5];
+        statusCell.innerHTML = '<span class="tms-status tms-status--success">已收货</span>';
+        showToast('已确认收货 — ' + waybillNo, 'success');
+      }
+    });
+  });
+
+  // ============== TAB 3: 人工录入 ==============
+  document.querySelectorAll('.cl-manual-entry').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = this.closest('tr');
+      var cells = row.querySelectorAll('td');
+      document.getElementById('cl-entry-waybill').value = cells[1].textContent.trim();
+      document.getElementById('cl-entry-weight').value = '';
+      document.getElementById('cl-entry-length').value = '';
+      document.getElementById('cl-entry-width').value = '';
+      document.getElementById('cl-entry-height').value = '';
+      document.getElementById('cl-entry-barcode').value = '';
+      document.getElementById('cl-entry-location').value = '';
+      document.getElementById('cl-entry-calc-volume').textContent = '-';
+      document.getElementById('cl-entry-calc-volumetric').textContent = '-';
+      document.getElementById('cl-entry-calc-charge').textContent = '-';
+      openModal('cl-manual-entry');
+    });
+  });
+
+  // Auto-calculate volume
+  ['cl-entry-weight','cl-entry-length','cl-entry-width','cl-entry-height'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el){
+      el.addEventListener('input', function(){
+        var l = parseFloat(document.getElementById('cl-entry-length').value) || 0;
+        var w = parseFloat(document.getElementById('cl-entry-width').value) || 0;
+        var h = parseFloat(document.getElementById('cl-entry-height').value) || 0;
+        var weight = parseFloat(document.getElementById('cl-entry-weight').value) || 0;
+        var volume = (l * w * h / 1000000).toFixed(3);
+        var volumetric = (l * w * h / 5000).toFixed(2);
+        var charge = Math.max(weight, parseFloat(volumetric)).toFixed(2);
+        document.getElementById('cl-entry-calc-volume').textContent = volume;
+        document.getElementById('cl-entry-calc-volumetric').textContent = volumetric;
+        document.getElementById('cl-entry-calc-charge').textContent = charge;
+      });
+    }
+  });
+
+  document.getElementById('cl-manual-entry-save').addEventListener('click', function(){
+    var waybillNo = document.getElementById('cl-entry-waybill').value;
+    closeModal('cl-manual-entry');
+    showToast('入库数据已保存 — ' + waybillNo, 'success');
+  });
+
+  // 确认入库
+  document.querySelectorAll('.cl-confirm-warehouse').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = this.closest('tr');
+      var cells = row.querySelectorAll('td');
+      var waybillNo = cells[1].textContent.trim();
+      if (confirm('确认入库 ' + waybillNo + '？')){
+        var statusCell = row.querySelectorAll('td')[8];
+        statusCell.innerHTML = '<span class="tms-status tms-status--success">已入库</span>';
+        showToast('已确认入库 — ' + waybillNo, 'success');
+      }
+    });
+  });
+
+  // ============== TAB 4: 出库确认 ==============
+  document.querySelectorAll('.cl-outbound-confirm').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = this.closest('tr');
+      var cells = row.querySelectorAll('td');
+      document.getElementById('cl-outbound-container').value = cells[1].textContent.trim();
+      document.getElementById('cl-outbound-waybill').value = cells[2].textContent.trim();
+      document.getElementById('cl-outbound-boxes').value = cells[4].textContent.trim();
+      document.getElementById('cl-outbound-time').value = '';
+      document.getElementById('cl-outbound-remark').value = '';
+      openModal('cl-outbound-confirm');
+    });
+  });
+
+  document.getElementById('cl-outbound-confirm-save').addEventListener('click', function(){
+    var boxes = document.getElementById('cl-outbound-boxes').value;
+    if (!boxes || parseInt(boxes) <= 0){
+      showToast('请输入有效的出库箱数', 'error');
+      return;
+    }
+    closeModal('cl-outbound-confirm');
+    showToast('出库确认完成', 'success');
+  });
+
+  // ============== TAB 5: PDA 扫码模拟 ==============
+  document.getElementById('cl-pda-scan').addEventListener('click', function(){
+    document.getElementById('cl-pda-input').value = '';
+    document.getElementById('cl-pda-records').innerHTML = '<div style="font-size:12px; color:var(--tms-muted-foreground); padding:8px; text-align:center;">等待扫码...</div>';
+    document.getElementById('cl-pda-scanned').textContent = '0';
+    document.getElementById('cl-pda-remaining').textContent = '6';
+    document.getElementById('cl-pda-diff').textContent = '0';
+    openModal('cl-pda');
+    setTimeout(function(){
+      document.getElementById('cl-pda-input').focus();
+    }, 300);
+  });
+
+  var pdaScannedCount = 0;
+  var pdaDiffCount = 0;
+  document.getElementById('cl-pda-input').addEventListener('keydown', function(e){
+    if (e.key === 'Enter'){
+      var val = this.value.trim();
+      if (!val) return;
+      var now = new Date();
+      var timeStr = now.getHours().toString().padStart(2,'0') + ':' +
+                    now.getMinutes().toString().padStart(2,'0') + ':' +
+                    now.getSeconds().toString().padStart(2,'0');
+      var records = document.getElementById('cl-pda-records');
+      if (pdaScannedCount === 0) records.innerHTML = '';
+
+      // Simulate random diff
+      var hasDiff = Math.random() < 0.2;
+      if (hasDiff) pdaDiffCount++;
+
+      var record = document.createElement('div');
+      record.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:6px 8px;font-size:12px;border-bottom:1px solid var(--tms-border);';
+      record.innerHTML = '<span class="tms-mono-data" style="color:var(--tms-primary);">' + val + '</span>' +
+        '<span style="color:var(--tms-muted-foreground);">' + timeStr + '</span>' +
+        (hasDiff ? '<span style="color:var(--state-error);">差异</span>' : '<span style="color:var(--state-success);">正常</span>');
+      records.appendChild(record);
+
+      pdaScannedCount++;
+      document.getElementById('cl-pda-scanned').textContent = pdaScannedCount;
+      document.getElementById('cl-pda-remaining').textContent = Math.max(0, 6 - pdaScannedCount);
+      document.getElementById('cl-pda-diff').textContent = pdaDiffCount;
+      this.value = '';
+    }
+  });
+
+  document.getElementById('cl-pda-finish').addEventListener('click', function(){
+    closeModal('cl-pda');
+    showToast('盘点完成，共扫描 ' + pdaScannedCount + ' 项，差异 ' + pdaDiffCount + ' 项', pdaDiffCount > 0 ? 'error' : 'success');
+    pdaScannedCount = 0;
+    pdaDiffCount = 0;
+  });
+
+  // 盘点开始
+  document.querySelectorAll('.cl-check-start').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var row = this.closest('tr');
+      var cells = row.querySelectorAll('td');
+      var location = cells[1].textContent.trim();
+      document.getElementById('cl-pda-input').value = location;
+      document.getElementById('cl-pda-scan').click();
+    });
+  });
+
+  // 打印盘点表
+  document.getElementById('cl-print-check').addEventListener('click', function(){
+    showToast('盘点表已发送至打印机', 'success');
+  });
+
+})();
+</script>
+</body>
+</html>

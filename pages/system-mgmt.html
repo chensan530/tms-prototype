@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统管理</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳健数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+
+<!-- Critical Layout CSS -->
+<style id="critical-layout">
+  .app-layout { display: flex; min-height: 100vh; }
+  .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+  .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+  .app-content { flex: 1; overflow: auto; padding: 24px; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+  .header-search { position: relative; }
+  .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+  .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+  .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+  .header-icon-btn:hover { background: var(--tms-muted); }
+  .header-user { display: flex; align-items: center; gap: 8px; }
+  .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+  .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+  .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+</style>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-logo">
+      <h1>TMS 物流管理</h1>
+      <span>智慧运输管理平台</span>
+    </div>
+    <nav style="flex:1; padding: 12px 0;">
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" data-hide-edge="true" href="data-reports.html" class="nav-item"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" href="system-mgmt.html" class="nav-item" data-active="true"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
+    <!-- Sidebar Footer -->
+    <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+        <div>
+          <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="app-main-area">
+    <!-- Header -->
+    <header class="app-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="搜索角色、用户、部门...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+        <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+        <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+        <div class="header-user">
+          <div class="header-avatar">WB</div>
+          <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="app-content">
+
+<!-- ============ Page-Specific Styles ============ -->
+<style>
+  /* Page Header */
+  .sm-page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .sm-page-header h2 { font-size: 24px; color: var(--tms-foreground); line-height: 1.2; }
+  .sm-page-header .header-sub { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+  /* TMS Buttons */
+  .qbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13px; font-weight: 500; border-radius: var(--tms-radius-medium); cursor: pointer; transition: background-color 120ms ease, border-color 120ms ease; border: 1px solid transparent; text-decoration: none; font-family: var(--tms-font-sans); }
+  .qbtn-primary { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); }
+  .qbtn-primary:hover { background: var(--tms-primary-600); border-color: var(--tms-primary-600); }
+  .qbtn-outline { background: var(--tms-card); color: var(--tms-foreground); border-color: var(--tms-border); }
+  .qbtn-outline:hover { background: var(--tms-muted); }
+  .qbtn-sm { padding: 5px 10px; font-size: 12px; }
+  .qbtn-xs { padding: 3px 8px; font-size: 11px; }
+  .qbtn-danger { background: var(--state-error); color: #fff; border-color: var(--state-error); }
+  .qbtn-danger:hover { background: #A03D35; }
+
+  /* Section Card */
+  .section-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); overflow: hidden; }
+  .section-card-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--tms-border); }
+  .section-card-header h3 { font-size: 15px; color: var(--tms-foreground); margin: 0; }
+  .section-card-body { padding: 20px; }
+
+  /* KPI Card */
+  .kpi-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 24px; }
+  .kpi-label { font-size: 12px; color: var(--tms-muted-foreground); margin-bottom: 8px; }
+  .kpi-value { font-family: var(--tms-font-mono); font-size: 28px; font-weight: 600; color: var(--tms-foreground); }
+  .kpi-change { font-size: 12px; margin-top: 4px; }
+
+  /* Chart Card */
+  .chart-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 20px; }
+
+  /* Trend */
+  .trend-up { color: var(--state-success); }
+  .trend-down { color: var(--state-error); }
+
+  /* Table Wrap */
+  .table-wrap { overflow-x: auto; }
+
+  /* Tab Navigation */
+  .sm-tabs { display: flex; align-items: center; gap: 2px; border-bottom: 1px solid var(--tms-border); margin-bottom: 20px; overflow-x: auto; }
+  .sm-tab { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; font-size: 13px; color: var(--tms-muted-foreground); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 120ms ease, background-color 120ms ease; margin-bottom: -1px; white-space: nowrap; font-family: var(--tms-font-sans); }
+  .sm-tab:hover { color: var(--tms-foreground); background: var(--tms-muted); }
+  .sm-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+  .sm-tab svg { width: 15px; height: 15px; }
+
+  /* Filter Bar */
+  .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 16px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); margin-bottom: 16px; }
+  .filter-input, .filter-select { height: 34px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); padding: 0 10px; outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; }
+  .filter-input::placeholder { color: var(--tms-neutral-400); }
+  .filter-input:focus, .filter-select:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--tms-muted-foreground); pointer-events: none; }
+  .search-wrap .filter-input { padding-left: 32px; width: 280px; }
+
+  /* Table Card */
+  .table-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); overflow: hidden; }
+  .tms-table-dense { width: 100%; border-collapse: collapse; }
+  .tms-table-dense thead th { text-align: left; position: sticky; top: 0; z-index: 1; }
+  .tms-table-dense .col-num { text-align: right; white-space: nowrap; }
+  .tms-table-dense .col-center { text-align: center; }
+  .tms-table-dense .col-action { width: 120px; white-space: nowrap; }
+  .tms-table-dense .row-checkbox { width: 40px; }
+  .tms-table-dense tbody tr.is-selected { background: var(--tms-primary-50); }
+  .row-check-input { width: 14px; height: 14px; accent-color: var(--tms-primary-500); cursor: pointer; vertical-align: middle; }
+
+  /* Action Buttons */
+  .action-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: var(--tms-radius-small); border: none; background: transparent; color: var(--tms-muted-foreground); cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .action-btn:hover { background: var(--tms-muted); color: var(--tms-primary-600); }
+  .action-btn svg { width: 15px; height: 15px; }
+  .action-btn--danger:hover { color: var(--state-error); }
+
+  /* Pagination Bar */
+  .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; flex-wrap: wrap; gap: 12px; }
+  .pagination-info { font-size: 13px; color: var(--tms-muted-foreground); }
+  .pagination-info .tms-mono-data { color: var(--tms-foreground); font-weight: 600; }
+  .pagination-center { display: flex; align-items: center; gap: 4px; }
+  .page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; cursor: pointer; transition: background-color 120ms ease, color 120ms ease; }
+  .page-btn:hover:not(:disabled):not(.is-active) { background: var(--tms-muted); }
+  .page-btn.is-active { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); font-weight: 600; }
+  .page-btn:disabled { color: var(--tms-neutral-400); cursor: not-allowed; }
+  .page-btn svg { width: 14px; height: 14px; }
+  .page-ellipsis { color: var(--tms-muted-foreground); padding: 0 4px; font-size: 13px; }
+  .page-size-wrap { display: flex; align-items: center; gap: 8px; }
+  .page-size-select { height: 30px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); padding: 0 8px; cursor: pointer; outline: none; }
+
+  /* Modal */
+  .sm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 23, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+    z-index: 200;
+  }
+  .sm-modal-overlay.is-visible { opacity: 1; visibility: visible; }
+  .sm-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.96);
+    width: 640px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    background: var(--tms-card);
+    border-radius: var(--tms-radius-large);
+    box-shadow: var(--tms-shadow-3);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease, transform 200ms ease;
+    z-index: 201;
+  }
+  .sm-modal.is-visible { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+  .sm-modal--lg { width: 800px; }
+  .sm-modal-header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--tms-border);
+  }
+  .sm-modal-header h3 { margin: 0; font-size: 16px; color: var(--tms-foreground); }
+  .sm-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--tms-radius-small);
+    background: transparent;
+    color: var(--tms-muted-foreground);
+    cursor: pointer;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .sm-modal-close:hover { background: var(--tms-muted); color: var(--tms-foreground); }
+  .sm-modal-close svg { width: 18px; height: 18px; }
+  .sm-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .sm-modal-footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 14px 20px;
+    border-top: 1px solid var(--tms-border);
+    background: var(--tms-card);
+  }
+
+  /* Form Group */
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--tms-foreground); margin-bottom: 6px; }
+  .form-group .form-input, .form-group .form-select, .form-group textarea {
+    width: 100%;
+    height: 36px;
+    padding: 0 10px;
+    font-size: 13px;
+    font-family: var(--tms-font-sans);
+    border: 1px solid var(--tms-border);
+    border-radius: var(--tms-radius-small);
+    background: var(--tms-input);
+    color: var(--tms-foreground);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+  }
+  .form-group textarea { height: 80px; padding: 8px 10px; resize: vertical; }
+  .form-group .form-input:focus, .form-group .form-select:focus, .form-group textarea:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* Permission Tree */
+  .perm-tree { display: flex; flex-direction: column; gap: 2px; }
+  .perm-module { border: 1px solid var(--tms-border); border-radius: var(--tms-radius-small); overflow: hidden; }
+  .perm-module-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--tms-muted); cursor: pointer; user-select: none; }
+  .perm-module-header:hover { background: var(--tms-neutral-100); }
+  .perm-module-header .perm-check { width: 15px; height: 15px; accent-color: var(--tms-primary-500); cursor: pointer; }
+  .perm-module-header .perm-title { font-size: 13px; font-weight: 600; color: var(--tms-foreground); }
+  .perm-module-header .perm-arrow { margin-left: auto; transition: transform 150ms ease; }
+  .perm-module-header .perm-arrow.is-open { transform: rotate(90deg); }
+  .perm-module-body { display: none; padding: 8px 14px 8px 36px; background: var(--tms-card); flex-wrap: wrap; gap: 6px 20px; }
+  .perm-module-body.is-open { display: flex; }
+  .perm-item { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--tms-foreground); }
+  .perm-item input { width: 14px; height: 14px; accent-color: var(--tms-primary-500); cursor: pointer; }
+
+  /* Department Tree */
+  .dept-tree { display: flex; flex-direction: column; gap: 2px; }
+  .dept-node { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: var(--tms-radius-small); cursor: pointer; transition: background-color 120ms ease; }
+  .dept-node:hover { background: var(--tms-muted); }
+  .dept-node.is-active { background: var(--tms-primary-50); border: 1px solid var(--tms-primary-100); }
+  .dept-node .dept-arrow { transition: transform 150ms ease; cursor: pointer; }
+  .dept-node .dept-arrow.is-open { transform: rotate(90deg); }
+  .dept-node .dept-icon { width: 18px; height: 18px; color: var(--tms-muted-foreground); }
+  .dept-node .dept-name { font-size: 13px; font-weight: 500; color: var(--tms-foreground); }
+  .dept-node .dept-count { font-size: 12px; color: var(--tms-muted-foreground); margin-left: auto; }
+  .dept-node .dept-actions { display: flex; gap: 2px; margin-left: 8px; }
+  .dept-children { padding-left: 24px; display: none; }
+  .dept-children.is-open { display: block; }
+
+  /* Toggle Switch */
+  .toggle-switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--tms-neutral-300); transition: .2s; border-radius: 22px; }
+  .toggle-slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
+  .toggle-switch input:checked + .toggle-slider { background-color: var(--tms-primary-500); }
+  .toggle-switch input:checked + .toggle-slider:before { transform: translateX(18px); }
+
+  /* Toast */
+  .sm-toast-container { position: fixed; top: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+  .sm-toast { display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: var(--tms-radius-medium); background: var(--tms-card); box-shadow: var(--tms-shadow-2); border: 1px solid var(--tms-border); font-size: 13px; color: var(--tms-foreground); animation: smToastIn 0.3s ease; min-width: 280px; }
+  .sm-toast--success { border-left: 3px solid var(--state-success); }
+  .sm-toast--error { border-left: 3px solid var(--state-error); }
+  .sm-toast--info { border-left: 3px solid var(--state-info); }
+  .sm-toast svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .sm-toast--success svg { color: var(--state-success); }
+  .sm-toast--error svg { color: var(--state-error); }
+  .sm-toast--info svg { color: var(--state-info); }
+  @keyframes smToastIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* History Log */
+  .history-log { max-height: 300px; overflow-y: auto; }
+  .history-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--tms-border); }
+  .history-item:last-child { border-bottom: none; }
+  .history-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--tms-primary); margin-top: 5px; flex-shrink: 0; }
+  .history-dot--old { background: var(--tms-neutral-400); }
+  .history-content { flex: 1; }
+  .history-desc { font-size: 13px; color: var(--tms-foreground); }
+  .history-meta { font-size: 11px; color: var(--tms-muted-foreground); margin-top: 2px; }
+
+  /* Empty State */
+  .empty-state { text-align: center; padding: 40px 20px; color: var(--tms-muted-foreground); }
+  .empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.4; }
+  .empty-state p { font-size: 13px; }
+
+  /* Confirm Dialog */
+  .confirm-dialog { position: fixed; inset: 0; background: rgba(26,26,23,0.5); z-index: 300; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 200ms ease, visibility 200ms ease; }
+  .confirm-dialog.is-visible { opacity: 1; visibility: visible; }
+  .confirm-box { background: var(--tms-card); border-radius: var(--tms-radius-large); padding: 24px; width: 400px; max-width: 90vw; box-shadow: var(--tms-shadow-3); }
+  .confirm-box h4 { font-size: 15px; color: var(--tms-foreground); margin: 0 0 8px; }
+  .confirm-box p { font-size: 13px; color: var(--tms-muted-foreground); margin: 0 0 20px; }
+  .confirm-actions { display: flex; justify-content: flex-end; gap: 10px; }
+</style>
+
+<!-- Toast Container -->
+<div class="sm-toast-container" id="toastContainer"></div>
+
+<!-- Page Header -->
+<div class="sm-page-header">
+  <div>
+    <h2>系统管理</h2>
+    <div class="header-sub">管理系统角色权限、汇率维护、账号信息及组织架构</div>
+  </div>
+</div>
+
+<!-- ============ Tab Navigation ============ -->
+<div class="sm-tabs" id="tabNav">
+  <button class="sm-tab is-active" data-tab="roles">
+    <i data-lucide="shield-check"></i>
+    <span>角色权限</span>
+  </button>
+  <button class="sm-tab" data-tab="exchange">
+    <i data-lucide="currency"></i>
+    <span>汇率维护</span>
+  </button>
+  <button class="sm-tab" data-tab="accounts">
+    <i data-lucide="users"></i>
+    <span>账号管理</span>
+  </button>
+  <button class="sm-tab" data-tab="dept">
+    <i data-lucide="building"></i>
+    <span>部门管理</span>
+  </button>
+</div>
+
+<!-- ============ TAB 1: 角色权限 ============ -->
+<div class="sm-tab-content" id="tab-roles" style="display:block;">
+  <!-- KPI Row -->
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;">
+    <div class="kpi-card">
+      <div class="kpi-label">角色总数</div>
+      <div class="kpi-value" id="totalRoles">8</div>
+      <div class="kpi-change trend-up">+2 本月新增</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">已启用角色</div>
+      <div class="kpi-value" id="activeRoles">7</div>
+      <div class="kpi-change" style="color:var(--tms-muted-foreground);">启用率 87.5%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">总分配用户</div>
+      <div class="kpi-value" id="totalRoleUsers">56</div>
+      <div class="kpi-change trend-up">+8 本月</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">权限模块</div>
+      <div class="kpi-value" id="totalPermModules">10</div>
+      <div class="kpi-change" style="color:var(--tms-muted-foreground);">覆盖全部业务</div>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" id="roleSearch" placeholder="角色名称/编码">
+    </div>
+    <select class="filter-select" id="roleStatusFilter">
+      <option value="all">全部状态</option>
+      <option value="active">已启用</option>
+      <option value="inactive">已禁用</option>
+    </select>
+    <button class="qbtn qbtn-primary qbtn-sm" onclick="openRoleModal()">
+      <i data-lucide="plus"></i>
+      <span>新增角色</span>
+    </button>
+  </div>
+
+  <!-- Role Table -->
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense" id="roleTable">
+        <thead>
+          <tr>
+            <th>角色名称</th>
+            <th>角色编码</th>
+            <th>描述</th>
+            <th class="col-center">成员数</th>
+            <th>创建时间</th>
+            <th class="col-center">状态</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody id="roleTableBody"></tbody>
+      </table>
+    </div>
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data" id="roleTotalCount">8</span> 条记录</div>
+      <div class="pagination-center" id="rolePagination"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 2: 汇率维护 ============ -->
+<div class="sm-tab-content" id="tab-exchange" style="display:none;">
+  <!-- KPI Row -->
+  <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;">
+    <div class="kpi-card">
+      <div class="kpi-label">USD/CNY 当前汇率</div>
+      <div class="kpi-value">7.25</div>
+      <div class="kpi-change trend-up">+0.05 较上周</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">EUR/CNY 当前汇率</div>
+      <div class="kpi-value">7.89</div>
+      <div class="kpi-change trend-down">-0.03 较上周</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">维护记录</div>
+      <div class="kpi-value" id="exchangeTotalCount">10</div>
+      <div class="kpi-change" style="color:var(--tms-muted-foreground);">本周更新 2 次</div>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" id="exchangeSearch" placeholder="币种搜索">
+    </div>
+    <select class="filter-select" id="exchangeCurrencyFilter">
+      <option value="all">全部币种</option>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="GBP">GBP</option>
+      <option value="JPY">JPY</option>
+    </select>
+    <button class="qbtn qbtn-primary qbtn-sm" onclick="openExchangeModal()">
+      <i data-lucide="plus"></i>
+      <span>新增汇率</span>
+    </button>
+  </div>
+
+  <!-- Exchange Rate Table -->
+  <div class="table-card" style="margin-bottom: 20px;">
+    <div class="table-wrap">
+      <table class="tms-table-dense" id="exchangeTable">
+        <thead>
+          <tr>
+            <th>币种</th>
+            <th class="col-num">汇率 (CNY)</th>
+            <th>生效日期</th>
+            <th>维护人</th>
+            <th>维护时间</th>
+            <th>备注</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody id="exchangeTableBody"></tbody>
+      </table>
+    </div>
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data" id="exchangeTotalCount2">10</span> 条记录</div>
+      <div class="pagination-center" id="exchangePagination"></div>
+    </div>
+  </div>
+
+  <!-- History Log -->
+  <div class="section-card">
+    <div class="section-card-header">
+      <h3>历史变更记录</h3>
+      <button class="qbtn qbtn-outline qbtn-xs" onclick="toggleHistoryLog()">
+        <i data-lucide="history"></i>
+        <span>查看全部</span>
+      </button>
+    </div>
+    <div class="section-card-body">
+      <div class="history-log" id="exchangeHistory"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 3: 账号管理 ============ -->
+<div class="sm-tab-content" id="tab-accounts" style="display:none;">
+  <!-- KPI Row -->
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;">
+    <div class="kpi-card">
+      <div class="kpi-label">用户总数</div>
+      <div class="kpi-value" id="totalUsers">12</div>
+      <div class="kpi-change trend-up">+3 本月新增</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">内部员工</div>
+      <div class="kpi-value" id="internalUsers">8</div>
+      <div class="kpi-change" style="color:var(--tms-muted-foreground);">占比 66.7%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">客户用户</div>
+      <div class="kpi-value" id="clientUsers">4</div>
+      <div class="kpi-change" style="color:var(--tms-muted-foreground);">占比 33.3%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">已启用</div>
+      <div class="kpi-value" id="activeUsers">11</div>
+      <div class="kpi-change trend-up">启用率 91.7%</div>
+    </div>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <i data-lucide="search"></i>
+      <input type="text" class="filter-input" id="accountSearch" placeholder="账号/姓名/手机号">
+    </div>
+    <select class="filter-select" id="accountTypeFilter">
+      <option value="all">全部类型</option>
+      <option value="internal">内部员工</option>
+      <option value="client">客户</option>
+    </select>
+    <select class="filter-select" id="accountStatusFilter">
+      <option value="all">全部状态</option>
+      <option value="active">已启用</option>
+      <option value="inactive">已禁用</option>
+    </select>
+    <button class="qbtn qbtn-primary qbtn-sm" onclick="openAccountModal()">
+      <i data-lucide="user-plus"></i>
+      <span>新增用户</span>
+    </button>
+  </div>
+
+  <!-- Account Table -->
+  <div class="table-card">
+    <div class="table-wrap">
+      <table class="tms-table-dense" id="accountTable">
+        <thead>
+          <tr>
+            <th>账号</th>
+            <th>姓名</th>
+            <th class="col-center">用户类型</th>
+            <th>岗位</th>
+            <th>部门</th>
+            <th>角色</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th class="col-center">状态</th>
+            <th>创建时间</th>
+            <th class="col-action">操作</th>
+          </tr>
+        </thead>
+        <tbody id="accountTableBody"></tbody>
+      </table>
+    </div>
+    <div class="pagination-bar">
+      <div class="pagination-info">共 <span class="tms-mono-data" id="accountTotalCount">12</span> 条记录</div>
+      <div class="pagination-center" id="accountPagination"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TAB 4: 部门管理 ============ -->
+<div class="sm-tab-content" id="tab-dept" style="display:none;">
+  <div style="display:grid; grid-template-columns: 320px 1fr; gap: 20px; margin-bottom: 20px;">
+    <!-- Department Tree -->
+    <div class="section-card">
+      <div class="section-card-header">
+        <h3>组织架构</h3>
+        <button class="qbtn qbtn-primary qbtn-xs" onclick="openDeptModal()">
+          <i data-lucide="plus"></i>
+          <span>新增</span>
+        </button>
+      </div>
+      <div class="section-card-body" style="padding: 12px;">
+        <div class="dept-tree" id="deptTree"></div>
+      </div>
+    </div>
+
+    <!-- Department Detail -->
+    <div class="section-card">
+      <div class="section-card-header">
+        <h3 id="deptDetailTitle">部门详情</h3>
+        <div style="display:flex; gap:6px;">
+          <button class="qbtn qbtn-outline qbtn-xs" id="btnEditDept" onclick="openDeptModal('edit')">
+            <i data-lucide="edit-3"></i>
+            <span>编辑</span>
+          </button>
+          <button class="qbtn qbtn-outline qbtn-xs" id="btnDeleteDept" onclick="deleteDept()" style="color:var(--state-error); border-color:var(--state-error-light);">
+            <i data-lucide="trash-2"></i>
+            <span>删除</span>
+          </button>
+        </div>
+      </div>
+      <div class="section-card-body" id="deptDetailBody">
+        <div class="empty-state">
+          <i data-lucide="building"></i>
+          <p>请选择左侧部门查看详情</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Role Modal ============ -->
+<div class="sm-modal-overlay" id="roleModalOverlay">
+  <div class="sm-modal sm-modal--lg" id="roleModal">
+    <div class="sm-modal-header">
+      <h3 id="roleModalTitle">新增角色</h3>
+      <button class="sm-modal-close" onclick="closeRoleModal()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="sm-modal-body">
+      <input type="hidden" id="roleEditId">
+      <div class="form-row">
+        <div class="form-group">
+          <label>角色名称 <span style="color:var(--state-error);">*</span></label>
+          <input type="text" class="form-input" id="roleName" placeholder="请输入角色名称">
+        </div>
+        <div class="form-group">
+          <label>角色编码 <span style="color:var(--state-error);">*</span></label>
+          <input type="text" class="form-input" id="roleCode" placeholder="请输入角色编码">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>描述</label>
+        <textarea id="roleDesc" placeholder="请输入角色描述"></textarea>
+      </div>
+      <div class="form-group">
+        <label>状态</label>
+        <select class="form-select" id="roleStatus">
+          <option value="active">已启用</option>
+          <option value="inactive">已禁用</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label style="margin-bottom: 10px;">模块权限</label>
+        <div class="perm-tree" id="permTree"></div>
+      </div>
+    </div>
+    <div class="sm-modal-footer">
+      <button class="qbtn qbtn-outline" onclick="closeRoleModal()">取消</button>
+      <button class="qbtn qbtn-primary" onclick="saveRole()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Exchange Rate Modal ============ -->
+<div class="sm-modal-overlay" id="exchangeModalOverlay">
+  <div class="sm-modal" id="exchangeModal">
+    <div class="sm-modal-header">
+      <h3 id="exchangeModalTitle">新增汇率</h3>
+      <button class="sm-modal-close" onclick="closeExchangeModal()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="sm-modal-body">
+      <input type="hidden" id="exchangeEditId">
+      <div class="form-row">
+        <div class="form-group">
+          <label>币种 <span style="color:var(--state-error);">*</span></label>
+          <select class="form-select" id="exchangeCurrency">
+            <option value="USD">USD - 美元</option>
+            <option value="EUR">EUR - 欧元</option>
+            <option value="GBP">GBP - 英镑</option>
+            <option value="JPY">JPY - 日元</option>
+            <option value="HKD">HKD - 港币</option>
+            <option value="KRW">KRW - 韩元</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>汇率 (CNY) <span style="color:var(--state-error);">*</span></label>
+          <input type="number" step="0.0001" class="form-input" id="exchangeRate" placeholder="请输入汇率">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>生效日期 <span style="color:var(--state-error);">*</span></label>
+          <input type="date" class="form-input" id="exchangeDate">
+        </div>
+        <div class="form-group">
+          <label>备注</label>
+          <input type="text" class="form-input" id="exchangeRemark" placeholder="备注信息">
+        </div>
+      </div>
+    </div>
+    <div class="sm-modal-footer">
+      <button class="qbtn qbtn-outline" onclick="closeExchangeModal()">取消</button>
+      <button class="qbtn qbtn-primary" onclick="saveExchange()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Account Modal ============ -->
+<div class="sm-modal-overlay" id="accountModalOverlay">
+  <div class="sm-modal sm-modal--lg" id="accountModal">
+    <div class="sm-modal-header">
+      <h3 id="accountModalTitle">新增用户</h3>
+      <button class="sm-modal-close" onclick="closeAccountModal()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="sm-modal-body">
+      <input type="hidden" id="accountEditId">
+      <div class="form-row">
+        <div class="form-group">
+          <label>账号 <span style="color:var(--state-error);">*</span></label>
+          <input type="text" class="form-input" id="accountUsername" placeholder="请输入账号">
+        </div>
+        <div class="form-group">
+          <label>姓名 <span style="color:var(--state-error);">*</span></label>
+          <input type="text" class="form-input" id="accountName" placeholder="请输入姓名">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>密码 <span style="color:var(--state-error);">*</span></label>
+          <input type="password" class="form-input" id="accountPassword" placeholder="请输入密码">
+        </div>
+        <div class="form-group">
+          <label>用户类型 <span style="color:var(--state-error);">*</span></label>
+          <select class="form-select" id="accountType">
+            <option value="internal">内部员工</option>
+            <option value="client">客户</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>部门</label>
+          <select class="form-select" id="accountDept"></select>
+        </div>
+        <div class="form-group">
+          <label>岗位</label>
+          <input type="text" class="form-input" id="accountPosition" placeholder="请输入岗位">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>角色</label>
+          <select class="form-select" id="accountRole"></select>
+        </div>
+        <div class="form-group">
+          <label>状态</label>
+          <select class="form-select" id="accountStatus">
+            <option value="active">已启用</option>
+            <option value="inactive">已禁用</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>手机号</label>
+          <input type="text" class="form-input" id="accountPhone" placeholder="请输入手机号">
+        </div>
+        <div class="form-group">
+          <label>邮箱</label>
+          <input type="email" class="form-input" id="accountEmail" placeholder="请输入邮箱">
+        </div>
+      </div>
+    </div>
+    <div class="sm-modal-footer">
+      <button class="qbtn qbtn-outline" onclick="closeAccountModal()">取消</button>
+      <button class="qbtn qbtn-primary" onclick="saveAccount()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Department Modal ============ -->
+<div class="sm-modal-overlay" id="deptModalOverlay">
+  <div class="sm-modal" id="deptModal">
+    <div class="sm-modal-header">
+      <h3 id="deptModalTitle">新增部门</h3>
+      <button class="sm-modal-close" onclick="closeDeptModal()"><i data-lucide="x"></i></button>
+    </div>
+    <div class="sm-modal-body">
+      <input type="hidden" id="deptEditId">
+      <div class="form-group">
+        <label>上级部门</label>
+        <select class="form-select" id="deptParent"></select>
+      </div>
+      <div class="form-group">
+        <label>部门名称 <span style="color:var(--state-error);">*</span></label>
+        <input type="text" class="form-input" id="deptName" placeholder="请输入部门名称">
+      </div>
+      <div class="form-group">
+        <label>部门编码</label>
+        <input type="text" class="form-input" id="deptCode" placeholder="请输入部门编码">
+      </div>
+      <div class="form-group">
+        <label>描述</label>
+        <textarea id="deptDesc" placeholder="请输入部门描述"></textarea>
+      </div>
+    </div>
+    <div class="sm-modal-footer">
+      <button class="qbtn qbtn-outline" onclick="closeDeptModal()">取消</button>
+      <button class="qbtn qbtn-primary" onclick="saveDept()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ Confirm Dialog ============ -->
+<div class="confirm-dialog" id="confirmDialog">
+  <div class="confirm-box">
+    <h4 id="confirmTitle">确认操作</h4>
+    <p id="confirmMessage">确定要执行此操作吗？</p>
+    <div class="confirm-actions">
+      <button class="qbtn qbtn-outline" onclick="closeConfirm()">取消</button>
+      <button class="qbtn qbtn-danger" id="confirmBtn" onclick="executeConfirm()">确认</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ JavaScript ============ -->
+<script>
+// ==================== SAMPLE DATA ====================
+
+// 8+ Roles
+const rolesData = [
+  { id: 1, name: '超级管理员', code: 'SUPER_ADMIN', desc: '系统最高权限，管理所有模块', members: 2, created: '2024-01-15', status: 'active', perms: {dashboard:['view'],waybill:['view','create','edit','delete','export'],customer:['view','create','edit','delete'],finance:['view','export'],system:['view','manage']} },
+  { id: 2, name: '运营经理', code: 'OPS_MANAGER', desc: '负责运单管理与调度', members: 8, created: '2024-01-20', status: 'active', perms: {dashboard:['view'],waybill:['view','create','edit','export'],customer:['view'],finance:['view'],system:[]} },
+  { id: 3, name: '财务主管', code: 'FINANCE_LEAD', desc: '管理财务结算与报表', members: 3, created: '2024-02-01', status: 'active', perms: {dashboard:['view'],waybill:['view'],customer:['view'],finance:['view','edit','export'],system:[]} },
+  { id: 4, name: '客服专员', code: 'CS_AGENT', desc: '处理客户咨询与运单查询', members: 12, created: '2024-02-10', status: 'active', perms: {dashboard:['view'],waybill:['view'],customer:['view','create','edit'],finance:[],system:[]} },
+  { id: 5, name: '仓库管理员', code: 'WH_MANAGER', desc: '管理仓库出入库操作', members: 6, created: '2024-03-01', status: 'active', perms: {dashboard:['view'],waybill:['view','edit'],customer:['view'],finance:[],system:[]} },
+  { id: 6, name: '客户用户', code: 'CLIENT_USER', desc: '客户查询与下单', members: 18, created: '2024-03-15', status: 'active', perms: {dashboard:[],waybill:['view','create'],customer:['view'],finance:[],system:[]} },
+  { id: 7, name: '数据分析师', code: 'DATA_ANALYST', desc: '数据报表与统计', members: 4, created: '2024-04-10', status: 'active', perms: {dashboard:['view'],waybill:['view'],customer:['view'],finance:['view','export'],system:[]} },
+  { id: 8, name: '测试角色', code: 'TEST_ROLE', desc: '系统测试用角色', members: 1, created: '2024-06-05', status: 'inactive', perms: {dashboard:['view'],waybill:['view'],customer:[],finance:[],system:[]} },
+  { id: 9, name: '调度专员', code: 'DISPATCHER', desc: '负责运输调度与路线规划', members: 2, created: '2024-07-01', status: 'active', perms: {dashboard:['view'],waybill:['view','edit'],customer:['view'],finance:[],system:[]} },
+];
+
+// 10+ Exchange Rate Records
+const exchangeData = [
+  { id: 1, currency: 'USD', rate: 7.2500, date: '2024-08-25', maintainer: '管理员', time: '2024-08-25 09:00', remark: '央行中间价' },
+  { id: 2, currency: 'EUR', rate: 7.8900, date: '2024-08-25', maintainer: '管理员', time: '2024-08-25 09:00', remark: '央行中间价' },
+  { id: 3, currency: 'GBP', rate: 9.2100, date: '2024-08-25', maintainer: '财务主管', time: '2024-08-25 10:30', remark: '季度调整' },
+  { id: 4, currency: 'JPY', rate: 0.0486, date: '2024-08-25', maintainer: '管理员', time: '2024-08-25 09:00', remark: '央行中间价' },
+  { id: 5, currency: 'HKD', rate: 0.9270, date: '2024-08-25', maintainer: '管理员', time: '2024-08-25 09:00', remark: '与美元挂钩' },
+  { id: 6, currency: 'KRW', rate: 0.0054, date: '2024-08-25', maintainer: '财务主管', time: '2024-08-25 14:00', remark: '' },
+  { id: 7, currency: 'USD', rate: 7.2000, date: '2024-08-18', maintainer: '管理员', time: '2024-08-18 09:00', remark: '央行中间价（上期）' },
+  { id: 8, currency: 'EUR', rate: 7.9200, date: '2024-08-18', maintainer: '管理员', time: '2024-08-18 09:00', remark: '央行中间价（上期）' },
+  { id: 9, currency: 'USD', rate: 7.1500, date: '2024-08-11', maintainer: '管理员', time: '2024-08-11 09:00', remark: '央行中间价' },
+  { id: 10, currency: 'EUR', rate: 7.8500, date: '2024-08-11', maintainer: '管理员', time: '2024-08-11 09:00', remark: '央行中间价' },
+  { id: 11, currency: 'GBP', rate: 9.1500, date: '2024-08-11', maintainer: '财务主管', time: '2024-08-11 11:00', remark: '汇率波动较大' },
+];
+
+// 12+ Users
+const accountsData = [
+  { id: 1, username: 'admin', name: '王博', type: 'internal', position: '系统管理员', dept: '信息技术部', role: '超级管理员', phone: '13800138001', email: 'wangbo@tms.com', status: 'active', created: '2024-01-01' },
+  { id: 2, username: 'zhangwei', name: '张伟', type: 'internal', position: '运营经理', dept: '运营管理部', role: '运营经理', phone: '13800138002', email: 'zhangwei@tms.com', status: 'active', created: '2024-01-15' },
+  { id: 3, username: 'lina', name: '李娜', type: 'internal', position: '财务主管', dept: '财务部', role: '财务主管', phone: '13800138003', email: 'lina@tms.com', status: 'active', created: '2024-01-20' },
+  { id: 4, username: 'wangfang', name: '王芳', type: 'internal', position: '客服专员', dept: '客服部', role: '客服专员', phone: '13800138004', email: 'wangfang@tms.com', status: 'active', created: '2024-02-01' },
+  { id: 5, username: 'liuqiang', name: '刘强', type: 'internal', position: '仓库管理员', dept: '仓储部', role: '仓库管理员', phone: '13800138005', email: 'liuqiang@tms.com', status: 'active', created: '2024-02-10' },
+  { id: 6, username: 'chenmei', name: '陈美', type: 'internal', position: '客服专员', dept: '客服部', role: '客服专员', phone: '13800138006', email: 'chenmei@tms.com', status: 'active', created: '2024-03-01' },
+  { id: 7, username: 'zhaoyun', name: '赵云', type: 'internal', position: '调度专员', dept: '调度中心', role: '调度专员', phone: '13800138007', email: 'zhaoyun@tms.com', status: 'active', created: '2024-03-15' },
+  { id: 8, username: 'sunli', name: '孙丽', type: 'internal', position: '数据分析师', dept: '信息技术部', role: '数据分析师', phone: '13800138008', email: 'sunli@tms.com', status: 'active', created: '2024-04-05' },
+  { id: 9, username: 'cust_a', name: '深圳市华联贸易', type: 'client', position: '客户', dept: '-', role: '客户用户', phone: '13900139001', email: 'hualian@example.com', status: 'active', created: '2024-05-01' },
+  { id: 10, username: 'cust_b', name: '上海明达物流', type: 'client', position: '客户', dept: '-', role: '客户用户', phone: '13900139002', email: 'mingda@example.com', status: 'active', created: '2024-05-10' },
+  { id: 11, username: 'cust_c', name: '北京恒通商贸', type: 'client', position: '客户', dept: '-', role: '客户用户', phone: '13900139003', email: 'hengtong@example.com', status: 'active', created: '2024-06-01' },
+  { id: 12, username: 'cust_d', name: '广州鑫源电子', type: 'client', position: '客户', dept: '-', role: '客户用户', phone: '13900139004', email: 'xinyuan@example.com', status: 'inactive', created: '2024-06-15' },
+  { id: 13, username: 'zhoujie', name: '周杰', type: 'internal', position: '运营专员', dept: '运营管理部', role: '运营经理', phone: '13800138009', email: 'zhoujie@tms.com', status: 'active', created: '2024-07-10' },
+];
+
+// 6+ Departments
+const deptData = [
+  { id: 1, parentId: null, name: 'TMS物流公司', code: 'TMS_ROOT', desc: '公司总部', members: 56, children: [
+    { id: 2, parentId: 1, name: '运营管理部', code: 'DEPT_OPS', desc: '负责运单管理与运营调度', members: 12, children: [
+      { id: 7, parentId: 2, name: '调度中心', code: 'DEPT_DISPATCH', desc: '运输调度与路线规划', members: 5 },
+      { id: 8, parentId: 2, name: '客服部', code: 'DEPT_CS', desc: '客户服务与咨询', members: 7 },
+    ]},
+    { id: 3, parentId: 1, name: '财务部', code: 'DEPT_FINANCE', desc: '财务结算与报表管理', members: 8 },
+    { id: 4, parentId: 1, name: '信息技术部', code: 'DEPT_IT', desc: '技术研发与系统维护', members: 10 },
+    { id: 5, parentId: 1, name: '仓储部', code: 'DEPT_WH', desc: '仓库管理与出入库', members: 9 },
+    { id: 6, parentId: 1, name: '市场部', code: 'DEPT_MKT', desc: '市场拓展与客户开发', members: 5 },
+  ]},
+];
+
+// Permission modules
+const permModules = [
+  { key: 'dashboard', label: '仪表盘', actions: ['view'] },
+  { key: 'waybill', label: '运单管理', actions: ['view', 'create', 'edit', 'delete', 'export'] },
+  { key: 'customer', label: '客户管理', actions: ['view', 'create', 'edit', 'delete'] },
+  { key: 'finance', label: '财务管理', actions: ['view', 'edit', 'export'] },
+  { key: 'system', label: '系统管理', actions: ['view', 'manage'] },
+];
+
+// ==================== STATE ====================
+let roleIdCounter = 10;
+let exchangeIdCounter = 12;
+let accountIdCounter = 14;
+let deptIdCounter = 9;
+
+let selectedDeptId = null;
+let confirmCallback = null;
+
+// ==================== UTILITY ====================
+function showToast(message, type) {
+  type = type || 'info';
+  const id = 'toast_' + Date.now();
+  const icons = { success: 'check-circle', error: 'alert-circle', info: 'info' };
+  const html = '<div class="sm-toast sm-toast--' + type + '" id="' + id + '"><i data-lucide="' + (icons[type] || 'info') + '"></i><span>' + message + '</span></div>';
+  document.getElementById('toastContainer').insertAdjacentHTML('beforeend', html);
+  lucide.createIcons();
+  setTimeout(function() {
+    var el = document.getElementById(id);
+    if (el) { el.style.opacity = '0'; el.style.transition = 'opacity 0.3s ease'; setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 300); }
+  }, 3000);
+}
+
+function showConfirm(title, message, callback) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMessage').textContent = message;
+  document.getElementById('confirmDialog').classList.add('is-visible');
+  confirmCallback = callback;
+}
+
+function closeConfirm() {
+  document.getElementById('confirmDialog').classList.remove('is-visible');
+  confirmCallback = null;
+}
+
+function executeConfirm() {
+  if (confirmCallback) { confirmCallback(); confirmCallback = null; }
+  closeConfirm();
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '-';
+  return dateStr;
+}
+
+function getStatusBadge(status) {
+  if (status === 'active') return '<span class="tms-status tms-status--success">已启用</span>';
+  return '<span class="tms-status tms-status--neutral">已禁用</span>';
+}
+
+function getTypeBadge(type) {
+  if (type === 'internal') return '<span class="tms-status tms-status--info">内部员工</span>';
+  return '<span class="tms-status tms-status--warning">客户</span>';
+}
+
+// ==================== TAB SWITCHING ====================
+document.getElementById('tabNav').addEventListener('click', function(e) {
+  var tab = e.target.closest('.sm-tab');
+  if (!tab) return;
+  var tabKey = tab.getAttribute('data-tab');
+  document.querySelectorAll('.sm-tab').forEach(function(t) { t.classList.remove('is-active'); });
+  tab.classList.add('is-active');
+  document.querySelectorAll('.sm-tab-content').forEach(function(c) { c.style.display = 'none'; });
+  var content = document.getElementById('tab-' + tabKey);
+  if (content) content.style.display = 'block';
+  if (tabKey === 'dept') renderDeptTree();
+  lucide.createIcons();
+});
+
+// ==================== MODAL HELPERS ====================
+function openModal(overlayId, modalId) {
+  document.getElementById(overlayId).classList.add('is-visible');
+  document.getElementById(modalId).classList.add('is-visible');
+}
+
+function closeModal(overlayId, modalId) {
+  document.getElementById(overlayId).classList.remove('is-visible');
+  document.getElementById(modalId).classList.remove('is-visible');
+}
+
+// ==================== TAB 1: ROLE MANAGEMENT ====================
+function renderRoleTable(data) {
+  var rows = data || rolesData;
+  var html = '';
+  rows.forEach(function(r) {
+    html += '<tr>';
+    html += '<td style="font-weight:600;">' + r.name + '</td>';
+    html += '<td><span class="tms-mono-data">' + r.code + '</span></td>';
+    html += '<td style="color:var(--tms-muted-foreground);">' + r.desc + '</td>';
+    html += '<td class="col-center"><span class="tms-mono-data">' + r.members + '</span></td>';
+    html += '<td>' + r.created + '</td>';
+    html += '<td class="col-center">' + getStatusBadge(r.status) + '</td>';
+    html += '<td class="col-action">';
+    html += '<button class="action-btn" onclick="editRole(' + r.id + ')" title="编辑"><i data-lucide="edit-3"></i></button>';
+    html += '<button class="action-btn action-btn--danger" onclick="deleteRole(' + r.id + ')" title="删除"><i data-lucide="trash-2"></i></button>';
+    html += '</td>';
+    html += '</tr>';
+  });
+  document.getElementById('roleTableBody').innerHTML = html;
+  document.getElementById('roleTotalCount').textContent = rows.length;
+  lucide.createIcons();
+}
+
+function openRoleModal(editId) {
+  var id = editId || null;
+  document.getElementById('roleEditId').value = id || '';
+  if (id) {
+    var role = rolesData.find(function(r) { return r.id === id; });
+    if (role) {
+      document.getElementById('roleModalTitle').textContent = '编辑角色';
+      document.getElementById('roleName').value = role.name;
+      document.getElementById('roleCode').value = role.code;
+      document.getElementById('roleDesc').value = role.desc;
+      document.getElementById('roleStatus').value = role.status;
+      renderPermTree(role.perms);
+    }
+  } else {
+    document.getElementById('roleModalTitle').textContent = '新增角色';
+    document.getElementById('roleName').value = '';
+    document.getElementById('roleCode').value = '';
+    document.getElementById('roleDesc').value = '';
+    document.getElementById('roleStatus').value = 'active';
+    renderPermTree({});
+  }
+  openModal('roleModalOverlay', 'roleModal');
+  lucide.createIcons();
+}
+
+function closeRoleModal() {
+  closeModal('roleModalOverlay', 'roleModal');
+}
+
+function renderPermTree(perms) {
+  perms = perms || {};
+  var html = '';
+  permModules.forEach(function(mod) {
+    var modPerms = perms[mod.key] || [];
+    var allChecked = mod.actions.every(function(a) { return modPerms.indexOf(a) >= 0; });
+    html += '<div class="perm-module">';
+    html += '<div class="perm-module-header" onclick="togglePermModule(this)">';
+    html += '<input type="checkbox" class="perm-check" ' + (allChecked ? 'checked' : '') + ' onclick="event.stopPropagation(); toggleModuleCheckbox(this,\'' + mod.key + '\')">';
+    html += '<span class="perm-title">' + mod.label + '</span>';
+    html += '<i data-lucide="chevron-right" class="perm-arrow" style="width:16px;height:16px;"></i>';
+    html += '</div>';
+    html += '<div class="perm-module-body">';
+    mod.actions.forEach(function(a) {
+      var actionLabels = { view: '查看', create: '新增', edit: '编辑', delete: '删除', export: '导出', manage: '管理' };
+      html += '<label class="perm-item"><input type="checkbox" value="' + a + '" data-module="' + mod.key + '" ' + (modPerms.indexOf(a) >= 0 ? 'checked' : '') + ' onchange="updatePermModuleCheck(\'' + mod.key + '\')">' + (actionLabels[a] || a) + '</label>';
+    });
+    html += '</div>';
+    html += '</div>';
+  });
+  document.getElementById('permTree').innerHTML = html;
+  lucide.createIcons();
+}
+
+function togglePermModule(header) {
+  var arrow = header.querySelector('.perm-arrow');
+  var body = header.nextElementSibling;
+  arrow.classList.toggle('is-open');
+  body.classList.toggle('is-open');
+}
+
+function toggleModuleCheckbox(cb, moduleKey) {
+  var module = cb.closest('.perm-module');
+  var checkboxes = module.querySelectorAll('.perm-module-body input[type="checkbox"]');
+  checkboxes.forEach(function(c) { c.checked = cb.checked; });
+}
+
+function updatePermModuleCheck(moduleKey) {
+  var module = document.querySelector('.perm-module-body input[data-module="' + moduleKey + '"]');
+  if (!module) return;
+  var modDiv = module.closest('.perm-module');
+  var allChecks = modDiv.querySelectorAll('.perm-module-body input[type="checkbox"]');
+  var headerCheck = modDiv.querySelector('.perm-module-header .perm-check');
+  var allChecked = true;
+  allChecks.forEach(function(c) { if (!c.checked) allChecked = false; });
+  headerCheck.checked = allChecked;
+}
+
+function getPermsFromTree() {
+  var perms = {};
+  permModules.forEach(function(mod) {
+    var checks = document.querySelectorAll('.perm-module-body input[data-module="' + mod.key + '"]:checked');
+    perms[mod.key] = Array.from(checks).map(function(c) { return c.value; });
+  });
+  return perms;
+}
+
+function saveRole() {
+  var name = document.getElementById('roleName').value.trim();
+  var code = document.getElementById('roleCode').value.trim();
+  var desc = document.getElementById('roleDesc').value.trim();
+  var status = document.getElementById('roleStatus').value;
+  if (!name) { showToast('请输入角色名称', 'error'); return; }
+  if (!code) { showToast('请输入角色编码', 'error'); return; }
+  var perms = getPermsFromTree();
+  var editId = document.getElementById('roleEditId').value;
+  if (editId) {
+    var idx = rolesData.findIndex(function(r) { return r.id === parseInt(editId); });
+    if (idx >= 0) {
+      rolesData[idx].name = name;
+      rolesData[idx].code = code;
+      rolesData[idx].desc = desc;
+      rolesData[idx].status = status;
+      rolesData[idx].perms = perms;
+      showToast('角色更新成功', 'success');
+    }
+  } else {
+    var newRole = { id: roleIdCounter++, name: name, code: code, desc: desc, members: 0, created: new Date().toISOString().slice(0,10), status: status, perms: perms };
+    rolesData.push(newRole);
+    showToast('角色创建成功', 'success');
+  }
+  closeRoleModal();
+  renderRoleTable(rolesData);
+  updateRoleKPIs();
+}
+
+function editRole(id) {
+  openRoleModal(id);
+}
+
+function deleteRole(id) {
+  var role = rolesData.find(function(r) { return r.id === id; });
+  if (!role) return;
+  showConfirm('删除角色', '确定要删除角色"' + role.name + '"吗？此操作不可撤销。', function() {
+    var idx = rolesData.findIndex(function(r) { return r.id === id; });
+    if (idx >= 0) {
+      rolesData.splice(idx, 1);
+      renderRoleTable(rolesData);
+      updateRoleKPIs();
+      showToast('角色已删除', 'success');
+    }
+  });
+}
+
+function updateRoleKPIs() {
+  document.getElementById('totalRoles').textContent = rolesData.length;
+  var active = rolesData.filter(function(r) { return r.status === 'active'; }).length;
+  document.getElementById('activeRoles').textContent = active;
+  var totalMembers = rolesData.reduce(function(s, r) { return s + r.members; }, 0);
+  document.getElementById('totalRoleUsers').textContent = totalMembers;
+}
+
+// ==================== TAB 2: EXCHANGE RATE ====================
+function renderExchangeTable(data) {
+  var rows = data || exchangeData;
+  var html = '';
+  rows.forEach(function(r) {
+    html += '<tr>';
+    html += '<td><span class="tms-mono-data" style="font-weight:600;">' + r.currency + '</span></td>';
+    html += '<td class="col-num"><span class="tms-mono-data">' + r.rate.toFixed(4) + '</span></td>';
+    html += '<td>' + r.date + '</td>';
+    html += '<td>' + r.maintainer + '</td>';
+    html += '<td>' + r.time + '</td>';
+    html += '<td style="color:var(--tms-muted-foreground);">' + (r.remark || '-') + '</td>';
+    html += '<td class="col-action">';
+    html += '<button class="action-btn" onclick="editExchange(' + r.id + ')" title="编辑"><i data-lucide="edit-3"></i></button>';
+    html += '<button class="action-btn action-btn--danger" onclick="deleteExchange(' + r.id + ')" title="删除"><i data-lucide="trash-2"></i></button>';
+    html += '</td>';
+    html += '</tr>';
+  });
+  document.getElementById('exchangeTableBody').innerHTML = html;
+  document.getElementById('exchangeTotalCount').textContent = exchangeData.length;
+  document.getElementById('exchangeTotalCount2').textContent = exchangeData.length;
+  lucide.createIcons();
+}
+
+function openExchangeModal(editId) {
+  var id = editId || null;
+  document.getElementById('exchangeEditId').value = id || '';
+  if (id) {
+    var rec = exchangeData.find(function(r) { return r.id === id; });
+    if (rec) {
+      document.getElementById('exchangeModalTitle').textContent = '编辑汇率';
+      document.getElementById('exchangeCurrency').value = rec.currency;
+      document.getElementById('exchangeRate').value = rec.rate;
+      document.getElementById('exchangeDate').value = rec.date;
+      document.getElementById('exchangeRemark').value = rec.remark || '';
+    }
+  } else {
+    document.getElementById('exchangeModalTitle').textContent = '新增汇率';
+    document.getElementById('exchangeCurrency').value = 'USD';
+    document.getElementById('exchangeRate').value = '';
+    document.getElementById('exchangeDate').value = new Date().toISOString().slice(0,10);
+    document.getElementById('exchangeRemark').value = '';
+  }
+  openModal('exchangeModalOverlay', 'exchangeModal');
+}
+
+function closeExchangeModal() {
+  closeModal('exchangeModalOverlay', 'exchangeModal');
+}
+
+function saveExchange() {
+  var currency = document.getElementById('exchangeCurrency').value;
+  var rate = parseFloat(document.getElementById('exchangeRate').value);
+  var date = document.getElementById('exchangeDate').value;
+  var remark = document.getElementById('exchangeRemark').value.trim();
+  if (!rate || isNaN(rate)) { showToast('请输入有效汇率', 'error'); return; }
+  if (!date) { showToast('请选择生效日期', 'error'); return; }
+  var now = new Date();
+  var timeStr = now.toISOString().slice(0,10) + ' ' + now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  var editId = document.getElementById('exchangeEditId').value;
+  if (editId) {
+    var idx = exchangeData.findIndex(function(r) { return r.id === parseInt(editId); });
+    if (idx >= 0) {
+      exchangeData[idx].currency = currency;
+      exchangeData[idx].rate = rate;
+      exchangeData[idx].date = date;
+      exchangeData[idx].remark = remark;
+      exchangeData[idx].time = timeStr;
+      showToast('汇率更新成功', 'success');
+    }
+  } else {
+    var newRec = { id: exchangeIdCounter++, currency: currency, rate: rate, date: date, maintainer: '管理员', time: timeStr, remark: remark };
+    exchangeData.unshift(newRec);
+    showToast('汇率新增成功', 'success');
+  }
+  closeExchangeModal();
+  renderExchangeTable(exchangeData);
+  renderExchangeHistory();
+}
+
+function editExchange(id) {
+  openExchangeModal(id);
+}
+
+function deleteExchange(id) {
+  var rec = exchangeData.find(function(r) { return r.id === id; });
+  if (!rec) return;
+  showConfirm('删除汇率记录', '确定要删除 ' + rec.currency + ' 的汇率记录吗？', function() {
+    var idx = exchangeData.findIndex(function(r) { return r.id === id; });
+    if (idx >= 0) {
+      exchangeData.splice(idx, 1);
+      renderExchangeTable(exchangeData);
+      renderExchangeHistory();
+      showToast('汇率记录已删除', 'success');
+    }
+  });
+}
+
+function renderExchangeHistory() {
+  var html = '';
+  var sorted = exchangeData.slice().sort(function(a, b) { return a.date > b.date ? -1 : 1; });
+  sorted.forEach(function(r) {
+    html += '<div class="history-item">';
+    html += '<div class="history-dot"></div>';
+    html += '<div class="history-content">';
+    html += '<div class="history-desc"><span class="tms-mono-data" style="font-weight:600;">' + r.currency + '</span> 汇率更新为 <span class="tms-mono-data">' + r.rate.toFixed(4) + '</span> CNY</div>';
+    html += '<div class="history-meta">' + r.maintainer + ' | ' + r.time + (r.remark ? ' | ' + r.remark : '') + '</div>';
+    html += '</div>';
+    html += '</div>';
+  });
+  document.getElementById('exchangeHistory').innerHTML = html || '<div class="empty-state"><p>暂无变更记录</p></div>';
+}
+
+function toggleHistoryLog() {
+  showToast('显示全部历史记录', 'info');
+}
+
+// ==================== TAB 3: ACCOUNT MANAGEMENT ====================
+function renderAccountTable(data) {
+  var rows = data || accountsData;
+  var html = '';
+  rows.forEach(function(a) {
+    html += '<tr>';
+    html += '<td><span class="tms-mono-data" style="font-weight:600;">' + a.username + '</span></td>';
+    html += '<td>' + a.name + '</td>';
+    html += '<td class="col-center">' + getTypeBadge(a.type) + '</td>';
+    html += '<td>' + a.position + '</td>';
+    html += '<td>' + a.dept + '</td>';
+    html += '<td>' + a.role + '</td>';
+    html += '<td><span class="tms-mono-data">' + a.phone + '</span></td>';
+    html += '<td style="color:var(--tms-muted-foreground);">' + a.email + '</td>';
+    html += '<td class="col-center">' + getStatusBadge(a.status) + '</td>';
+    html += '<td>' + a.created + '</td>';
+    html += '<td class="col-action">';
+    html += '<button class="action-btn" onclick="editAccount(' + a.id + ')" title="编辑"><i data-lucide="edit-3"></i></button>';
+    html += '<button class="action-btn" onclick="resetPassword(' + a.id + ')" title="重置密码"><i data-lucide="key"></i></button>';
+    html += '<button class="action-btn action-btn--danger" onclick="deleteAccount(' + a.id + ')" title="删除"><i data-lucide="trash-2"></i></button>';
+    html += '</td>';
+    html += '</tr>';
+  });
+  document.getElementById('accountTableBody').innerHTML = html;
+  document.getElementById('accountTotalCount').textContent = accountsData.length;
+  lucide.createIcons();
+}
+
+function populateAccountSelects() {
+  var deptSel = document.getElementById('accountDept');
+  deptSel.innerHTML = '<option value="">请选择部门</option>';
+  var allDepts = flattenDepts(deptData);
+  allDepts.forEach(function(d) {
+    deptSel.innerHTML += '<option value="' + d.name + '">' + d.name + '</option>';
+  });
+  var roleSel = document.getElementById('accountRole');
+  roleSel.innerHTML = '<option value="">请选择角色</option>';
+  rolesData.filter(function(r) { return r.status === 'active'; }).forEach(function(r) {
+    roleSel.innerHTML += '<option value="' + r.name + '">' + r.name + '</option>';
+  });
+}
+
+function flattenDepts(depts, prefix) {
+  prefix = prefix || '';
+  var result = [];
+  depts.forEach(function(d) {
+    result.push({ name: (prefix ? prefix + ' / ' : '') + d.name, id: d.id });
+    if (d.children && d.children.length) {
+      result = result.concat(flattenDepts(d.children, (prefix ? prefix + ' / ' : '') + d.name));
+    }
+  });
+  return result;
+}
+
+function openAccountModal(editId) {
+  populateAccountSelects();
+  var id = editId || null;
+  document.getElementById('accountEditId').value = id || '';
+  if (id) {
+    var acc = accountsData.find(function(a) { return a.id === id; });
+    if (acc) {
+      document.getElementById('accountModalTitle').textContent = '编辑用户';
+      document.getElementById('accountUsername').value = acc.username;
+      document.getElementById('accountUsername').disabled = true;
+      document.getElementById('accountName').value = acc.name;
+      document.getElementById('accountPassword').value = '';
+      document.getElementById('accountPassword').placeholder = '留空则不修改密码';
+      document.getElementById('accountType').value = acc.type;
+      document.getElementById('accountDept').value = acc.dept;
+      document.getElementById('accountPosition').value = acc.position;
+      document.getElementById('accountRole').value = acc.role;
+      document.getElementById('accountStatus').value = acc.status;
+      document.getElementById('accountPhone').value = acc.phone;
+      document.getElementById('accountEmail').value = acc.email;
+    }
+  } else {
+    document.getElementById('accountModalTitle').textContent = '新增用户';
+    document.getElementById('accountUsername').value = '';
+    document.getElementById('accountUsername').disabled = false;
+    document.getElementById('accountName').value = '';
+    document.getElementById('accountPassword').value = '';
+    document.getElementById('accountPassword').placeholder = '请输入密码';
+    document.getElementById('accountType').value = 'internal';
+    document.getElementById('accountDept').value = '';
+    document.getElementById('accountPosition').value = '';
+    document.getElementById('accountRole').value = '';
+    document.getElementById('accountStatus').value = 'active';
+    document.getElementById('accountPhone').value = '';
+    document.getElementById('accountEmail').value = '';
+  }
+  openModal('accountModalOverlay', 'accountModal');
+}
+
+function closeAccountModal() {
+  closeModal('accountModalOverlay', 'accountModal');
+}
+
+function saveAccount() {
+  var username = document.getElementById('accountUsername').value.trim();
+  var name = document.getElementById('accountName').value.trim();
+  var password = document.getElementById('accountPassword').value;
+  var type = document.getElementById('accountType').value;
+  var dept = document.getElementById('accountDept').value;
+  var position = document.getElementById('accountPosition').value.trim();
+  var role = document.getElementById('accountRole').value;
+  var status = document.getElementById('accountStatus').value;
+  var phone = document.getElementById('accountPhone').value.trim();
+  var email = document.getElementById('accountEmail').value.trim();
+  if (!username) { showToast('请输入账号', 'error'); return; }
+  if (!name) { showToast('请输入姓名', 'error'); return; }
+  var editId = document.getElementById('accountEditId').value;
+  if (!editId && !password) { showToast('请输入密码', 'error'); return; }
+  if (editId) {
+    var idx = accountsData.findIndex(function(a) { return a.id === parseInt(editId); });
+    if (idx >= 0) {
+      accountsData[idx].name = name;
+      if (password) accountsData[idx].password = password;
+      accountsData[idx].type = type;
+      accountsData[idx].dept = dept || '-';
+      accountsData[idx].position = position;
+      accountsData[idx].role = role;
+      accountsData[idx].status = status;
+      accountsData[idx].phone = phone;
+      accountsData[idx].email = email;
+      showToast('用户信息更新成功', 'success');
+    }
+  } else {
+    var newAcc = { id: accountIdCounter++, username: username, name: name, type: type, position: position, dept: dept || '-', role: role, phone: phone, email: email, status: status, created: new Date().toISOString().slice(0,10) };
+    accountsData.push(newAcc);
+    showToast('用户创建成功', 'success');
+  }
+  closeAccountModal();
+  renderAccountTable(accountsData);
+  updateAccountKPIs();
+}
+
+function editAccount(id) {
+  openAccountModal(id);
+}
+
+function resetPassword(id) {
+  var acc = accountsData.find(function(a) { return a.id === id; });
+  if (!acc) return;
+  showConfirm('重置密码', '确定要重置用户"' + acc.name + '"的密码吗？新密码将发送至其邮箱。', function() {
+    showToast('密码重置成功，新密码已发送至 ' + acc.email, 'success');
+  });
+}
+
+function deleteAccount(id) {
+  var acc = accountsData.find(function(a) { return a.id === id; });
+  if (!acc) return;
+  showConfirm('删除用户', '确定要删除用户"' + acc.name + '"吗？此操作不可撤销。', function() {
+    var idx = accountsData.findIndex(function(a) { return a.id === id; });
+    if (idx >= 0) {
+      accountsData.splice(idx, 1);
+      renderAccountTable(accountsData);
+      updateAccountKPIs();
+      showToast('用户已删除', 'success');
+    }
+  });
+}
+
+function toggleAccountStatus(id) {
+  var idx = accountsData.findIndex(function(a) { return a.id === id; });
+  if (idx >= 0) {
+    accountsData[idx].status = accountsData[idx].status === 'active' ? 'inactive' : 'active';
+    renderAccountTable(accountsData);
+    updateAccountKPIs();
+    showToast('用户状态已更新', 'success');
+  }
+}
+
+function updateAccountKPIs() {
+  document.getElementById('totalUsers').textContent = accountsData.length;
+  document.getElementById('internalUsers').textContent = accountsData.filter(function(a) { return a.type === 'internal'; }).length;
+  document.getElementById('clientUsers').textContent = accountsData.filter(function(a) { return a.type === 'client'; }).length;
+  document.getElementById('activeUsers').textContent = accountsData.filter(function(a) { return a.status === 'active'; }).length;
+}
+
+// ==================== TAB 4: DEPARTMENT MANAGEMENT ====================
+function renderDeptTree() {
+  var html = '';
+  deptData.forEach(function(dept) {
+    html += renderDeptNode(dept, 0);
+  });
+  document.getElementById('deptTree').innerHTML = html;
+  lucide.createIcons();
+}
+
+function renderDeptNode(dept, level) {
+  var hasChildren = dept.children && dept.children.length > 0;
+  var html = '<div class="dept-node' + (selectedDeptId === dept.id ? ' is-active' : '') + '" style="padding-left:' + (12 + level * 20) + 'px;" onclick="selectDept(' + dept.id + ', event)">';
+  if (hasChildren) {
+    html += '<i data-lucide="chevron-right" class="dept-arrow" style="width:16px;height:16px;color:var(--tms-muted-foreground);"></i>';
+  } else {
+    html += '<span style="width:16px;display:inline-block;"></span>';
+  }
+  html += '<i data-lucide="' + (level === 0 ? 'building' : 'folder') + '" class="dept-icon" style="width:16px;height:16px;flex-shrink:0;"></i>';
+  html += '<span class="dept-name">' + dept.name + '</span>';
+  html += '<span class="dept-count">' + dept.members + '人</span>';
+  html += '</div>';
+  if (hasChildren) {
+    html += '<div class="dept-children">';
+    dept.children.forEach(function(child) {
+      html += renderDeptNode(child, level + 1);
+    });
+    html += '</div>';
+  }
+  return html;
+}
+
+function selectDept(id, event) {
+  event.stopPropagation();
+  selectedDeptId = id;
+  renderDeptTree();
+  var dept = findDeptById(deptData, id);
+  if (dept) {
+    document.getElementById('deptDetailTitle').textContent = dept.name;
+    var html = '<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px 20px;">';
+    html += '<div><span style="font-size:12px;color:var(--tms-muted-foreground);">部门名称</span><div style="font-size:14px;font-weight:500;margin-top:4px;">' + dept.name + '</div></div>';
+    html += '<div><span style="font-size:12px;color:var(--tms-muted-foreground);">部门编码</span><div style="font-size:14px;font-weight:500;margin-top:4px;"><span class="tms-mono-data">' + (dept.code || '-') + '</span></div></div>';
+    html += '<div><span style="font-size:12px;color:var(--tms-muted-foreground);">成员数</span><div style="font-size:14px;font-weight:500;margin-top:4px;"><span class="tms-mono-data">' + dept.members + '</span> 人</div></div>';
+    html += '<div><span style="font-size:12px;color:var(--tms-muted-foreground);">上级部门</span><div style="font-size:14px;font-weight:500;margin-top:4px;">' + (dept.parentId ? (findDeptById(deptData, dept.parentId) || {}).name || '-' : '无（顶级）') + '</div></div>';
+    html += '<div style="grid-column:1/-1;"><span style="font-size:12px;color:var(--tms-muted-foreground);">描述</span><div style="font-size:13px;margin-top:4px;color:var(--tms-muted-foreground);">' + (dept.desc || '暂无描述') + '</div></div>';
+    html += '</div>';
+    document.getElementById('deptDetailBody').innerHTML = html;
+    document.getElementById('btnEditDept').style.display = '';
+    document.getElementById('btnDeleteDept').style.display = '';
+  }
+}
+
+function findDeptById(depts, id) {
+  for (var i = 0; i < depts.length; i++) {
+    if (depts[i].id === id) return depts[i];
+    if (depts[i].children) {
+      var found = findDeptById(depts[i].children, id);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+function populateDeptParentSelect(excludeId) {
+  var sel = document.getElementById('deptParent');
+  sel.innerHTML = '<option value="">无（顶级部门）</option>';
+  var allDepts = flattenDepts(deptData);
+  allDepts.forEach(function(d) {
+    if (d.id !== excludeId) {
+      sel.innerHTML += '<option value="' + d.id + '">' + d.name + '</option>';
+    }
+  });
+}
+
+function openDeptModal(mode, parentId) {
+  var editMode = mode === 'edit';
+  if (editMode && selectedDeptId) {
+    var dept = findDeptById(deptData, selectedDeptId);
+    if (dept) {
+      document.getElementById('deptEditId').value = dept.id;
+      document.getElementById('deptModalTitle').textContent = '编辑部门';
+      populateDeptParentSelect(dept.id);
+      document.getElementById('deptParent').value = dept.parentId || '';
+      document.getElementById('deptName').value = dept.name;
+      document.getElementById('deptCode').value = dept.code || '';
+      document.getElementById('deptDesc').value = dept.desc || '';
+    }
+  } else {
+    document.getElementById('deptEditId').value = '';
+    document.getElementById('deptModalTitle').textContent = '新增部门';
+    populateDeptParentSelect(null);
+    document.getElementById('deptParent').value = parentId || '';
+    document.getElementById('deptName').value = '';
+    document.getElementById('deptCode').value = '';
+    document.getElementById('deptDesc').value = '';
+  }
+  openModal('deptModalOverlay', 'deptModal');
+}
+
+function closeDeptModal() {
+  closeModal('deptModalOverlay', 'deptModal');
+}
+
+function saveDept() {
+  var name = document.getElementById('deptName').value.trim();
+  var code = document.getElementById('deptCode').value.trim();
+  var desc = document.getElementById('deptDesc').value.trim();
+  var parentId = document.getElementById('deptParent').value;
+  if (!name) { showToast('请输入部门名称', 'error'); return; }
+  var editId = document.getElementById('deptEditId').value;
+  if (editId) {
+    var dept = findDeptById(deptData, parseInt(editId));
+    if (dept) {
+      dept.name = name;
+      dept.code = code;
+      dept.desc = desc;
+      showToast('部门更新成功', 'success');
+    }
+  } else {
+    var newDept = { id: deptIdCounter++, parentId: parentId ? parseInt(parentId) : null, name: name, code: code, desc: desc, members: 0 };
+    if (parentId) {
+      var parent = findDeptById(deptData, parseInt(parentId));
+      if (parent) {
+        if (!parent.children) parent.children = [];
+        parent.children.push(newDept);
+      }
+    } else {
+      deptData.push(newDept);
+    }
+    showToast('部门创建成功', 'success');
+  }
+  closeDeptModal();
+  renderDeptTree();
+  updateDeptMemberCounts();
+}
+
+function deleteDept() {
+  if (!selectedDeptId) { showToast('请先选择部门', 'error'); return; }
+  var dept = findDeptById(deptData, selectedDeptId);
+  if (!dept) return;
+  showConfirm('删除部门', '确定要删除部门"' + dept.name + '"吗？如果该部门下有子部门，将一并删除。此操作不可撤销。', function() {
+    removeDeptById(deptData, selectedDeptId);
+    selectedDeptId = null;
+    renderDeptTree();
+    document.getElementById('deptDetailBody').innerHTML = '<div class="empty-state"><i data-lucide="building"></i><p>请选择左侧部门查看详情</p></div>';
+    document.getElementById('deptDetailTitle').textContent = '部门详情';
+    lucide.createIcons();
+    showToast('部门已删除', 'success');
+  });
+}
+
+function removeDeptById(depts, id) {
+  for (var i = depts.length - 1; i >= 0; i--) {
+    if (depts[i].id === id) {
+      depts.splice(i, 1);
+      return true;
+    }
+    if (depts[i].children) {
+      if (removeDeptById(depts[i].children, id)) return true;
+    }
+  }
+  return false;
+}
+
+function updateDeptMemberCounts() {
+  function updateCount(depts) {
+    depts.forEach(function(d) {
+      if (d.children && d.children.length) {
+        d.members = d.children.reduce(function(s, c) { return s + (c.members || 0); }, 0);
+        updateCount(d.children);
+      }
+    });
+  }
+  updateCount(deptData);
+}
+
+// ==================== SEARCH / FILTER HANDLERS ====================
+document.getElementById('roleSearch').addEventListener('input', function() {
+  var q = this.value.toLowerCase();
+  var status = document.getElementById('roleStatusFilter').value;
+  var filtered = rolesData.filter(function(r) {
+    var matchSearch = !q || r.name.toLowerCase().indexOf(q) >= 0 || r.code.toLowerCase().indexOf(q) >= 0;
+    var matchStatus = status === 'all' || r.status === status;
+    return matchSearch && matchStatus;
+  });
+  renderRoleTable(filtered);
+});
+
+document.getElementById('roleStatusFilter').addEventListener('change', function() {
+  document.getElementById('roleSearch').dispatchEvent(new Event('input'));
+});
+
+document.getElementById('exchangeSearch').addEventListener('input', function() {
+  var q = this.value.toLowerCase();
+  var currency = document.getElementById('exchangeCurrencyFilter').value;
+  var filtered = exchangeData.filter(function(r) {
+    var matchSearch = !q || r.currency.toLowerCase().indexOf(q) >= 0;
+    var matchCurrency = currency === 'all' || r.currency === currency;
+    return matchSearch && matchCurrency;
+  });
+  renderExchangeTable(filtered);
+});
+
+document.getElementById('exchangeCurrencyFilter').addEventListener('change', function() {
+  document.getElementById('exchangeSearch').dispatchEvent(new Event('input'));
+});
+
+document.getElementById('accountSearch').addEventListener('input', function() {
+  var q = this.value.toLowerCase();
+  var type = document.getElementById('accountTypeFilter').value;
+  var status = document.getElementById('accountStatusFilter').value;
+  var filtered = accountsData.filter(function(a) {
+    var matchSearch = !q || a.username.toLowerCase().indexOf(q) >= 0 || a.name.toLowerCase().indexOf(q) >= 0 || a.phone.indexOf(q) >= 0;
+    var matchType = type === 'all' || a.type === type;
+    var matchStatus = status === 'all' || a.status === status;
+    return matchSearch && matchType && matchStatus;
+  });
+  renderAccountTable(filtered);
+});
+
+document.getElementById('accountTypeFilter').addEventListener('change', function() {
+  document.getElementById('accountSearch').dispatchEvent(new Event('input'));
+});
+
+document.getElementById('accountStatusFilter').addEventListener('change', function() {
+  document.getElementById('accountSearch').dispatchEvent(new Event('input'));
+});
+
+// ==================== INITIALIZATION ====================
+function init() {
+  // Render all tables
+  renderRoleTable(rolesData);
+  renderExchangeTable(exchangeData);
+  renderAccountTable(accountsData);
+  renderExchangeHistory();
+  updateRoleKPIs();
+  updateAccountKPIs();
+  lucide.createIcons();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  init();
+});
+
+// Close modals on overlay click
+document.querySelectorAll('.sm-modal-overlay').forEach(function(overlay) {
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      overlay.classList.remove('is-visible');
+      overlay.nextElementSibling.classList.remove('is-visible');
+    }
+  });
+});
+</script>
+
+    </main>
+  </div>
+</div>
+</body>
+</html>

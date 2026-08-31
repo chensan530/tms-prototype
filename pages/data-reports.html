@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据报表</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   TMS Logistics Prototype — Brand CSS
+   Style: 稳健数据密集型 (Stable Data-Intensive)
+   Palette: 米白底色 + 墨绿主色 + 衬线标题 + 高密度表格
+   Brand Prefix: tms
+   ========================================================================== */
+
+/* ---------- Brand Identity Tokens ---------- */
+:root {
+  /* Primary Scale — 墨绿 (Deep Forest Green) */
+  --tms-primary-50: #E8F0EB;
+  --tms-primary-100: #C8DCCF;
+  --tms-primary-200: #97BDA5;
+  --tms-primary-300: #5E9273;
+  --tms-primary-400: #3A7250;
+  --tms-primary-500: #1B4332;   /* Main brand color */
+  --tms-primary-600: #163A2B;
+  --tms-primary-700: #112D21;
+  --tms-primary-800: #0D2219;
+  --tms-primary-900: #081711;
+
+  /* Neutral Scale — Warm Ivory / Stone */
+  --tms-neutral-0: #FFFFFF;
+  --tms-neutral-50: #FAF9F6;    /* Page background — 米白 */
+  --tms-neutral-100: #F4F3EF;   /* Surface hover */
+  --tms-neutral-200: #EAE8E1;   /* Borders, dividers */
+  --tms-neutral-300: #D8D5CB;   /* Stronger borders */
+  --tms-neutral-400: #B5B1A4;   /* Disabled, tertiary fills */
+  --tms-neutral-500: #8C887B;   /* Tertiary text */
+  --tms-neutral-600: #6B6B65;   /* Secondary text */
+  --tms-neutral-700: #4A4A44;   /* Body text emphasis */
+  --tms-neutral-800: #2D2D28;   /* Strong body text */
+  --tms-neutral-900: #1A1A17;   /* Primary text — warm near-black */
+
+  /* State Colors — Semantic Only */
+  --state-success: #2D7D5F;
+  --state-success-light: #E0F0E8;
+  --state-warning: #B8860B;
+  --state-warning-light: #FBF3DC;
+  --state-error: #B5453C;
+  --state-error-light: #F5E0DC;
+  --state-info: #3A6B8C;
+  --state-info-light: #DCE8F0;
+
+  /* Semantic Aliases — Light Mode */
+  --tms-background: var(--tms-neutral-50);
+  --tms-foreground: var(--tms-neutral-900);
+  --tms-card: var(--tms-neutral-0);
+  --tms-card-foreground: var(--tms-neutral-900);
+  --tms-popover: var(--tms-neutral-0);
+  --tms-popover-foreground: var(--tms-neutral-900);
+  --tms-primary: var(--tms-primary-500);
+  --tms-primary-foreground: var(--tms-neutral-0);
+  --tms-muted: var(--tms-neutral-100);
+  --tms-muted-foreground: var(--tms-neutral-600);
+  --tms-border: var(--tms-neutral-200);
+  --tms-input: var(--tms-neutral-0);
+  --tms-ring: var(--tms-primary-500);
+
+  /* Radius Scale */
+  --tms-radius-small: 4px;
+  --tms-radius-medium: 8px;
+  --tms-radius-large: 12px;
+  --tms-radius-full: 9999px;
+
+  /* Typography System */
+  --tms-font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --tms-font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --tms-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", "Consolas", monospace;
+
+  /* Shadow */
+  --tms-shadow-1: 0 1px 2px rgba(26, 26, 23, 0.04), 0 1px 1px rgba(26, 26, 23, 0.03);
+  --tms-shadow-2: 0 8px 24px -8px rgba(26, 26, 23, 0.12);
+  --tms-shadow-3: 0 24px 60px -20px rgba(26, 26, 23, 0.20);
+}
+
+/* ---------- Dark Mode Aliases ---------- */
+html.dark {
+  --tms-background: #121413;
+  --tms-foreground: #E8E6E1;
+  --tms-card: #1C1F1D;
+  --tms-card-foreground: #E8E6E1;
+  --tms-popover: #1C1F1D;
+  --tms-popover-foreground: #E8E6E1;
+  --tms-primary: #3A7250;
+  --tms-primary-foreground: #E8E6E1;
+  --tms-muted: #252826;
+  --tms-muted-foreground: #A8A499;
+  --tms-border: #2D302E;
+  --tms-input: #1C1F1D;
+  --tms-ring: #3A7250;
+
+  --tms-neutral-50: #121413;
+  --tms-neutral-100: #1C1F1D;
+  --tms-neutral-200: #2D302E;
+  --tms-neutral-600: #A8A499;
+  --tms-neutral-900: #E8E6E1;
+
+  --state-success: #5BAE8A;
+  --state-success-light: #1A2D24;
+  --state-warning: #D4A03E;
+  --state-warning-light: #2D2818;
+  --state-error: #D87A70;
+  --state-error-light: #2D1C1A;
+  --state-info: #6B9DB8;
+  --state-info-light: #1A2530;
+}
+
+/* ---------- Typography Classes ---------- */
+.tms-serif-title {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tms-sans-body {
+  font-family: var(--tms-font-sans);
+  font-weight: 400;
+}
+
+.tms-mono-data {
+  font-family: var(--tms-font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+/* ---------- Base Element Overrides ---------- */
+body {
+  font-family: var(--tms-font-sans);
+  background-color: var(--tms-background);
+  color: var(--tms-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--tms-font-serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  word-break: keep-all;
+}
+
+/* ---------- Utility: Data Table Density ---------- */
+.tms-table-dense {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tms-table-dense th,
+.tms-table-dense td {
+  padding: 8px 12px;
+}
+
+.tms-table-dense th {
+  font-weight: 600;
+  color: var(--tms-muted-foreground);
+  background-color: var(--tms-muted);
+  border-bottom: 1px solid var(--tms-border);
+  white-space: nowrap;
+}
+
+.tms-table-dense td {
+  border-bottom: 1px solid var(--tms-border);
+  color: var(--tms-foreground);
+}
+
+.tms-table-dense tbody tr:hover {
+  background-color: var(--tms-neutral-100);
+}
+
+/* ---------- Status Badge ---------- */
+.tms-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--tms-radius-small);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.tms-status--success {
+  background-color: var(--state-success-light);
+  color: var(--state-success);
+}
+
+.tms-status--warning {
+  background-color: var(--state-warning-light);
+  color: var(--state-warning);
+}
+
+.tms-status--error {
+  background-color: var(--state-error-light);
+  color: var(--state-error);
+}
+
+.tms-status--info {
+  background-color: var(--state-info-light);
+  color: var(--state-info);
+}
+
+.tms-status--neutral {
+  background-color: var(--tms-muted);
+  color: var(--tms-muted-foreground);
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--tms-background);
+    --color-foreground: var(--tms-foreground);
+    --color-card: var(--tms-card);
+    --color-card-foreground: var(--tms-card-foreground);
+    --color-popover: var(--tms-popover);
+    --color-popover-foreground: var(--tms-popover-foreground);
+    --color-primary: var(--tms-primary);
+    --color-primary-foreground: var(--tms-primary-foreground);
+    --color-muted: var(--tms-muted);
+    --color-muted-foreground: var(--tms-muted-foreground);
+    --color-border: var(--tms-border);
+    --color-input: var(--tms-input);
+    --color-ring: var(--tms-ring);
+    --radius-sm: var(--tms-radius-small);
+    --radius-md: var(--tms-radius-medium);
+    --radius-lg: var(--tms-radius-large);
+  }
+  @layer base {
+    body { background: var(--tms-background); color: var(--tms-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--tms-background); }
+      .text-background { color: var(--tms-background); }
+      .border-background { border-color: var(--tms-background); }
+      .ring-background { --tw-ring-color: var(--tms-background); }
+      .bg-foreground { background-color: var(--tms-foreground); }
+      .text-foreground { color: var(--tms-foreground); }
+      .border-foreground { border-color: var(--tms-foreground); }
+      .ring-foreground { --tw-ring-color: var(--tms-foreground); }
+      .bg-card { background-color: var(--tms-card); }
+      .text-card { color: var(--tms-card); }
+      .border-card { border-color: var(--tms-card); }
+      .ring-card { --tw-ring-color: var(--tms-card); }
+      .bg-card-foreground { background-color: var(--tms-card-foreground); }
+      .text-card-foreground { color: var(--tms-card-foreground); }
+      .border-card-foreground { border-color: var(--tms-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--tms-card-foreground); }
+      .bg-popover { background-color: var(--tms-popover); }
+      .text-popover { color: var(--tms-popover); }
+      .border-popover { border-color: var(--tms-popover); }
+      .ring-popover { --tw-ring-color: var(--tms-popover); }
+      .bg-popover-foreground { background-color: var(--tms-popover-foreground); }
+      .text-popover-foreground { color: var(--tms-popover-foreground); }
+      .border-popover-foreground { border-color: var(--tms-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--tms-popover-foreground); }
+      .bg-primary { background-color: var(--tms-primary); }
+      .text-primary { color: var(--tms-primary); }
+      .border-primary { border-color: var(--tms-primary); }
+      .ring-primary { --tw-ring-color: var(--tms-primary); }
+      .bg-primary-foreground { background-color: var(--tms-primary-foreground); }
+      .text-primary-foreground { color: var(--tms-primary-foreground); }
+      .border-primary-foreground { border-color: var(--tms-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--tms-primary-foreground); }
+      .bg-muted { background-color: var(--tms-muted); }
+      .text-muted { color: var(--tms-muted); }
+      .border-muted { border-color: var(--tms-muted); }
+      .ring-muted { --tw-ring-color: var(--tms-muted); }
+      .bg-muted-foreground { background-color: var(--tms-muted-foreground); }
+      .text-muted-foreground { color: var(--tms-muted-foreground); }
+      .border-muted-foreground { border-color: var(--tms-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--tms-muted-foreground); }
+      .bg-border { background-color: var(--tms-border); }
+      .text-border { color: var(--tms-border); }
+      .border-border { border-color: var(--tms-border); }
+      .ring-border { --tw-ring-color: var(--tms-border); }
+      .bg-input { background-color: var(--tms-input); }
+      .text-input { color: var(--tms-input); }
+      .border-input { border-color: var(--tms-input); }
+      .ring-input { --tw-ring-color: var(--tms-input); }
+      .bg-ring { background-color: var(--tms-ring); }
+      .text-ring { color: var(--tms-ring); }
+      .border-ring { border-color: var(--tms-ring); }
+      .ring-ring { --tw-ring-color: var(--tms-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+<!-- Critical Layout CSS -->
+<style id="critical-layout">
+  .app-layout { display: flex; min-height: 100vh; }
+  .app-sidebar { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; background: var(--tms-primary-500); color: var(--tms-neutral-0); }
+  .app-main-area { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .app-header { height: 64px; flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: var(--tms-card); border-bottom: 1px solid var(--tms-border); }
+  .app-content { flex: 1; overflow: auto; padding: 24px; }
+  .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 14px; color: rgba(255,255,255,0.65); transition: background-color 120ms ease, color 120ms ease; text-decoration: none; border-left: 3px solid transparent; }
+  .nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); }
+  .nav-item[data-active="true"] { background: rgba(255,255,255,0.12); color: var(--tms-neutral-0); border-left-color: var(--tms-primary-200); font-weight: 500; }
+  .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .nav-section-label { padding: 16px 24px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.35); font-weight: 600; }
+  .header-search { position: relative; }
+  .header-search input { width: 280px; height: 36px; padding: 0 12px 0 36px; font-size: 13px; border-radius: var(--tms-radius-medium); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); outline: none; }
+  .header-search input:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .header-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--tms-muted-foreground); }
+  .header-icon-btn { padding: 6px; border-radius: var(--tms-radius-small); border: none; background: transparent; cursor: pointer; color: var(--tms-muted-foreground); transition: background-color 120ms ease; }
+  .header-icon-btn:hover { background: var(--tms-muted); }
+  .header-user { display: flex; align-items: center; gap: 8px; }
+  .header-avatar { width: 32px; height: 32px; border-radius: var(--tms-radius-full); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: var(--tms-primary-100); color: var(--tms-primary-600); }
+  .sidebar-logo { padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .sidebar-logo h1 { font-family: var(--tms-font-serif); font-size: 18px; font-weight: 600; color: var(--tms-neutral-0); letter-spacing: -0.01em; }
+  .sidebar-logo span { font-size: 11px; color: rgba(255,255,255,0.4); display: block; margin-top: 2px; }
+</style>
+
+<!-- Page-specific styles -->
+<style>
+  .kpi-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 24px; }
+  .chart-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); padding: 20px; }
+  .section-card { background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); overflow: hidden; }
+  .table-wrap { overflow-x: auto; }
+  .qbtn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; font-size: 13px; font-weight: 500; border-radius: var(--tms-radius-medium); cursor: pointer; transition: background-color 120ms ease, border-color 120ms ease; border: 1px solid transparent; text-decoration: none; font-family: var(--tms-font-sans); }
+  .qbtn-primary { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); }
+  .qbtn-primary:hover { background: var(--tms-primary-600); border-color: var(--tms-primary-600); }
+  .qbtn-outline { background: var(--tms-card); color: var(--tms-foreground); border-color: var(--tms-border); }
+  .qbtn-outline:hover { background: var(--tms-muted); }
+  .qbtn-sm { padding: 5px 10px; font-size: 12px; }
+  .qbtn-sm svg { width: 13px; height: 13px; }
+  .trend-up { color: var(--state-success); }
+  .trend-down { color: var(--state-error); }
+
+  /* Page Header */
+  .rpt-page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .rpt-page-header h2 { font-size: 24px; color: var(--tms-foreground); line-height: 1.2; }
+  .rpt-page-header .header-sub { font-size: 13px; color: var(--tms-muted-foreground); margin-top: 4px; }
+
+  /* Tab Navigation */
+  .rpt-tabs { display: flex; align-items: center; gap: 2px; border-bottom: 1px solid var(--tms-border); margin-bottom: 20px; overflow-x: auto; }
+  .rpt-tab { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; font-size: 13px; color: var(--tms-muted-foreground); background: transparent; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 120ms ease, background-color 120ms ease; margin-bottom: -1px; white-space: nowrap; font-family: var(--tms-font-sans); }
+  .rpt-tab:hover { color: var(--tms-foreground); background: var(--tms-muted); }
+  .rpt-tab.is-active { color: var(--tms-primary); border-bottom-color: var(--tms-primary); font-weight: 600; }
+  .rpt-tab svg { width: 15px; height: 15px; }
+
+  /* Filter Bar */
+  .filter-bar { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 16px; background: var(--tms-card); border: 1px solid var(--tms-border); border-radius: var(--tms-radius-medium); margin-bottom: 16px; }
+  .filter-input, .filter-select { height: 34px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-background); color: var(--tms-foreground); padding: 0 10px; outline: none; transition: border-color 120ms ease, box-shadow 120ms ease; font-family: var(--tms-font-sans); }
+  .filter-input::placeholder { color: var(--tms-neutral-400); }
+  .filter-input:focus, .filter-select:focus { border-color: var(--tms-primary-400); box-shadow: 0 0 0 2px rgba(27,67,50,0.12); }
+  .filter-label { font-size: 12px; color: var(--tms-muted-foreground); white-space: nowrap; }
+
+  /* Tab Content */
+  .rpt-tab-content { display: none; }
+  .rpt-tab-content.is-active { display: block; }
+
+  /* KPI Row */
+  .rpt-kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 20px; }
+
+  /* Chart Row */
+  .rpt-chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .rpt-chart-row--full { grid-template-columns: 1fr; }
+
+  /* Section Header */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .section-header h3 { font-size: 16px; font-weight: 600; }
+  .section-header-actions { display: flex; align-items: center; gap: 8px; }
+
+  /* Dimension Switcher */
+  .dim-switcher { display: flex; align-items: center; gap: 2px; background: var(--tms-muted); border-radius: var(--tms-radius-small); padding: 2px; }
+  .dim-btn { padding: 5px 12px; font-size: 12px; border: none; background: transparent; color: var(--tms-muted-foreground); cursor: pointer; border-radius: var(--tms-radius-small); transition: all 120ms ease; font-family: var(--tms-font-sans); }
+  .dim-btn.is-active { background: var(--tms-card); color: var(--tms-foreground); font-weight: 500; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+
+  /* Pagination */
+  .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; flex-wrap: wrap; gap: 12px; }
+  .pagination-info { font-size: 13px; color: var(--tms-muted-foreground); }
+  .pagination-info .tms-mono-data { color: var(--tms-foreground); font-weight: 600; }
+  .pagination-center { display: flex; align-items: center; gap: 4px; }
+  .page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); font-size: 13px; cursor: pointer; transition: background-color 120ms ease, color 120ms ease; font-family: var(--tms-font-sans); }
+  .page-btn:hover:not(:disabled):not(.is-active) { background: var(--tms-muted); }
+  .page-btn.is-active { background: var(--tms-primary); color: var(--tms-primary-foreground); border-color: var(--tms-primary); font-weight: 600; }
+  .page-btn:disabled { color: var(--tms-neutral-400); cursor: not-allowed; }
+  .page-btn svg { width: 14px; height: 14px; }
+  .page-ellipsis { color: var(--tms-muted-foreground); padding: 0 4px; font-size: 13px; }
+  .page-size-wrap { display: flex; align-items: center; gap: 8px; }
+  .page-size-select { height: 30px; font-size: 13px; border-radius: var(--tms-radius-small); border: 1px solid var(--tms-border); background: var(--tms-card); color: var(--tms-foreground); padding: 0 8px; cursor: pointer; outline: none; font-family: var(--tms-font-sans); }
+
+  /* Export History */
+  .export-log-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--tms-border); }
+  .export-log-item:last-child { border-bottom: none; }
+  .export-log-icon { width: 36px; height: 36px; border-radius: var(--tms-radius-small); display: flex; align-items: center; justify-content: center; background: var(--tms-muted); flex-shrink: 0; }
+  .export-log-icon svg { width: 18px; height: 18px; color: var(--tms-muted-foreground); }
+  .export-log-info { flex: 1; min-width: 0; }
+  .export-log-name { font-size: 13px; color: var(--tms-foreground); font-weight: 500; }
+  .export-log-meta { font-size: 12px; color: var(--tms-muted-foreground); margin-top: 2px; }
+  .export-log-status { flex-shrink: 0; }
+
+  /* Data value highlight */
+  .data-highlight { color: var(--tms-primary-600); font-weight: 600; }
+  .data-neutral { color: var(--tms-foreground); }
+  .data-muted { color: var(--tms-muted-foreground); }
+</style>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="app-sidebar">
+    <div class="sidebar-logo">
+      <h1>TMS 物流管理</h1>
+      <span>智慧运输管理平台</span>
+    </div>
+    <nav style="flex:1; padding: 12px 0;">
+<nav style="flex:1; padding: 8px 0;">
+  <div class="nav-section-label">总览</div>
+  <a data-nav-key="dashboard" data-dom-id="nav-dashboard" data-hide-edge="true" href="dashboard.html" class="nav-item"><i data-lucide="layout-dashboard"></i><span>仪表盘</span></a>
+  <div class="nav-section-label">运单管理</div>
+  <a data-nav-key="waybill-mgmt" data-dom-id="nav-waybill-mgmt" data-hide-edge="true" href="waybill-management.html" class="nav-item"><i data-lucide="package"></i><span>运单管理</span></a>
+  <a data-nav-key="create-waybill" data-dom-id="nav-create-waybill" data-hide-edge="true" href="create-waybill.html" class="nav-item"><i data-lucide="file-plus"></i><span>创建运单</span></a>
+  <div class="nav-section-label">提单管理</div>
+  <a data-nav-key="bill-mgmt" data-dom-id="nav-bill-mgmt" data-hide-edge="true" href="bill-management.html" class="nav-item"><i data-lucide="file-text"></i><span>提单管理</span></a>
+  <a data-nav-key="create-bill" data-dom-id="nav-create-bill" data-hide-edge="true" href="create-bill.html" class="nav-item"><i data-lucide="file-plus-2"></i><span>创建提单</span></a>
+  <div class="nav-section-label">单证装柜</div>
+  <a data-nav-key="container-loading" data-dom-id="nav-container-loading" data-hide-edge="true" href="container-loading.html" class="nav-item"><i data-lucide="container"></i><span>装柜配载</span></a>
+  <div class="nav-section-label">仓库管理</div>
+  <a data-nav-key="warehouse" data-dom-id="nav-warehouse" data-hide-edge="true" href="warehouse.html" class="nav-item"><i data-lucide="warehouse"></i><span>仓库管理</span></a>
+  <div class="nav-section-label">客户与供应商</div>
+  <a data-nav-key="customer-mgmt" data-dom-id="nav-customer-mgmt" data-hide-edge="true" href="customer-mgmt.html" class="nav-item"><i data-lucide="users"></i><span>客户管理</span></a>
+  <a data-nav-key="supplier-mgmt" data-dom-id="nav-supplier-mgmt" data-hide-edge="true" href="supplier-mgmt.html" class="nav-item"><i data-lucide="truck"></i><span>供应商管理</span></a>
+  <div class="nav-section-label">基础数据</div>
+  <a data-nav-key="service-mgmt" data-dom-id="nav-service-mgmt" data-hide-edge="true" href="service-management.html" class="nav-item"><i data-lucide="layers"></i><span>服务管理</span></a>
+  <a data-nav-key="addr-library" data-dom-id="nav-addr-library" data-hide-edge="true" href="addr-library.html" class="nav-item"><i data-lucide="map-pin"></i><span>地址库管理</span></a>
+  <a data-nav-key="rates-mgmt" data-dom-id="nav-rates-mgmt" data-hide-edge="true" href="rates-management.html" class="nav-item"><i data-lucide="dollar-sign"></i><span>运价维护</span></a>
+  <a data-nav-key="over-size-mgmt" data-dom-id="nav-over-size-mgmt" data-hide-edge="true" href="over-size-management.html" class="nav-item"><i data-lucide="ruler"></i><span>超限管理</span></a>
+  <div class="nav-section-label">财务管理</div>
+  <a data-nav-key="receivable" data-dom-id="nav-receivable" data-hide-edge="true" href="receivable-report.html" class="nav-item"><i data-lucide="trending-up"></i><span>应收报表</span></a>
+  <a data-nav-key="payable" data-dom-id="nav-payable" data-hide-edge="true" href="payable-report.html" class="nav-item"><i data-lucide="trending-down"></i><span>应付报表</span></a>
+  <div class="nav-section-label">清关管理</div>
+  <a data-nav-key="customs" data-dom-id="nav-customs" data-hide-edge="true" href="customs.html" class="nav-item"><i data-lucide="ship"></i><span>清关管理</span></a>
+  <div class="nav-section-label">部门协同</div>
+  <a data-nav-key="dept-data" data-dom-id="nav-dept-data" data-hide-edge="true" href="department-data.html" class="nav-item"><i data-lucide="git-branch"></i><span>部门数据</span></a>
+  <div class="nav-section-label">数据报表</div>
+  <a data-nav-key="data-reports" data-dom-id="nav-data-reports" href="data-reports.html" class="nav-item" data-active="true"><i data-lucide="bar-chart-3"></i><span>报表中心</span></a>
+  <div class="nav-section-label">系统管理</div>
+  <a data-nav-key="system-mgmt" data-dom-id="nav-system-mgmt" data-hide-edge="true" href="system-mgmt.html" class="nav-item"><i data-lucide="settings"></i><span>系统管理</span></a>
+</nav>
+
+    <!-- Sidebar Footer -->
+    <div style="padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.08);">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="header-avatar" style="background:rgba(255,255,255,0.15); color:var(--tms-neutral-0);">WB</div>
+        <div>
+          <div style="font-size:13px; color:var(--tms-neutral-0);">管理员</div>
+          <div style="font-size:11px; color:rgba(255,255,255,0.4);">admin@tms.com</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="app-main-area">
+    <!-- Header -->
+    <header class="app-header">
+      <div style="display:flex; align-items:center; gap:16px;">
+        <div class="header-search">
+          <i data-lucide="search"></i>
+          <input type="text" placeholder="搜索运单号、提单号、客户名称...">
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <button class="header-icon-btn"><i data-lucide="bell" style="width:18px; height:18px;"></i></button>
+        <button class="header-icon-btn"><i data-lucide="settings" style="width:18px; height:18px;"></i></button>
+        <div style="width:1px; height:24px; background:var(--tms-border);"></div>
+        <div class="header-user">
+          <div class="header-avatar">WB</div>
+          <span style="font-size:13px; color:var(--tms-foreground);">管理员</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="app-content">
+      <!-- Page Header -->
+      <div class="rpt-page-header">
+        <div>
+          <h2>数据报表</h2>
+          <div class="header-sub">多维度数据分析与统计，支持报表导出</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="qbtn qbtn-outline" onclick="refreshAllData()">
+            <i data-lucide="refresh-cw"></i>刷新数据
+          </button>
+          <button class="qbtn qbtn-primary" onclick="switchTab('data-export')">
+            <i data-lucide="download"></i>数据导出
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="rpt-tabs" id="rpt-tabs">
+        <button class="rpt-tab is-active" data-tab="volume-stats"><i data-lucide="bar-chart-3"></i>货量统计</button>
+        <button class="rpt-tab" data-tab="margin-stats"><i data-lucide="trending-up"></i>毛利统计</button>
+        <button class="rpt-tab" data-tab="cargo-label"><i data-lucide="tag"></i>货量标签统计</button>
+        <button class="rpt-tab" data-tab="dist-label"><i data-lucide="tags"></i>配货标签统计</button>
+        <button class="rpt-tab" data-tab="timeliness"><i data-lucide="clock"></i>时效统计</button>
+        <button class="rpt-tab" data-tab="receiving"><i data-lucide="package-check"></i>收货统计</button>
+        <button class="rpt-tab" data-tab="dest-country"><i data-lucide="globe"></i>发往国家统计</button>
+        <button class="rpt-tab" data-tab="data-export"><i data-lucide="download"></i>数据导出</button>
+      </div>
+
+      <!-- ==================== TAB 1: 货量统计 ==================== -->
+      <div class="rpt-tab-content is-active" id="tab-volume-stats">
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <span class="filter-label">日期范围：</span>
+          <input type="date" class="filter-input" value="2024-01-01" style="width:145px;">
+          <span style="color:var(--tms-muted-foreground); font-size:13px;">至</span>
+          <input type="date" class="filter-input" value="2024-07-31" style="width:145px;">
+          <button class="qbtn qbtn-primary qbtn-sm"><i data-lucide="search"></i>查询</button>
+          <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="rotate-ccw"></i>重置</button>
+          <div style="margin-left:auto; display:flex; align-items:center; gap:10px;">
+            <span class="filter-label">维度：</span>
+            <div class="dim-switcher">
+              <button class="dim-btn is-active" data-dim="customer">按客户</button>
+              <button class="dim-btn" data-dim="service">按服务</button>
+              <button class="dim-btn" data-dim="route">按航线</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-card" style="margin-bottom:20px;">
+          <div class="section-header">
+            <h3>月度货量趋势</h3>
+            <span style="font-size:12px; color:var(--tms-muted-foreground);">2024年1月 - 7月</span>
+          </div>
+          <div style="height:300px; position:relative;">
+            <canvas id="volumeTrendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="section-card">
+          <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+            <h3>货量明细</h3>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="download"></i>导出</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th>月份</th>
+                  <th>服务类型</th>
+                  <th class="col-num">票数</th>
+                  <th class="col-num">箱数</th>
+                  <th class="col-num">计费重(KG)</th>
+                  <th class="col-num">体积(CBM)</th>
+                  <th class="col-num">环比增长</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>2024-07</td><td>标准快递</td><td class="tms-mono-data col-num">4,821</td><td class="tms-mono-data col-num">12,450</td><td class="tms-mono-data col-num">248,320</td><td class="tms-mono-data col-num">1,245.6</td><td class="tms-mono-data col-num"><span class="trend-up">+12.5%</span></td></tr>
+                <tr><td>2024-07</td><td>经济快运</td><td class="tms-mono-data col-num">3,215</td><td class="tms-mono-data col-num">8,920</td><td class="tms-mono-data col-num">185,600</td><td class="tms-mono-data col-num">892.3</td><td class="tms-mono-data col-num"><span class="trend-up">+8.2%</span></td></tr>
+                <tr><td>2024-07</td><td>空运</td><td class="tms-mono-data col-num">1,892</td><td class="tms-mono-data col-num">3,450</td><td class="tms-mono-data col-num">98,750</td><td class="tms-mono-data col-num">345.8</td><td class="tms-mono-data col-num"><span class="trend-up">+15.3%</span></td></tr>
+                <tr><td>2024-07</td><td>海运</td><td class="tms-mono-data col-num">2,456</td><td class="tms-mono-data col-num">18,230</td><td class="tms-mono-data col-num">456,800</td><td class="tms-mono-data col-num">2,345.2</td><td class="tms-mono-data col-num"><span class="trend-down">-3.1%</span></td></tr>
+                <tr><td>2024-07</td><td>铁路</td><td class="tms-mono-data col-num">1,048</td><td class="tms-mono-data col-num">6,780</td><td class="tms-mono-data col-num">134,200</td><td class="tms-mono-data col-num">678.5</td><td class="tms-mono-data col-num"><span class="trend-up">+5.8%</span></td></tr>
+                <tr><td>2024-06</td><td>标准快递</td><td class="tms-mono-data col-num">4,285</td><td class="tms-mono-data col-num">11,068</td><td class="tms-mono-data col-num">220,720</td><td class="tms-mono-data col-num">1,105.4</td><td class="tms-mono-data col-num"><span class="trend-up">+6.7%</span></td></tr>
+                <tr><td>2024-06</td><td>经济快运</td><td class="tms-mono-data col-num">2,971</td><td class="tms-mono-data col-num">8,240</td><td class="tms-mono-data col-num">171,500</td><td class="tms-mono-data col-num">824.6</td><td class="tms-mono-data col-num"><span class="trend-up">+4.2%</span></td></tr>
+                <tr><td>2024-06</td><td>空运</td><td class="tms-mono-data col-num">1,641</td><td class="tms-mono-data col-num">2,992</td><td class="tms-mono-data col-num">85,630</td><td class="tms-mono-data col-num">299.4</td><td class="tms-mono-data col-num"><span class="trend-up">+9.5%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div class="pagination-bar">
+            <div class="pagination-info">共 <span class="tms-mono-data">35</span> 条记录</div>
+            <div class="pagination-center">
+              <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+              <button class="page-btn is-active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn">3</button>
+              <span class="page-ellipsis">...</span>
+              <button class="page-btn">5</button>
+              <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+            </div>
+            <div class="page-size-wrap">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">每页</span>
+              <select class="page-size-select"><option>8</option><option>20</option><option>50</option></select>
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">条</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 2: 毛利统计 ==================== -->
+      <div class="rpt-tab-content" id="tab-margin-stats">
+        <div class="filter-bar">
+          <span class="filter-label">日期范围：</span>
+          <input type="date" class="filter-input" value="2024-01-01" style="width:145px;">
+          <span style="color:var(--tms-muted-foreground); font-size:13px;">至</span>
+          <input type="date" class="filter-input" value="2024-07-31" style="width:145px;">
+          <span class="filter-label">客户：</span>
+          <select class="filter-select" style="width:160px;"><option>全部客户</option><option>中远海运物流</option><option>顺丰供应链</option><option>京东物流</option></select>
+          <button class="qbtn qbtn-primary qbtn-sm"><i data-lucide="search"></i>查询</button>
+          <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="rotate-ccw"></i>重置</button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="rpt-kpi-row" style="grid-template-columns:repeat(4, minmax(0, 1fr));">
+          <div class="kpi-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">总营收</span>
+              <i data-lucide="dollar-sign" style="width:16px; height:16px; color:var(--tms-muted-foreground);"></i>
+            </div>
+            <div class="tms-mono-data" style="font-size:28px; line-height:1.1; color:var(--tms-foreground);">¥8,247,329</div>
+            <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+              <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+              <span class="tms-mono-data trend-up" style="font-size:12px;">+8.3%</span>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">总成本</span>
+              <i data-lucide="trending-down" style="width:16px; height:16px; color:var(--tms-muted-foreground);"></i>
+            </div>
+            <div class="tms-mono-data" style="font-size:28px; line-height:1.1; color:var(--tms-foreground);">¥5,923,450</div>
+            <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+              <i data-lucide="trending-up" class="trend-down" style="width:14px; height:14px;"></i>
+              <span class="tms-mono-data trend-down" style="font-size:12px;">+5.1%</span>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">毛利</span>
+              <i data-lucide="piggy-bank" style="width:16px; height:16px; color:var(--tms-muted-foreground);"></i>
+            </div>
+            <div class="tms-mono-data" style="font-size:28px; line-height:1.1; color:var(--tms-foreground);">¥2,323,879</div>
+            <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+              <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+              <span class="tms-mono-data trend-up" style="font-size:12px;">+15.7%</span>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">毛利率</span>
+              <i data-lucide="percent" style="width:16px; height:16px; color:var(--tms-muted-foreground);"></i>
+            </div>
+            <div class="tms-mono-data" style="font-size:28px; line-height:1.1; color:var(--tms-foreground);">28.18%</div>
+            <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+              <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+              <span class="tms-mono-data trend-up" style="font-size:12px;">+2.1pp</span>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-card" style="margin-bottom:20px;">
+          <div class="section-header">
+            <h3>营收与成本趋势</h3>
+            <span style="font-size:12px; color:var(--tms-muted-foreground);">2024年1月 - 7月</span>
+          </div>
+          <div style="height:300px; position:relative;">
+            <canvas id="marginTrendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="section-card">
+          <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+            <h3>毛利明细</h3>
+            <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="download"></i>导出</button>
+          </div>
+          <div class="table-wrap">
+            <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th>客户</th>
+                  <th class="col-num">运单数</th>
+                  <th class="col-num">应收</th>
+                  <th class="col-num">应付</th>
+                  <th class="col-num">毛利</th>
+                  <th class="col-num">毛利率</th>
+                  <th class="col-num">环比</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>中远海运物流</td><td class="tms-mono-data col-num">3,245</td><td class="tms-mono-data col-num">¥2,847,329</td><td class="tms-mono-data col-num">¥2,023,450</td><td class="tms-mono-data col-num data-highlight">¥823,879</td><td class="tms-mono-data col-num">28.94%</td><td class="tms-mono-data col-num"><span class="trend-up">+8.3%</span></td></tr>
+                <tr><td>顺丰供应链</td><td class="tms-mono-data col-num">2,108</td><td class="tms-mono-data col-num">¥1,923,450</td><td class="tms-mono-data col-num">¥1,345,680</td><td class="tms-mono-data col-num data-highlight">¥577,770</td><td class="tms-mono-data col-num">30.04%</td><td class="tms-mono-data col-num"><span class="trend-up">+12.5%</span></td></tr>
+                <tr><td>京东物流</td><td class="tms-mono-data col-num">1,876</td><td class="tms-mono-data col-num">¥1,654,200</td><td class="tms-mono-data col-num">¥1,201,300</td><td class="tms-mono-data col-num data-highlight">¥452,900</td><td class="tms-mono-data col-num">27.38%</td><td class="tms-mono-data col-num"><span class="trend-down">-2.1%</span></td></tr>
+                <tr><td>德邦快递</td><td class="tms-mono-data col-num">1,542</td><td class="tms-mono-data col-num">¥1,023,450</td><td class="tms-mono-data col-num">¥756,890</td><td class="tms-mono-data col-num data-highlight">¥266,560</td><td class="tms-mono-data col-num">26.04%</td><td class="tms-mono-data col-num"><span class="trend-up">+5.6%</span></td></tr>
+                <tr><td>圆通速递</td><td class="tms-mono-data col-num">892</td><td class="tms-mono-data col-num">¥798,900</td><td class="tms-mono-data col-num">¥596,130</td><td class="tms-mono-data col-num data-highlight">¥202,770</td><td class="tms-mono-data col-num">25.38%</td><td class="tms-mono-data col-num"><span class="trend-up">+3.2%</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-bar">
+            <div class="pagination-info">共 <span class="tms-mono-data">12</span> 条记录</div>
+            <div class="pagination-center">
+              <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+              <button class="page-btn is-active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+            </div>
+            <div class="page-size-wrap">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">每页</span>
+              <select class="page-size-select"><option>5</option><option>10</option><option>20</option></select>
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">条</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 3: 货量标签统计 ==================== -->
+      <div class="rpt-tab-content" id="tab-cargo-label">
+        <div class="filter-bar">
+          <span class="filter-label">日期范围：</span>
+          <input type="date" class="filter-input" value="2024-01-01" style="width:145px;">
+          <span style="color:var(--tms-muted-foreground); font-size:13px;">至</span>
+          <input type="date" class="filter-input" value="2024-07-31" style="width:145px;">
+          <span class="filter-label">标签类型：</span>
+          <select class="filter-select" style="width:140px;"><option>全部</option><option>普通货</option><option>危险品</option><option>冷链</option></select>
+          <button class="qbtn qbtn-primary qbtn-sm"><i data-lucide="search"></i>查询</button>
+          <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="rotate-ccw"></i>重置</button>
+        </div>
+
+        <div class="rpt-chart-row">
+          <div class="chart-card">
+            <div class="section-header"><h3>货量标签分布</h3></div>
+            <div style="height:300px; position:relative;">
+              <canvas id="cargoLabelPieChart"></canvas>
+            </div>
+          </div>
+          <div class="section-card">
+            <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+              <h3>标签明细</h3>
+              <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="download"></i>导出</button>
+            </div>
+            <div class="table-wrap">
+              <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>标签类型</th>
+                    <th class="col-num">数量</th>
+                    <th class="col-num">占比</th>
+                    <th class="col-num">趋势</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>普通货</td><td class="tms-mono-data col-num">28,450</td><td class="tms-mono-data col-num">56.9%</td><td class="tms-mono-data col-num"><span class="trend-up">+5.3%</span></td></tr>
+                  <tr><td>危险品</td><td class="tms-mono-data col-num">8,230</td><td class="tms-mono-data col-num">16.5%</td><td class="tms-mono-data col-num"><span class="trend-up">+2.8%</span></td></tr>
+                  <tr><td>冷链</td><td class="tms-mono-data col-num">5,120</td><td class="tms-mono-data col-num">10.2%</td><td class="tms-mono-data col-num"><span class="trend-down">-1.2%</span></td></tr>
+                  <tr><td>超大件</td><td class="tms-mono-data col-num">4,650</td><td class="tms-mono-data col-num">9.3%</td><td class="tms-mono-data col-num"><span class="trend-up">+3.1%</span></td></tr>
+                  <tr><td>易碎品</td><td class="tms-mono-data col-num">3,550</td><td class="tms-mono-data col-num">7.1%</td><td class="tms-mono-data col-num"><span class="trend-up">+1.5%</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 4: 配货标签统计 ==================== -->
+      <div class="rpt-tab-content" id="tab-dist-label">
+        <div class="filter-bar">
+          <span class="filter-label">日期范围：</span>
+          <input type="date" class="filter-input" value="2024-01-01" style="width:145px;">
+          <span style="color:var(--tms-muted-foreground); font-size:13px;">至</span>
+          <input type="date" class="filter-input" value="2024-07-31" style="width:145px;">
+          <span class="filter-label">配货类型：</span>
+          <select class="filter-select" style="width:140px;"><option>全部</option><option>整柜</option><option>拼柜</option><option>散货</option></select>
+          <button class="qbtn qbtn-primary qbtn-sm"><i data-lucide="search"></i>查询</button>
+          <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="rotate-ccw"></i>重置</button>
+        </div>
+
+        <div class="section-card">
+          <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+            <h3>配货标签统计</h3>
+            <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="download"></i>导出</button>
+          </div>
+          <div class="table-wrap">
+            <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th>配货类型</th>
+                  <th class="col-num">数量</th>
+                  <th class="col-num">占比</th>
+                  <th class="col-num">票数</th>
+                  <th class="col-num">箱数</th>
+                  <th class="col-num">计费重(KG)</th>
+                  <th class="col-num">体积(CBM)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>整柜(FCL)</td><td class="tms-mono-data col-num">12,450</td><td class="tms-mono-data col-num">45.2%</td><td class="tms-mono-data col-num">3,845</td><td class="tms-mono-data col-num">12,450</td><td class="tms-mono-data col-num">385,200</td><td class="tms-mono-data col-num">1,923.5</td></tr>
+                <tr><td>拼柜(LCL)</td><td class="tms-mono-data col-num">8,920</td><td class="tms-mono-data col-num">32.4%</td><td class="tms-mono-data col-num">2,856</td><td class="tms-mono-data col-num">8,920</td><td class="tms-mono-data col-num">245,680</td><td class="tms-mono-data col-num">1,234.2</td></tr>
+                <tr><td>散货</td><td class="tms-mono-data col-num">4,230</td><td class="tms-mono-data col-num">15.4%</td><td class="tms-mono-data col-num">1,892</td><td class="tms-mono-data col-num">4,230</td><td class="tms-mono-data col-num">98,750</td><td class="tms-mono-data col-num">456.8</td></tr>
+                <tr><td>特种柜</td><td class="tms-mono-data col-num">1,940</td><td class="tms-mono-data col-num">7.0%</td><td class="tms-mono-data col-num">623</td><td class="tms-mono-data col-num">1,940</td><td class="tms-mono-data col-num">52,340</td><td class="tms-mono-data col-num">289.5</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-bar">
+            <div class="pagination-info">共 <span class="tms-mono-data">4</span> 条记录</div>
+            <div class="pagination-center">
+              <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+              <button class="page-btn is-active">1</button>
+              <button class="page-btn" disabled><i data-lucide="chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 5: 时效统计 ==================== -->
+      <div class="rpt-tab-content" id="tab-timeliness">
+        <div class="filter-bar">
+          <span class="filter-label">日期范围：</span>
+          <input type="date" class="filter-input" value="2024-01-01" style="width:145px;">
+          <span style="color:var(--tms-muted-foreground); font-size:13px;">至</span>
+          <input type="date" class="filter-input" value="2024-07-31" style="width:145px;">
+          <span class="filter-label">航线：</span>
+          <select class="filter-select" style="width:160px;"><option>全部航线</option><option>上海-汉堡</option><option>宁波-鹿特丹</option><option>深圳-洛杉矶</option></select>
+          <button class="qbtn qbtn-primary qbtn-sm"><i data-lucide="search"></i>查询</button>
+          <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="rotate-ccw"></i>重置</button>
+        </div>
+
+        <!-- KPI Cards -->
+        <div class="rpt-kpi-row" style="grid-template-columns:repeat(3, minmax(0, 1fr));">
+          <div class="kpi-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">平均时效</span>
+              <i data-lucide="clock" style="width:16px; height:16px; color:var(--tms-muted-foreground);"></i>
+            </div>
+            <div class="tms-mono-data" style="font-size:28px; line-height:1.1; color:var(--tms-foreground);">18.5<span style="font-size:14px; color:var(--tms-muted-foreground); font-weight:400; margin-left:4px;">天</span></div>
+            <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+              <i data-lucide="trending-down" class="trend-up" style="width:14px; height:14px;"></i>
+              <span class="tms-mono-data trend-up" style="font-size:12px;">-1.2天</span>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">准时率</span>
+              <i data-lucide="check-circle" style="width:16px; height:16px; color:var(--tms-muted-foreground);"></i>
+            </div>
+            <div class="tms-mono-data" style="font-size:28px; line-height:1.1; color:var(--tms-foreground);">94.7%</div>
+            <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+              <i data-lucide="trending-up" class="trend-up" style="width:14px; height:14px;"></i>
+              <span class="tms-mono-data trend-up" style="font-size:12px;">+2.3pp</span>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+            </div>
+          </div>
+          <div class="kpi-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <span style="font-size:13px; color:var(--tms-muted-foreground);">延误率</span>
+              <i data-lucide="alert-triangle" style="width:16px; height:16px; color:var(--tms-muted-foreground);"></i>
+            </div>
+            <div class="tms-mono-data" style="font-size:28px; line-height:1.1; color:var(--tms-foreground);">5.3%</div>
+            <div style="display:flex; align-items:center; gap:4px; margin-top:8px;">
+              <i data-lucide="trending-down" class="trend-down" style="width:14px; height:14px;"></i>
+              <span class="tms-mono-data trend-down" style="font-size:12px;">-2.3pp</span>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">vs 上月</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="section-card">
+          <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+            <h3>航线时效明细</h3>
+            <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="download"></i>导出</button>
+          </div>
+          <div class="table-wrap">
+            <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th>航线</th>
+                  <th class="col-num">标准时效(天)</th>
+                  <th class="col-num">实际时效(天)</th>
+                  <th class="col-num">差异(天)</th>
+                  <th class="col-num">准时率</th>
+                  <th class="col-num">运单数</th>
+                  <th class="col-num">状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>上海-汉堡</td><td class="tms-mono-data col-num">22</td><td class="tms-mono-data col-num">20.5</td><td class="tms-mono-data col-num"><span class="trend-up">-1.5</span></td><td class="tms-mono-data col-num">96.8%</td><td class="tms-mono-data col-num">1,245</td><td class="col-num"><span class="tms-status tms-status--success">优秀</span></td></tr>
+                <tr><td>宁波-鹿特丹</td><td class="tms-mono-data col-num">25</td><td class="tms-mono-data col-num">24.3</td><td class="tms-mono-data col-num"><span class="trend-up">-0.7</span></td><td class="tms-mono-data col-num">94.2%</td><td class="tms-mono-data col-num">982</td><td class="col-num"><span class="tms-status tms-status--success">优秀</span></td></tr>
+                <tr><td>深圳-洛杉矶</td><td class="tms-mono-data col-num">18</td><td class="tms-mono-data col-num">18.8</td><td class="tms-mono-data col-num"><span class="trend-down">+0.8</span></td><td class="tms-mono-data col-num">92.5%</td><td class="tms-mono-data col-num">1,567</td><td class="col-num"><span class="tms-status tms-status--warning">关注</span></td></tr>
+                <tr><td>青岛-长滩</td><td class="tms-mono-data col-num">20</td><td class="tms-mono-data col-num">19.2</td><td class="tms-mono-data col-num"><span class="trend-up">-0.8</span></td><td class="tms-mono-data col-num">95.3%</td><td class="tms-mono-data col-num">756</td><td class="col-num"><span class="tms-status tms-status--success">优秀</span></td></tr>
+                <tr><td>天津-新加坡</td><td class="tms-mono-data col-num">12</td><td class="tms-mono-data col-num">13.5</td><td class="tms-mono-data col-num"><span class="trend-down">+1.5</span></td><td class="tms-mono-data col-num">88.7%</td><td class="tms-mono-data col-num">623</td><td class="col-num"><span class="tms-status tms-status--error">延误</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-bar">
+            <div class="pagination-info">共 <span class="tms-mono-data">8</span> 条记录</div>
+            <div class="pagination-center">
+              <button class="page-btn" disabled><i data-lucide="chevron-left"></i></button>
+              <button class="page-btn is-active">1</button>
+              <button class="page-btn">2</button>
+              <button class="page-btn"><i data-lucide="chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 6: 收货统计 ==================== -->
+      <div class="rpt-tab-content" id="tab-receiving">
+        <div class="filter-bar">
+          <span class="filter-label">日期范围：</span>
+          <input type="date" class="filter-input" value="2024-01-01" style="width:145px;">
+          <span style="color:var(--tms-muted-foreground); font-size:13px;">至</span>
+          <input type="date" class="filter-input" value="2024-07-31" style="width:145px;">
+          <span class="filter-label">仓点：</span>
+          <select class="filter-select" style="width:140px;"><option>全部仓点</option><option>上海仓</option><option>深圳仓</option><option>宁波仓</option></select>
+          <button class="qbtn qbtn-primary qbtn-sm"><i data-lucide="search"></i>查询</button>
+          <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="rotate-ccw"></i>重置</button>
+        </div>
+
+        <div class="rpt-chart-row">
+          <div class="chart-card">
+            <div class="section-header"><h3>仓点收货对比</h3></div>
+            <div style="height:300px; position:relative;">
+              <canvas id="receivingBarChart"></canvas>
+            </div>
+          </div>
+          <div class="section-card">
+            <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+              <h3>收货明细</h3>
+              <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="download"></i>导出</button>
+            </div>
+            <div class="table-wrap">
+              <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>仓点</th>
+                    <th class="col-num">收货票数</th>
+                    <th class="col-num">收货箱数</th>
+                    <th class="col-num">收货重量(KG)</th>
+                    <th class="col-num">收货体积(CBM)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>上海仓</td><td class="tms-mono-data col-num">8,245</td><td class="tms-mono-data col-num">18,920</td><td class="tms-mono-data col-num">456,320</td><td class="tms-mono-data col-num">2,345.6</td></tr>
+                  <tr><td>深圳仓</td><td class="tms-mono-data col-num">6,891</td><td class="tms-mono-data col-num">15,430</td><td class="tms-mono-data col-num">385,200</td><td class="tms-mono-data col-num">1,923.5</td></tr>
+                  <tr><td>宁波仓</td><td class="tms-mono-data col-num">5,423</td><td class="tms-mono-data col-num">12,560</td><td class="tms-mono-data col-num">298,450</td><td class="tms-mono-data col-num">1,456.8</td></tr>
+                  <tr><td>青岛仓</td><td class="tms-mono-data col-num">3,892</td><td class="tms-mono-data col-num">9,230</td><td class="tms-mono-data col-num">234,120</td><td class="tms-mono-data col-num">1,123.4</td></tr>
+                  <tr><td>天津仓</td><td class="tms-mono-data col-num">2,456</td><td class="tms-mono-data col-num">6,780</td><td class="tms-mono-data col-num">156,890</td><td class="tms-mono-data col-num">678.5</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 7: 发往国家统计 ==================== -->
+      <div class="rpt-tab-content" id="tab-dest-country">
+        <div class="filter-bar">
+          <span class="filter-label">日期范围：</span>
+          <input type="date" class="filter-input" value="2024-01-01" style="width:145px;">
+          <span style="color:var(--tms-muted-foreground); font-size:13px;">至</span>
+          <input type="date" class="filter-input" value="2024-07-31" style="width:145px;">
+          <span class="filter-label">区域：</span>
+          <select class="filter-select" style="width:140px;"><option>全部区域</option><option>欧洲</option><option>北美</option><option>东南亚</option></select>
+          <button class="qbtn qbtn-primary qbtn-sm"><i data-lucide="search"></i>查询</button>
+          <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="rotate-ccw"></i>重置</button>
+        </div>
+
+        <div class="rpt-chart-row">
+          <div class="chart-card">
+            <div class="section-header"><h3>发往国家分布</h3></div>
+            <div style="height:320px; position:relative;">
+              <canvas id="destCountryBarChart"></canvas>
+            </div>
+          </div>
+          <div class="section-card">
+            <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+              <h3>国家明细</h3>
+              <button class="qbtn qbtn-outline qbtn-sm"><i data-lucide="download"></i>导出</button>
+            </div>
+            <div class="table-wrap">
+              <table class="tms-table-dense" style="width:100%; border-collapse:collapse;">
+                <thead>
+                  <tr>
+                    <th>国家</th>
+                    <th class="col-num">票数</th>
+                    <th class="col-num">箱数</th>
+                    <th class="col-num">重量(KG)</th>
+                    <th class="col-num">体积(CBM)</th>
+                    <th class="col-num">占比</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>德国</td><td class="tms-mono-data col-num">5,234</td><td class="tms-mono-data col-num">12,450</td><td class="tms-mono-data col-num">345,200</td><td class="tms-mono-data col-num">1,723.5</td><td class="tms-mono-data col-num">23.5%</td></tr>
+                  <tr><td>美国</td><td class="tms-mono-data col-num">4,891</td><td class="tms-mono-data col-num">11,230</td><td class="tms-mono-data col-num">298,450</td><td class="tms-mono-data col-num">1,456.8</td><td class="tms-mono-data col-num">21.8%</td></tr>
+                  <tr><td>荷兰</td><td class="tms-mono-data col-num">3,215</td><td class="tms-mono-data col-num">8,920</td><td class="tms-mono-data col-num">245,680</td><td class="tms-mono-data col-num">1,234.2</td><td class="tms-mono-data col-num">14.3%</td></tr>
+                  <tr><td>日本</td><td class="tms-mono-data col-num">2,856</td><td class="tms-mono-data col-num">6,780</td><td class="tms-mono-data col-num">185,600</td><td class="tms-mono-data col-num">892.3</td><td class="tms-mono-data col-num">12.8%</td></tr>
+                  <tr><td>新加坡</td><td class="tms-mono-data col-num">2,108</td><td class="tms-mono-data col-num">5,340</td><td class="tms-mono-data col-num">134,200</td><td class="tms-mono-data col-num">678.5</td><td class="tms-mono-data col-num">9.5%</td></tr>
+                  <tr><td>英国</td><td class="tms-mono-data col-num">1,876</td><td class="tms-mono-data col-num">4,560</td><td class="tms-mono-data col-num">112,340</td><td class="tms-mono-data col-num">567.8</td><td class="tms-mono-data col-num">8.4%</td></tr>
+                  <tr><td>韩国</td><td class="tms-mono-data col-num">1,245</td><td class="tms-mono-data col-num">3,210</td><td class="tms-mono-data col-num">78,920</td><td class="tms-mono-data col-num">389.4</td><td class="tms-mono-data col-num">5.6%</td></tr>
+                  <tr><td>其他</td><td class="tms-mono-data col-num">892</td><td class="tms-mono-data col-num">2,340</td><td class="tms-mono-data col-num">56,890</td><td class="tms-mono-data col-num">278.5</td><td class="tms-mono-data col-num">4.1%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== TAB 8: 数据导出 ==================== -->
+      <div class="rpt-tab-content" id="tab-data-export">
+        <div class="rpt-chart-row">
+          <!-- Export Form -->
+          <div class="chart-card">
+            <div class="section-header"><h3>导出配置</h3></div>
+            <div style="margin-bottom:20px;">
+              <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:8px;">导出格式</div>
+              <div style="display:flex; gap:8px;">
+                <label style="display:flex; align-items:center; gap:6px; padding:10px 16px; border:1px solid var(--tms-primary); background:var(--tms-primary-50); border-radius:var(--tms-radius-medium); cursor:pointer;">
+                  <input type="radio" name="export-format" value="excel" checked style="accent-color:var(--tms-primary);"><span style="font-size:13px; font-weight:500;">Excel (.xlsx)</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; padding:10px 16px; border:1px solid var(--tms-border); background:var(--tms-card); border-radius:var(--tms-radius-medium); cursor:pointer;">
+                  <input type="radio" name="export-format" value="csv" style="accent-color:var(--tms-primary);"><span style="font-size:13px;">CSV (.csv)</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; padding:10px 16px; border:1px solid var(--tms-border); background:var(--tms-card); border-radius:var(--tms-radius-medium); cursor:pointer;">
+                  <input type="radio" name="export-format" value="pdf" style="accent-color:var(--tms-primary);"><span style="font-size:13px;">PDF (.pdf)</span>
+                </label>
+              </div>
+            </div>
+            <div style="margin-bottom:20px;">
+              <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:8px;">导出范围</div>
+              <div style="display:flex; gap:8px;">
+                <label style="display:flex; align-items:center; gap:6px; padding:10px 16px; border:1px solid var(--tms-primary); background:var(--tms-primary-50); border-radius:var(--tms-radius-medium); cursor:pointer;">
+                  <input type="radio" name="export-scope" value="all" checked style="accent-color:var(--tms-primary);"><span style="font-size:13px; font-weight:500;">全部数据</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; padding:10px 16px; border:1px solid var(--tms-border); background:var(--tms-card); border-radius:var(--tms-radius-medium); cursor:pointer;">
+                  <input type="radio" name="export-scope" value="selected" style="accent-color:var(--tms-primary);"><span style="font-size:13px;">选中数据</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:6px; padding:10px 16px; border:1px solid var(--tms-border); background:var(--tms-card); border-radius:var(--tms-radius-medium); cursor:pointer;">
+                  <input type="radio" name="export-scope" value="filtered" style="accent-color:var(--tms-primary);"><span style="font-size:13px;">筛选结果</span>
+                </label>
+              </div>
+            </div>
+            <div style="margin-bottom:20px;">
+              <div style="font-size:13px; color:var(--tms-muted-foreground); margin-bottom:8px;">选择报表</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--tms-primary);">货量统计</label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--tms-primary);">毛利统计</label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--tms-primary);">货量标签统计</label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--tms-primary);">配货标签统计</label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--tms-primary);">时效统计</label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--tms-primary);">收货统计</label>
+                <label style="display:flex; align-items:center; gap:6px; font-size:13px; cursor:pointer;"><input type="checkbox" checked style="accent-color:var(--tms-primary);">发往国家统计</label>
+              </div>
+            </div>
+            <button class="qbtn qbtn-primary" style="width:100%; justify-content:center; height:44px; font-size:14px;">
+              <i data-lucide="download"></i>开始导出
+            </button>
+          </div>
+
+          <!-- Export History -->
+          <div class="section-card">
+            <div class="section-header" style="padding:16px 20px; border-bottom:1px solid var(--tms-border);">
+              <h3>导出历史</h3>
+              <span style="font-size:12px; color:var(--tms-muted-foreground);">最近10条</span>
+            </div>
+            <div>
+              <div class="export-log-item">
+                <div class="export-log-icon"><i data-lucide="file-spreadsheet"></i></div>
+                <div class="export-log-info">
+                  <div class="export-log-name">数据报表_20240729.xlsx</div>
+                  <div class="export-log-meta">包含：货量统计、毛利统计 · 14,532条记录</div>
+                </div>
+                <div class="export-log-status"><span class="tms-status tms-status--success">已完成</span></div>
+              </div>
+              <div class="export-log-item">
+                <div class="export-log-icon"><i data-lucide="file-spreadsheet"></i></div>
+                <div class="export-log-info">
+                  <div class="export-log-name">货量统计_20240728.xlsx</div>
+                  <div class="export-log-meta">货量统计 · 8,234条记录</div>
+                </div>
+                <div class="export-log-status"><span class="tms-status tms-status--success">已完成</span></div>
+              </div>
+              <div class="export-log-item">
+                <div class="export-log-icon"><i data-lucide="file-text"></i></div>
+                <div class="export-log-info">
+                  <div class="export-log-name">毛利统计_20240725.csv</div>
+                  <div class="export-log-meta">毛利统计 · 3,456条记录</div>
+                </div>
+                <div class="export-log-status"><span class="tms-status tms-status--success">已完成</span></div>
+              </div>
+              <div class="export-log-item">
+                <div class="export-log-icon"><i data-lucide="file-text"></i></div>
+                <div class="export-log-info">
+                  <div class="export-log-name">时效统计_20240720.pdf</div>
+                  <div class="export-log-meta">时效统计 · 2,108条记录</div>
+                </div>
+                <div class="export-log-status"><span class="tms-status tms-status--success">已完成</span></div>
+              </div>
+              <div class="export-log-item">
+                <div class="export-log-icon"><i data-lucide="loader-2"></i></div>
+                <div class="export-log-info">
+                  <div class="export-log-name">数据报表_20240719.xlsx</div>
+                  <div class="export-log-meta">全部报表 · 正在生成中...</div>
+                </div>
+                <div class="export-log-status"><span class="tms-status tms-status--warning">处理中</span></div>
+              </div>
+              <div class="export-log-item">
+                <div class="export-log-icon"><i data-lucide="file-spreadsheet"></i></div>
+                <div class="export-log-info">
+                  <div class="export-log-name">收货统计_20240718.xlsx</div>
+                  <div class="export-log-meta">收货统计 · 5,421条记录</div>
+                </div>
+                <div class="export-log-status"><span class="tms-status tms-status--success">已完成</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== Chart.js Initialization ==================== -->
+      <script>
+        (function () {
+          var root = getComputedStyle(document.documentElement);
+          var token = function (name, fallback) {
+            var v = root.getPropertyValue(name).trim();
+            return v || fallback;
+          };
+          var primary = token('--tms-primary-500', '#1B4332');
+          var primary400 = token('--tms-primary-400', '#3A7250');
+          var primary300 = token('--tms-primary-300', '#5E9273');
+          var primary200 = token('--tms-primary-200', '#97BDA5');
+          var primary100 = token('--tms-primary-100', '#C8DCCF');
+          var primary50 = token('--tms-primary-50', '#E8F0EB');
+          var cardBg = token('--tms-card', '#FFFFFF');
+          var gridColor = token('--tms-border', '#EAE8E1');
+          var mutedFg = token('--tms-muted-foreground', '#6B6B65');
+          var foreground = token('--tms-foreground', '#1A1A17');
+          var success = token('--state-success', '#2D7D5F');
+          var warning = token('--state-warning', '#B8860B');
+          var error = token('--state-error', '#B5453C');
+          var info = token('--state-info', '#3A6B8C');
+
+          var chartFont = { family: "Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif" };
+
+          // ========== TAB 1: Volume Trend Bar Chart ==========
+          var volCanvas = document.getElementById('volumeTrendChart');
+          if (volCanvas && window.Chart) {
+            new Chart(volCanvas, {
+              type: 'bar',
+              data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+                datasets: [
+                  { label: '标准快递', data: [3850, 3620, 4100, 3980, 4250, 4285, 4821], backgroundColor: primary, borderRadius: 4, maxBarThickness: 24 },
+                  { label: '经济快运', data: [2510, 2480, 2720, 2650, 2850, 2971, 3215], backgroundColor: primary400, borderRadius: 4, maxBarThickness: 24 },
+                  { label: '空运', data: [1420, 1380, 1520, 1480, 1560, 1641, 1892], backgroundColor: primary300, borderRadius: 4, maxBarThickness: 24 },
+                  { label: '海运', data: [1950, 2100, 2200, 2300, 2450, 2530, 2456], backgroundColor: primary200, borderRadius: 4, maxBarThickness: 24 },
+                  { label: '铁路', data: [820, 850, 910, 890, 950, 980, 1048], backgroundColor: primary100, borderRadius: 4, maxBarThickness: 24 }
+                ]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { position: 'top', labels: { color: mutedFg, font: { size: 12, family: chartFont.family }, boxWidth: 12, boxHeight: 12, padding: 16, usePointStyle: true } },
+                  tooltip: { backgroundColor: foreground, titleColor: cardBg, bodyColor: cardBg, padding: 10, cornerRadius: 4, displayColors: true }
+                },
+                scales: {
+                  x: { grid: { display: false }, border: { color: gridColor }, ticks: { color: mutedFg, font: { size: 12 } } },
+                  y: { beginAtZero: true, grid: { color: gridColor }, border: { display: false }, ticks: { color: mutedFg, font: { size: 12 } } }
+                }
+              }
+            });
+          }
+
+          // ========== TAB 2: Margin Trend Line Chart ==========
+          var marginCanvas = document.getElementById('marginTrendChart');
+          if (marginCanvas && window.Chart) {
+            new Chart(marginCanvas, {
+              type: 'line',
+              data: {
+                labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月'],
+                datasets: [
+                  { label: '营收', data: [980, 1050, 1120, 1080, 1180, 1250, 1320], borderColor: primary, backgroundColor: 'transparent', tension: 0.3, pointRadius: 4, pointBackgroundColor: primary, borderWidth: 2.5 },
+                  { label: '成本', data: [720, 760, 810, 780, 850, 890, 940], borderColor: error, backgroundColor: 'transparent', tension: 0.3, pointRadius: 4, pointBackgroundColor: error, borderWidth: 2.5, borderDash: [5, 3] },
+                  { label: '毛利', data: [260, 290, 310, 300, 330, 360, 380], borderColor: success, backgroundColor: 'rgba(45,125,95,0.1)', tension: 0.3, pointRadius: 4, pointBackgroundColor: success, borderWidth: 2.5, fill: true }
+                ]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { position: 'top', labels: { color: mutedFg, font: { size: 12, family: chartFont.family }, boxWidth: 20, boxHeight: 3, padding: 16, usePointStyle: false } },
+                  tooltip: { backgroundColor: foreground, titleColor: cardBg, bodyColor: cardBg, padding: 10, cornerRadius: 4, callbacks: { label: function (ctx) { return ctx.dataset.label + ': ' + (ctx.parsed.y * 10000).toLocaleString() + ' '; } } }
+                },
+                scales: {
+                  x: { grid: { display: false }, border: { color: gridColor }, ticks: { color: mutedFg, font: { size: 12 } } },
+                  y: { grid: { color: gridColor }, border: { display: false }, ticks: { color: mutedFg, font: { size: 12 }, callback: function (v) { return (v * 10000).toLocaleString(); } } }
+                }
+              }
+            });
+          }
+
+          // ========== TAB 3: Cargo Label Pie Chart ==========
+          var cargoLabelCanvas = document.getElementById('cargoLabelPieChart');
+          if (cargoLabelCanvas && window.Chart) {
+            new Chart(cargoLabelCanvas, {
+              type: 'doughnut',
+              data: {
+                labels: ['普通货', '危险品', '冷链', '超大件', '易碎品'],
+                datasets: [{
+                  data: [28450, 8230, 5120, 4650, 3550],
+                  backgroundColor: [primary, primary400, primary300, primary200, primary100],
+                  borderColor: cardBg,
+                  borderWidth: 2,
+                  hoverOffset: 4
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                  legend: {
+                    position: 'bottom',
+                    labels: { color: mutedFg, font: { size: 12, family: chartFont.family }, boxWidth: 10, boxHeight: 10, padding: 14, usePointStyle: true, pointStyle: 'circle' }
+                  },
+                  tooltip: {
+                    backgroundColor: foreground, titleColor: cardBg, bodyColor: cardBg, padding: 10, cornerRadius: 4,
+                    callbacks: { label: function (ctx) { var total = ctx.dataset.data.reduce(function (a, b) { return a + b; }, 0); var pct = ((ctx.parsed / total) * 100).toFixed(1); return ctx.label + ': ' + ctx.parsed.toLocaleString() + ' (' + pct + '%)'; } }
+                  }
+                }
+              }
+            });
+          }
+
+          // ========== TAB 6: Receiving Bar Chart ==========
+          var recvCanvas = document.getElementById('receivingBarChart');
+          if (recvCanvas && window.Chart) {
+            new Chart(recvCanvas, {
+              type: 'bar',
+              data: {
+                labels: ['上海仓', '深圳仓', '宁波仓', '青岛仓', '天津仓'],
+                datasets: [
+                  { label: '收货票数', data: [8245, 6891, 5423, 3892, 2456], backgroundColor: primary, borderRadius: 4, maxBarThickness: 32 },
+                  { label: '收货箱数(百)', data: [189.2, 154.3, 125.6, 92.3, 67.8], backgroundColor: primary300, borderRadius: 4, maxBarThickness: 32 }
+                ]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { position: 'top', labels: { color: mutedFg, font: { size: 12, family: chartFont.family }, boxWidth: 12, boxHeight: 12, padding: 16, usePointStyle: true } },
+                  tooltip: { backgroundColor: foreground, titleColor: cardBg, bodyColor: cardBg, padding: 10, cornerRadius: 4 }
+                },
+                scales: {
+                  x: { grid: { display: false }, border: { color: gridColor }, ticks: { color: mutedFg, font: { size: 12 } } },
+                  y: { beginAtZero: true, grid: { color: gridColor }, border: { display: false }, ticks: { color: mutedFg, font: { size: 12 } } }
+                }
+              }
+            });
+          }
+
+          // ========== TAB 7: Destination Country Bar Chart ==========
+          var destCanvas = document.getElementById('destCountryBarChart');
+          if (destCanvas && window.Chart) {
+            new Chart(destCanvas, {
+              type: 'bar',
+              data: {
+                labels: ['德国', '美国', '荷兰', '日本', '新加坡', '英国', '韩国', '其他'],
+                datasets: [{
+                  label: '票数',
+                  data: [5234, 4891, 3215, 2856, 2108, 1876, 1245, 892],
+                  backgroundColor: [primary, primary400, primary300, primary200, primary100, primary50, mutedFg, '#D8D5CB'],
+                  borderRadius: 4,
+                  maxBarThickness: 36
+                }]
+              },
+              options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { display: false },
+                  tooltip: { backgroundColor: foreground, titleColor: cardBg, bodyColor: cardBg, padding: 10, cornerRadius: 4 }
+                },
+                scales: {
+                  x: { grid: { color: gridColor }, border: { color: gridColor }, ticks: { color: mutedFg, font: { size: 12 } } },
+                  y: { grid: { display: false }, border: { color: gridColor }, ticks: { color: mutedFg, font: { size: 12 } } }
+                }
+              }
+            });
+          }
+        })();
+      </script>
+
+      <!-- ==================== Tab Switching Script ==================== -->
+      <script>
+        function switchTab(tabId) {
+          document.querySelectorAll('.rpt-tab').forEach(function (t) { t.classList.remove('is-active'); });
+          document.querySelectorAll('.rpt-tab-content').forEach(function (c) { c.classList.remove('is-active'); });
+          var tabBtn = document.querySelector('.rpt-tab[data-tab="' + tabId + '"]');
+          if (tabBtn) tabBtn.classList.add('is-active');
+          var tabContent = document.getElementById('tab-' + tabId);
+          if (tabContent) tabContent.classList.add('is-active');
+        }
+
+        function refreshAllData() {
+          alert('数据已刷新');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.rpt-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+              switchTab(this.getAttribute('data-tab'));
+            });
+          });
+
+          // Dimension switcher event
+          document.querySelectorAll('.dim-switcher .dim-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              this.parentElement.querySelectorAll('.dim-btn').forEach(function (b) { b.classList.remove('is-active'); });
+              this.classList.add('is-active');
+            });
+          });
+
+          // Export format radio styling
+          document.querySelectorAll('input[name="export-format"], input[name="export-scope"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+              var container = this.closest('div');
+              var allLabels = container.querySelectorAll('label');
+              allLabels.forEach(function (l) {
+                l.style.border = '1px solid var(--tms-border)';
+                l.style.background = 'var(--tms-card)';
+                l.querySelector('span').style.fontWeight = '400';
+              });
+              var parentLabel = this.parentElement;
+              parentLabel.style.border = '1px solid var(--tms-primary)';
+              parentLabel.style.background = 'var(--tms-primary-50)';
+              parentLabel.querySelector('span').style.fontWeight = '500';
+            });
+          });
+        });
+      </script>
+
+    </main>
+  </div>
+</div>
+<script>lucide.createIcons();</script>
+<script id="nav-link-resolver">
+  (function(){
+    var currentDir = window.location.href.replace(/\/[^\/]*$/, '/');
+    document.querySelectorAll('a[data-nav-key]').forEach(function(a){
+      var href = a.getAttribute('href');
+      if (href && !/^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) {
+        a.setAttribute('href', new URL(href, currentDir).href);
+      }
+    });
+  })();
+</script>
+</body>
+</html>
